@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risks &amp; Scams: Don't Get Burned · Freelance OS</title>
+<meta name="description" content="Malware-laced 'take-home' repos, overpayment and task scams, Upwork off-platform traps, Aadhaar/PAN phishing, non-payment, Noovosoft NDA, IP and licence traps, DPDP, leaked secrets, burnout, a safe-sandbox SOP and a client red-flag scorecard.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: normal; overflow-wrap: anywhere; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="11-risks-and-scams" data-kind="memo">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../index.html#memos" class="on">Memos</a>
+    <a href="../index.html#tools">Tools</a>
+    <a href="../index.html#library">Templates</a>
+    <a href="../index.html#lists">Lists</a>
+    <a href="../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="All memos"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../index.html">Home</a><a class="nav-link" href="../index.html#memos">Memos</a><a class="nav-link" href="../index.html#tools">Tools</a><a class="nav-link" href="../index.html#library">Templates</a><a class="nav-link" href="../index.html#lists">Lists</a></div><div class="nav-group"><div class="nav-group-title">Strategy</div><a class="nav-link" href="../memos/00-start-here.html"><span class="nav-num">00</span><span>Start Here</span><span class="nav-prog" data-nav-prog="00-start-here" data-total="14"></span></a><a class="nav-link" href="../memos/01-positioning.html"><span class="nav-num">01</span><span>Positioning</span><span class="nav-prog" data-nav-prog="01-positioning" data-total="7"></span></a></div><div class="nav-group"><div class="nav-group-title">Foundation</div><a class="nav-link" href="../memos/02-business-setup.html"><span class="nav-num">02</span><span>Business Setup</span><span class="nav-prog" data-nav-prog="02-business-setup" data-total="30"></span></a><a class="nav-link" href="../memos/03-tax-and-money.html"><span class="nav-num">03</span><span>Tax &amp; Money</span><span class="nav-prog" data-nav-prog="03-tax-and-money" data-total="9"></span></a></div><div class="nav-group"><div class="nav-group-title">Revenue</div><a class="nav-link" href="../memos/04-pricing.html"><span class="nav-num">04</span><span>Pricing</span><span class="nav-prog" data-nav-prog="04-pricing" data-total="7"></span></a><a class="nav-link" href="../memos/05-lead-generation.html"><span class="nav-num">05</span><span>Lead Generation</span><span class="nav-prog" data-nav-prog="05-lead-generation" data-total="14"></span></a><a class="nav-link" href="../memos/06-sales-process.html"><span class="nav-num">06</span><span>Sales</span><span class="nav-prog" data-nav-prog="06-sales-process" data-total="17"></span></a></div><div class="nav-group"><div class="nav-group-title">Operations</div><a class="nav-link" href="../memos/07-contracts.html"><span class="nav-num">07</span><span>Contracts</span><span class="nav-prog" data-nav-prog="07-contracts" data-total="12"></span></a><a class="nav-link" href="../memos/08-delivery-ops.html"><span class="nav-num">08</span><span>Delivery Ops</span><span class="nav-prog" data-nav-prog="08-delivery-ops" data-total="19"></span></a></div><div class="nav-group"><div class="nav-group-title">Growth</div><a class="nav-link" href="../memos/09-portfolio-and-brand.html"><span class="nav-num">09</span><span>Portfolio &amp; Brand</span><span class="nav-prog" data-nav-prog="09-portfolio-and-brand" data-total="18"></span></a></div><div class="nav-group"><div class="nav-group-title">Execution</div><a class="nav-link" href="../memos/10-90-day-plan.html"><span class="nav-num">10</span><span>90-Day Launch Plan</span><span class="nav-prog" data-nav-prog="10-90-day-plan" data-total="61"></span></a><a class="nav-link active" href="../memos/11-risks-and-scams.html" aria-current="page"><span class="nav-num">11</span><span>Risks &amp; Scams</span><span class="nav-prog" data-nav-prog="11-risks-and-scams" data-total="32"></span></a><a class="nav-link" href="../memos/12-metrics-and-cadence.html"><span class="nav-num">12</span><span>Metrics &amp; Cadence</span><span class="nav-prog" data-nav-prog="12-metrics-and-cadence" data-total="6"></span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">Execution · Memo 11</div>
+    <h1>Risks &amp; Scams: Don't Get Burned</h1>
+    <p class="subtitle">The threats that hit solo developers in 2025–2026: malware hidden in fake interviews, payment and task scams, platform fraud, ID phishing, unpaid work, legal traps from your last job, data and credential leaks, and burnout. For each one: how it looks, what to watch for, how to prevent it, and what to do if it happens.</p>
+    <div class="doc-meta"><span>⏱ 20 min read</span><span class="sep">·</span><span data-progress></span><span class="sep">·</span><button class="btn sm" data-action="reset-checks" type="button">Reset ticks</button></div>
+    <div class="progress-bar" data-progress-bar><i></i></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#threat-map">1. Threat map: what's likely and what hurts</a><a href="#dev-malware">2. Malware hidden in fake interviews, clients and &quot;take-home&quot; tasks</a><a href="#safe-sandbox">3. Safe-sandbox SOP for untrusted client code</a><a href="#payment-scams">4. Payment scams: overpayment, fake cheques, refunds, &quot;pay to start&quot;, crypto</a><a href="#task-scams">5. Telegram/WhatsApp &quot;task&quot; job scams (India)</a><a href="#platform-scams">6. Marketplace scams: off-platform requests, fake support, account rental</a><a href="#identity">7. ID-document and bank phishing (Aadhaar, PAN, bank, OTP)</a><a href="#unpaid-work">8. Free &quot;test&quot; labour, scope creep and non-payment</a><a href="#concentration">9. Client concentration: the quiet risk</a><a href="#money-rails">10. Payment-rail freezes and the mule-account trap</a><a href="#previous-employer">11. Your previous employer: NDA, non-solicit, confidentiality</a><a href="#ip-contamination">12. IP contamination between clients</a><a href="#oss-licences">13. Open-source licence traps</a><a href="#data-protection">14. Client data and India's DPDP Act</a><a href="#credential-leaks">15. Credential and secret leaks</a><a href="#wellbeing">16. Burnout, isolation and the feast–famine cycle</a><a href="#red-flag-scorecard">17. Client red-flag scorecard (use before every &quot;yes&quot;)</a><a href="#incident-playbook">18. Incident playbook: what to do in the first hour</a><a href="#actions">19. Actions this week</a><a href="#sources">Sources</a></details>
+  <article class="prose">
+
+<div class="bluf"><strong>Bottom line.</strong> A new freelancer is the ideal target: eager, short of cash, and saying yes to strangers. That's when people get scammed. Two habits stop most of the damage. <b>(1) Never run a stranger's code or command on your main machine.</b> Fake "clients" and "recruiters" send repos or setup commands that install backdoors and steal your keys, wallets and client credentials. A documented North Korean campaign has done this to developers since 2022 and is still running in 2026. <b>(2) Money only moves one way, on paper.</b> Clients pay you, from their own account, against a signed agreement and your invoice. You never pay to get work, never refund an "overpayment", and never take payment from a third party. Everything else here, from NDAs and licences to burnout, is about protecting the business you're building.</div>
+
+<div class="kpi-row">
+  <div class="kpi"><b>1930</b><span>National cyber-fraud helpline (India). Call immediately if money is lost.</span></div>
+  <div class="kpi"><b>0</b><span>unknown repos, installers or "fix" commands run on your main laptop</span></div>
+  <div class="kpi"><b>0</b><span>payments you make to "get" work, or refunds of "overpayments"</span></div>
+  <div class="kpi"><b>≤ 50%</b><span>revenue from any single client (trailing 6 months)</span></div>
+  <div class="kpi"><b>2</b><span>working payment rails, so one freeze doesn't stop your income</span></div>
+</div>
+
+<h2 id="threat-map">1. Threat map: what's likely and what hurts<a class="anchor" href="#threat-map" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Risk</th><th>Likelihood for you</th><th>Impact</th><th>First line of defence</th></tr></thead>
+  <tbody>
+    <tr><td>Malware via fake job, client or "take-home" repo</td><td><span class="pill bad">High</span> (you're a JS dev looking for work)</td><td>Severe: client credentials, wallets, reputation</td><td><a href="#safe-sandbox">Safe-sandbox SOP</a></td></tr>
+    <tr><td>Overpayment, fake cheque, refund and "pay to start" scams</td><td><span class="pill mid">Medium</span></td><td>Direct money loss</td><td>Money only flows to you, against your invoice</td></tr>
+    <tr><td>Telegram/WhatsApp "task" job scams</td><td><span class="pill mid">Medium</span> (very common in India)</td><td>Lakhs lost, step by step</td><td>Real clients never ask you to deposit money</td></tr>
+    <tr><td>Off-platform marketplace scams, account takeover</td><td><span class="pill mid">Medium</span></td><td>Unpaid work, account ban</td><td>Stay on platform until a contract exists</td></tr>
+    <tr><td>Aadhaar/PAN/bank phishing</td><td><span class="pill mid">Medium</span></td><td>Identity fraud, loans in your name</td><td>Masked Aadhaar, PAN only after a contract, never OTPs</td></tr>
+    <tr><td>Free "test" labour, scope creep, non-payment</td><td><span class="pill bad">High</span></td><td>Weeks of unpaid time</td><td>Deposit, milestones, written scope</td></tr>
+    <tr><td>Client concentration</td><td><span class="pill mid">Medium</span> (later)</td><td>Income cliff when one client leaves</td><td>≤ 50% rule; keep marketing while busy</td></tr>
+    <tr><td>Payment-rail freeze, or receiving fraud money (mule risk)</td><td><span class="pill mid">Low–Medium</span></td><td>Income stuck for weeks</td><td>Two rails; payer must be the client</td></tr>
+    <tr><td>Previous-employer NDA / non-solicit</td><td><span class="pill mid">Medium</span> (you plan to approach ex-colleagues)</td><td>Legal notice, lost relationships</td><td>Read your Noovosoft papers first</td></tr>
+    <tr><td>IP contamination, OSS licence traps</td><td><span class="pill good">Low</span> if disciplined</td><td>Client disputes, forced open-sourcing</td><td>Separate repos; licence check at handover</td></tr>
+    <tr><td>Client data breach (DPDP/GDPR) and leaked secrets</td><td><span class="pill mid">Medium</span></td><td>Liability, trust destroyed</td><td>Least privilege, client-owned accounts, secret scanning</td></tr>
+    <tr><td>Burnout and isolation</td><td><span class="pill bad">High</span> (solo + no income yet)</td><td>Bad decisions, quitting too early</td><td>Schedule, boundaries, community</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="dev-malware">2. Malware hidden in fake interviews, clients and "take-home" tasks<a class="anchor" href="#dev-malware" aria-label="Link to this section">#</a></h2>
+<p>This is the threat aimed most directly at you. Microsoft's March 2026 analysis describes the <b>Contagious Interview</b> campaign, which has been active since at least December 2022. It runs "convincingly staged recruitment processes" with recruiter outreach, technical discussions and assignments. Victims are told to <b>clone and run an npm package</b> from GitHub, GitLab or Bitbucket, or to open a repo in VS Code and <b>trust the author</b>. The repo's task file then fetches a backdoor (BeaverTail/InvisibleFerret, OtterCookie, and newer variants). The malware hunts for <code>.env</code> files, wallet seed phrases, password-manager databases, SSH keys and other secrets. Attackers pose as recruiters from <b>crypto trading firms or AI startups</b>. They now pose as freelance clients too: "can you review/fix our repo?" Separately, a 2025 variant ("ClickFake Interview") shows a fake camera/microphone error during a video interview and asks you to paste a "fix" command into your terminal. And npm worms like <b>Shai-Hulud</b> (Sept and Nov 2025) used install scripts to steal npm/GitHub/cloud tokens and republish themselves into the victims' other packages.</p>
+<div class="grid">
+  <div class="card"><h4>How it looks</h4><p>A LinkedIn/Telegram recruiter or "client" with a crypto, Web3 or AI product and an unusually good rate. A repo (often a "blockchain game" or "MERN dashboard") to "run locally and fix a bug" before a call. A meeting link that needs a special app or a "driver fix". Time pressure: "the CTO is waiting".</p></div>
+  <div class="card"><h4>Red flags</h4><p>New GitHub/Bitbucket account or repo. Short links redirecting to file hosts. Setup steps that are oddly complex. <code>package.json</code> with <code>preinstall</code>/<code>postinstall</code> scripts or obfuscated one-liners. A <code>.vscode/tasks.json</code> with <code>"runOn": "folderOpen"</code>. Requests to disable antivirus or "trust the authors". Any "paste this command to fix your camera".</p></div>
+  <div class="card"><h4>Prevention</h4><p>Run unknown code only in a disposable VM or container with no credentials (SOP below). In VS Code set <code>"task.allowAutomaticTasks": "off"</code> and keep Workspace Trust on (open unknown folders in Restricted Mode). Read <code>package.json</code> scripts and <code>.vscode/</code> before anything else. Never paste terminal commands from a website or a stranger. Keep crypto wallets off your work machine entirely.</p></div>
+  <div class="card"><h4>If it happens</h4><p>Follow the <a href="#incident-playbook">incident playbook</a>: disconnect, then from a <em>clean</em> device rotate email, GitHub, npm, cloud and client credentials, revoke SSH keys and tokens, move any crypto, tell affected clients, and reinstall the OS. Report it at cybercrime.gov.in. As a CTF player you know the drill: assume full compromise.</p></div>
+</div>
+
+<h2 id="safe-sandbox">3. Safe-sandbox SOP for untrusted client code<a class="anchor" href="#safe-sandbox" aria-label="Link to this section">#</a></h2>
+<p>Use this for <b>every</b> repo, archive or installer from someone who hasn't signed a contract and paid a deposit, and for take-over projects ("our last dev left") until you've read the code. It takes about 10 minutes and protects your whole business.</p>
+<ol class="steps">
+  <li><strong>Read first, run never (yet).</strong> Browse the repo on GitHub/GitLab in the browser, or clone it somewhere you won't open in an IDE. Check account age, commit history and stars. One commit with "initial" from a 2-week-old account is a warning sign.</li>
+  <li><strong>Inspect the auto-run surfaces.</strong> <code>package.json</code> → <code>scripts</code> (especially <code>preinstall</code>, <code>install</code>, <code>postinstall</code>, <code>prepare</code>); <code>.vscode/tasks.json</code>, <code>.vscode/settings.json</code>, <code>.devcontainer/</code>; <code>Makefile</code>, <code>*.sh</code>, <code>.husky/</code>; files with odd extensions (a <code>.woff</code> or <code>.png</code> that's actually JavaScript); long base64 or obfuscated strings; <code>eval</code>, <code>new Function</code>, <code>child_process</code>, <code>curl | sh</code>.</li>
+  <li><strong>Use a disposable environment.</strong> A VM (UTM or Parallels on Mac, Hyper-V or VirtualBox on Windows, Multipass on Linux) or a container. It must have <b>no</b> SSH keys, cloud CLIs, password manager, browser sessions, wallets or client folders. Snapshot the VM before you start and roll back afterwards.</li>
+  <li><strong>Install without scripts.</strong> <code>npm ci --ignore-scripts</code> (or <code>npm install --ignore-scripts</code>). pnpm v10+ already skips dependency build scripts unless they're allow-listed. Then run <code>npm audit</code> and look at what's actually installed.</li>
+  <li><strong>Be careful with the network.</strong> For the first run, prefer no network or a restricted one. Watch for unexpected outbound connections. Never mount your home directory into the container.</li>
+  <li><strong>Separate identities.</strong> Use a separate OS user or browser profile per client. Don't log into your personal GitHub, email or bank inside the sandbox.</li>
+  <li><strong>Only after a contract + deposit</strong> does the client's code move into your normal dev setup. Even then, use client-owned accounts and least-privilege access.</li>
+</ol>
+<pre><code># Disposable Node sandbox (Docker). No home-dir mount, no credentials, removed on exit.
+docker run --rm -it --name sandbox -v "$PWD":/work -w /work node:22-bookworm bash
+#   inside the container:
+cat package.json                       # read scripts FIRST
+ls -la .vscode .devcontainer 2&gt;/dev/null
+npm ci --ignore-scripts                # or: npm install --ignore-scripts
+npm audit --omit=dev
+
+# VS Code user settings (Cmd/Ctrl+Shift+P → "Preferences: Open User Settings (JSON)")
+"task.allowAutomaticTasks": "off",
+"security.workspace.trust.enabled": true</code></pre>
+<div class="callout danger"><strong>Hard rule.</strong> No legitimate interview or client needs you to paste a command into your terminal to "fix" your camera, run their code on your laptop before a contract, or turn off your security software. Any one of these ends the conversation.</div>
+
+<h2 id="payment-scams">4. Payment scams: overpayment, fake cheques, refunds, "pay to start", crypto<a class="anchor" href="#payment-scams" aria-label="Link to this section">#</a></h2>
+<p><b>How it looks:</b> "We've sent ₹2L by mistake instead of ₹20k, please refund the difference." A cheque or screenshot for more than the invoice. "Buy the laptop/software from our approved vendor and we'll reimburse you." "Pay a ₹2,000 onboarding/verification fee." "We pay only in USDT; send your wallet."</p>
+<p><b>Red flags:</b> any flow where <em>you</em> send money. Payment "screenshots" instead of money in your account. Payment from a person or company that isn't the client named on the contract. Urgency plus a large number.</p>
+<p><b>Prevention:</b></p>
+<ul>
+  <li>Money flows <b>one way</b>: client → you, against your invoice, from the contracting entity's own account. Check that it has actually <em>cleared</em> in your bank or payment-rail dashboard, not in a screenshot.</li>
+  <li>Never refund an "overpayment". Tell them to reverse it through their bank. Real mistakes get reversed by banks; scams disappear.</li>
+  <li>Don't accept crypto as payment for client work. It's irreversible, it complicates tax and FEMA reporting, and it's the payment method of choice for the scams above.</li>
+  <li>Never pay a fee to get work. Marketplaces' own Connects and memberships are the only exception.</li>
+</ul>
+<p><b>If it happens:</b> stop all transfers. Call <b>1930</b> and file at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a> as fast as you can, because fast reports help banks block the money. Tell your bank. Keep chats, UPI/transaction IDs and screenshots.</p>
+
+<h2 id="task-scams">5. Telegram/WhatsApp "task" job scams (India)<a class="anchor" href="#task-scams" aria-label="Link to this section">#</a></h2>
+<p><b>How it looks:</b> a WhatsApp message or Telegram group offering "part-time work from home": like YouTube videos, rate hotels, review products, "₹3,000–8,000/day". The first tasks pay small amounts (₹150–500) to build trust. Then come "prepaid tasks" or "merchant tasks" where you deposit money to unlock bigger payouts. The balance in their dashboard grows, but withdrawals are blocked until you pay "tax", "unfreeze" or "VIP" fees. Indian police and news reports describe individual losses from a few lakh to over ₹1 crore. Pune's cyber cell alone has reported crores in task-fraud losses.</p>
+<p><b>Red flags:</b> unsolicited job offers on WhatsApp/Telegram. Payouts for trivial tasks. Any request to deposit money. Dashboards that show "earnings" you can't withdraw. Group members cheering about payouts (they're part of the scam).</p>
+<p><b>Prevention:</b> real clients pay you for software work. They never ask you to deposit money. Block and report the number. Report suspicious messages through <b>Sanchar Saathi → Chakshu</b> (for suspected fraud communication, before any money is lost).</p>
+<p><b>If money is lost:</b> call <b>1930</b> right away and file at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>. Speed matters for freezing the money trail.</p>
+
+<h2 id="platform-scams">6. Marketplace scams: off-platform requests, fake support, account rental<a class="anchor" href="#platform-scams" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><b>Off-platform:</b> "Message me on Telegram/WhatsApp to discuss" before a contract exists. Upwork's terms keep you on the platform for 24 months unless the conversion fee is paid, and off-platform payment removes all your protection. Scam "clients" can still show "payment verified". → Reply on-platform only. Escrow must be funded before work starts.</li>
+  <li><b>Fake support:</b> emails or DMs "from Upwork/Payoneer" asking you to log in through a link, verify your ID or share an OTP. → Go to the site directly. Never share OTPs. Turn on 2FA everywhere.</li>
+  <li><b>Account rental / "partnership":</b> "We'll pay you ₹X/month to use your verified Upwork/LinkedIn/GitHub account" or "just attend interviews as the face". This is how fraudulent IT-worker schemes launder identity. It can get you banned and criminally exposed. → Always no.</li>
+  <li><b>Malicious "briefs":</b> ZIP/EXE/.scr attachments or "Brief.pdf.exe". → Never open executables. View documents in the browser or Google Drive preview.</li>
+</ul>
+
+<h2 id="identity">7. ID-document and bank phishing (Aadhaar, PAN, bank, OTP)<a class="anchor" href="#identity" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><b>Aadhaar:</b> share a <b>masked Aadhaar</b> (only the last 4 digits visible, downloadable from <a href="https://myaadhaar.uidai.gov.in/" target="_blank" rel="noopener">myAadhaar</a>) for identity checks. Full-number KYC belongs only on regulated platforms (bank, payment rail), entered by you on their official site.</li>
+  <li><b>PAN:</b> Indian clients legitimately need it for TDS, but only <em>after</em> a contract is signed. Watermark copies: "For TDS by <span class="var">{{CLIENT_NAME}}</span> only, <span class="var">{{DATE}}</span>".</li>
+  <li><b>Never share</b> OTPs, UPI PINs, net-banking logins, or screen-share while logged into banking. No real client needs them.</li>
+  <li><b>"KYC for payment release"</b> links in WhatsApp/SMS are phishing. Real payment rails ask for KYC inside their own app or dashboard.</li>
+  <li>Check your credit report (CIBIL or Experian) twice a year for loans you didn't take.</li>
+</ul>
+
+<h2 id="unpaid-work">8. Free "test" labour, scope creep and non-payment<a class="anchor" href="#unpaid-work" aria-label="Link to this section">#</a></h2>
+<p><b>How it looks:</b> "Build this feature as a test. If it's good, we'll hire you" (and the feature ships in their product). "Just a small change" ten times over. The final 50% that never arrives after handover. "We'll pay when our client pays us."</p>
+<p><b>Prevention, built into this OS:</b></p>
+<ul>
+  <li><b>Paid first steps</b> instead of free tests: A1 Essential, the B1 audit, the B3 assessment (<a href="06-sales-process.html#paid-first-step">Sales</a>). A ≤ 60-minute exercise on <em>their</em> hosted platform during an interview is normal. A multi-hour feature on your machine isn't.</li>
+  <li><b>Contract + deposit = start.</b> 50/50 (40/40/20 above ₹2L or $5k), Net 7, late fee, kill fee, <b>IP transfers only on full payment</b>, and a <b>stop-work clause</b> (<a href="04-pricing.html#payment-terms">Payment terms</a>, <a href="07-contracts.html">Contracts</a>).</li>
+  <li><b>Written scope with an "out of scope" list</b>, and every change goes through a change request with a price (<a href="../library/templates/contracts/change-request.html">change-request.md</a>, <a href="../library/templates/delivery/scope-creep-responses.html">scope-creep-responses.md</a>).</li>
+  <li><b>Hand over credentials and code ownership after the final payment</b>, not before. Work on client-owned repos/stores, but keep the deploy keys and final transfer for the end.</li>
+</ul>
+<p><b>If they don't pay:</b> follow the <a href="../library/templates/delivery/payment-reminder-ladder.html">payment-reminder ladder</a> (friendly → firm → final notice → stop work). For Indian B2B clients, if you're <b>Udyam-registered</b>, the MSMED Act's 45-day rule and the <b>MSME Samadhaan</b> portal give you statutory interest and a dispute route (<a href="02-business-setup.html#udyam">Udyam</a>). On marketplaces, use the platform's dispute process. Small amounts: weigh time against money and write it off with a lesson learned. Big amounts: a lawyer's notice works more often than you'd expect.</p>
+
+<h2 id="concentration">9. Client concentration: the quiet risk<a class="anchor" href="#concentration" aria-label="Link to this section">#</a></h2>
+<p>Your first good client will want all your time, and it will feel safe. It isn't. When one client is most of your income, they set your rates, your hours and your mood. When they leave (a budget cut, a new CTO, an acquisition) your income goes to zero overnight and your pipeline is empty because you stopped marketing.</p>
+<ul>
+  <li><b>Rule:</b> no client above <b>50%</b> of trailing-6-month revenue. Aim for 40% once you have 3+ clients.</li>
+  <li><b>Keep marketing while busy:</b> 3–4 hours a week minimum (one LinkedIn post, 10 personal touches, one referral ask), even at 100% utilisation.</li>
+  <li><b>Retainers spread risk:</b> three ₹30–45k care plans are safer than one ₹1.2L client.</li>
+  <li><b>Long full-time contracts</b> (6+ months, 40 hrs/week, their tools, their hours) are effectively a job without benefits. Price them that way: no discount for "stability", and keep a 30-day notice clause.</li>
+</ul>
+
+<h2 id="money-rails">10. Payment-rail freezes and the mule-account trap<a class="anchor" href="#money-rails" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><b>Freezes happen</b> on PayPal, Payoneer, Wise and others: a KYC mismatch, a sudden large payment, an unusual country, or a name on the account that doesn't match your PAN or bank. → Keep <b>two working rails</b> (<a href="03-tax-and-money.html#payment-rails">Payment rails</a>), withdraw to your bank regularly, and keep invoice + contract PDFs ready to answer compliance questions within a day.</li>
+  <li><b>Mule-account risk (India):</b> bank accounts that receive money traced to cyber fraud can be frozen after a complaint on the national cybercrime portal. Innocent recipients get caught too, and unfreezing can take weeks and a lawyer. → Accept payment <b>only from the contracting client's own account</b>. Refuse "my friend/cousin will pay", P2P crypto-to-UPI sellers, and payments larger than the invoice.</li>
+  <li><b>Paper trail:</b> every inward payment should match an invoice (amount, payer, purpose code/FIRA for foreign money). That's what gets a freeze lifted quickly.</li>
+</ul>
+
+<h2 id="previous-employer">11. Your previous employer: NDA, non-solicit, confidentiality<a class="anchor" href="#previous-employer" aria-label="Link to this section">#</a></h2>
+<p>Your strongest early leads are people you worked with at Noovosoft and on the Deribit and Twinntax engagements. Before you contact any of them about paid work, <b>read your Noovosoft papers</b>: offer and appointment letter, any NDA or IP agreement, the client-specific NDAs you signed, and the relieving letter.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Clause type</th><th>Position in India (general, not legal advice)</th><th>What you do</th></tr></thead>
+  <tbody>
+    <tr><td>Post-employment <b>non-compete</b></td><td>Generally void under s.27 of the Indian Contract Act (restraint of trade). The Delhi High Court reaffirmed this strictly in 2025 (<em>Varun Tyagi v. Daffodil Software</em>).</td><td>You can freelance in the same field. Don't panic about a generic non-compete.</td></tr>
+    <tr><td><b>Non-solicitation</b> of clients or employees</td><td>Unsettled. Courts have upheld reasonable business-to-business non-solicits; post-employment ones on individuals get strict scrutiny and depend on the facts and wording.</td><td>If your papers have one, <b>don't actively pitch Noovosoft's clients (Deribit, Twinntax)</b> during the stated period without advice. Inbound requests are different from solicitation, but document how they reached you.</td></tr>
+    <tr><td><b>Confidentiality</b> / trade secrets</td><td>Enforceable, and survives the end of employment.</td><td>No code, documents, screenshots, internal names or metrics from Noovosoft, Deribit or Twinntax. Ever.</td></tr>
+    <tr><td>Using client names in marketing</td><td>Depends on the NDAs. "Contracted to Coinbase's Deribit" is already on your resume.</td><td>Describe <em>what you did</em> in general terms. No internal details or non-public numbers. If an NDA forbids naming the client, use "a top-3 crypto derivatives exchange".</td></tr>
+  </tbody>
+</table></div>
+<div class="callout info"><strong>Cultus is a conflict-of-interest question too.</strong> You co-own its technology. Agree in writing with your co-founders that freelance work for D2C brands (including Cultus partner brands) is allowed, what's off-limits (competing marketplaces), and that Cultus code stays Cultus's. Use Cultus as proof, never as a code library.</div>
+
+<h2 id="ip-contamination">12. IP contamination between clients<a class="anchor" href="#ip-contamination" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><b>One client = one repo, one folder, one browser profile.</b> Never copy code from client A's repo into client B's.</li>
+  <li><b>Pre-existing IP:</b> keep your own reusable snippets and starters in a personal repo, written on your own time, and list them in the contract as "pre-existing materials" licensed to the client (see the clause library in <a href="07-contracts.html">Contracts</a>).</li>
+  <li><b>AI tools:</b> tell clients which AI coding tools you use and how. Don't paste their secrets or customer data into AI tools. See <a href="../library/templates/delivery/ai-usage-policy.html">ai-usage-policy.md</a>.</li>
+  <li><b>Leaving a project:</b> delete local copies of client code and data at the end (the handover checklist records this).</li>
+</ul>
+
+<h2 id="oss-licences">13. Open-source licence traps<a class="anchor" href="#oss-licences" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Licence</th><th>Safe for client work?</th><th>Watch out for</th></tr></thead>
+  <tbody>
+    <tr><td>MIT, BSD, ISC, Apache-2.0</td><td><span class="pill good">Yes</span></td><td>Keep the copyright and licence notices (Apache: NOTICE file).</td></tr>
+    <tr><td>LGPL</td><td><span class="pill mid">Usually</span></td><td>Fine when linked as a library; modifying the library itself creates obligations.</td></tr>
+    <tr><td>GPL-2.0 / GPL-3.0</td><td><span class="pill mid">Careful</span></td><td>Distributing a combined work (desktop app, mobile app, on-prem install) can require releasing your client's source under the GPL.</td></tr>
+    <tr><td><b>AGPL-3.0</b></td><td><span class="pill bad">Ask first</span></td><td>Network use counts: users interacting with a modified AGPL program over a network must be offered the source. That's a real problem for proprietary SaaS.</td></tr>
+    <tr><td>"Source-available" (BSL, SSPL, Commons Clause, Elastic)</td><td><span class="pill bad">Read the terms</span></td><td>Often forbids offering it as a competing service.</td></tr>
+  </tbody>
+</table></div>
+<p>At handover, run a licence check (for example <code>npx license-checker --summary</code>, or your package manager's licence report) and list any copyleft dependencies in the handover document.</p>
+
+<h2 id="data-protection">14. Client data and India's DPDP Act<a class="anchor" href="#data-protection" aria-label="Link to this section">#</a></h2>
+<p>India's Digital Personal Data Protection Rules were notified on 13 November 2025, with a phased rollout over 18 months. Most substantive obligations apply from <b>May 2027</b>, and penalties go up to <b>₹250 crore</b> for failing to take reasonable security safeguards. Those obligations fall on your <em>client</em> (the data fiduciary), and they will pass them on to you through the contract. EU/UK clients will ask you to sign a GDPR data-processing agreement.</p>
+<ul class="checklist">
+  <li>Use client-owned accounts and least-privilege roles. Never use a shared admin login.</li>
+  <li>No production customer data on your laptop. Use staging with anonymised or seeded data. If you must touch prod, do it in their environment.</li>
+  <li>Turn on full-disk encryption (FileVault/BitLocker), a screen lock, and automatic OS updates.</li>
+  <li>Use a password manager and 2FA (authenticator app or hardware key) on email, GitHub, cloud, Shopify and payment rails.</li>
+  <li>If you suspect a breach, tell the client <b>the same day</b> in writing. They have notification duties.</li>
+  <li>At project end, delete exports, dumps and <code>.env</code> files, and record it in the handover checklist.</li>
+</ul>
+
+<h2 id="credential-leaks">15. Credential and secret leaks<a class="anchor" href="#credential-leaks" aria-label="Link to this section">#</a></h2>
+<p>GitGuardian found about <b>23.8 million</b> new hardcoded secrets in public GitHub commits in 2024, up 25% on the year before. 70% of secrets leaked in 2022 were still valid two years later. AI-assisted coding has made this worse. One leaked Shopify admin token, Razorpay key or Supabase service-role key can end a client relationship.</p>
+<ul>
+  <li><code>.env*</code> in <code>.gitignore</code> from the first commit. Add a pre-commit secret scanner (<code>gitleaks</code> or <code>trufflehog</code>) and turn on GitHub push protection.</li>
+  <li>Never put Supabase <b>service-role</b> keys or Razorpay <b>secret</b> keys in client-side code. This is also the #1 finding in B1 audits, so it doubles as a sales talking point.</li>
+  <li>Share credentials only through a password manager's shared vault. Never on WhatsApp, Slack or email. Policy: <a href="../library/templates/delivery/credentials-and-access-policy.html">credentials-and-access-policy.md</a>.</li>
+  <li>At offboarding, ask the client to <b>rotate</b> every key you had access to. Write it in the handover so it actually happens.</li>
+</ul>
+
+<h2 id="wellbeing">16. Burnout, isolation and the feast–famine cycle<a class="anchor" href="#wellbeing" aria-label="Link to this section">#</a></h2>
+<p>You've gone from a team, a salary and a schedule to working alone with no income yet. The most common failure isn't a scam. It's quitting at month 3 out of exhaustion and anxiety, just before the pipeline starts paying off.</p>
+<ul>
+  <li><b>Fixed hours:</b> for example 9:30–6:30 IST with a hard stop. Global-client overlap is 2–3 hours, not all night.</li>
+  <li><b>Separate "maker" and "seller" time:</b> outreach in the morning block, deep work after (<a href="10-90-day-plan.html#daily-schedule">daily schedule</a>).</li>
+  <li><b>Runway visibility</b> lowers anxiety. Know exactly how many months you have (<a href="../tools/rate-calculator.html">Rate, Tax &amp; Runway calculator</a>) and set a bridge-income trigger in advance (<a href="10-90-day-plan.html#contingencies">contingencies</a>).</li>
+  <li><b>People:</b> one coworking day a week in Pune, one meetup a month, an accountability buddy (another freelancer) for a weekly 20-minute check-in.</li>
+  <li><b>Body:</b> health insurance is now your own responsibility (<a href="02-business-setup.html#safety-net">safety net</a>). Sleep, exercise and actual days off are business assets.</li>
+  <li><b>Warning signs:</b> dreading the inbox, working weekends for weeks, saying yes to bad-fit clients out of fear. Then fix the system (pricing, pipeline, boundaries), not just your willpower.</li>
+</ul>
+
+<h2 id="red-flag-scorecard">17. Client red-flag scorecard (use before every "yes")<a class="anchor" href="#red-flag-scorecard" aria-label="Link to this section">#</a></h2>
+<p>Tick everything that applies. <b>Any item in the first group = stop.</b> Three or more in the second group = decline, or require 100% upfront for a small paid first step.</p>
+<h3 id="stop-immediately">Stop immediately<a class="anchor" href="#stop-immediately" aria-label="Link to this section">#</a></h3>
+<ul class="checklist">
+  <li>Asks me to run their code, installer or a terminal "fix" on my machine before a contract</li>
+  <li>Asks me to pay anything (fee, equipment, training, "verification") or refund an overpayment</li>
+  <li>Wants to pay in crypto, or from a third party's account</li>
+  <li>Pushes to move off the marketplace before a contract</li>
+  <li>Asks for OTPs, bank logins, full Aadhaar, or to "rent" my accounts</li>
+  <li>Won't put scope, price and terms in writing</li>
+</ul>
+<h3 id="serious-warning-signs">Serious warning signs<a class="anchor" href="#serious-warning-signs" aria-label="Link to this section">#</a></h3>
+<ul class="checklist">
+  <li>Company can't be verified (no website history, no LinkedIn presence, brand-new domain)</li>
+  <li>Rate or budget far above market for the work, plus urgency</li>
+  <li>Free "test task" over 1 hour, or "do this feature first, then we'll talk"</li>
+  <li>"Pay after launch / after funding / after our client pays"</li>
+  <li>Third developer on the project; bad-mouths all the previous ones</li>
+  <li>Changes scope repeatedly before signing</li>
+  <li>Unreachable decision-maker; everything goes through an intermediary</li>
+  <li>Demands constant availability (nights, weekends, WhatsApp at 11 pm)</li>
+  <li>Asks for non-compete or IP terms covering work outside the project</li>
+</ul>
+
+<h2 id="incident-playbook">18. Incident playbook: what to do in the first hour<a class="anchor" href="#incident-playbook" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Situation</th><th>Do this now</th></tr></thead>
+  <tbody>
+    <tr><td><b>You ran something suspicious</b></td><td>1) Disconnect the machine from the network. 2) From a <em>different, clean</em> device, change your email password first, then GitHub, npm, cloud consoles, Shopify/Razorpay/Supabase, password manager. Revoke tokens and SSH keys, and sign out of all sessions. 3) Move any crypto to a new wallet created on a clean device. 4) Tell clients whose credentials were on the machine, the same day. 5) Wipe and reinstall the OS. Don't "clean" it. 6) Report at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>. CERT-In also accepts incident reports (<a href="https://www.cert-in.org.in/" target="_blank" rel="noopener">cert-in.org.in</a>).</td></tr>
+    <tr><td><b>You lost money</b></td><td>Call <b>1930</b> immediately (the fastest way to freeze the trail), then file at cybercrime.gov.in with transaction IDs and screenshots. Call your bank's fraud line.</td></tr>
+    <tr><td><b>Suspicious message, nothing lost</b></td><td>Don't engage. Report it on Sanchar Saathi → Chakshu, then block. Warn your network if they're impersonating someone you know.</td></tr>
+    <tr><td><b>Your bank account got frozen</b></td><td>Ask the bank in writing for the reason and the complaint/FIR reference. Gather invoices, contracts and the payer's details. Consult a lawyer. Don't try to move funds around.</td></tr>
+    <tr><td><b>Client data exposed through you</b></td><td>Contain it (revoke and rotate), tell the client in writing the same day with facts and a timeline, help them meet their own notification duties, and write a post-mortem.</td></tr>
+    <tr><td><b>Legal notice from an ex-employer</b></td><td>Don't reply in anger and don't ignore it. Pause the relevant outreach, collect your documents, and get a lawyer's view before responding.</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="actions">19. Actions this week<a class="anchor" href="#actions" aria-label="Link to this section">#</a></h2>
+<ul class="checklist">
+  <li>Set <code>"task.allowAutomaticTasks": "off"</code> in VS Code and Cursor. Confirm Workspace Trust is on.</li>
+  <li>Create a disposable sandbox (a VM snapshot or the Docker one-liner above) and test it once.</li>
+  <li>Move any crypto wallets and seed phrases off your work laptop.</li>
+  <li>Turn on 2FA everywhere and move all passwords into a password manager. Use a separate browser profile for client work.</li>
+  <li>Download your masked Aadhaar. Make a watermarked PAN copy template.</li>
+  <li>Find and read your Noovosoft offer letter, NDAs and relieving letter. Note any non-solicit period.</li>
+  <li>Write a short agreement with your Cultus co-founders about freelance work and conflicts.</li>
+  <li>Set up a second payment rail (<a href="03-tax-and-money.html#payment-rails">Payment rails</a>).</li>
+  <li>Save 1930 and cybercrime.gov.in in your phone.</li>
+  <li>Install <code>gitleaks</code> as a global pre-commit hook.</li>
+  <li>Book your weekly accountability call and one Pune meetup this month.</li>
+</ul>
+
+<h2 id="sources">Sources<a class="anchor" href="#sources" aria-label="Link to this section">#</a></h2>
+<ol class="sources">
+  <li><a href="https://www.microsoft.com/en-us/security/blog/2026/03/11/contagious-interview-malware-delivered-through-fake-developer-job-interviews/" target="_blank" rel="noopener">Microsoft Security Blog, "Contagious Interview: Malware delivered through fake developer job interviews" (11 Mar 2026)</a>: active since Dec 2022; clone-and-run npm packages; VS Code task execution after trusting the author; OtterCookie; secrets targeted; mitigations (isolated VM, review recruiter repos, treat paste-and-run as high-risk).</li>
+  <li><a href="https://socket.dev/blog/north-korean-contagious-interview-campaign-drops-35-new-malicious-npm-packages" target="_blank" rel="noopener">Socket: Contagious Interview npm packages</a> and <a href="https://www.silentpush.com/blog/contagious-interview-front-companies/" target="_blank" rel="noopener">Silent Push: front companies delivering BeaverTail, InvisibleFerret, OtterCookie</a>: npm delivery and fake companies.</li>
+  <li><a href="https://about.gitlab.com/blog/how-to-detect-and-prevent-contagious-interview-ide-attacks/" target="_blank" rel="noopener">GitLab: How to detect and prevent Contagious Interview IDE attacks (May 2026)</a> and <a href="https://opensourcemalware.com/blog/dprk-contagious-interview-campaign-fake-font-uses-malicious-vs-code-fonts" target="_blank" rel="noopener">OpenSourceMalware: "Fake Font" VS Code tasks</a>: <code>runOn: folderOpen</code>; payload disguised as a font file; disable automatic tasks.</li>
+  <li><a href="https://www.infosecurity-magazine.com/news/clickfake-interview-campaign/" target="_blank" rel="noopener">Infosecurity Magazine: ClickFake Interview campaign</a> and <a href="https://www.bleepingcomputer.com/news/security/north-korean-hackers-adopt-clickfix-attacks-to-target-crypto-firms/" target="_blank" rel="noopener">BleepingComputer: North Korean hackers adopt ClickFix</a>: fake camera/mic error, paste-a-command "fix" (2025).</li>
+  <li><a href="https://www.legitsecurity.com/blog/shai-hulud-npm-attack-what-you-need-to-know" target="_blank" rel="noopener">Legit Security: Shai-Hulud npm attack</a> and <a href="https://www.hivepro.com/threat-advisory/shai-hulud-2-0-fuels-global-npm-supply-chain-compromise/" target="_blank" rel="noopener">HivePro: Shai-Hulud 2.0</a>: install-script worm stealing tokens (Sept and Nov 2025).</li>
+  <li><a href="https://blog.gitguardian.com/the-state-of-secrets-sprawl-2025/" target="_blank" rel="noopener">GitGuardian, The State of Secrets Sprawl 2025</a>: 23.8M secrets in public GitHub commits in 2024 (+25%); 70% of 2022 leaks still valid.</li>
+  <li><a href="https://yourstory.com/2025/11/digital-personal-data-protection-dpdp-rules-2025-rollout-over-18-months" target="_blank" rel="noopener">YourStory: DPDP Rules 2025 notified, 18-month rollout</a> and <a href="https://www.bdo.in/en-gb/news/2025/digital-personal-data-protection-rules-2025-%E2%80%94-check-provisions,-implementation-plan,-penalties" target="_blank" rel="noopener">BDO India: DPDP Rules provisions and penalties</a>: notified 13 Nov 2025; phased obligations; penalties up to ₹250 crore.</li>
+  <li><a href="https://nishithdesai.com/research-and-articles/hotline/hr-law-hotline/beyond-reasonableness-delhi-hcs-strict-scrutiny-of-post-employment-restraints-15383" target="_blank" rel="noopener">Nishith Desai Associates: Delhi HC's strict scrutiny of post-employment restraints</a> and <a href="https://www.barandbench.com/law-firms/view-point/non-solicitation-in-employment-agreements-understanding-enforcement-issues-and-pitfalls" target="_blank" rel="noopener">Bar &amp; Bench: non-solicitation enforcement issues</a>: s.27, <em>Varun Tyagi v. Daffodil Software</em> (2025), non-solicit uncertainty.</li>
+  <li><a href="https://cybercrime.gov.in/" target="_blank" rel="noopener">National Cyber Crime Reporting Portal</a> and helpline 1930; <a href="https://sancharsaathi.gov.in/" target="_blank" rel="noopener">Sanchar Saathi (Chakshu)</a> for reporting suspected fraud communication; <a href="https://www.cert-in.org.in/" target="_blank" rel="noopener">CERT-In</a>.</li>
+  <li><a href="https://thesouthfirst.com/news/the-telegram-trap-multi-crore-digital-ponzi-scam-in-the-garb-of-part-time-job/" target="_blank" rel="noopener">South First: the Telegram task-scam trap</a> and <a href="https://newschecker.in/scam-watch/fraud-terror-and-trail-of-death-the-telegram-task-scam-spreading-fast-in-india" target="_blank" rel="noopener">Newschecker: Telegram task scam in India</a>: how task scams escalate. National totals weren't verifiable, so none are quoted.</li>
+  <li><a href="https://supremetoday.ai/issue/challenging-bank-account-freezes-nccrp-complaints-judicial-remedies" target="_blank" rel="noopener">Bank-account freezes after NCRP complaints: judicial remedies</a>: innocent recipients, including freelancers, can be caught in fraud-trail freezes.</li>
+  <li><a href="https://myaadhaar.uidai.gov.in/" target="_blank" rel="noopener">UIDAI myAadhaar</a>: masked Aadhaar download (last 4 digits visible).</li>
+  <li><a href="https://community.upwork.com/t5/Freelancers/Increasing-amount-of-SCAM-projects-on-Upwork-Beware-and-how-to/m-p/1269681" target="_blank" rel="noopener">Upwork Community: scam projects, how to spot them</a> and <a href="https://support.upwork.com/hc/en-us/articles/360043723533" target="_blank" rel="noopener">Upwork Help: Conversion fee</a>: off-platform requests, spyware "briefs", 24-month rule.</li>
+  <li><a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener">GNU AGPL v3, §13 "Remote Network Interaction"</a>: source-offer obligation for network use.</li>
+  <li><a href="https://code.visualstudio.com/docs/editing/workspaces/workspace-trust" target="_blank" rel="noopener">VS Code docs: Workspace Trust</a>: Restricted Mode for unknown folders.</li>
+</ol>
+</article>
+  <nav class="pager" aria-label="Memo navigation"><a class="prev" href="10-90-day-plan.html"><small>← Previous</small>90-Day Launch Plan</a><a class="next" href="12-metrics-and-cadence.html"><small>Next →</small>Metrics &amp; Cadence: Run the Business Weekly</a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#threat-map">1. Threat map: what's likely and what hurts</a><a href="#dev-malware">2. Malware hidden in fake interviews, clients and &quot;take-home&quot; tasks</a><a href="#safe-sandbox">3. Safe-sandbox SOP for untrusted client code</a><a href="#payment-scams">4. Payment scams: overpayment, fake cheques, refunds, &quot;pay to start&quot;, crypto</a><a href="#task-scams">5. Telegram/WhatsApp &quot;task&quot; job scams (India)</a><a href="#platform-scams">6. Marketplace scams: off-platform requests, fake support, account rental</a><a href="#identity">7. ID-document and bank phishing (Aadhaar, PAN, bank, OTP)</a><a href="#unpaid-work">8. Free &quot;test&quot; labour, scope creep and non-payment</a><a href="#concentration">9. Client concentration: the quiet risk</a><a href="#money-rails">10. Payment-rail freezes and the mule-account trap</a><a href="#previous-employer">11. Your previous employer: NDA, non-solicit, confidentiality</a><a href="#ip-contamination">12. IP contamination between clients</a><a href="#oss-licences">13. Open-source licence traps</a><a href="#data-protection">14. Client data and India's DPDP Act</a><a href="#credential-leaks">15. Credential and secret leaks</a><a href="#wellbeing">16. Burnout, isolation and the feast–famine cycle</a><a href="#red-flag-scorecard">17. Client red-flag scorecard (use before every &quot;yes&quot;)</a><a href="#incident-playbook">18. Incident playbook: what to do in the first hour</a><a href="#actions">19. Actions this week</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

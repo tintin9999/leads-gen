@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Outreach Composer · Freelance OS</title>
+<style>
+:root{--bg:#f7f7f4;--surface:#fff;--ink:#16181d;--muted:#5d6572;--line:#e3e3dc;--accent:#3446d4;--accent-soft:#e8ebff;--good:#1f8a4c;--mid:#b7791f;--bad:#c2410c;--good-soft:#e6f4ec;--mid-soft:#fbf1e0;--bad-soft:#fbeae2;--radius:10px;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;--shadow:0 1px 2px rgba(16,24,40,.05),0 6px 20px rgba(16,24,40,.07)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--surface:#171a21;--ink:#e8e9ec;--muted:#9aa3b2;--line:#272c36;--accent:#7c8cff;--accent-soft:#1f2440;--good:#43b77a;--mid:#e0a645;--bad:#f07a4a;--good-soft:#14261c;--mid-soft:#2a2213;--bad-soft:#2c1a12;--shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--accent)}
+h1,h2,h3{line-height:1.2;margin:0}
+h1{font-size:17px;font-weight:650;letter-spacing:-.01em}
+h2{font-size:14px;font-weight:650}
+h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.muted{color:var(--muted)}.small{font-size:12px}.mono{font-family:var(--mono)}
+button,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 11px;cursor:pointer;line-height:1.25;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+button:hover,.btn:hover{border-color:var(--muted)}
+button.primary,.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.danger{color:var(--bad)}
+button.icon{padding:3px 7px;border-color:transparent;background:transparent;color:var(--muted)}
+button.icon:hover{border-color:var(--line);color:var(--ink)}
+button:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select,textarea{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%;min-width:0}
+textarea{resize:vertical;line-height:1.5}
+label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted);font-weight:500}
+label>input,label>select,label>textarea{color:var(--ink);font-weight:400}
+.topbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--muted);text-decoration:none;font-size:13px}
+.back:hover{color:var(--accent)}
+.spacer{flex:1}
+.stat{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface)}
+.stat b{color:var(--ink);font-family:var(--mono)}
+details.howto{margin:12px 20px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0 16px}
+details.howto summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:13px}
+details.howto ul{margin:0 0 12px;padding-left:18px;color:var(--muted)}
+details.howto li{margin:3px 0}
+main{flex:1;display:grid;grid-template-columns:270px 1fr;gap:14px;padding:14px 20px 8px;align-items:start;min-width:0}
+.lib{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:10px;position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto}
+.lib input{margin-bottom:8px}
+.lib h3{margin:10px 4px 4px}
+.tpl{display:flex;justify-content:space-between;align-items:center;gap:6px;width:100%;border:0;background:transparent;text-align:left;padding:6px 8px;border-radius:7px;white-space:normal;font-size:13px}
+.tpl:hover{background:var(--bg)}
+.tpl[aria-current=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.ch{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-radius:5px;padding:0 5px;border:1px solid var(--line);color:var(--muted);flex:none}
+.work{display:grid;grid-template-columns:minmax(280px,1fr) minmax(340px,1.25fr);gap:14px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card+.card{margin-top:14px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.vars{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.vars .wide{grid-column:1/-1}
+.vars label.auto input{background:color-mix(in srgb,var(--accent-soft) 35%,var(--surface))}
+.vars label.unused{opacity:.45}
+.tip{border-left:3px solid var(--accent);background:var(--accent-soft);padding:8px 11px;border-radius:0 8px 8px 0;font-size:12.5px}
+.counts{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.counts .over{color:var(--bad);font-weight:700}
+.checks{display:flex;flex-direction:column;gap:5px}
+.chk{font-size:12px;border-radius:7px;padding:5px 9px;border:1px solid}
+.chk.err{border-color:var(--bad);background:var(--bad-soft)}
+.chk.warn{border-color:var(--mid);background:var(--mid-soft)}
+.chk.ok{border-color:var(--good);background:var(--good-soft)}
+#outBody{min-height:300px;font-size:13.5px}
+.edited{font-size:11px;color:var(--mid)}
+.cad{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.cad li{display:grid;grid-template-columns:50px 110px 1fr;gap:8px;font-size:12.5px;align-items:center;padding:5px 8px;border-radius:7px;background:var(--bg)}
+.cad li b{font-family:var(--mono)}
+dialog{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);padding:0;box-shadow:var(--shadow);width:min(720px,95vw)}
+dialog::backdrop{background:rgba(10,12,18,.45)}
+.dlg-h{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+.dlg-h h2{flex:1;font-size:15px}
+.dlg-b{padding:14px 18px;display:flex;flex-direction:column;gap:10px;max-height:72vh;overflow:auto}
+.dlg-f{display:flex;gap:8px;justify-content:flex-end;padding:12px 18px;border-top:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+code{font-family:var(--mono);font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:0 4px}
+footer.foot{color:var(--muted);font-size:12px;text-align:center;padding:18px 20px 24px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(10px);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media (max-width:1100px){.work{grid-template-columns:1fr}}
+@media (max-width:860px){main{grid-template-columns:1fr}.lib{position:static;max-height:300px}.topbar{position:static}}
+@media (max-width:520px){.vars,.grid2,.grid3{grid-template-columns:1fr}main,.topbar{padding-left:12px;padding-right:12px}details.howto{margin:10px 12px 0}.cad li{grid-template-columns:44px 1fr}.cad li span:last-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="../index.html">← Freelance OS</a>
+  <h1>Outreach Composer</h1>
+  <span class="stat" title="Touches logged from this tool">Today <b id="statToday">0</b></span>
+  <span class="stat">This week <b id="statWeek">0</b></span>
+  <span class="stat" id="crmStat">CRM: —</span>
+  <div class="spacer"></div>
+  <button type="button" id="btnNewTpl">+ Template</button>
+  <button type="button" id="btnSettings">⚙ Your details</button>
+  <button type="button" id="btnExport">Backup</button>
+  <button type="button" id="btnImport">Restore…</button>
+</header>
+<details class="howto">
+  <summary>How to use</summary>
+  <ul>
+    <li>Pick a template on the left, pick a lead from your <b>Pipeline CRM</b> (or type details manually). Auto fields fill from the lead; you write the <b>observation</b> — one specific thing you noticed. Personalisation is what gets replies.</li>
+    <li>Fix every warning: unfilled <code>{{variables}}</code>, spammy words, length. Edit the final text freely — your edits stick until you press <b>Reset</b>.</li>
+    <li>Copy and send from your own email / LinkedIn, then press <b>Log touch</b>: the CRM gets an activity, last-touch date, next follow-up date, and Prospect → Contacted.</li>
+    <li>Follow the cadence: day 0 → 3 → 7 → 14 (breakup) → 30 (nurture). Most replies come from follow-ups, not the first message.</li>
+    <li>Cold email rules of thumb: under 125 words, one ask, one link, plain text, send from a real address, honour "not interested" immediately.</li>
+  </ul>
+</details>
+<main>
+  <nav class="lib" aria-label="Template library">
+    <input type="search" id="tplSearch" placeholder="Search templates…" aria-label="Search templates">
+    <div id="tplList"></div>
+  </nav>
+  <div class="work">
+    <div>
+      <section class="card" aria-label="Lead">
+        <div class="row" style="justify-content:space-between"><h2>Lead</h2><span class="muted small" id="leadInfo"></span></div>
+        <div class="row" style="flex-wrap:nowrap"><input type="search" id="leadSearch" placeholder="Filter CRM leads…" aria-label="Filter leads" style="flex:1"><select id="leadSelect" aria-label="Choose lead" style="flex:1.4"></select></div>
+        <div id="leadMeta" class="small muted"></div>
+      </section>
+      <section class="card" aria-label="Variables">
+        <div class="row" style="justify-content:space-between"><h2>Personalisation</h2><button type="button" class="icon" id="btnClearVars" title="Clear the manual fields">Clear manual</button></div>
+        <div class="vars" id="vars"></div>
+        <div class="tip" id="tplTip"></div>
+      </section>
+      <section class="card" aria-label="Cadence planner">
+        <div class="row" style="justify-content:space-between"><h2>Cadence planner</h2><label style="flex-direction:row;align-items:center;gap:6px">Start <input type="date" id="cadStart" style="width:auto"></label></div>
+        <ul class="cad" id="cadence"></ul>
+        <div class="row"><button type="button" id="btnCopyCad">Copy schedule</button><span class="muted small">Weekend dates move to Monday.</span></div>
+      </section>
+    </div>
+    <section class="card" aria-label="Message">
+      <div class="row" style="justify-content:space-between"><h2 id="outTitle">Message</h2><span class="edited" id="editedFlag" hidden>✎ edited — variable changes won't apply <button type="button" class="icon" id="btnReset">Reset</button></span></div>
+      <label id="subjWrap">Subject<input id="outSubject" aria-label="Subject"></label>
+      <textarea id="outBody" aria-label="Message body" spellcheck="true"></textarea>
+      <div class="counts" id="counts"></div>
+      <div class="checks" id="checks"></div>
+      <div class="row">
+        <button type="button" class="primary" id="btnCopy">Copy message</button>
+        <button type="button" id="btnCopySubj">Copy subject</button>
+        <a class="btn" id="btnMail" href="#" target="_blank" rel="noopener">Open in email ✉</a>
+        <a class="btn" id="btnLinkedIn" href="#" target="_blank" rel="noopener noreferrer" hidden>LinkedIn profile ↗</a>
+      </div>
+      <div class="row" style="border-top:1px solid var(--line);padding-top:10px">
+        <label style="flex-direction:row;align-items:center;gap:6px">Follow up in <select id="followDays" style="width:auto"><option value="3">3 days</option><option value="5">5 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label>
+        <button type="button" class="primary" id="btnLog">Log touch in CRM</button>
+        <span class="muted small" id="logHint"></span>
+      </div>
+      <div id="newLeadBox" class="row" hidden>
+        <label style="flex-direction:row;align-items:center;gap:6px">Source <select id="newSource" style="width:auto"></select></label>
+        <label style="flex-direction:row;align-items:center;gap:6px">Segment <select id="newSegment" style="width:auto"></select></label>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="foot">Data stays in this browser — export a backup weekly. <span class="mono">localStorage: fos.outreach.v1 · reads/writes fos.crm.v1</span></footer>
+<input type="file" id="fileJson" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="dlgTpl" aria-labelledby="tplTitle">
+  <form method="dialog" id="tplForm">
+    <div class="dlg-h"><h2 id="tplTitle">Template</h2><button type="button" class="icon" data-close aria-label="Close">✕</button></div>
+    <div class="dlg-b">
+      <div class="grid3">
+        <label>Name<input name="name" required></label>
+        <label>Channel<select name="channel"><option value="email">Email</option><option value="linkedin">LinkedIn</option><option value="dm">DM / WhatsApp</option></select></label>
+        <label>Category<select name="category"><option value="warm">Warm network</option><option value="linkedin">LinkedIn</option><option value="cold">Cold email</option><option value="followup">Follow-ups</option><option value="partner">Partners &amp; referrals</option><option value="custom">Custom</option></select></label>
+      </div>
+      <label>Subject (email only)<input name="subject"></label>
+      <label>Body<textarea name="body" rows="12"></textarea></label>
+      <div class="grid3">
+        <label>Default follow-up (days)<input name="followDays" type="number" min="1" max="90" value="3"></label>
+        <label>Character limit (0 = none)<input name="limit" type="number" min="0" value="0"></label>
+        <label>Next action after sending<input name="next" placeholder="e.g. Send follow-up #1"></label>
+      </div>
+      <p class="muted small" style="margin:0">Variables: <span id="varHelp"></span></p>
+    </div>
+    <div class="dlg-f"><button type="button" class="danger" id="btnDelTpl">Delete</button><span class="spacer"></span><button type="button" data-close>Cancel</button><button type="submit" class="primary">Save template</button></div>
+  </form>
+</dialog>
+<dialog id="dlgSettings" aria-labelledby="setTitle">
+  <form method="dialog" id="setForm">
+    <div class="dlg-h"><h2 id="setTitle">Your details</h2><button type="button" class="icon" data-close aria-label="Close">✕</button></div>
+    <div class="dlg-b">
+      <div class="grid2">
+        <label>Your name ({{yourName}})<input name="yourName" placeholder="Your name" autocomplete="off"></label>
+        <label>Website / portfolio ({{yourSite}})<input name="yourSite" placeholder="https://…" autocomplete="off"></label>
+        <label>Booking link ({{calLink}})<input name="calLink" placeholder="https://cal.com/…" autocomplete="off"></label>
+        <label>Default follow-up (days)<select name="followDays"><option>3</option><option>5</option><option>7</option></select></label>
+      </div>
+      <p class="muted small" style="margin:0">Stored only in this browser.</p>
+    </div>
+    <div class="dlg-f"><button type="button" data-close>Cancel</button><button type="submit" class="primary">Save</button></div>
+  </form>
+</dialog>
+
+<script>
+(() => {
+'use strict';
+const KEY = 'fos.outreach.v1', CRM = 'fos.crm.v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const toISO = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = () => toISO(new Date());
+const parseISO = s => { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (iso, n) => { const d = parseISO(iso); d.setDate(d.getDate() + n); return toISO(d); };
+const uid = p => (p || 'T') + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2400); }
+function download(name, text, type) { const blob = new Blob([text], {type}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800); }
+
+/* ---------------- variables ---------------- */
+const OFFER_NAME = {A1: 'store speed & conversion fixes', A2: 'custom Shopify apps and integrations', A3: 'Razorpay checkout and payments', A4: 'a headless Next.js storefront', B1: 'taking an MVP to production', B2: 'internal tools and admin dashboards', B3: 'Angular → React modernisation', C1: 'ongoing maintenance (care plan)', custom: 'product engineering'};
+const VARS = {
+  firstName: {label: 'First name', auto: true, ph: 'Asha'},
+  company: {label: 'Company / brand', auto: true, ph: 'Acme Apparel'},
+  website: {label: 'Website', auto: true, ph: 'acme.example'},
+  role: {label: 'Their role', auto: true, ph: 'Founder'},
+  offer: {label: 'Offer (from lead)', auto: true, ph: OFFER_NAME.A1},
+  observation: {label: 'Observation — 1 specific thing you noticed', wide: true, ph: 'your product pages load a 2.4 MB hero image on mobile'},
+  metric: {label: 'Metric', wide: true, ph: 'mobile PageSpeed 31/100, LCP 6.2 s'},
+  trigger: {label: 'Trigger / why now', ph: 'the seed round'},
+  mutual: {label: 'Shared context', ph: 'SKNCOE / Noovosoft / Reactiflux'},
+  project: {label: 'Their project', ph: 'the checkout revamp'},
+  tip: {label: 'A free, specific tip', wide: true, ph: 'serve the hero image as WebP at 1200px — ~70% smaller'},
+  proofPoint: {label: 'Proof line', wide: true, ph: 'built Cultus end to end — Shopify Sales Channel app + Razorpay checkout'},
+  loomLink: {label: 'Video link', ph: 'https://loom.com/share/…'},
+  lastContext: {label: 'Last conversation', ph: 'the proposal I sent on Tuesday'},
+  yourName: {label: 'Your name', setting: true},
+  yourSite: {label: 'Your site', setting: true},
+  calLink: {label: 'Booking link', setting: true}
+};
+
+/* ---------------- templates ---------------- */
+const T = [
+  {id: 'warm-excolleague', name: 'Announcement — ex-colleague', category: 'warm', channel: 'dm', followDays: 7, next: 'Ask how they are / any intros?',
+    tip: 'Warm network converts 10× better than cold. Send this to 30–50 people in week 1. Personal, short, no attachment.',
+    body: `Hey {{firstName}}! Hope all's well at {{company}}.
+
+Quick personal update: after 4 years building production apps (Deribit's back-office at Coinbase, a tax-filing product used by 100k+ people), I've gone independent. I'm taking on React/Next.js product work — Shopify & Razorpay integrations, internal tools and admin dashboards, and turning rushed MVPs into production-grade apps.
+
+Not asking you for work — but if you hear of a team that needs a senior hand for a project, I'd be grateful for an intro. Happy to return the favour any time.
+
+Would be great to catch up soon either way!
+{{yourName}}`},
+  {id: 'warm-mentee', name: 'Announcement — someone you mentored', category: 'warm', channel: 'dm', followDays: 14, next: 'Check in',
+    tip: 'Lead with giving (offer to pair/help), not asking. People you helped are your best referrers.',
+    body: `Hi {{firstName}}! Hope things are going well at {{company}} — I still remember {{mutual}}.
+
+Small update from my side: I've started freelancing full-time (React/Next.js, Shopify/Razorpay integrations, internal tools). If your team ever needs an extra pair of hands — or a second opinion on architecture or code — I'd love to help.
+
+And if you're ever stuck on something, ping me — happy to pair for 30 minutes like old times.
+{{yourName}}`},
+  {id: 'warm-alumni', name: 'Announcement — alumni / community', category: 'warm', channel: 'linkedin', followDays: 7, next: 'Follow up on intro ask',
+    tip: 'Name the shared context first (college, batch, community) so it reads as a peer note, not a pitch.',
+    body: `Hi {{firstName}}, we're both from {{mutual}} — saw you're now {{role}} at {{company}}, congrats!
+
+I've just gone independent as a product engineer (React/Next.js/TypeScript, Shopify, Razorpay, Supabase). Recently built Cultus, a live marketplace, end to end.
+
+If {{company}} ever needs help shipping something — or you know someone who does — I'd really appreciate a pointer. Would also love to hear what you're working on.
+{{yourName}}`},
+  {id: 'warm-cultus-brand', name: 'Cultus brand partner — D2C offer', category: 'warm', channel: 'dm', followDays: 5, next: 'Send the 2-min video',
+    tip: 'They already trust you via Cultus. Keep it clearly separate from the Cultus relationship and offer value first (the video).',
+    body: `Hi {{firstName}}, {{yourName}} here from Cultus — thanks again for having {{company}} on the platform.
+
+Separately from Cultus, I'm now taking a few projects for D2C brands: speeding up Shopify stores, custom Shopify apps/integrations, and Razorpay checkout (prepaid nudges, partial COD, automated refunds). I built all of this for Cultus, so I know the plumbing well.
+
+I took a quick look at {{website}}: {{observation}}. I can record a 2-minute video with the 3 fixes I'd make first — want me to send it?`},
+  {id: 'li-connect', name: 'LinkedIn connection note', category: 'linkedin', channel: 'linkedin', followDays: 3, limit: 200, next: 'If accepted: send LinkedIn follow-up',
+    tip: 'Connection notes are short (verify the current limit — ~200 chars on free accounts, ~300 on Premium). No pitch, no links: earn the accept.',
+    body: `Hi {{firstName}} — {{observation}}. I build Shopify/Next.js commerce & internal tools (built Cultus end to end). Would love to connect.`},
+  {id: 'li-followup', name: 'LinkedIn — after they accept', category: 'linkedin', channel: 'linkedin', followDays: 5, next: 'Follow up / send teardown',
+    tip: 'Ask permission before sending anything. A yes to "worth sending?" is a micro-commitment that leads to a call.',
+    body: `Thanks for connecting, {{firstName}}!
+
+I had a quick look at {{company}} and noticed {{metric}}.
+
+I help teams with {{offer}}. No pitch — if useful, I can share a 2-minute teardown of what I'd fix first. Worth sending?`},
+  {id: 'cold-a1', name: 'Cold — A1 speed audit (with video)', category: 'cold', channel: 'email', followDays: 3, next: 'Send follow-up #1',
+    subject: '{{company}} — 2-min mobile speed teardown',
+    tip: 'Record the video BEFORE sending (Loom/screen recording of PageSpeed + your 3 fixes). The metric must be real and checkable.',
+    body: `Hi {{firstName}},
+
+I ran {{website}} through Google PageSpeed on mobile: {{metric}}. {{observation}}.
+
+On mobile-heavy D2C traffic, that usually means paying for clicks that bounce before the product page loads.
+
+I recorded a 2-minute video showing the 3 changes I'd make first: {{loomLink}}
+
+I do this as a fixed-price 1–2 week sprint (audit → fixes → before/after report). Happy to walk you through it on a 15-minute call: {{calLink}}
+
+{{yourName}}
+{{yourSite}}`},
+  {id: 'cold-a2a3', name: 'Cold — A2/A3 Shopify & Razorpay', category: 'cold', channel: 'email', followDays: 3, next: 'Send follow-up #1',
+    subject: 'Question about {{company}}\'s checkout',
+    tip: 'Use a real signal: COD on every order, manual marketplace sync, slow refunds, "out of stock" errors. Name it in the observation.',
+    body: `Hi {{firstName}},
+
+Noticed that {{company}} {{observation}}.
+
+I build the plumbing behind D2C stores: custom Shopify apps, inventory/order sync, and Razorpay checkout with partial COD for risky pincodes and automated refunds. I built all of it for Cultus, a marketplace I run (12 brands, 180+ orders in its first 4 months).
+
+If {{trigger}} is on your list this quarter, I can share how I'd approach it in a 15-minute call: {{calLink}}
+
+{{yourName}}`},
+  {id: 'cold-b1', name: 'Cold — B1 MVP → production', category: 'cold', channel: 'email', followDays: 3, next: 'Send follow-up #1',
+    subject: '{{company}}: before you scale the MVP',
+    tip: 'Best targets: recent launches (Product Hunt, YC/accelerator batches, "built with Lovable/Bolt" posts), founders asking for help in communities.',
+    body: `Hi {{firstName}},
+
+Congrats on {{trigger}}. {{observation}}.
+
+Apps built fast — with Lovable, Bolt, v0 or in a rushed sprint — tend to share the same gaps: database access rules (Supabase RLS) that expose data, keys in the client bundle, untested payment/auth flows, and manual deploys.
+
+I do a fixed-price production-readiness audit ($600–1,200, 3–5 days): every issue ranked by severity, with fixes. If you want, I then fix the critical ones in a short hardening sprint.
+
+Worth a 15-minute call? {{calLink}}
+
+{{yourName}}
+{{yourSite}}`},
+  {id: 'cold-b2', name: 'Cold — B2 internal tools', category: 'cold', channel: 'email', followDays: 3, next: 'Send follow-up #1',
+    subject: 'Admin tooling at {{company}}',
+    tip: 'Signals: hiring ops/support roles fast, job posts mentioning "internal tools", fintech/marketplace with manual reviews.',
+    body: `Hi {{firstName}},
+
+Saw {{observation}} — usually a sign the ops team is outgrowing spreadsheets and direct database edits.
+
+I build internal tools and admin dashboards in React/TypeScript: role-based access, approval flows, audit logs, bulk actions. Most recently I built back-office modules for Coinbase's Deribit derivatives exchange.
+
+If an internal admin is on your roadmap, I can scope a first module in a 20-minute call: {{calLink}}
+
+{{yourName}}`},
+  {id: 'cold-b3', name: 'Cold — B3 Angular → React', category: 'cold', channel: 'email', followDays: 3, next: 'Send follow-up #1',
+    subject: 'Angular → React at {{company}}?',
+    tip: 'Signals: job ads listing both Angular and React, AngularJS in the page source, "migration" in engineering blog posts.',
+    body: `Hi {{firstName}},
+
+Saw {{observation}}.
+
+Migrating without a big-bang rewrite is something I've done in production: I moved legacy Angular admin features to React module by module at Deribit (Coinbase) and introduced Vitest into CI so every step was safe.
+
+I offer a fixed-price assessment ($1.5k–3k): module inventory, risk map, a step-by-step migration plan and a pilot module. Open to a quick call? {{calLink}}
+
+{{yourName}}`},
+  {id: 'hn-reply', name: 'Reply to HN / job-board contract post', category: 'cold', channel: 'email', followDays: 4, next: 'Send follow-up #1',
+    subject: 'Re: your HN post — {{project}}',
+    tip: 'Reply within 24 h of the post. Mirror their stack and problem; one relevant proof line beats a full CV.',
+    body: `Hi {{firstName}},
+
+Saw your post in the HN "{{trigger}}" thread about {{project}}.
+
+Relevant experience: {{proofPoint}}.
+
+How I'd approach it: {{observation}}.
+
+I'm available for contract work now (IST — good overlap with EU mornings and US evenings). Portfolio: {{yourSite}}. Happy to do a short call: {{calLink}}
+
+{{yourName}}`},
+  {id: 'agency', name: 'Agency partnership (white-label)', category: 'partner', channel: 'email', followDays: 7, next: 'Send rate card + case studies',
+    subject: 'Dev capacity for {{company}}\'s client work',
+    tip: 'Target design, marketing and Shopify agencies. One agency partner can fill half your calendar.',
+    body: `Hi {{firstName}},
+
+I'm a React/Next.js developer in Pune with 4 years on production apps (Coinbase's Deribit, a 100k-user tax platform) and deep Shopify/Razorpay experience from building Cultus end to end.
+
+Agencies I talk to often have more client demand than dev capacity in some months. I work white-label: your brand, your client relationship, my code — with tests, docs and a clean handover.
+
+Could I send a one-page rate card and two short case studies? If there's a project in the pipeline, I'm happy to quote it.
+
+{{yourName}}
+{{yourSite}}`},
+  {id: 'referral', name: 'Referral ask (happy client / contact)', category: 'partner', channel: 'email', followDays: 14, next: 'Thank them / follow up',
+    subject: 'A small favour',
+    tip: 'Ask right after a win (launch, great result, thank-you message). Be specific about who you help.',
+    body: `Hi {{firstName}}, glad {{project}} is live and doing well!
+
+A small ask: I'm growing my freelance practice mainly through referrals. Do you know one or two founders or teams who might need {{offer}}? An intro by email is perfect — I'll take good care of them.
+
+Thanks either way — and I'm here if anything comes up with {{project}}.
+{{yourName}}`},
+  {id: 'fu-1', name: 'Follow-up #1 — bump (day 3)', category: 'followup', channel: 'email', followDays: 4, next: 'Send follow-up #2 (value add)',
+    subject: 'Re: {{company}}',
+    tip: 'Send as a reply in the same thread so the original message is right below.',
+    body: `Hi {{firstName}} — bumping this in case it got buried. Worth a quick look?
+
+{{yourName}}`},
+  {id: 'fu-2', name: 'Follow-up #2 — value add (day 7)', category: 'followup', channel: 'email', followDays: 7, next: 'Send breakup email',
+    subject: 'Re: {{company}}',
+    tip: 'Give something useful they can act on without you. This one gets the most replies.',
+    body: `Hi {{firstName}},
+
+One more thought on {{company}}: {{observation}}. A quick win you can do even without me: {{tip}}.
+
+If you'd like help with the bigger fixes, I'm around: {{calLink}}
+
+{{yourName}}`},
+  {id: 'fu-breakup', name: 'Follow-up #3 — breakup (day 14)', category: 'followup', channel: 'email', followDays: 30, next: 'Move to nurture; re-engage in 90 days',
+    subject: 'Closing the loop',
+    tip: 'Polite and final. Breakup emails often get the reply ("not now, but…"). Then move the lead to Nurture.',
+    body: `Hi {{firstName}}, I haven't heard back, so I'll assume the timing isn't right — no problem at all.
+
+I'll close the loop on my side. If {{offer}} becomes a priority later, just reply to this email and I'll pick it up.
+
+Wishing {{company}} a great quarter!
+{{yourName}}`},
+  {id: 'fu-proposal', name: 'After sending a proposal (day 2–3)', category: 'followup', channel: 'email', followDays: 4, next: 'Call / decision nudge',
+    subject: 'Re: proposal — {{project}}',
+    tip: 'Offer a walkthrough rather than asking "did you see it?". Proposals reviewed live close far more often.',
+    body: `Hi {{firstName}},
+
+Following up on the proposal for {{project}} — any questions on the options or the timeline?
+
+If it helps, I can walk you through it in 15 minutes: {{calLink}}. I can hold the proposed start date until the end of next week.
+
+{{yourName}}`},
+  {id: 'reengage-90', name: 'Re-engage after 90 days', category: 'followup', channel: 'email', followDays: 7, next: 'Follow up',
+    subject: 'Checking in — {{company}}',
+    tip: 'Lead with something new (a result, a case study, a relevant change in their market).',
+    body: `Hi {{firstName}}, it's been a few months since we spoke about {{lastContext}} — hope things are going well at {{company}}.
+
+Since then I've {{proofPoint}}. If {{offer}} is back on the table, I have some availability coming up next month.
+
+Either way, happy to share what I've learned — just reply.
+{{yourName}}`}
+];
+const CATS = [['warm', 'Warm network'], ['linkedin', 'LinkedIn'], ['cold', 'Cold email'], ['followup', 'Follow-ups'], ['partner', 'Partners & referrals'], ['custom', 'Custom']];
+const SPAM = ['free', 'guarantee', 'guaranteed', '100%', 'act now', 'urgent', 'risk-free', 'risk free', 'no obligation', 'click here', 'limited time', 'earn money', '$$$', 'winner', 'cash', 'best price', 'buy now', 'cheap', 'discount', 'amazing', 'incredible', 'once in a lifetime', 'double your', 'increase sales', 'dear friend', 'call now', 'exclusive deal', 'special promotion', 'no cost', 'lowest price', 'great offer', 'make money', 'no strings attached', 'apply now', 'order now'];
+const ACRONYMS = new Set(['RLS','API','APIS','CI','CD','MVP','SEO','LCP','INP','CLS','B2B','D2C','COD','GST','USD','INR','ADR','URL','UI','UX','AWS','CRM','SDK','IST','EU','US','UK','HN','YC','PDP','RTO','KYC','SSO','RBAC','SKU','SKUS','ERP','QA','CTO','CEO','COO','VP','PR','ID','SQL','JSON','CSV','PDF','IT','OK','FAQ','ETA','ASAP','LUT','PAN','UPI','EMI','ROI','ROAS','CAC','LTV','AOV','CDN','DNS','SSL','PWA','SSR','AI','LLM','GPT']);
+
+/* ---------------- state ---------------- */
+const DEF = {settings: {yourName: '', yourSite: '', calLink: '', followDays: 3}, custom: [], log: [], last: {templateId: 'warm-excolleague', leadId: ''}, vars: {}};
+function load() { try { const r = localStorage.getItem(KEY); if (r) { const d = JSON.parse(r); return {version: 1, settings: Object.assign({}, DEF.settings, d.settings), custom: Array.isArray(d.custom) ? d.custom : [], log: Array.isArray(d.log) ? d.log : [], last: Object.assign({}, DEF.last, d.last), vars: d.vars || {}}; } } catch (e) { console.warn('outreach: could not load', e); } return JSON.parse(JSON.stringify(Object.assign({version: 1}, DEF))); }
+let S = load();
+let saveT = null;
+function flush() { clearTimeout(saveT); saveT = null; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Could not save'); } }
+function save(now) { clearTimeout(saveT); if (now) flush(); else saveT = setTimeout(flush, 250); }
+window.addEventListener('pagehide', () => { if (saveT) flush(); });
+const allTemplates = () => [...T, ...S.custom.map(c => Object.assign({custom: true, category: c.category || 'custom'}, c))];
+const tplById = id => allTemplates().find(t => t.id === id) || T[0];
+let tpl = tplById(S.last.templateId);
+let edited = false;
+
+/* ---------------- CRM bridge ---------------- */
+function readCRM() { try { const r = localStorage.getItem(CRM); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
+let crm = readCRM();
+const leads = () => (crm && Array.isArray(crm.leads) ? crm.leads : []);
+const lead = () => leads().find(l => l.id === S.last.leadId) || null;
+const domain = u => String(u || '').replace(/^[a-z]+:\/\//i, '').replace(/^www\./, '').replace(/\/.*$/, '');
+function autoVars(l) {
+  const v = {};
+  if (l) { v.firstName = String(l.contact || '').trim().split(/\s+/)[0] || ''; v.company = l.company || ''; v.website = domain(l.website); v.role = l.role || ''; v.offer = OFFER_NAME[l.offer] || ''; }
+  v.yourName = S.settings.yourName; v.yourSite = S.settings.yourSite; v.calLink = S.settings.calLink;
+  return v;
+}
+function values() {
+  const a = autoVars(lead()), out = {};
+  Object.keys(VARS).forEach(k => { const m = S.vars[k]; out[k] = (VARS[k].setting ? a[k] : (m != null && m !== '' ? m : a[k])) || ''; });
+  return out;
+}
+const usedVars = t => [...new Set((String(t.subject || '') + '\n' + t.body).match(/\{\{\s*(\w+)\s*\}\}/g) || [])].map(x => x.replace(/[{}\s]/g, ''));
+function render(str, vals) { return String(str || '').replace(/\{\{\s*(\w+)\s*\}\}/g, (m, k) => (vals[k] != null && String(vals[k]).trim() !== '') ? String(vals[k]).trim() : m); }
+
+/* ---------------- UI: library ---------------- */
+function renderLib() {
+  const q = $('#tplSearch').value.trim().toLowerCase();
+  const list = allTemplates().filter(t => !q || (t.name + ' ' + t.body + ' ' + (t.subject || '')).toLowerCase().includes(q));
+  $('#tplList').innerHTML = CATS.map(([c, label]) => { const items = list.filter(t => (t.category || 'custom') === c); return items.length ? `<h3>${label}</h3>` + items.map(t => `<button type="button" class="tpl" data-tpl="${esc(t.id)}" aria-current="${t.id === tpl.id}"><span>${esc(t.name)}</span><span class="ch">${t.channel === 'linkedin' ? 'in' : t.channel === 'dm' ? 'dm' : '@'}</span></button>`).join('') : ''; }).join('') || '<p class="muted small">No templates match.</p>';
+}
+$('#tplList').addEventListener('click', e => { const b = e.target.closest('[data-tpl]'); if (!b) return; selectTpl(b.dataset.tpl); });
+$('#tplSearch').addEventListener('input', renderLib);
+function selectTpl(id) { tpl = tplById(id); S.last.templateId = tpl.id; edited = false; save(); $('#followDays').value = String(tpl.followDays || S.settings.followDays || 3); renderLib(); renderVars(); renderOut(true); renderCadence(); }
+
+/* ---------------- UI: lead ---------------- */
+const STAGE_ORDER = ['prospect','contacted','replied','call','proposal','nurture','won','lost'];
+function renderLeadSelect() {
+  crm = readCRM();
+  const q = $('#leadSearch').value.trim().toLowerCase();
+  const L = leads().filter(l => !q || [l.company, l.contact, l.email, l.website, l.tags].join(' ').toLowerCase().includes(q));
+  const groups = STAGE_ORDER.map(st => [st, L.filter(l => l.stage === st).sort((a, b) => String(a.nextDate || '9').localeCompare(String(b.nextDate || '9')))]).filter(g => g[1].length);
+  $('#leadSelect').innerHTML = `<option value="">— no lead (type details manually) —</option>` + groups.map(([st, ls]) => `<optgroup label="${st}">${ls.map(l => `<option value="${esc(l.id)}"${l.id === S.last.leadId ? ' selected' : ''}>${esc(l.company || l.contact || '(unnamed)')}${l.contact && l.company ? ' — ' + esc(l.contact) : ''}${l.nextDate ? ' · ' + esc(l.nextDate) : ''}</option>`).join('')}</optgroup>`).join('');
+  $('#crmStat').innerHTML = crm ? `CRM: <b>${leads().length}</b> leads` : 'CRM: not found';
+  $('#crmStat').title = crm ? 'Reading fos.crm.v1 from this browser' : 'Open the Pipeline CRM in this browser to create leads';
+  const l = lead();
+  $('#leadInfo').textContent = crm ? (q ? `${L.length} match` : '') : 'No CRM data in this browser — fill fields manually';
+  $('#leadMeta').innerHTML = l ? `<b>${esc(l.stage)}</b> · ${esc(l.source)} · ${esc(l.segment)}${l.offer && l.offer !== 'custom' ? ' · ' + esc(l.offer) : ''}${l.email ? ' · ' + esc(l.email) : ' · <span style="color:var(--mid)">no email</span>'}${l.lastTouch ? ` · last touch ${esc(l.lastTouch)}` : ''}${l.nextAction ? `<br>Next: ${esc(l.nextAction)}${l.nextDate ? ' (' + esc(l.nextDate) + ')' : ''}` : ''}` : '';
+  $('#newLeadBox').hidden = !!l;
+  $('#btnLog').textContent = l ? 'Log touch in CRM' : 'Add to CRM & log touch';
+  const li = l && /^https?:\/\//i.test(l.linkedin || '') ? l.linkedin : '';
+  $('#btnLinkedIn').hidden = !li; if (li) $('#btnLinkedIn').href = li;
+}
+$('#leadSearch').addEventListener('input', renderLeadSelect);
+$('#leadSelect').addEventListener('change', e => { S.last.leadId = e.target.value; save(); renderLeadSelect(); renderVars(); renderOut(); });
+
+/* ---------------- UI: variables ---------------- */
+function renderVars() {
+  const used = new Set(usedVars(tpl)), a = autoVars(lead());
+  const keys = Object.keys(VARS).filter(k => !VARS[k].setting);
+  const order = [...keys.filter(k => used.has(k)), ...keys.filter(k => !used.has(k))];
+  $('#vars').innerHTML = order.map(k => { const d = VARS[k]; const manual = S.vars[k] != null ? S.vars[k] : ''; const isAuto = d.auto && a[k] && !manual; return `<label class="${d.wide ? 'wide ' : ''}${isAuto ? 'auto ' : ''}${used.has(k) ? '' : 'unused'}" title="{{${k}}}">${esc(d.label)}${used.has(k) ? '' : ' <span class="small">(not in this template)</span>'}<input data-var="${k}" value="${esc(manual)}" placeholder="${esc(isAuto ? a[k] + '  (from lead)' : d.ph || '')}"></label>`; }).join('') +
+    `<p class="muted small wide" style="margin:0">Your name / site / booking link come from ⚙ Your details${S.settings.yourName ? '' : ' — <b style="color:var(--mid)">not set yet</b>'}.</p>`;
+  $('#tplTip').innerHTML = `<b>${esc(tpl.name)}:</b> ${esc(tpl.tip || 'Custom template.')}`;
+}
+$('#vars').addEventListener('input', e => { const k = e.target.dataset.var; if (!k) return; S.vars[k] = e.target.value; save(); renderOut(); });
+$('#btnClearVars').addEventListener('click', () => { S.vars = {}; save(); renderVars(); renderOut(); });
+
+/* ---------------- UI: output ---------------- */
+function checks(subject, body) {
+  const out = [];
+  const left = [...new Set(((subject || '') + '\n' + body).match(/\{\{\s*\w+\s*\}\}/g) || [])];
+  if (left.length) out.push(['err', `Unfilled: ${left.join(', ')}`]);
+  if (/\[[^\]\n]{1,60}\]/.test(body)) out.push(['warn', 'Contains a [bracketed placeholder].']);
+  if (tpl.channel === 'email') {
+    const lower = (subject + ' ' + body).toLowerCase();
+    const hits = SPAM.filter(w => new RegExp('(^|[^a-z])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^a-z])').test(lower));
+    if (hits.length) out.push(['warn', `Spam-trigger words: ${hits.join(', ')} — rephrase.`]);
+    const caps = (body.match(/\b[A-Z]{4,}\b/g) || []).filter(w => !ACRONYMS.has(w));
+    if (caps.length) out.push(['warn', `ALL-CAPS words: ${[...new Set(caps)].join(', ')}`]);
+    if ((body.match(/!/g) || []).length > 1) out.push(['warn', 'More than one "!" — tone it down.']);
+    const links = (body.match(/https?:\/\/\S+/g) || []).length;
+    if (links > 2) out.push(['warn', `${links} links — keep cold emails to 1–2 links.`]);
+    const words = (body.trim().match(/\S+/g) || []).length;
+    if (tpl.category === 'cold' && words > 150) out.push(['warn', `${words} words — cold emails under ~125 words get more replies.`]);
+    if (!subject.trim()) out.push(['warn', 'Missing subject.']);
+    else if (subject.length > 60) out.push(['warn', `Subject is ${subject.length} chars — aim for under 60.`]);
+  }
+  if (tpl.limit && body.length > tpl.limit) out.push(['err', `${body.length}/${tpl.limit} characters — over the limit (verify current LinkedIn limit: ~200 free / ~300 Premium).`]);
+  return out;
+}
+function renderOut(force) {
+  const vals = values();
+  const isEmail = tpl.channel === 'email';
+  $('#subjWrap').hidden = !isEmail;
+  if (!edited || force) { $('#outSubject').value = render(tpl.subject || '', vals); $('#outBody').value = render(tpl.body, vals); edited = false; }
+  $('#editedFlag').hidden = !edited;
+  $('#outTitle').textContent = `Message · ${tpl.channel === 'linkedin' ? 'LinkedIn' : tpl.channel === 'dm' ? 'DM / WhatsApp' : 'Email'}`;
+  updateMeta();
+}
+function updateMeta() {
+  const subject = $('#outSubject').value, body = $('#outBody').value;
+  const words = (body.trim().match(/\S+/g) || []).length;
+  const over = tpl.limit && body.length > tpl.limit;
+  $('#counts').innerHTML = `<span>${words} words</span><span class="${over ? 'over' : ''}">${body.length}${tpl.limit ? ' / ' + tpl.limit : ''} chars${tpl.limit ? ' (verify current limit)' : ''}</span><span>~${Math.max(1, Math.round(words / 200 * 60))}s read</span>${tpl.channel === 'email' ? `<span>subject ${subject.length} chars</span>` : ''}`;
+  const c = checks(tpl.channel === 'email' ? subject : '', body);
+  $('#checks').innerHTML = c.length ? c.map(([k, m]) => `<div class="chk ${k}">${k === 'err' ? '✖' : '⚠'} ${esc(m)}</div>`).join('') : '<div class="chk ok">✓ Ready to send.</div>';
+  const l = lead(); const to = (l && l.email) || '';
+  $('#btnMail').href = `mailto:${encodeURIComponent(to).replace(/%40/g, '@')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  $('#btnMail').hidden = tpl.channel !== 'email';
+  $('#logHint').textContent = l ? `→ ${l.company || l.contact}: activity + next date${l.stage === 'prospect' ? ' + stage Contacted' : ''}` : 'creates a new CRM lead from the fields above';
+}
+$('#outBody').addEventListener('input', () => { edited = true; $('#editedFlag').hidden = false; updateMeta(); });
+$('#outSubject').addEventListener('input', () => { edited = true; $('#editedFlag').hidden = false; updateMeta(); });
+$('#btnReset').addEventListener('click', () => renderOut(true));
+function copyText(t, what) {
+  const done = () => toast(`${what} copied`);
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+  function fallback() { const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('Copy failed — select the text manually'); } ta.remove(); }
+}
+$('#btnCopy').addEventListener('click', () => copyText($('#outBody').value, 'Message'));
+$('#btnCopySubj').addEventListener('click', () => copyText($('#outSubject').value, 'Subject'));
+
+/* ---------------- log touch ---------------- */
+const ACT = {email: 'email', linkedin: 'linkedin', dm: 'dm'};
+function logTouch() {
+  const days = +$('#followDays').value || 3, t = today();
+  const body = $('#outBody').value, subject = $('#outSubject').value;
+  const left = (subject + body).match(/\{\{\s*\w+\s*\}\}/g);
+  if (left && !confirm(`The message still has ${left.length} unfilled variable(s). Log it anyway?`)) return;
+  let data = readCRM();
+  if (!data || !Array.isArray(data.leads)) data = {version: 1, leads: [], settings: {}};
+  let l = data.leads.find(x => x.id === S.last.leadId);
+  const vals = values();
+  if (!l) {
+    if (!vals.company && !vals.firstName) { toast('Pick a lead or fill at least company / first name'); return; }
+    l = {id: uid('L'), company: vals.company, contact: vals.firstName, role: vals.role, email: '', linkedin: '', website: vals.website ? (/^https?:/i.test(vals.website) ? vals.website : 'https://' + vals.website) : '', location: '', source: $('#newSource').value || 'other', segment: $('#newSegment').value || 'other', offer: 'custom', stage: 'prospect', value: 0, currency: 'INR', probability: 5, score: 0, nextAction: '', nextDate: '', lastTouch: '', tags: 'outreach-composer', notes: '', createdAt: t, updatedAt: t, activities: [], history: [{stage: 'prospect', at: new Date().toISOString()}]};
+    data.leads.push(l); S.last.leadId = l.id;
+  }
+  l.activities = Array.isArray(l.activities) ? l.activities : [];
+  l.activities.push({date: t, type: ACT[tpl.channel] || 'email', text: `Sent "${tpl.name}"${tpl.channel === 'email' && subject ? ' — ' + subject : ''}`});
+  l.lastTouch = t;
+  if (l.stage === 'prospect') { l.stage = 'contacted'; l.history = Array.isArray(l.history) ? l.history : []; l.history.push({stage: 'contacted', at: new Date().toISOString()}); const p = data.settings && data.settings.probs && data.settings.probs.contacted; l.probability = p != null ? p : 10; }
+  l.nextDate = addDays(t, days);
+  l.nextAction = tpl.next || `Follow up (${tpl.name})`;
+  l.updatedAt = t;
+  try { localStorage.setItem(CRM, JSON.stringify(data)); } catch (e) { toast('Could not write to the CRM'); return; }
+  S.log.push({date: t, leadId: l.id, company: l.company || l.contact, templateId: tpl.id, channel: tpl.channel});
+  if (S.log.length > 2000) S.log = S.log.slice(-2000);
+  save(true);
+  renderLeadSelect(); renderStats(); updateMeta();
+  toast(`Logged · ${l.company || l.contact} · follow up ${l.nextDate}`);
+}
+$('#btnLog').addEventListener('click', logTouch);
+function renderStats() {
+  const t = today(); const d = parseISO(t); const dow = (d.getDay() + 6) % 7; const mon = addDays(t, -dow);
+  $('#statToday').textContent = S.log.filter(x => x.date === t).length;
+  $('#statWeek').textContent = S.log.filter(x => x.date >= mon && x.date <= t).length;
+}
+
+/* ---------------- cadence ---------------- */
+const CAD = [[0, 'Initial message', null], [3, 'Follow-up #1 — bump (same thread)', 'fu-1'], [7, 'Follow-up #2 — value add', 'fu-2'], [14, 'Breakup — close the loop', 'fu-breakup'], [30, 'Move to nurture · re-engage at ~90 days', 'reengage-90']];
+function shiftWeekend(iso) { const d = parseISO(iso).getDay(); return d === 6 ? addDays(iso, 2) : d === 0 ? addDays(iso, 1) : iso; }
+function cadence() { const s = $('#cadStart').value || today(); return CAD.map(([n, label, id]) => { const raw = addDays(s, n), dt = shiftWeekend(raw); return {n, label: n === 0 ? `${label} (${tpl.name})` : label, id, date: dt, moved: dt !== raw}; }); }
+function renderCadence() {
+  const fmt = iso => parseISO(iso).toLocaleDateString('en-GB', {weekday: 'short', day: 'numeric', month: 'short'});
+  $('#cadence').innerHTML = cadence().map(c => `<li><b>D${c.n}</b><span>${esc(fmt(c.date))}${c.moved ? ' ↷' : ''}</span><span>${c.id ? `<button type="button" class="icon" data-cad="${c.id}" style="padding:0;color:var(--accent)">${esc(c.label)}</button>` : esc(c.label)}</span></li>`).join('');
+}
+$('#cadence').addEventListener('click', e => { const b = e.target.closest('[data-cad]'); if (b) selectTpl(b.dataset.cad); });
+$('#cadStart').addEventListener('change', renderCadence);
+$('#btnCopyCad').addEventListener('click', () => { const l = lead(); copyText(`Outreach cadence${l ? ' — ' + (l.company || l.contact) : ''}\n` + cadence().map(c => `D${c.n} · ${c.date} · ${c.label}`).join('\n'), 'Schedule'); });
+
+/* ---------------- custom templates ---------------- */
+let editingId = null;
+function openTplDialog(t, isNew) {
+  const f = $('#tplForm'); editingId = isNew ? null : t.id;
+  f.elements.name.value = isNew ? (t ? t.name + ' (copy)' : '') : t.name;
+  f.elements.channel.value = (t && t.channel) || 'email';
+  f.elements.category.value = (t && t.category) || 'custom';
+  f.elements.subject.value = (t && t.subject) || '';
+  f.elements.body.value = (t && t.body) || '';
+  f.elements.followDays.value = (t && t.followDays) || 3;
+  f.elements.limit.value = (t && t.limit) || 0;
+  f.elements.next.value = (t && t.next) || '';
+  $('#btnDelTpl').hidden = isNew;
+  $('#tplTitle').textContent = isNew ? 'New template' : 'Edit template';
+  $('#varHelp').innerHTML = Object.keys(VARS).map(k => `<code>{{${k}}}</code>`).join(' ');
+  $('#dlgTpl').showModal();
+}
+$('#btnNewTpl').addEventListener('click', () => { if (tpl && !tpl.custom && confirm(`Start from the current template "${tpl.name}"?\nOK = copy it · Cancel = blank`)) openTplDialog(tpl, true); else openTplDialog(null, true); });
+$('#tplForm').addEventListener('submit', e => {
+  e.preventDefault(); const f = $('#tplForm');
+  const t = {id: editingId || uid('C'), name: f.elements.name.value.trim() || 'Untitled', channel: f.elements.channel.value, category: f.elements.category.value, subject: f.elements.subject.value, body: f.elements.body.value, followDays: +f.elements.followDays.value || 3, limit: +f.elements.limit.value || 0, next: f.elements.next.value.trim(), tip: 'Your custom template.'};
+  const i = S.custom.findIndex(c => c.id === t.id); if (i >= 0) S.custom[i] = t; else S.custom.push(t);
+  save(true); $('#dlgTpl').close(); selectTpl(t.id); toast('Template saved');
+});
+$('#btnDelTpl').addEventListener('click', () => { if (!editingId || !confirm('Delete this template?')) return; S.custom = S.custom.filter(c => c.id !== editingId); save(true); $('#dlgTpl').close(); selectTpl(T[0].id); toast('Template deleted'); });
+$('#tplList').addEventListener('dblclick', e => { const b = e.target.closest('[data-tpl]'); if (!b) return; const t = tplById(b.dataset.tpl); if (t.custom) openTplDialog(t, false); else openTplDialog(t, true); });
+
+/* ---------------- settings / io ---------------- */
+$('#btnSettings').addEventListener('click', () => { const f = $('#setForm'); ['yourName', 'yourSite', 'calLink'].forEach(k => f.elements[k].value = S.settings[k] || ''); f.elements.followDays.value = String(S.settings.followDays || 3); $('#dlgSettings').showModal(); });
+$('#setForm').addEventListener('submit', e => { e.preventDefault(); const f = $('#setForm'); ['yourName', 'yourSite', 'calLink'].forEach(k => S.settings[k] = f.elements[k].value.trim()); S.settings.followDays = +f.elements.followDays.value || 3; save(true); $('#dlgSettings').close(); renderVars(); renderOut(); toast('Saved'); });
+$('#btnExport').addEventListener('click', () => { download(`outreach-backup-${today()}.json`, JSON.stringify(S, null, 2), 'application/json'); toast('Backup downloaded'); });
+$('#btnImport').addEventListener('click', () => $('#fileJson').click());
+$('#fileJson').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { try { const d = JSON.parse(t); if (!d || !('custom' in d || 'settings' in d)) throw new Error('not an outreach backup'); S = {version: 1, settings: Object.assign({}, DEF.settings, d.settings), custom: d.custom || [], log: d.log || [], last: Object.assign({}, DEF.last, d.last), vars: d.vars || {}}; save(true); init(); toast('Restored'); } catch (err) { toast('Restore failed: ' + err.message); } }); e.target.value = ''; });
+$$('dialog [data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
+$$('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+window.addEventListener('storage', e => { if (e.key === CRM) { renderLeadSelect(); renderVars(); if (!edited) renderOut(); } if (e.key === KEY) { S = load(); init(); } });
+
+function init() {
+  const SRC = ['warm-network','referral','cultus-network','linkedin','cold-email','upwork','contra','talent-network','hn-thread','reddit','community','agency','inbound','content','event','other'];
+  const SEG = ['d2c-shopify','ai-mvp-rescue','internal-tools','migration','agency-partner','startup-mvp','other'];
+  $('#newSource').innerHTML = SRC.map(s => `<option>${s}</option>`).join(''); $('#newSource').value = 'cold-email';
+  $('#newSegment').innerHTML = SEG.map(s => `<option>${s}</option>`).join(''); $('#newSegment').value = 'other';
+  $('#cadStart').value = today();
+  tpl = tplById(S.last.templateId);
+  $('#followDays').value = String(tpl.followDays || S.settings.followDays || 3);
+  renderLib(); renderLeadSelect(); renderVars(); renderOut(true); renderCadence(); renderStats();
+}
+init();
+})();
+</script>
+</body>
+</html>
