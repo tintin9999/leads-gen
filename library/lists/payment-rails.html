@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payment rails: getting paid from abroad (and at home) as an India-based freelancer · Freelance OS</title>
+<meta name="description" content="As of Nov 2026. Fees change often and several figures come from competitors' comparison pages (marked ⚠). Get a live quote before choosing. INR figures use the repo-wide planning r">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="lib-listspayment-railsmd" data-kind="library">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../../index.html#memos">Memos</a>
+    <a href="../../index.html#tools">Tools</a>
+    <a href="../../index.html#library">Templates</a>
+    <a href="../../index.html#lists">Lists</a>
+    <a href="../../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="Library"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../../index.html">Home</a><a class="nav-link" href="../../index.html#memos">Memos</a><a class="nav-link" href="../../index.html#tools">Tools</a><a class="nav-link" href="../../index.html#library">Templates</a><a class="nav-link" href="../../index.html#lists">Lists</a></div><div class="nav-group"><a class="nav-link" href="../../index.html#memos">← All memos</a><a class="nav-link" href="../../index.html#tools">Tools</a></div><div class="nav-group"><div class="nav-group-title">Templates · Contracts</div><a class="nav-link" href="../../library/templates/contracts/change-request.html"><span>Change Request (CR) Form</span></a><a class="nav-link" href="../../library/templates/contracts/clause-library.html"><span>Clause Library — pick, adapt, defend</span></a><a class="nav-link" href="../../library/templates/contracts/msa-india.html"><span>Master Services Agreement — India</span></a><a class="nav-link" href="../../library/templates/contracts/msa-international.html"><span>Master Services Agreement — International Clients (USD)</span></a><a class="nav-link" href="../../library/templates/contracts/mutual-nda.html"><span>Mutual Non-Disclosure Agreement</span></a><a class="nav-link" href="../../library/templates/contracts/one-page-agreement.html"><span>One-Page Project Agreement (small jobs)</span></a><a class="nav-link" href="../../library/templates/contracts/red-flag-clauses.html"><span>Red-Flag Clauses — redlining a client's contract</span></a><a class="nav-link" href="../../library/templates/contracts/retainer-agreement.html"><span>Care Plan / Retainer Agreement</span></a><a class="nav-link" href="../../library/templates/contracts/sow-template.html"><span>Statement of Work (SOW)</span></a><a class="nav-link" href="../../library/templates/contracts/subcontractor-white-label-agreement.html"><span>Subcontractor / White-Label Agreement (you ↔ an agency)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Delivery</div><a class="nav-link" href="../../library/templates/delivery/ai-usage-policy.html"><span>AI Usage Policy</span></a><a class="nav-link" href="../../library/templates/delivery/change-request-email.html"><span>Change Request — Email &amp; Chat Templates</span></a><a class="nav-link" href="../../library/templates/delivery/client-onboarding-questionnaire.html"><span>Client Onboarding Questionnaire</span></a><a class="nav-link" href="../../library/templates/delivery/credentials-and-access-policy.html"><span>Credentials &amp; Access Policy</span></a><a class="nav-link" href="../../library/templates/delivery/handover-checklist.html"><span>Handover Checklist</span></a><a class="nav-link" href="../../library/templates/delivery/kickoff-agenda.html"><span>Kickoff Meeting — Agenda &amp; Recap</span></a><a class="nav-link" href="../../library/templates/delivery/payment-reminder-ladder.html"><span>Payment Reminder Ladder</span></a><a class="nav-link" href="../../library/templates/delivery/project-closeout.html"><span>Project Closeout — testimonial, case study, referral, retainer</span></a><a class="nav-link" href="../../library/templates/delivery/scope-creep-responses.html"><span>Scope-Creep Responses — what to say in the moment</span></a><a class="nav-link" href="../../library/templates/delivery/weekly-update.html"><span>Weekly Update (send every Friday)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Finance</div><a class="nav-link" href="../../library/templates/finance/ca-engagement-brief.html"><span>CA engagement brief: hiring and using a Chartered Accountant</span></a><a class="nav-link" href="../../library/templates/finance/client-tax-faq.html"><span>Client tax FAQ: copy-paste answers</span></a><a class="nav-link" href="../../library/templates/finance/invoice-checklist.html"><span>Invoice checklist: mandatory fields for every invoice type (India)</span></a><a class="nav-link" href="../../library/templates/finance/monthly-money-close.html"><span>Monthly money close: 30 minutes, first working day of the month</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Outreach</div><a class="nav-link" href="../../library/templates/outreach/agency-partnership.html"><span>Agency Partnership Templates (white-label and overflow)</span></a><a class="nav-link" href="../../library/templates/outreach/cold-email.html"><span>Cold Email Templates (signal-based, one offer per email)</span></a><a class="nav-link" href="../../library/templates/outreach/community-posts.html"><span>Community Post Templates (HN, Reddit, Indie Hackers, Discord)</span></a><a class="nav-link" href="../../library/templates/outreach/follow-ups.html"><span>Follow-up Sequences, Breakup Email, and 90-Day Re-engagement</span></a><a class="nav-link" href="../../library/templates/outreach/linkedin.html"><span>LinkedIn Templates — notes, follow-ups, comment-first</span></a><a class="nav-link" href="../../library/templates/outreach/referral-partner.html"><span>Referral Partner Templates (10% finder's fee)</span></a><a class="nav-link" href="../../library/templates/outreach/upwork-and-marketplaces.html"><span>Upwork and Marketplace Templates</span></a><a class="nav-link" href="../../library/templates/outreach/warm-network.html"><span>Warm Network Templates (announcement + 6 DMs)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Portfolio &amp; brand</div><a class="nav-link" href="../../library/templates/portfolio/case-studies.html"><span>Case study drafts</span></a><a class="nav-link" href="../../library/templates/portfolio/content-calendar.html"><span>Content calendar: 30 post ideas + a 4-week plan</span></a><a class="nav-link" href="../../library/templates/portfolio/github-profile-readme.html"><span>GitHub profile README</span></a><a class="nav-link" href="../../library/templates/portfolio/linkedin-profile.html"><span>LinkedIn profile kit</span></a><a class="nav-link" href="../../library/templates/portfolio/spec-projects.html"><span>Spec project briefs</span></a><a class="nav-link" href="../../library/templates/portfolio/website-copy.html"><span>Website copy: one page first</span></a></div><div class="nav-group"><div class="nav-group-title">Lists &amp; resources</div><a class="nav-link" href="../../library/lists/bridge-income.html"><span>Bridge Income: Fund the Runway Without Killing the Pipeline (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/business-tool-stack.html"><span>Business tool stack</span></a><a class="nav-link" href="../../library/lists/communities.html"><span>Communities: Online and Pune/India Offline (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/compliance-calendar.html"><span>Compliance calendar: Pune-based freelancer (income tax, GST, PT, FEMA)</span></a><a class="nav-link" href="../../library/lists/lead-sources.html"><span>Lead Sources: Where Buyers Show Up, and the Search Strings That Find Them (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/market-rates.html"><span>Market Rates — React / Next.js / TypeScript freelancing (as of Nov 2026)</span></a><a class="nav-link active" href="../../library/lists/payment-rails.html"><span>Payment rails: getting paid from abroad (and at home) as an India-based freelancer</span></a><a class="nav-link" href="../../library/lists/platforms.html"><span>Platforms &amp; Talent Networks: Where an India-Based Product Engineer Gets Paid (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/reading-list.html"><span>Reading list: the business side, fast</span></a></div><div class="nav-group"><div class="nav-group-title">Docs</div><a class="nav-link" href="../../library/scripts/README.html"><span>Prospecting scripts</span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">List / resource</div>
+    <h1>Payment rails: getting paid from abroad (and at home) as an India-based freelancer</h1>
+    <div class="doc-meta"><span><code>lists/payment-rails.md</code></span><span class="sep">·</span><span data-progress></span></div>
+    <div class="doc-actions"><button class="btn sm primary" type="button" data-action="copy-source">Copy as Markdown</button><a class="btn sm" href="../../lists/payment-rails.md">Open .md source</a><button class="btn sm" type="button" data-action="print">Print / PDF</button></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#tldr-picks">TL;DR picks</a><a href="#comparison-receiving-2000-190000">Comparison: receiving $2,000 (≈ ₹1,90,000)</a><a href="#what-makes-a-rail-good-use-this-to-judge-any-new-one">What makes a rail &amp;quot;good&amp;quot; (use this to judge any new one)</a><a href="#rail-by-rail">Rail-by-rail</a><a href="#setup-steps-45-minutes-do-once">Setup steps (45 minutes, do once)</a><a href="#payment-instructions-block-copy-into-invoices">Payment instructions block (copy into invoices)</a><a href="#documents-codes-one-line-each">Documents &amp; codes, one line each</a><a href="#red-flags-walk-away">Red flags (walk away)</a><a href="#sources">Sources</a></details>
+  <article class="prose"><p><em>As of Nov 2026. Fees change often and several figures come from competitors' comparison pages (marked ⚠). Get a live quote before choosing. INR figures use the repo-wide planning rate <strong>₹95 = $1</strong>; check the live rate.</em></p>
+<blockquote><p><strong>BLUF.</strong> Use one <strong>RBI-authorised cross-border payment aggregator</strong> (PA-CB) that gives clients <em>local</em> US/UK/EU account details, charges a flat or low fee with no FX markup, and issues a <strong>free FIRA per payment</strong>. Today that means <strong>Skydo</strong> or <strong>BriskPe</strong>, with <strong>Razorpay MoneySaver</strong> as backup. That costs about <strong>1% (≈₹2,000 on $2,000)</strong>. PayPal costs about <strong>8–9% (≈₹16,000)</strong> on the same payment. Use bank SWIFT only for big invoices at a negotiated FX rate. For marketplaces, use the platform's own INR withdrawal or Payoneer. Indian clients pay by NEFT/IMPS/RTGS. Tax and GST context: <a href="../../memos/03-tax-and-money.html#payment-rails">Tax &amp; Money → payment rails</a>.</p></blockquote>
+<h2 id="tldr-picks">TL;DR picks</h2>
+<div class="table-wrap"><table><thead><tr><th>Situation</th><th>Use</th><th>Why</th></tr></thead><tbody><tr><td>Direct foreign client, invoice &lt; $10k</td><td><strong>Skydo</strong> or <strong>BriskPe</strong> (compare live)</td><td>Flat fee, no FX markup, free e-FIRA, local account details</td></tr><tr><td>Backup / Razorpay fan</td><td><strong>Razorpay MoneySaver Export Account</strong></td><td>1% + GST, no FX markup, FIRA included</td></tr><tr><td>Invoice ≥ $10k</td><td>Skydo 0.3% tier <strong>or</strong> bank SWIFT at a pre-negotiated margin</td><td>Flat fees stop scaling; banks negotiate on size</td></tr><tr><td>Upwork / Contra / Toptal payouts</td><td>Platform's direct INR withdrawal <strong>or</strong> Payoneer</td><td>Test once and keep whichever nets more</td></tr><tr><td>Client insists on card/PayPal</td><td>Razorpay international cards or a PayPal invoice, <strong>with the fee priced in</strong></td><td>Don't absorb 5–9%</td></tr><tr><td>Indian client</td><td>NEFT/IMPS/RTGS to business account; UPI for small amounts</td><td>Free, traceable, TDS-friendly</td></tr></tbody></table></div>
+<h2 id="comparison-receiving-2000-190000">Comparison: receiving $2,000 (≈ ₹1,90,000)</h2>
+<div class="table-wrap"><table><thead><tr><th>Rail</th><th>Published fee</th><th>FX markup</th><th>All-in ≈</th><th>≈ ₹ lost</th><th>Settles</th><th>FIRA</th><th>Notes</th></tr></thead><tbody><tr><td><strong>Skydo</strong></td><td>$19 + 18% GST (≤$2k); $29 ($2k–10k); 0.3% (&gt;$10k)</td><td>0 (claims mid-market)</td><td><strong>1.1%</strong></td><td>₹2,130</td><td>~1–2 days</td><td>Free e-FIRA</td><td>US/UK/EU/CA/AU virtual accounts; EDF helper tool</td></tr><tr><td><strong>BriskPe</strong> ⚠</td><td>$16 + GST (≤$2k); $25 (≤$10k); 0.25% above</td><td>0 claimed</td><td>0.9–1%</td><td>₹1,790</td><td>~1–2 days</td><td>Free</td><td>RBI PA-CB authorisation (Dec 2025) per BriskPe</td></tr><tr><td><strong>Razorpay MoneySaver</strong></td><td>1% + 18% GST (₹1,000 minimum on small payments)</td><td>0 claimed</td><td>1.2%</td><td>₹2,240</td><td>~T+1–2</td><td>Free</td><td>Marketed to freelancers since 2024</td></tr><tr><td><strong>Xflow</strong></td><td>~1% or flat plans (custom above $10k/mo)</td><td>Low</td><td>1–1.2%</td><td>₹1,900–2,280</td><td>Next day</td><td>e-FIRA</td><td>Get a quote</td></tr><tr><td><strong>Wise Business (India)</strong> ⚠</td><td>~1.5–1.8% + ~$2 FIRA (third-party estimates)</td><td>Mid-market</td><td>1.6–1.9%</td><td>₹3,050–3,610</td><td>~1–2 days</td><td>e-FIRC</td><td>Onboards Indian sole traders/freelancers; personal accounts reportedly lost receiving in Apr 2026</td></tr><tr><td><strong>Payoneer</strong></td><td>1% (ACH receive) + up to ~1–2% conversion/withdrawal; $29.95/yr if &lt;$6k received in 12 months</td><td>~1.5–2%</td><td>~3%</td><td>₹5,700</td><td>~1–3 days</td><td>On request</td><td>Best for marketplace payouts</td></tr><tr><td><strong>Bank SWIFT</strong></td><td>Sender $15–50 + intermediary $10–30 + your bank ₹0–500</td><td>0.5–2%</td><td>2–4%</td><td>₹3,800–7,600</td><td>1–5 days</td><td>From your bank</td><td>Ask the client to send with &quot;OUR&quot; charges</td></tr><tr><td><strong>PayPal</strong></td><td>4.40% + fixed fee, + 18% GST on fees</td><td>~3–4%</td><td><strong>8–9%</strong></td><td>₹15,200–17,100</td><td>1–3 days</td><td>Monthly</td><td>Last resort</td></tr><tr><td><strong>Stripe India</strong></td><td>Invite-only for new Indian accounts since May 2024</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Not an option unless invited</td></tr></tbody></table></div>
+<h2 id="what-makes-a-rail-good-use-this-to-judge-any-new-one">What makes a rail &quot;good&quot; (use this to judge any new one)</h2>
+<ul class="checklist"><li><strong>RBI-authorised</strong> as a Payment Aggregator – Cross Border (PA-CB), or a bank.</li><li>Gives clients <strong>local account details</strong> (US ACH/wire, UK FPS, EU SEPA), so they pay a cheap domestic transfer, not an international wire.</li><li><strong>Flat or low % fee</strong> and <strong>0 FX markup</strong>. Compare against the mid-market rate on the same minute.</li><li><strong>Free FIRA per payment</strong>, downloadable, with your purpose code on it.</li><li>Lets you set the <strong>purpose code</strong> (P0802 / P0807) and supports the new <strong>EDF</strong> data flow.</li><li>Settles to <strong>your Indian bank account in your name</strong> within 1–2 business days.</li><li>Clear chargeback/reversal policy, especially if it offers card links.</li></ul>
+<h2 id="rail-by-rail">Rail-by-rail</h2>
+<h3 id="skydo">Skydo</h3>
+<ul><li><strong>What:</strong> Indian cross-border collections for freelancers and SMBs. Virtual accounts in major currencies; converts and settles INR to your bank.</li><li><strong>Fees:</strong> $19 per invoice up to $2,000, $29 for $2,001–10,000, 0.3% above $10,000, plus 18% GST on the fee. Payment links and ACH debit are separate products (~2%, $9 minimum).</li><li><strong>FIRA:</strong> free, per transaction (Skydo cites 24–72 hours).</li><li><strong>Setup (≈30 min):</strong> sign up → PAN + Aadhaar KYC → add your bank account → describe your services (software development) → get account details per currency → share them on invoices.</li><li><strong>Watch-outs:</strong> a flat fee hurts on small invoices (a $200 invoice loses about 11%), so batch small invoices monthly. Confirm KYC requirements; GST registration is not needed below the threshold.</li><li><strong>Link:</strong> <a href="https://www.skydo.com" target="_blank" rel="noopener">https://www.skydo.com</a></li></ul>
+<h3 id="briskpe">BriskPe</h3>
+<ul><li><strong>What:</strong> cross-border collections, similar model to Skydo.</li><li><strong>Fees ⚠:</strong> a competitor's page lists $16 (≤$2k), $25 (≤$10k), 0.25% above, plus GST, no FX markup and free FIRA. Confirm on BriskPe's site.</li><li><strong>Setup:</strong> KYC (PAN, Aadhaar, bank). Business documents (GST/Udyam) may be asked for proprietorships.</li><li><strong>Link:</strong> <a href="https://www.briskpe.com" target="_blank" rel="noopener">https://www.briskpe.com</a></li></ul>
+<h3 id="razorpay-moneysaver-export-account">Razorpay MoneySaver Export Account</h3>
+<ul><li><strong>What:</strong> virtual foreign-currency accounts for exporters and freelancers from Razorpay.</li><li><strong>Fees:</strong> about 1% + 18% GST, no FX markup, with a ₹1,000 minimum reported for payments under about ₹1L.</li><li><strong>FIRA:</strong> included at no extra cost.</li><li><strong>Setup:</strong> Razorpay account → international collections / MoneySaver → KYC → account details.</li><li><strong>Watch-outs:</strong> a percentage fee scales with invoice size. Above about $2,900, Skydo's flat $29 is cheaper ($34.22 with GST against 1.18% of the invoice).</li><li><strong>Link:</strong> <a href="https://razorpay.com/accept-international-payments/money-saver/" target="_blank" rel="noopener">https://razorpay.com/accept-international-payments/money-saver/</a></li></ul>
+<h3 id="xflow">Xflow</h3>
+<ul><li><strong>What:</strong> cross-border collections, next-day payouts and e-FIRA, with plan-based pricing for SMB exporters.</li><li><strong>Fees:</strong> about 1% or a flat plan. Custom pricing above $10k/month. Ask for a quote with your expected volume.</li><li><strong>Link:</strong> <a href="https://www.xflowpay.com/pricing" target="_blank" rel="noopener">https://www.xflowpay.com/pricing</a></li></ul>
+<h3 id="wise-business-india">Wise Business (India)</h3>
+<ul><li><strong>What:</strong> Wise launched international account details for Indian businesses in Feb 2026 (USD, GBP, EUR, AUD, NZD, SGD, CAD, HUF), converting to INR.</li><li><strong>Eligibility:</strong> Wise onboards <strong>sole traders/freelancers</strong> (PAN and bank account in your own name, no proof of business needed) and <strong>sole proprietorships</strong> (GSTIN/Udyam/IEC as proof). The PAN is used for tax residency and the e-FIRC.</li><li><strong>Fees ⚠:</strong> third parties cite about 1.5–1.8% plus about $2 per FIRA. Check Wise's India pricing page.</li><li><strong>Watch-out:</strong> a competitor reports Wise <em>personal</em> accounts in India stopped receiving and holding funds from 5 Apr 2026. Use a business profile.</li><li><strong>Link:</strong> <a href="https://wise.com/help/articles/6Kpm9pXlJW79OGAktSnHos" target="_blank" rel="noopener">https://wise.com/help/articles/6Kpm9pXlJW79OGAktSnHos</a></li></ul>
+<h3 id="payoneer">Payoneer</h3>
+<ul><li><strong>What:</strong> global receiving accounts; strong with marketplaces.</li><li><strong>Fees:</strong> 1% to receive via ACH (US) or from UK/EU bank accounts; conversion/withdrawal to INR up to about 1–2% depending on route; <strong>$29.95 annual fee</strong> if you receive under $6,000 in 12 months. Realistic all-in is about 3%.</li><li><strong>Best for:</strong> marketplace payouts where the platform pays Payoneer for free.</li><li><strong>Link:</strong> <a href="https://payoneer.com/fees" target="_blank" rel="noopener">https://payoneer.com/fees</a></li></ul>
+<h3 id="paypal">PayPal</h3>
+<ul><li><strong>What:</strong> what clients reach for by habit.</li><li><strong>Fees:</strong> 4.40% + fixed fee for international receipts, 18% GST on PayPal's fees, plus about 3–4% currency conversion spread. Realistically 8–9% all-in.</li><li><strong>If you must:</strong> add a &quot;PayPal +6%&quot; line, withdraw promptly and download the monthly FIRA.</li><li><strong>Link:</strong> <a href="https://www.paypal.com/in/webapps/mpp/merchant-fees" target="_blank" rel="noopener">https://www.paypal.com/in/webapps/mpp/merchant-fees</a></li></ul>
+<h3 id="direct-bank-swift">Direct bank SWIFT</h3>
+<ul><li><strong>What:</strong> the client wires money to your Indian bank account (SWIFT/BIC + account number).</li><li><strong>Costs:</strong> sender fee $15–50 (client side), intermediary/correspondent deductions $10–30, your bank's inward charge ₹0–500 + GST, and an FX spread of 0.5–2% that you can negotiate on large amounts.</li><li><strong>Tips:</strong> ask the client to choose <strong>&quot;OUR&quot;</strong> charges so you receive the full amount. Give the exact beneficiary name as on the bank account and your bank's SWIFT code. Request a FIRA/FIRC from the bank for each credit, and state the purpose code when the bank calls or emails.</li><li><strong>Best for:</strong> invoices over $10k with a pre-agreed rate (&quot;card rate minus X paise&quot;).</li></ul>
+<h3 id="stripe-india">Stripe (India)</h3>
+<ul><li>Invite-only for new Indian accounts since May 2024, and still not open for general sign-up as of this writing. Use Razorpay for cards instead.</li><li><strong>Link:</strong> <a href="https://support.stripe.com/questions/stripe-accounts-are-invite-only-in-india" target="_blank" rel="noopener">https://support.stripe.com/questions/stripe-accounts-are-invite-only-in-india</a></li></ul>
+<h3 id="marketplace-payouts-upwork-contra-toptal-arc">Marketplace payouts (Upwork, Contra, Toptal, Arc)</h3>
+<ul><li><strong>Upwork:</strong> variable 0–15% service fee per contract <strong>plus 18% GST on that fee</strong> for India-based freelancers. Compare its direct-to-local-bank (INR) withdrawal with Payoneer on a real payout.</li><li><strong>Others:</strong> each has its own payout options. Check whether it issues a FIRA or whether your receiving bank/aggregator does.</li><li>Platform fees are a cost of sale. Your FIRA should show the <strong>gross amount</strong> that reached India.</li></ul>
+<h3 id="domestic-indian-clients">Domestic (Indian clients)</h3>
+<ul><li><strong>NEFT/IMPS/RTGS</strong> to the business account: free and the default. Put account name, number, IFSC and UPI ID on every invoice.</li><li><strong>UPI:</strong> fine for small amounts. Use the business account's UPI ID.</li><li><strong>Razorpay payment links:</strong> about 2% + GST for cards/netbanking. Use them only if the client asks, and price the fee in.</li></ul>
+<h2 id="setup-steps-45-minutes-do-once">Setup steps (45 minutes, do once)</h2>
+<ol><li>Pick a <strong>primary</strong> rail (Skydo or BriskPe) and a <strong>backup</strong> (Razorpay MoneySaver).</li><li>Complete KYC on both: PAN, Aadhaar, and your <strong>business-only</strong> bank account.</li><li>Set your default <strong>purpose code</strong>: P0802 software consultancy/implementation (or P0807 if your bank/CA prefers it for remote development). Use it consistently.</li><li>Generate local account details (USD at minimum, plus GBP/EUR if relevant).</li><li>Paste the details into the <a href="../../tools/invoice-generator.html">Invoice Generator</a> payment block.</li><li>Run a <strong>test payment</strong> (e.g. $50 from a friend abroad, or your first small invoice) and check the fee, the rate you got against mid-market, and that the FIRA arrived.</li><li>Save each FIRA as <code>Receipts-FIRA/PK-26-27-001-FIRA.pdf</code> (named after the invoice).</li></ol>
+<h2 id="payment-instructions-block-copy-into-invoices">Payment instructions block (copy into invoices)</h2>
+<pre><code>PAYMENT DETAILS
+Preferred: USD bank transfer (ACH or domestic wire), no conversion on your side
+  Beneficiary:   {{YOUR_NAME}}
+  Bank:          {{RAIL_BANK_NAME}}  (collected via {{RAIL}})
+  Routing (ABA): {{ROUTING_NUMBER}}    Account: {{ACCOUNT_NUMBER}}   Type: Checking
+  Reference:     {{INVOICE_NUMBER}}
+GBP (UK FPS):    Sort code {{SORT_CODE}}  Account {{UK_ACCOUNT}}
+EUR (SEPA):      IBAN {{IBAN}}  BIC {{BIC}}
+International wire (SWIFT): please choose &quot;OUR&quot; charges so the full amount arrives.
+Terms: due in 7 days. Purpose: software development services (export of services from India).</code></pre>
+<h2 id="documents-codes-one-line-each">Documents &amp; codes, one line each</h2>
+<ul><li><strong>FIRA:</strong> proof of a foreign inward remittance. Get one per payment and file it against the invoice.</li><li><strong>Purpose code:</strong> P0802 (software consultancy/implementation) as the default; P0807 (off-site software exports) if your bank classifies it so. Never &quot;family maintenance&quot; or &quot;gift&quot;.</li><li><strong>Realisation:</strong> within <strong>9 months</strong> of the invoice date (12 if invoiced in INR) under the FEMA 2026 regulations.</li><li><strong>EDF:</strong> resident individuals are <em>deemed</em> to have filed once they give the bank the remittance details (RBI amendment of 2 Nov 2026). Firms and companies get the same treatment for amounts up to ₹10L.</li><li><strong>W-8BEN:</strong> for US clients; PAN as foreign TIN. See <a href="../../memos/03-tax-and-money.html#foreign-income">Tax &amp; Money</a>.</li></ul>
+<h2 id="red-flags-walk-away">Red flags (walk away)</h2>
+<ul><li>A client wants to pay by <strong>cheque from abroad</strong>, crypto, gift cards, or &quot;overpay so you can refund the difference to our vendor&quot;.</li><li>Payment from a third party you never contracted with, or from a country that doesn't match the client.</li><li>A &quot;platform&quot; asks you to pay a fee to <em>release</em> your payment.</li><li>Pressure to use a personal account or label the payment as a gift.</li><li>More: <a href="../../memos/11-risks-and-scams.html">Risks &amp; Scams</a>.</li></ul>
+<h2 id="sources">Sources</h2>
+<ol><li><a href="https://www.xflowpay.com/blog/skydo-fees" target="_blank" rel="noopener">Skydo fees breakdown (Xflow blog)</a> and <a href="https://www.skydo.com/compare/skydo-vs-payoneer" target="_blank" rel="noopener">Skydo vs Payoneer (Skydo)</a>: Skydo $19/$29/0.3% + GST, free FIRA</li><li><a href="https://www.skydo.com/compare/briskpe-pricing" target="_blank" rel="noopener">BriskPe pricing (Skydo comparison page)</a>: $16/$25/0.25% + GST (competitor-published ⚠)</li><li><a href="https://razorpay.com/accept-international-payments/money-saver/" target="_blank" rel="noopener">Razorpay MoneySaver Export Account</a> and <a href="https://www.xflowpay.com/blog/razorpay-international-payment-gateway-charges" target="_blank" rel="noopener">Xflow on Razorpay charges</a>: 1% + GST, no FX markup</li><li><a href="https://www.xflowpay.com/pricing" target="_blank" rel="noopener">Xflow pricing</a></li><li><a href="https://www.wise.com/help/articles/6Kpm9pXlJW79OGAktSnHos/how-to-verify-your-indian-business-to-receive-payments" target="_blank" rel="noopener">Wise Help: verify your Indian business to receive payments</a>, <a href="https://newsroom.wise.com/en-CAS/249593-wise-doubles-down-in-india-announces-new-hub-in-hyderabad-and-launches-international-account-details-for-businesses-to-get-paid-from-a/" target="_blank" rel="noopener">Wise newsroom, Feb 2026</a> and <a href="https://www.winvesta.in/blog/businesses/wise-vs-winvesta-which-is-actually-better-for-indian-freelancers-in-2026" target="_blank" rel="noopener">Winvesta: Wise vs Winvesta 2026</a> (personal-account change ⚠)</li><li><a href="https://payoneer.com/fees" target="_blank" rel="noopener">Payoneer fees</a> and <a href="https://payoneer.com/en-in/about/pricing" target="_blank" rel="noopener">Payoneer India pricing</a></li><li><a href="https://www.paypal.com/in/webapps/mpp/merchant-fees" target="_blank" rel="noopener">PayPal India merchant fees</a> and <a href="https://skydo.com/blog/paypal-transaction-fees-india" target="_blank" rel="noopener">Skydo on PayPal charges</a> (conversion spread estimate ⚠)</li><li><a href="https://support.stripe.com/questions/stripe-accounts-are-invite-only-in-india" target="_blank" rel="noopener">Stripe Support: invite-only in India</a></li><li><a href="https://support.upwork.com/hc/en-us/articles/360041114713" target="_blank" rel="noopener">Upwork Help: GST for India-based freelancers</a>: 18% GST on Upwork's fee</li><li><a href="https://www.skydo.com/rbi-purpose-codes/P0802-software-consultancy-and-implementation" target="_blank" rel="noopener">Purpose code P0802 (Skydo)</a> and <a href="https://razorpay.com/blog/p0807-purpose-code-software-exports/" target="_blank" rel="noopener">P0807 (Razorpay)</a></li><li><a href="https://www.winvesta.in/blog/businesses/firc-vs-fira-vs-e-brc-which-proof-of-foreign-payment-do-you-actually-need" target="_blank" rel="noopener">FIRC vs FIRA vs e-BRC (Winvesta)</a></li><li><a href="https://taxguru.in/rbi/rbi-relaxes-edf-filing-rs-10-lakh-limit-service-exporters-fema-2026.html" target="_blank" rel="noopener">RBI relaxes EDF filing (TaxGuru)</a> and <a href="https://taxguru.in/rbi/rbi-fema-export-rules-2026-9-month-realisation-12-month-inr-deadline.html" target="_blank" rel="noopener">FEMA 2026: 9-month realisation (TaxGuru)</a></li></ol></article>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#tldr-picks">TL;DR picks</a><a href="#comparison-receiving-2000-190000">Comparison: receiving $2,000 (≈ ₹1,90,000)</a><a href="#what-makes-a-rail-good-use-this-to-judge-any-new-one">What makes a rail &amp;quot;good&amp;quot; (use this to judge any new one)</a><a href="#rail-by-rail">Rail-by-rail</a><a href="#setup-steps-45-minutes-do-once">Setup steps (45 minutes, do once)</a><a href="#payment-instructions-block-copy-into-invoices">Payment instructions block (copy into invoices)</a><a href="#documents-codes-one-line-each">Documents &amp; codes, one line each</a><a href="#red-flags-walk-away">Red flags (walk away)</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script type="text/markdown" id="md-source"># Payment rails: getting paid from abroad (and at home) as an India-based freelancer
+
+*As of Nov 2026. Fees change often and several figures come from competitors' comparison pages (marked ⚠). Get a live quote before choosing. INR figures use the repo-wide planning rate **₹95 = $1**; check the live rate.*
+
+> **BLUF.** Use one **RBI-authorised cross-border payment aggregator** (PA-CB) that gives clients *local* US/UK/EU account details, charges a flat or low fee with no FX markup, and issues a **free FIRA per payment**. Today that means **Skydo** or **BriskPe**, with **Razorpay MoneySaver** as backup. That costs about **1% (≈₹2,000 on $2,000)**. PayPal costs about **8–9% (≈₹16,000)** on the same payment. Use bank SWIFT only for big invoices at a negotiated FX rate. For marketplaces, use the platform's own INR withdrawal or Payoneer. Indian clients pay by NEFT/IMPS/RTGS. Tax and GST context: [Tax & Money → payment rails](../memos/03-tax-and-money.html#payment-rails).
+
+## TL;DR picks
+
+| Situation | Use | Why |
+|---|---|---|
+| Direct foreign client, invoice < $10k | **Skydo** or **BriskPe** (compare live) | Flat fee, no FX markup, free e-FIRA, local account details |
+| Backup / Razorpay fan | **Razorpay MoneySaver Export Account** | 1% + GST, no FX markup, FIRA included |
+| Invoice ≥ $10k | Skydo 0.3% tier **or** bank SWIFT at a pre-negotiated margin | Flat fees stop scaling; banks negotiate on size |
+| Upwork / Contra / Toptal payouts | Platform's direct INR withdrawal **or** Payoneer | Test once and keep whichever nets more |
+| Client insists on card/PayPal | Razorpay international cards or a PayPal invoice, **with the fee priced in** | Don't absorb 5–9% |
+| Indian client | NEFT/IMPS/RTGS to business account; UPI for small amounts | Free, traceable, TDS-friendly |
+
+## Comparison: receiving $2,000 (≈ ₹1,90,000)
+
+| Rail | Published fee | FX markup | All-in ≈ | ≈ ₹ lost | Settles | FIRA | Notes |
+|---|---|---|---|---|---|---|---|
+| **Skydo** | $19 + 18% GST (≤$2k); $29 ($2k–10k); 0.3% (>$10k) | 0 (claims mid-market) | **1.1%** | ₹2,130 | ~1–2 days | Free e-FIRA | US/UK/EU/CA/AU virtual accounts; EDF helper tool |
+| **BriskPe** ⚠ | $16 + GST (≤$2k); $25 (≤$10k); 0.25% above | 0 claimed | 0.9–1% | ₹1,790 | ~1–2 days | Free | RBI PA-CB authorisation (Dec 2025) per BriskPe |
+| **Razorpay MoneySaver** | 1% + 18% GST (₹1,000 minimum on small payments) | 0 claimed | 1.2% | ₹2,240 | ~T+1–2 | Free | Marketed to freelancers since 2024 |
+| **Xflow** | ~1% or flat plans (custom above $10k/mo) | Low | 1–1.2% | ₹1,900–2,280 | Next day | e-FIRA | Get a quote |
+| **Wise Business (India)** ⚠ | ~1.5–1.8% + ~$2 FIRA (third-party estimates) | Mid-market | 1.6–1.9% | ₹3,050–3,610 | ~1–2 days | e-FIRC | Onboards Indian sole traders/freelancers; personal accounts reportedly lost receiving in Apr 2026 |
+| **Payoneer** | 1% (ACH receive) + up to ~1–2% conversion/withdrawal; $29.95/yr if <$6k received in 12 months | ~1.5–2% | ~3% | ₹5,700 | ~1–3 days | On request | Best for marketplace payouts |
+| **Bank SWIFT** | Sender $15–50 + intermediary $10–30 + your bank ₹0–500 | 0.5–2% | 2–4% | ₹3,800–7,600 | 1–5 days | From your bank | Ask the client to send with "OUR" charges |
+| **PayPal** | 4.40% + fixed fee, + 18% GST on fees | ~3–4% | **8–9%** | ₹15,200–17,100 | 1–3 days | Monthly | Last resort |
+| **Stripe India** | Invite-only for new Indian accounts since May 2024 | — | — | — | — | — | Not an option unless invited |
+
+## What makes a rail "good" (use this to judge any new one)
+
+- [ ] **RBI-authorised** as a Payment Aggregator – Cross Border (PA-CB), or a bank.
+- [ ] Gives clients **local account details** (US ACH/wire, UK FPS, EU SEPA), so they pay a cheap domestic transfer, not an international wire.
+- [ ] **Flat or low % fee** and **0 FX markup**. Compare against the mid-market rate on the same minute.
+- [ ] **Free FIRA per payment**, downloadable, with your purpose code on it.
+- [ ] Lets you set the **purpose code** (P0802 / P0807) and supports the new **EDF** data flow.
+- [ ] Settles to **your Indian bank account in your name** within 1–2 business days.
+- [ ] Clear chargeback/reversal policy, especially if it offers card links.
+
+## Rail-by-rail
+
+### Skydo
+- **What:** Indian cross-border collections for freelancers and SMBs. Virtual accounts in major currencies; converts and settles INR to your bank.
+- **Fees:** $19 per invoice up to $2,000, $29 for $2,001–10,000, 0.3% above $10,000, plus 18% GST on the fee. Payment links and ACH debit are separate products (~2%, $9 minimum).
+- **FIRA:** free, per transaction (Skydo cites 24–72 hours).
+- **Setup (≈30 min):** sign up → PAN + Aadhaar KYC → add your bank account → describe your services (software development) → get account details per currency → share them on invoices.
+- **Watch-outs:** a flat fee hurts on small invoices (a $200 invoice loses about 11%), so batch small invoices monthly. Confirm KYC requirements; GST registration is not needed below the threshold.
+- **Link:** https://www.skydo.com
+
+### BriskPe
+- **What:** cross-border collections, similar model to Skydo.
+- **Fees ⚠:** a competitor's page lists $16 (≤$2k), $25 (≤$10k), 0.25% above, plus GST, no FX markup and free FIRA. Confirm on BriskPe's site.
+- **Setup:** KYC (PAN, Aadhaar, bank). Business documents (GST/Udyam) may be asked for proprietorships.
+- **Link:** https://www.briskpe.com
+
+### Razorpay MoneySaver Export Account
+- **What:** virtual foreign-currency accounts for exporters and freelancers from Razorpay.
+- **Fees:** about 1% + 18% GST, no FX markup, with a ₹1,000 minimum reported for payments under about ₹1L.
+- **FIRA:** included at no extra cost.
+- **Setup:** Razorpay account → international collections / MoneySaver → KYC → account details.
+- **Watch-outs:** a percentage fee scales with invoice size. Above about $2,900, Skydo's flat $29 is cheaper ($34.22 with GST against 1.18% of the invoice).
+- **Link:** https://razorpay.com/accept-international-payments/money-saver/
+
+### Xflow
+- **What:** cross-border collections, next-day payouts and e-FIRA, with plan-based pricing for SMB exporters.
+- **Fees:** about 1% or a flat plan. Custom pricing above $10k/month. Ask for a quote with your expected volume.
+- **Link:** https://www.xflowpay.com/pricing
+
+### Wise Business (India)
+- **What:** Wise launched international account details for Indian businesses in Feb 2026 (USD, GBP, EUR, AUD, NZD, SGD, CAD, HUF), converting to INR.
+- **Eligibility:** Wise onboards **sole traders/freelancers** (PAN and bank account in your own name, no proof of business needed) and **sole proprietorships** (GSTIN/Udyam/IEC as proof). The PAN is used for tax residency and the e-FIRC.
+- **Fees ⚠:** third parties cite about 1.5–1.8% plus about $2 per FIRA. Check Wise's India pricing page.
+- **Watch-out:** a competitor reports Wise *personal* accounts in India stopped receiving and holding funds from 5 Apr 2026. Use a business profile.
+- **Link:** https://wise.com/help/articles/6Kpm9pXlJW79OGAktSnHos
+
+### Payoneer
+- **What:** global receiving accounts; strong with marketplaces.
+- **Fees:** 1% to receive via ACH (US) or from UK/EU bank accounts; conversion/withdrawal to INR up to about 1–2% depending on route; **$29.95 annual fee** if you receive under $6,000 in 12 months. Realistic all-in is about 3%.
+- **Best for:** marketplace payouts where the platform pays Payoneer for free.
+- **Link:** https://payoneer.com/fees
+
+### PayPal
+- **What:** what clients reach for by habit.
+- **Fees:** 4.40% + fixed fee for international receipts, 18% GST on PayPal's fees, plus about 3–4% currency conversion spread. Realistically 8–9% all-in.
+- **If you must:** add a "PayPal +6%" line, withdraw promptly and download the monthly FIRA.
+- **Link:** https://www.paypal.com/in/webapps/mpp/merchant-fees
+
+### Direct bank SWIFT
+- **What:** the client wires money to your Indian bank account (SWIFT/BIC + account number).
+- **Costs:** sender fee $15–50 (client side), intermediary/correspondent deductions $10–30, your bank's inward charge ₹0–500 + GST, and an FX spread of 0.5–2% that you can negotiate on large amounts.
+- **Tips:** ask the client to choose **"OUR"** charges so you receive the full amount. Give the exact beneficiary name as on the bank account and your bank's SWIFT code. Request a FIRA/FIRC from the bank for each credit, and state the purpose code when the bank calls or emails.
+- **Best for:** invoices over $10k with a pre-agreed rate ("card rate minus X paise").
+
+### Stripe (India)
+- Invite-only for new Indian accounts since May 2024, and still not open for general sign-up as of this writing. Use Razorpay for cards instead.
+- **Link:** https://support.stripe.com/questions/stripe-accounts-are-invite-only-in-india
+
+### Marketplace payouts (Upwork, Contra, Toptal, Arc)
+- **Upwork:** variable 0–15% service fee per contract **plus 18% GST on that fee** for India-based freelancers. Compare its direct-to-local-bank (INR) withdrawal with Payoneer on a real payout.
+- **Others:** each has its own payout options. Check whether it issues a FIRA or whether your receiving bank/aggregator does.
+- Platform fees are a cost of sale. Your FIRA should show the **gross amount** that reached India.
+
+### Domestic (Indian clients)
+- **NEFT/IMPS/RTGS** to the business account: free and the default. Put account name, number, IFSC and UPI ID on every invoice.
+- **UPI:** fine for small amounts. Use the business account's UPI ID.
+- **Razorpay payment links:** about 2% + GST for cards/netbanking. Use them only if the client asks, and price the fee in.
+
+## Setup steps (45 minutes, do once)
+
+1. Pick a **primary** rail (Skydo or BriskPe) and a **backup** (Razorpay MoneySaver).
+2. Complete KYC on both: PAN, Aadhaar, and your **business-only** bank account.
+3. Set your default **purpose code**: P0802 software consultancy/implementation (or P0807 if your bank/CA prefers it for remote development). Use it consistently.
+4. Generate local account details (USD at minimum, plus GBP/EUR if relevant).
+5. Paste the details into the [Invoice Generator](../tools/invoice-generator.html) payment block.
+6. Run a **test payment** (e.g. $50 from a friend abroad, or your first small invoice) and check the fee, the rate you got against mid-market, and that the FIRA arrived.
+7. Save each FIRA as `Receipts-FIRA/PK-26-27-001-FIRA.pdf` (named after the invoice).
+
+## Payment instructions block (copy into invoices)
+
+```
+PAYMENT DETAILS
+Preferred: USD bank transfer (ACH or domestic wire), no conversion on your side
+  Beneficiary:   {{YOUR_NAME}}
+  Bank:          {{RAIL_BANK_NAME}}  (collected via {{RAIL}})
+  Routing (ABA): {{ROUTING_NUMBER}}    Account: {{ACCOUNT_NUMBER}}   Type: Checking
+  Reference:     {{INVOICE_NUMBER}}
+GBP (UK FPS):    Sort code {{SORT_CODE}}  Account {{UK_ACCOUNT}}
+EUR (SEPA):      IBAN {{IBAN}}  BIC {{BIC}}
+International wire (SWIFT): please choose "OUR" charges so the full amount arrives.
+Terms: due in 7 days. Purpose: software development services (export of services from India).
+```
+
+## Documents & codes, one line each
+
+- **FIRA:** proof of a foreign inward remittance. Get one per payment and file it against the invoice.
+- **Purpose code:** P0802 (software consultancy/implementation) as the default; P0807 (off-site software exports) if your bank classifies it so. Never "family maintenance" or "gift".
+- **Realisation:** within **9 months** of the invoice date (12 if invoiced in INR) under the FEMA 2026 regulations.
+- **EDF:** resident individuals are *deemed* to have filed once they give the bank the remittance details (RBI amendment of 2 Nov 2026). Firms and companies get the same treatment for amounts up to ₹10L.
+- **W-8BEN:** for US clients; PAN as foreign TIN. See [Tax & Money](../memos/03-tax-and-money.html#foreign-income).
+
+## Red flags (walk away)
+
+- A client wants to pay by **cheque from abroad**, crypto, gift cards, or "overpay so you can refund the difference to our vendor".
+- Payment from a third party you never contracted with, or from a country that doesn't match the client.
+- A "platform" asks you to pay a fee to *release* your payment.
+- Pressure to use a personal account or label the payment as a gift.
+- More: [Risks & Scams](../memos/11-risks-and-scams.html).
+
+## Sources
+
+1. [Skydo fees breakdown (Xflow blog)](https://www.xflowpay.com/blog/skydo-fees) and [Skydo vs Payoneer (Skydo)](https://www.skydo.com/compare/skydo-vs-payoneer): Skydo $19/$29/0.3% + GST, free FIRA
+2. [BriskPe pricing (Skydo comparison page)](https://www.skydo.com/compare/briskpe-pricing): $16/$25/0.25% + GST (competitor-published ⚠)
+3. [Razorpay MoneySaver Export Account](https://razorpay.com/accept-international-payments/money-saver/) and [Xflow on Razorpay charges](https://www.xflowpay.com/blog/razorpay-international-payment-gateway-charges): 1% + GST, no FX markup
+4. [Xflow pricing](https://www.xflowpay.com/pricing)
+5. [Wise Help: verify your Indian business to receive payments](https://www.wise.com/help/articles/6Kpm9pXlJW79OGAktSnHos/how-to-verify-your-indian-business-to-receive-payments), [Wise newsroom, Feb 2026](https://newsroom.wise.com/en-CAS/249593-wise-doubles-down-in-india-announces-new-hub-in-hyderabad-and-launches-international-account-details-for-businesses-to-get-paid-from-a/) and [Winvesta: Wise vs Winvesta 2026](https://www.winvesta.in/blog/businesses/wise-vs-winvesta-which-is-actually-better-for-indian-freelancers-in-2026) (personal-account change ⚠)
+6. [Payoneer fees](https://payoneer.com/fees) and [Payoneer India pricing](https://payoneer.com/en-in/about/pricing)
+7. [PayPal India merchant fees](https://www.paypal.com/in/webapps/mpp/merchant-fees) and [Skydo on PayPal charges](https://skydo.com/blog/paypal-transaction-fees-india) (conversion spread estimate ⚠)
+8. [Stripe Support: invite-only in India](https://support.stripe.com/questions/stripe-accounts-are-invite-only-in-india)
+9. [Upwork Help: GST for India-based freelancers](https://support.upwork.com/hc/en-us/articles/360041114713): 18% GST on Upwork's fee
+10. [Purpose code P0802 (Skydo)](https://www.skydo.com/rbi-purpose-codes/P0802-software-consultancy-and-implementation) and [P0807 (Razorpay)](https://razorpay.com/blog/p0807-purpose-code-software-exports/)
+11. [FIRC vs FIRA vs e-BRC (Winvesta)](https://www.winvesta.in/blog/businesses/firc-vs-fira-vs-e-brc-which-proof-of-foreign-payment-do-you-actually-need)
+12. [RBI relaxes EDF filing (TaxGuru)](https://taxguru.in/rbi/rbi-relaxes-edf-filing-rs-10-lakh-limit-service-exporters-fema-2026.html) and [FEMA 2026: 9-month realisation (TaxGuru)](https://taxguru.in/rbi/rbi-fema-export-rules-2026-9-month-realisation-12-month-inr-deadline.html)
+</script>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tax &amp; Money: Keep More of What You Earn · Freelance OS</title>
+<meta name="description" content="Under s.58 + new regime, ₹24L gross ≈ ₹0 tax and ₹75L ≈ 9.8%. Get paid via ~1% rails, not PayPal's ~8%. Pay advance tax by 15 March.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="03-tax-and-money" data-kind="memo">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../index.html#memos" class="on">Memos</a>
+    <a href="../index.html#tools">Tools</a>
+    <a href="../index.html#library">Templates</a>
+    <a href="../index.html#lists">Lists</a>
+    <a href="../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="All memos"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../index.html">Home</a><a class="nav-link" href="../index.html#memos">Memos</a><a class="nav-link" href="../index.html#tools">Tools</a><a class="nav-link" href="../index.html#library">Templates</a><a class="nav-link" href="../index.html#lists">Lists</a></div><div class="nav-group"><div class="nav-group-title">Strategy</div><a class="nav-link" href="../memos/00-start-here.html"><span class="nav-num">00</span><span>Start Here</span><span class="nav-prog" data-nav-prog="00-start-here" data-total="14"></span></a><a class="nav-link" href="../memos/01-positioning.html"><span class="nav-num">01</span><span>Positioning</span><span class="nav-prog" data-nav-prog="01-positioning" data-total="7"></span></a></div><div class="nav-group"><div class="nav-group-title">Foundation</div><a class="nav-link" href="../memos/02-business-setup.html"><span class="nav-num">02</span><span>Business Setup</span><span class="nav-prog" data-nav-prog="02-business-setup" data-total="30"></span></a><a class="nav-link active" href="../memos/03-tax-and-money.html" aria-current="page"><span class="nav-num">03</span><span>Tax &amp; Money</span><span class="nav-prog" data-nav-prog="03-tax-and-money" data-total="9"></span></a></div><div class="nav-group"><div class="nav-group-title">Revenue</div><a class="nav-link" href="../memos/04-pricing.html"><span class="nav-num">04</span><span>Pricing</span><span class="nav-prog" data-nav-prog="04-pricing" data-total="7"></span></a><a class="nav-link" href="../memos/05-lead-generation.html"><span class="nav-num">05</span><span>Lead Generation</span><span class="nav-prog" data-nav-prog="05-lead-generation" data-total="14"></span></a><a class="nav-link" href="../memos/06-sales-process.html"><span class="nav-num">06</span><span>Sales</span><span class="nav-prog" data-nav-prog="06-sales-process" data-total="17"></span></a></div><div class="nav-group"><div class="nav-group-title">Operations</div><a class="nav-link" href="../memos/07-contracts.html"><span class="nav-num">07</span><span>Contracts</span><span class="nav-prog" data-nav-prog="07-contracts" data-total="12"></span></a><a class="nav-link" href="../memos/08-delivery-ops.html"><span class="nav-num">08</span><span>Delivery Ops</span><span class="nav-prog" data-nav-prog="08-delivery-ops" data-total="19"></span></a></div><div class="nav-group"><div class="nav-group-title">Growth</div><a class="nav-link" href="../memos/09-portfolio-and-brand.html"><span class="nav-num">09</span><span>Portfolio &amp; Brand</span><span class="nav-prog" data-nav-prog="09-portfolio-and-brand" data-total="18"></span></a></div><div class="nav-group"><div class="nav-group-title">Execution</div><a class="nav-link" href="../memos/10-90-day-plan.html"><span class="nav-num">10</span><span>90-Day Launch Plan</span><span class="nav-prog" data-nav-prog="10-90-day-plan" data-total="61"></span></a><a class="nav-link" href="../memos/12-metrics-and-cadence.html"><span class="nav-num">12</span><span>Metrics &amp; Cadence</span><span class="nav-prog" data-nav-prog="12-metrics-and-cadence" data-total="6"></span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">Foundation · Memo 03</div>
+    <h1>Tax &amp; Money: Keep More of What You Earn</h1>
+    <p class="subtitle">Income tax under the new Act (s.58 presumptive), TDS, GST, foreign receipts (FIRA, purpose code, EDF, W-8BEN), payment rails and a monthly money routine</p>
+    <div class="doc-meta"><span>⏱ 20 min read</span><span class="sep">·</span><span data-progress></span><span class="sep">·</span><button class="btn sm" data-action="reset-checks" type="button">Reset ticks</button></div>
+    <div class="progress-bar" data-progress-bar><i></i></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#new-act">The new law in 60 seconds</a><a href="#presumptive">Presumptive taxation (s.58): your default</a><a href="#worked-examples">Slabs, rebate and worked examples</a><a href="#advance-tax">Advance tax: one date, 15 March</a><a href="#itr">Filing your return</a><a href="#tds">TDS from Indian clients</a><a href="#gst">GST in practice</a><a href="#foreign-income">Foreign clients: FIRA, purpose code, realisation, EDF, W-8BEN</a><a href="#payment-rails">Payment rails compared (receiving $2,000)</a><a href="#money-routine">Money routine: buckets, reserves, monthly close</a><a href="#tools">Bookkeeping tools</a><a href="#mistakes">Ten expensive mistakes to avoid</a><a href="#actions">Action list</a><a href="#sources">Sources</a></details>
+  <article class="prose">
+
+<div class="bluf"><strong>Bottom line.</strong> File under the <strong>presumptive scheme for professionals</strong>: s.58 of the Income-tax Act 2025, which replaced 44ADA from 1 April 2026. It treats <strong>50% of gross receipts</strong> as your profit, with no expense accounting for tax, up to <strong>₹75L</strong> if no more than 5% of receipts are in cash. Combine it with the new regime's ₹12L rebate and <strong>₹24L gross ≈ ₹0 income tax</strong>, ₹36L ≈ ₹1.66L (4.6%) and ₹75L ≈ ₹7.33L (9.8%). Pay all advance tax in <strong>one instalment by 15 March</strong>. Collect foreign money through a licensed cross-border rail with a free FIRA, which costs about 1% all-in, instead of PayPal at about 8%. GST becomes mandatory near ₹20L. Register then and file the <strong>LUT</strong> so exports stay at 0%. Move <strong>10% of every foreign receipt</strong> into a tax-reserve account until your first return shows you need less. Figures are as of Nov 2026. Confirm edge cases with a CA.</div>
+
+<div class="kpi-row">
+  <div class="kpi"><b>50%</b><span>deemed profit under s.58</span></div>
+  <div class="kpi"><b>₹0</b><span>tax up to ₹24L gross</span></div>
+  <div class="kpi"><b>15 Mar</b><span>single advance-tax date</span></div>
+  <div class="kpi"><b>~1%</b><span>good rail cost on $2,000</span></div>
+</div>
+
+<h2 id="new-act">The new law in 60 seconds<a class="anchor" href="#new-act" aria-label="Link to this section">#</a></h2>
+<p>The <strong>Income-tax Act 2025</strong> took effect on <strong>1 April 2026</strong>. "Previous year" and "assessment year" are replaced by a single <strong>tax year</strong>. Rates barely changed, but section and form numbers did. Your CA, the portal and clients' finance teams will start quoting the new ones:</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>What</th><th>Old (1961 Act)</th><th>New (2025 Act / Rules 2026)</th></tr></thead>
+  <tbody>
+    <tr><td>Presumptive scheme for professionals</td><td>s.44ADA</td><td><strong>s.58</strong> (professionals' entry in the s.58(2) table)</td></tr>
+    <tr><td>New-regime rates</td><td>s.115BAC</td><td>s.202</td></tr>
+    <tr><td>Rebate (₹60k up to ₹12L)</td><td>s.87A</td><td><strong>s.156</strong></td></tr>
+    <tr><td>TDS on professional/technical fees</td><td>s.194J</td><td><strong>s.393(1)</strong></td></tr>
+    <tr><td>Lower/nil TDS certificate</td><td>s.197, Form 13</td><td>s.395, <strong>Form 128</strong></td></tr>
+    <tr><td>Advance tax, presumptive single instalment</td><td>s.211</td><td>s.408(2)</td></tr>
+    <tr><td>Interest: advance tax short / deferred</td><td>s.234B / s.234C</td><td>s.424 / s.425</td></tr>
+    <tr><td>Return filing</td><td>s.139</td><td>s.263</td></tr>
+    <tr><td>Late-payment-to-MSME disallowance</td><td>s.43B(h)</td><td>s.37(2)(g)</td></tr>
+    <tr><td>Tax credit statement</td><td>Form 26AS</td><td><strong>Form 168</strong> (plus AIS)</td></tr>
+    <tr><td>Salary TDS certificate</td><td>Form 16</td><td><strong>Form 130</strong></td></tr>
+    <tr><td>Foreign tax credit claim</td><td>Form 67</td><td><strong>Form 44</strong></td></tr>
+  </tbody>
+</table></div>
+<div class="callout info"><strong>Your mixed year.</strong> Tax year 2026-27 (Apr 2026–Mar 2027) contains your <strong>Noovosoft salary (Apr–Sep 2026)</strong> and your <strong>freelance receipts (Oct 2026 onward)</strong>, all in one return. FY 2025-26 (your last full salaried year) still falls under the old Act. Its non-audit due dates were 31 Jul / 31 Aug 2026, and the <strong>belated deadline is 31 Dec 2026</strong>. Check that it is filed.</div>
+
+<h2 id="presumptive">Presumptive taxation (s.58): your default<a class="anchor" href="#presumptive" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><strong>How it works:</strong> you declare <strong>50% of gross receipts</strong> as profit, or more if your real profit is higher. All expenses (laptop, software, internet, coworking, depreciation) are treated as already covered. You don't itemise them for tax.</li>
+  <li><strong>Who:</strong> resident individuals and non-LLP partnership firms in a specified profession. Individual software and IT services work has long been treated as eligible: "information technology" is a notified profession under the old 44AA/Rule 6F, and commentary says the 2025 Act's s.62(4) list keeps it. <em>Have your CA pick the nature-of-business code on the first return.</em></li>
+  <li><strong>Limit:</strong> gross receipts up to <strong>₹50L</strong>, or <strong>₹75L if cash receipts are 5% or less</strong>. Bank transfers, UPI, cards and foreign remittances all count as non-cash, so you qualify for ₹75L.</li>
+  <li><strong>No lock-in for professionals.</strong> The five-year bar in s.58(7) applies to the <em>business</em> scheme, not to professionals. You can opt in or out year by year. If you go below 50%, you need full books and a tax audit.</li>
+  <li><strong>Restrictions:</strong> s.58(4) limits other deductions and loss set-offs against presumptive income. You have no losses, so this rarely matters.</li>
+  <li><strong>Don't</strong> file software development under the 6%/8% <em>business</em> scheme. Practitioners treat it as a profession, so the professional scheme at 50% is the safe one.</li>
+  <li><strong>When to drop it:</strong> only if real expenses exceed 50% of receipts. That realistically happens when you resell subcontractors' work, which is also an <a href="02-business-setup.html#entity">entity-upgrade trigger</a>.</li>
+  <li><strong>Records anyway:</strong> keep invoices, the receipts log, the expense log and bank statements. ITR-4 asks for year-end debtors, creditors, bank and cash balances. Clean records end any argument about the books requirement.</li>
+</ul>
+
+<h2 id="worked-examples">Slabs, rebate and worked examples<a class="anchor" href="#worked-examples" aria-label="Link to this section">#</a></h2>
+<h3 id="new-regime-tax-year-2026-27-unchanged-by-budget-2026">New regime, tax year 2026-27 (unchanged by Budget 2026)<a class="anchor" href="#new-regime-tax-year-2026-27-unchanged-by-budget-2026" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Taxable income</th><th>Rate</th><th>Cumulative tax at top of band</th></tr></thead>
+  <tbody>
+    <tr><td>₹0 – 4L</td><td>Nil</td><td>₹0</td></tr>
+    <tr><td>₹4L – 8L</td><td>5%</td><td>₹20,000</td></tr>
+    <tr><td>₹8L – 12L</td><td>10%</td><td>₹60,000</td></tr>
+    <tr><td>₹12L – 16L</td><td>15%</td><td>₹1,20,000</td></tr>
+    <tr><td>₹16L – 20L</td><td>20%</td><td>₹2,00,000</td></tr>
+    <tr><td>₹20L – 24L</td><td>25%</td><td>₹3,00,000</td></tr>
+    <tr><td>Above ₹24L</td><td>30%</td><td>—</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li><strong>Rebate (s.156):</strong> for a resident individual with total income up to <strong>₹12L</strong>, the rebate is the lower of tax or ₹60,000, so tax is ₹0. It doesn't apply to special-rate income such as equity capital gains, so ask your CA if you trade.</li>
+  <li><strong>Marginal relief:</strong> just above ₹12L, tax can't exceed the income above ₹12L. At ₹12.5L, tax before relief is ₹67,500 and payable tax is ₹50,000 plus cess. The relief runs out at about <strong>₹12.71L</strong>.</li>
+  <li><strong>Health &amp; education cess:</strong> 4% on tax.</li>
+  <li><strong>Surcharge:</strong> 10% above ₹50L income, 15% above ₹1 Cr, 25% above ₹2 Cr (the new-regime cap), with marginal relief. Under presumptive taxation you would need gross receipts above ₹1 Cr to hit it, and the scheme stops at ₹75L.</li>
+  <li><strong>No standard deduction</strong> on professional income. The ₹75k standard deduction is for salary only, so it applies to your Apr–Sep 2026 Noovosoft salary.</li>
+</ul>
+<h3 id="worked-examples-presumptive-new-regime-no-other-income">Worked examples: presumptive, new regime, no other income<a class="anchor" href="#worked-examples-presumptive-new-regime-no-other-income" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Gross receipts</th><th>Deemed income (50%)</th><th>Slab tax</th><th>Rebate</th><th>Cess 4%</th><th>Total tax</th><th>% of gross</th></tr></thead>
+  <tbody>
+    <tr><td>₹12L</td><td>₹6L</td><td>₹10,000</td><td>−₹10,000</td><td>₹0</td><td><strong>₹0</strong></td><td>0%</td></tr>
+    <tr><td>₹24L</td><td>₹12L</td><td>₹60,000</td><td>−₹60,000</td><td>₹0</td><td><strong>₹0</strong></td><td>0%</td></tr>
+    <tr><td>₹25L</td><td>₹12.5L</td><td>₹67,500 → ₹50,000 after marginal relief</td><td>—</td><td>₹2,000</td><td><strong>₹52,000</strong></td><td>2.1%</td></tr>
+    <tr><td>₹36L</td><td>₹18L</td><td>₹1,60,000</td><td>—</td><td>₹6,400</td><td><strong>₹1,66,400</strong></td><td>4.6%</td></tr>
+    <tr><td>₹60L</td><td>₹30L</td><td>₹4,80,000</td><td>—</td><td>₹19,200</td><td><strong>₹4,99,200</strong></td><td>8.3%</td></tr>
+    <tr><td>₹75L</td><td>₹37.5L</td><td>₹7,05,000</td><td>—</td><td>₹28,200</td><td><strong>₹7,33,200</strong></td><td>9.8%</td></tr>
+  </tbody>
+</table></div>
+<h3 id="same-incomes-without-presumptive-actual-books-expenses-about-15-of-gross">Same incomes without presumptive (actual books, expenses about 15% of gross)<a class="anchor" href="#same-incomes-without-presumptive-actual-books-expenses-about-15-of-gross" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Gross</th><th>Actual profit (85%)</th><th>Tax incl. cess (and surcharge)</th><th>Extra tax vs s.58</th></tr></thead>
+  <tbody>
+    <tr><td>₹12L</td><td>₹10.2L</td><td>₹0 (rebate)</td><td>₹0</td></tr>
+    <tr><td>₹24L</td><td>₹20.4L</td><td>₹2,18,400</td><td><span class="pill bad">+₹2.18L</span></td></tr>
+    <tr><td>₹36L</td><td>₹30.6L</td><td>₹5,17,920</td><td><span class="pill bad">+₹3.52L</span></td></tr>
+    <tr><td>₹60L</td><td>₹51L</td><td>₹12,27,200 (10% surcharge, marginal relief)</td><td><span class="pill bad">+₹7.28L</span></td></tr>
+    <tr><td>₹75L</td><td>₹63.75L</td><td>₹17,07,420</td><td><span class="pill bad">+₹9.74L</span></td></tr>
+  </tbody>
+</table></div>
+<div class="callout tip"><strong>The ₹24L line.</strong> Up to about ₹24L gross (deemed ₹12L) your income tax is zero. At ₹25L it is about ₹52k. If you're close in March, ask your CA whether your accounting method (cash or mercantile) means the timing of completion or receipt matters. Never delay a GST invoice beyond the 30-day rule to manage this.</div>
+<details><summary>Mixed-year example (illustrative numbers): salary + freelance in tax year 2026-27</summary>
+<p>Salary Apr–Sep 2026 of ₹7.5L, minus the ₹75k standard deduction, gives ₹6.75L. Freelance receipts Oct 2026–Mar 2027 of ₹8L give ₹4L deemed. <strong>Total income ₹10.75L</strong>. Slab tax is ₹20,000 + ₹27,500 = ₹47,500, which the rebate cancels, so <strong>tax is ₹0</strong>. If Noovosoft deducted salary TDS on a full-year projection, you get that back as a <strong>refund</strong> when you file. Run your own numbers in <a href="../tools/rate-calculator.html">Rate, Tax &amp; Runway</a>.</p></details>
+<details><summary>Old regime: why it loses for you</summary>
+<p>Old-regime slabs are nil to ₹2.5L, 5% to ₹5L, 20% to ₹10L and 30% above, with a rebate only up to ₹5L. At ₹24L gross (₹12L deemed), even with the full ₹1.5L under 80C and ₹25k under 80D, taxable income is ₹10.25L and tax is about <strong>₹1.25L</strong>, against <strong>₹0</strong> in the new regime. A professional who opts out of the new regime can switch back only once, so don't experiment. Stay in the new regime unless a CA shows otherwise, for example with a large home loan.</p></details>
+
+<h2 id="advance-tax">Advance tax: one date, 15 March<a class="anchor" href="#advance-tax" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><strong>Rule:</strong> if you declare under s.58, pay <strong>100% of the year's advance tax by 15 March</strong> (s.408(2)). This applies only if tax after TDS is ₹10,000 or more.</li>
+  <li><strong>Late:</strong> a payment by 31 March still counts as advance tax but costs about <strong>1%</strong> interest on the shortfall (s.425). If less than 90% is paid by 31 March, interest is <strong>1% per month</strong> until you pay (s.424).</li>
+  <li><strong>If you leave presumptive:</strong> the normal four instalments apply: 15% by 15 Jun, 45% by 15 Sep, 75% by 15 Dec, 100% by 15 Mar.</li>
+  <li><strong>How:</strong> incometax.gov.in → e-Pay Tax → Advance tax, for tax year 2026-27. Save the challan in <code>/Tax</code>.</li>
+  <li><strong>Routine:</strong> on <strong>1 March</strong>, estimate the full year in <a href="../tools/rate-calculator.html">the calculator</a>, subtract TDS from Form 168/AIS, and pay from the tax reserve.</li>
+</ul>
+
+<h2 id="itr">Filing your return<a class="anchor" href="#itr" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Return</th><th>Form (expected)</th><th>Due date</th><th>Inputs</th></tr></thead>
+  <tbody>
+    <tr><td>FY 2025-26 (salaried year, old Act)</td><td>ITR-1/2 (salary only)</td><td>Was 31 Jul 2026. <strong>Belated: 31 Dec 2026</strong> (late fee ₹5,000; ₹1,000 if income ≤ ₹5L)</td><td>Form 16 from Noovosoft, AIS</td></tr>
+    <tr><td><strong>Tax year 2026-27</strong> (salary + freelance)</td><td><strong>ITR-4 (Sugam)</strong> if total income ≤ ₹50L with presumptive. ITR-3 if above ₹50L or with complex items (capital gains beyond limits, foreign assets, director)</td><td>~<strong>31 Aug 2027</strong> (Finance Act 2026 moved non-audit ITR-3/4 to 31 Aug; confirm when forms are notified)</td><td>Form 130 (salary), Form 168/AIS (client TDS), invoice and receipts registers, FIRAs, advance-tax challans, year-end debtors/creditors/bank balances</td></tr>
+  </tbody>
+</table></div>
+<div class="callout warn"><strong>Reconcile AIS / Form 168 every quarter.</strong> Every Indian client's TDS and every rupee of interest shows there. If your declared receipts are lower than what AIS shows, expect an automated notice. If a client deducted TDS but didn't file its return, the credit won't appear. Chase them within the quarter.</div>
+
+<h2 id="tds">TDS from Indian clients<a class="anchor" href="#tds" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Payment type (client's view)</th><th>Rate</th><th>Threshold</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Professional fees, s.393(1) (ex-194J)</td><td><strong>10%</strong></td><td>₹50,000 per year per client</td><td>Most common for bespoke development and consulting</td></tr>
+    <tr><td>Fees for technical services, s.393(1)</td><td><strong>2%</strong></td><td>₹50,000 per year per client</td><td>Some clients classify support or implementation work here</td></tr>
+    <tr><td>Contract work (ex-194C)</td><td>1% (individual)</td><td>Per-contract and annual limits</td><td>Occasionally used for product-delivery or AMC contracts</td></tr>
+    <tr><td>No valid PAN, or PAN inoperative (not linked to Aadhaar)</td><td>20%</td><td>—</td><td>Put your PAN on every invoice. Check PAN–Aadhaar link status</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li><strong>TDS is a prepayment of your tax, not a cost.</strong> On a ₹1,00,000 invoice you receive ₹90,000 now and ₹10,000 comes back through your return. With s.58 and the rebate, much of it returns as a <strong>refund</strong>.</li>
+  <li><strong>Quote and invoice gross:</strong> "₹1,00,000 + GST (if applicable). TDS as applicable under the Income-tax Act 2025." Never net it off yourself.</li>
+  <li><strong>Ask which section they will use</strong> and confirm by email. It affects your cash flow, not your final tax.</li>
+  <li><strong>Collect TDS certificates</strong> each quarter (the successor to Form 16A) and match them to Form 168.</li>
+  <li><strong>Lower/nil deduction certificate</strong> (s.395, Form 128): worth applying only if one big Indian retainer will over-deduct heavily against a near-zero tax bill. Ask your CA.</li>
+</ul>
+
+<h2 id="gst">GST in practice<a class="anchor" href="#gst" aria-label="Link to this section">#</a></h2>
+<h3 id="do-you-need-it">Do you need it?<a class="anchor" href="#do-you-need-it" aria-label="Link to this section">#</a></h3>
+<p>See the decision tree in <a href="02-business-setup.html#gst-decision">Business Setup</a>. In short: <strong>₹20L all-India aggregate turnover</strong> (by PAN, including exports, excluding GST) is the mandatory line. For export-only freelancers below ₹20L, the two readings of the law are:</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>View</th><th>Argument</th><th>Implication</th></tr></thead>
+  <tbody>
+    <tr><td><strong>A (prevailing)</strong></td><td>Notification 10/2017-Integrated Tax exempts inter-state service suppliers below ₹20L from registration, and exports of services are inter-state supplies (s.7(5) IGST Act).</td><td>No registration needed below ₹20L. Most freelancer guides and the payment platforms follow this.</td></tr>
+    <tr><td><strong>B (conservative)</strong></td><td>Zero-rated supplies need registration under s.24 CGST to "claim" zero-rating and refunds. A CBIC FAQ notes that registration is needed to claim refunds.</td><td>Register voluntarily if you want ITC refunds or certainty.</td></tr>
+  </tbody>
+</table></div>
+<p><strong>Recommendation:</strong> follow View A below about ₹15L, then register (and file the LUT) before you reach ₹20L. Have your CA confirm once, in writing.</p>
+<h3 id="what-to-charge-by-situation">What to charge, by situation<a class="anchor" href="#what-to-charge-by-situation" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Situation</th><th>GST to charge</th><th>Invoice must show</th></tr></thead>
+  <tbody>
+    <tr><td>You're unregistered, any client</td><td><strong>None</strong>. Charging GST without a GSTIN is illegal</td><td>Your PAN. "Not registered under GST" is optional but helpful</td></tr>
+    <tr><td>Registered; Indian client in Maharashtra</td><td><strong>CGST 9% + SGST 9%</strong></td><td>Tax invoice: GSTINs, SAC 998314, taxable value, rates, amounts</td></tr>
+    <tr><td>Registered; Indian client in another state</td><td><strong>IGST 18%</strong></td><td>As above plus <em>place of supply</em> (state name and code)</td></tr>
+    <tr><td>Registered; foreign client, LUT filed</td><td><strong>0% (zero-rated)</strong></td><td>Export endorsement, client's country, currency, LUT ARN</td></tr>
+    <tr><td>Registered; foreign client, no LUT</td><td>IGST 18%, refund claimed later</td><td>Avoid this: file the LUT</td></tr>
+  </tbody>
+</table></div>
+<h3 id="export-of-services-the-five-conditions-s26-igst-act">Export of services: the five conditions (s.2(6) IGST Act)<a class="anchor" href="#export-of-services-the-five-conditions-s26-igst-act" aria-label="Link to this section">#</a></h3>
+<ol>
+  <li>You (the supplier) are in India.</li>
+  <li>The recipient is outside India.</li>
+  <li>The place of supply is outside India. For most IT services that is the recipient's location (s.13(2) IGST).</li>
+  <li>Payment is received in convertible foreign exchange, or in INR where RBI permits. Payment through a cross-border aggregator that converts to INR still qualifies, and the FIRA proves it.</li>
+  <li>You and the recipient are not merely branches of the same person.</li>
+</ol>
+<h3 id="codes-lut-and-invoice-rules">Codes, LUT and invoice rules<a class="anchor" href="#codes-lut-and-invoice-rules" aria-label="Link to this section">#</a></h3>
+<ul>
+  <li><strong>SAC codes:</strong> <code>998314</code> IT design &amp; development (software, web and app development, which is your default). <code>998313</code> IT consulting &amp; support (audits, advisory, support-only retainers). <code>998315</code> hosting and IT infrastructure provisioning. <code>998319</code> other IT services. The rate is <strong>18%</strong>, unchanged by the 2025 GST rationalisation.</li>
+  <li><strong>LUT (Form GST RFD-11):</strong> gst.gov.in → Services → User Services → Furnish Letter of Undertaking. It is free and online, and the ARN is your LUT reference. It's valid for <strong>one financial year</strong>. File it before the first export invoice of each year, ideally in March for the next year.</li>
+  <li><strong>Timing:</strong> issue a tax invoice <strong>within 30 days</strong> of completing the service (Rule 47).</li>
+  <li><strong>Numbering:</strong> consecutive, unique per financial year, <strong>at most 16 characters</strong>, using letters, digits, "-" and "/" only. For example <code>PK/26-27/001</code>.</li>
+  <li><strong>Export endorsement (Rule 46):</strong> <em>"SUPPLY MEANT FOR EXPORT UNDER BOND OR LETTER OF UNDERTAKING WITHOUT PAYMENT OF INTEGRATED TAX"</em>. The full statutory text reads "SUPPLY MEANT FOR EXPORT/SUPPLY TO SEZ UNIT OR SEZ DEVELOPER FOR AUTHORISED OPERATIONS UNDER BOND OR LETTER OF UNDERTAKING WITHOUT PAYMENT OF INTEGRATED TAX", and using it verbatim is safest. Export invoices also show the recipient's name and address, the country of destination and the currency, plus the INR value at the invoice-date exchange rate (Rule 34; follow your CA's convention).</li>
+  <li>The full field list is in <a href="../library/templates/finance/invoice-checklist.html">invoice checklist</a>, and the <a href="../tools/invoice-generator.html">Invoice Generator</a> produces all three formats.</li>
+</ul>
+<h3 id="returns-and-credits-once-registered">Returns and credits (once registered)<a class="anchor" href="#returns-and-credits-once-registered" aria-label="Link to this section">#</a></h3>
+<ul>
+  <li><strong>QRMP</strong> (turnover up to ₹5 Cr): <strong>GSTR-1 quarterly by the 13th</strong> of the month after the quarter. <strong>GSTR-3B quarterly by the 22nd</strong> (Maharashtra's group; confirm on the portal). Pay <strong>PMT-06 by the 25th</strong> for months 1–2 of a quarter if any tax is due. Nil returns are still mandatory and late fees apply. Annual GSTR-9 is optional below ₹2 Cr.</li>
+  <li><strong>Input tax credit:</strong> GST paid on business purchases (laptop, monitor, coworking, Indian SaaS) can offset output GST. Exporters under LUT accumulate ITC and can claim a <strong>refund</strong> (RFD-01, s.54(3)). That's worth it for big purchases, such as ₹36k back on a ₹2L laptop.</li>
+  <li><strong>Platforms:</strong> Upwork's service fee is variable (0–15% per contract), and India-based freelancers pay <strong>18% GST on that fee</strong>. That is a cost to you, not GST you collect. A 10% fee therefore costs about 11.8% of the contract value.</li>
+  <li><strong>Imported services:</strong> once registered, foreign SaaS bought for the business may trigger reverse-charge GST. Ask your CA how to handle it.</li>
+</ul>
+
+<h2 id="foreign-income">Foreign clients: FIRA, purpose code, realisation, EDF, W-8BEN<a class="anchor" href="#foreign-income" aria-label="Link to this section">#</a></h2>
+<div class="grid">
+  <div class="card"><h4>FIRA (get one per payment)</h4><p>The <strong>Foreign Inward Remittance Advice</strong> proves the money came from abroad as payment for a service export. You need it as GST zero-rating proof, for bank and EDF closure, and to support your ITR. Skydo, BriskPe and Razorpay issue e-FIRAs free. Banks issue them on request, sometimes for a fee. PayPal issues monthly ones. "FIRC" is the older name. An e-BRC (DGFT) is for goods and incentive claims, and freelancers rarely need one.</p></div>
+  <div class="card"><h4>Purpose code</h4><p>Default to <strong>P0802</strong> (software consultancy and implementation), which is the common code for freelance development and consulting routed through aggregators. Banks sometimes use <strong>P0807</strong> (off-site software exports) for purely remote development. What matters is <em>consistency</em> between the invoice description, purpose code and books. Never let a payment be tagged as family maintenance or a gift.</p></div>
+  <div class="card"><h4>Realisation period</h4><p>The FEMA (Export and Import of Goods and Services) Regulations 2026 took effect on 1 Oct 2026. As amended on 22 Sept 2026, they require service-export proceeds to be realised within <strong>9 months of the invoice date</strong> (12 months if invoiced or settled in INR). Net-7 terms make this a non-issue, but chase anything older than 60 days.</p></div>
+  <div class="card"><h4>EDF (new from 1 Oct 2026)</h4><p>Service exporters now declare exports on an <strong>Export Declaration Form</strong>, which replaced SOFTEX. RBI's <strong>2 Nov 2026</strong> amendment, retrospective to 1 Oct, treats <strong>resident individuals (freelancers, consultants) as having filed the EDF</strong> once they give their bank the inward-remittance details. Firms and companies get the same treatment for remittances up to ₹10L. <em>Action:</em> answer your bank's or aggregator's invoice and purpose-code requests promptly. If you incorporate later, EDF filing applies to you in full.</p></div>
+</div>
+<h3 id="w-8ben-for-us-clients">W-8BEN for US clients<a class="anchor" href="#w-8ben-for-us-clients" aria-label="Link to this section">#</a></h3>
+<ul>
+  <li><strong>Why:</strong> it certifies that you are not a US person. Without it, US payers may ask for a W-9 or withhold <strong>24% backup withholding</strong>. Services you perform physically in India are generally <em>foreign-source</em> income, so no US withholding should apply.</li>
+  <li><strong>How:</strong> Part I: name; citizenship India; permanent address in India; US TIN left blank; <strong>foreign TIN = your PAN</strong>; date of birth. Part II (treaty claim) is optional for work done outside the US. Many Indian freelancers cite <em>Article 15 (Independent Personal Services)</em> of the India–US treaty at 0%. Then sign and date it.</li>
+  <li><strong>Validity:</strong> until 31 December of the third calendar year after signing (signed Nov 2026, valid to 31 Dec 2029).</li>
+  <li><strong>Never sign a W-9</strong>, which is for US persons. Platforms (Upwork, Contra) collect the W-8BEN information in their tax settings.</li>
+  <li><strong>If US tax was withheld anyway:</strong> get it fixed at source first. Otherwise claim a foreign tax credit in India on <strong>Form 44</strong> (ex-Form 67), filed before the ITR due date, or file a US refund claim. Both are slow, so prevention is the real fix.</li>
+  <li><strong>Other countries:</strong> UK and EU clients rarely withhold on services. Some Asian payers do. Use the treaty rate with an Indian Tax Residency Certificate. Ask your CA before signing such a contract.</li>
+</ul>
+
+<h2 id="payment-rails">Payment rails compared (receiving $2,000)<a class="anchor" href="#payment-rails" aria-label="Link to this section">#</a></h2>
+<p>These are published or third-party figures as of Nov 2026. FX markups vary daily, so get a live quote before choosing. INR amounts assume <strong>₹95 = $1</strong> (the repo-wide planning rate; check the live rate), so <strong>$2,000 ≈ ₹1,90,000</strong>. Details and setup steps are in <a href="../library/lists/payment-rails.html">Payment rails</a>.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Rail</th><th>Fees on $2,000 (and FX / speed)</th><th>All-in ≈ (₹ lost at ₹95/$)</th><th>FIRA</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Skydo</strong></td><td>$19 + 18% GST = $22.42. No FX markup (claimed). ~1–2 days</td><td><strong>~1.1%</strong> (≈₹2,130)</td><td>Free e-FIRA</td><td><span class="pill good">Default</span></td></tr>
+    <tr><td><strong>BriskPe</strong></td><td>$16 + GST = $18.88 <em>(competitor-published; verify)</em>. No FX markup claimed</td><td>~0.9–1% (≈₹1,790)</td><td>Free</td><td><span class="pill good">Compare</span></td></tr>
+    <tr><td><strong>Razorpay MoneySaver</strong></td><td>1% + GST = $23.60. No FX markup claimed. ~T+1–2</td><td>~1.2% (≈₹2,240)</td><td>Free</td><td><span class="pill good">Backup</span></td></tr>
+    <tr><td><strong>Xflow</strong></td><td>~1% or a flat plan. Next-day payout</td><td>~1–1.2% (≈₹1,900–2,280)</td><td>e-FIRA</td><td><span class="pill mid">Quote</span></td></tr>
+    <tr><td><strong>Wise Business (India)</strong></td><td>~1.5–1.8% + ~$2 FIRA at mid-market <em>(third-party)</em>. Use a business profile: personal accounts reportedly can't receive since Apr 2026</td><td>~1.6–1.9% (≈₹3,050–3,610)</td><td>e-FIRC</td><td><span class="pill mid">OK</span></td></tr>
+    <tr><td><strong>Payoneer</strong></td><td>1% ACH receive + ~1–2% conversion/withdrawal; $29.95/yr if under $6k received</td><td>~3% (≈₹5,700)</td><td>On request</td><td><span class="pill mid">Marketplaces</span></td></tr>
+    <tr><td><strong>Bank SWIFT</strong></td><td>$15–50 sender + $10–30 intermediary + ₹0–500 inward + 0.5–2% FX. 1–5 days</td><td>~2–4% (≈₹3,800–7,600)</td><td>From bank</td><td><span class="pill mid">&gt;$10k only</span></td></tr>
+    <tr><td><strong>PayPal</strong></td><td>4.4% + fixed fee, 18% GST on fees, ~3–4% FX spread</td><td><strong>~8–9%</strong> (≈₹15,200–17,100)</td><td>Monthly</td><td><span class="pill bad">Last resort</span></td></tr>
+    <tr><td><strong>Stripe India</strong></td><td>Invite-only for new Indian accounts since May 2024</td><td>—</td><td>—</td><td><span class="pill bad">Unavailable</span></td></tr>
+  </tbody>
+</table></div>
+<h3 id="which-rail-for-which-client">Which rail for which client<a class="anchor" href="#which-rail-for-which-client" aria-label="Link to this section">#</a></h3>
+<ul>
+  <li><strong>Direct foreign client, invoice under $10k:</strong> Skydo or BriskPe (compare live), with Razorpay MoneySaver as backup. Send the client local US/UK/EU account details so they pay a domestic transfer, not a wire.</li>
+  <li><strong>Invoice over $10k:</strong> Skydo's 0.3% tier, or a direct SWIFT with a pre-negotiated FX margin from your bank.</li>
+  <li><strong>Upwork, Contra or Toptal:</strong> use the platform's direct-to-INR withdrawal or Payoneer, whichever nets more. Check once with a test withdrawal.</li>
+  <li><strong>Client insists on card or PayPal:</strong> add the processing cost to the quote ("card/PayPal +5%") or offer a 3% discount for bank transfer.</li>
+  <li><strong>Indian clients:</strong> NEFT/IMPS/RTGS to the business account, UPI for small amounts.</li>
+  <li><strong>Never</strong> accept crypto, gift cards, "overpayment, please refund the difference" or cheques from abroad. See <a href="11-risks-and-scams.html">Risks &amp; Scams</a>.</li>
+</ul>
+
+<h2 id="money-routine">Money routine: buckets, reserves, monthly close<a class="anchor" href="#money-routine" aria-label="Link to this section">#</a></h2>
+<h3 id="five-buckets">Five buckets<a class="anchor" href="#five-buckets" aria-label="Link to this section">#</a></h3>
+<ol class="steps">
+  <li><strong>Operating (inflow) account:</strong> every receipt lands here. Business expenses leave from here.</li>
+  <li><strong>Tax reserve:</strong> move the reserve % the day money lands (table below). Don't touch it until 1 March, or until refunds arrive.</li>
+  <li><strong>GST account</strong> (once registered): move <strong>100% of GST collected</strong> straight away. It's the government's money.</li>
+  <li><strong>Runway:</strong> 6 months of personal expenses + 3 months of business costs. Refill it before you increase your own pay.</li>
+  <li><strong>Personal:</strong> a fixed "salary" transfer on the 1st. A good rule is 70% of the trailing 3-month average of net receipts after reserves. The rest builds runway.</li>
+</ol>
+<div class="table-wrap"><table>
+  <thead><tr><th>Expected annual gross</th><th>Effective tax (s.58, new regime)</th><th>Reserve on foreign / no-TDS receipts</th><th>Reserve on Indian receipts with 10% TDS</th></tr></thead>
+  <tbody>
+    <tr><td>Up to ₹24L</td><td>0%</td><td>3% (buffer)</td><td>0% (TDS likely refunded)</td></tr>
+    <tr><td>₹24L – 36L</td><td>0–4.6%</td><td>5%</td><td>0%</td></tr>
+    <tr><td>₹36L – 60L</td><td>4.6–8.3%</td><td>9%</td><td>0%</td></tr>
+    <tr><td>₹60L – 75L</td><td>8.3–9.8%</td><td>11%</td><td>1–2%</td></tr>
+  </tbody>
+</table></div>
+<p><strong>Simple rule for year 1:</strong> reserve <strong>10% of every foreign receipt</strong> and <strong>0% of receipts with 10% TDS</strong>. If a client deducts 2% TDS, reserve 8%. Your first filed return calibrates the rule.</p>
+<h3 id="monthly-close-30-minutes-first-working-day">Monthly close (30 minutes, first working day)<a class="anchor" href="#monthly-close-30-minutes-first-working-day" aria-label="Link to this section">#</a></h3>
+<p>Follow <a href="../library/templates/finance/monthly-money-close.html">the monthly money close</a>: reconcile bank and invoices, chase anything over 7 days late, move reserves, file FIRAs, log expenses, update runway, and on quarter-ends check Form 168/AIS and GST returns.</p>
+<h3 id="working-with-a-ca">Working with a CA<a class="anchor" href="#working-with-a-ca" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+  <thead><tr><th>Service (Pune, typical 2026 quotes)</th><th>Range</th><th>DIY?</th></tr></thead>
+  <tbody>
+    <tr><td>ITR-4 filing (presumptive + salary)</td><td>₹1,500–5,000</td><td>Possible, but use a CA for your first year</td></tr>
+    <tr><td>ITR-3 filing</td><td>₹3,000–10,000</td><td>CA</td></tr>
+    <tr><td>GST registration</td><td>₹1,000–3,000</td><td>Yes (free)</td></tr>
+    <tr><td>GST returns, QRMP, low volume</td><td>₹800–2,500/month</td><td>Possible once routine</td></tr>
+    <tr><td>LUT filing</td><td>₹500–1,500</td><td>Yes (free, 10 minutes)</td></tr>
+    <tr><td>PTEC enrolment</td><td>₹1,000–2,000</td><td>Yes (free)</td></tr>
+    <tr><td>Annual retainer (ITR + GST + ad-hoc questions)</td><td>₹15,000–40,000</td><td>Recommended once GST-registered</td></tr>
+  </tbody>
+</table></div>
+<p>What to ask, what to hand over and red flags are in <a href="../library/templates/finance/ca-engagement-brief.html">the CA engagement brief</a>. Copy-paste answers for clients' tax questions are in <a href="../library/templates/finance/client-tax-faq.html">client tax FAQ</a>.</p>
+
+<h2 id="tools">Bookkeeping tools<a class="anchor" href="#tools" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Tool</th><th>Cost</th><th>Good for</th><th>Use when</th></tr></thead>
+  <tbody>
+    <tr><td>Google Sheets (3 registers) + <a href="../tools/invoice-generator.html">Invoice Generator</a></td><td>Free</td><td>Invoices, receipts, expenses and a reserve calculator</td><td><span class="pill good">Now</span></td></tr>
+    <tr><td>Zoho Books (Free plan)</td><td>Free under ₹25L turnover (1 user + accountant, ~1,000 invoices/yr)</td><td>GST-ready invoices, bank feeds, CA access</td><td>When GST-registered</td></tr>
+    <tr><td>Zoho Invoice</td><td>Free (invoicing only)</td><td>Branded invoices, reminders</td><td>If you outgrow the tool here</td></tr>
+    <tr><td>Refrens</td><td>Freemium</td><td>Popular with Indian freelancers: invoices, quotes, light accounting</td><td>Alternative to Zoho</td></tr>
+    <tr><td>Vyapar / myBillBook</td><td>Paid tiers</td><td>SMB billing on mobile</td><td>Not needed</td></tr>
+    <tr><td>Tally</td><td>Paid</td><td>What many CAs use</td><td>Only if your CA insists</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="mistakes">Ten expensive mistakes to avoid<a class="anchor" href="#mistakes" aria-label="Link to this section">#</a></h2>
+<ol>
+  <li>Defaulting to PayPal: about 8% of every foreign invoice gone.</li>
+  <li>Receiving client money into a personal account mixed with family transfers.</li>
+  <li>The wrong purpose code (gift or family maintenance) on export income.</li>
+  <li>Missing <strong>15 March</strong> advance tax, then scrambling.</li>
+  <li>Not checking AIS / Form 168. A mismatch triggers automated notices.</li>
+  <li>Charging "GST" without a GSTIN, or registering and forgetting the LUT, which turns exports into 18% IGST.</li>
+  <li>Late nil GST returns. The late fees add up quietly.</li>
+  <li>Spending TDS money as if it were income. It's a refund you will get, not cash you have.</li>
+  <li>Mixing Cultus money with freelance money.</li>
+  <li>Not filing the FY 2025-26 return before the 31 Dec 2026 belated deadline.</li>
+</ol>
+
+<h2 id="actions">Action list<a class="anchor" href="#actions" aria-label="Link to this section">#</a></h2>
+<ul class="checklist">
+  <li>Confirm FY 2025-26 ITR filed (else file belated by 31 Dec 2026)</li>
+  <li>Decide: s.58 presumptive + new regime for tax year 2026-27 (default)</li>
+  <li>Set up tax-reserve account; adopt "10% of foreign, 0% of 10%-TDS receipts"</li>
+  <li>KYC one primary rail (Skydo or BriskPe) + one backup (Razorpay MoneySaver)</li>
+  <li>Fill W-8BEN (PAN as foreign TIN); keep PDF ready</li>
+  <li>Put PAN, Udyam no. and payment instructions on the invoice template</li>
+  <li>Calendar: 1 Mar estimate → 15 Mar advance tax; quarterly AIS/Form 168 check</li>
+  <li>When turnover nears ₹15L: GST registration + LUT (RFD-11) same week</li>
+  <li>Book a 30-min CA consult with the <a href="../library/templates/finance/ca-engagement-brief.html">brief</a></li>
+</ul>
+
+<h2 id="sources">Sources<a class="anchor" href="#sources" aria-label="Link to this section">#</a></h2>
+<ol class="sources">
+  <li><a href="https://taxguru.in/income-tax/section-58-presumptive-taxation-income-tax-act-2025.html" target="_blank" rel="noopener">Section 58 presumptive taxation under the Income-tax Act 2025 (TaxGuru)</a>: s.58 replaces 44ADA from tax year 2026-27; 50%; ₹50L/₹75L limits</li>
+  <li><a href="https://www.caalley.com/news-updates/indian-news/presumptive-taxation-for-professionals-the-50-rule-remains-but-what-changes-for-deductions-and-losses-under-the-new-tax-act" target="_blank" rel="noopener">CAalley: the 50% rule remains; s.58(4) deductions/losses</a></li>
+  <li><a href="https://caalokkumar.com/my-writing/presumptive-taxation-section-58-61-income-tax-act-2025/" target="_blank" rel="noopener">CA Alok Kumar: s.58 &amp; s.61 guide</a>: no lock-in for professionals; s.58(7) applies to businesses</li>
+  <li><a href="https://www.taxtmi.com/tmi_notes?id=1514" target="_blank" rel="noopener">Clause 62 (books of account) vs s.44AA (TaxTMI)</a> and <a href="https://www.incorpx.io/blog/books-of-account-section-62-income-tax-act-2025" target="_blank" rel="noopener">IncorpX on s.62</a>: specified professions list incl. information technology (commentary)</li>
+  <li><a href="https://www.bankbazaar.com/tax/income-tax-slabs.html" target="_blank" rel="noopener">Income tax slabs FY 2026-27 (BankBazaar)</a> and <a href="https://www.caclubindia.com/articles/new-tax-regime-fy-202627-complete-slab-rebate-marginal-relief-reference-56353.asp" target="_blank" rel="noopener">CAclubindia: new regime FY 2026-27, rebate &amp; marginal relief</a></li>
+  <li><a href="https://cleartax.in/s/section-156-income-tax-act-2025" target="_blank" rel="noopener">Section 156, Income-tax Act 2025: rebate (ClearTax)</a> and <a href="https://www.incometaxindia.gov.in/w/section-156-84" target="_blank" rel="noopener">Income Tax Department: s.156</a></li>
+  <li><a href="https://www.taxscan.in/top-stories/understanding-shift-in-surcharge-rebate-and-marginal-relief-provisions-under-new-income-tax-old-vs-new-income-tax-act-series-article-5-1440718" target="_blank" rel="noopener">Taxscan: surcharge, rebate &amp; marginal relief under the new Act</a></li>
+  <li><a href="https://www.incometaxindia.gov.in/w/section-425-5" target="_blank" rel="noopener">Income Tax Department: s.425</a> and <a href="https://carajput.com/learn/all-about-advance-tax-under-the-income-tax-act-2025.html" target="_blank" rel="noopener">Advance tax under the 2025 Act (CA Rajput)</a>: s.408(2) single instalment by 15 March; s.424/425 interest</li>
+  <li><a href="https://www.patronaccounting.com/blog/itr-3-itr-4-due-date-extended-august-31" target="_blank" rel="noopener">ITR-3/ITR-4 due date moved to 31 August (Patron Accounting)</a> and <a href="https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/income-tax-returns" target="_blank" rel="noopener">incometax.gov.in: ITR help</a></li>
+  <li><a href="https://www.businesstoday.in/personal-finance/tax/story/new-income-tax-act-2025-explained-12-key-tax-forms-changing-from-april-1-2026-530661-2026-05-10" target="_blank" rel="noopener">Business Today: 12 key tax forms changing from 1 Apr 2026</a>: Form 16 → 130, 26AS → 168</li>
+  <li><a href="https://blog.tdsman.com/2026/07/tds-on-fees-for-professional-and-technical-services-section-3931-194j/" target="_blank" rel="noopener">TDS on professional/technical fees, s.393(1) (TDSMAN)</a> and <a href="https://busy.in/tds/section-393-tds-on-professional-and-technical-fees-rates-threshold-due-dates-and-compliance-guide-for-tax-year-2026-27/" target="_blank" rel="noopener">Busy: s.393 rates &amp; threshold</a>: 10%/2%, ₹50,000</li>
+  <li><a href="https://www.taxaj.com/blogs/post/Section-197-Reduction-of-TDS" target="_blank" rel="noopener">Lower/nil TDS: s.197 is now s.395 (Form 128)</a></li>
+  <li><a href="https://paasa.com/blog/form-67-now-form-44" target="_blank" rel="noopener">Form 67 is now Form 44 (Paasa)</a>: foreign tax credit from tax year 2026-27</li>
+  <li><a href="https://www.xflowpay.com/blog/export-of-services-under-gst" target="_blank" rel="noopener">Export of services under GST (Xflow)</a> and <a href="https://www.taxtmi.com/forum/issue?id=120746" target="_blank" rel="noopener">TaxTMI forum on Notification 10/2017-IT &amp; exports</a>: registration debate</li>
+  <li><a href="https://cbic-gst.gov.in/hindi/faq.html" target="_blank" rel="noopener">CBIC GST FAQs</a>: thresholds, refunds on zero-rated supplies</li>
+  <li><a href="https://chemexcil.in/gst/gst--amendments-in-cgst-rules--2017--invoice-description--exchange----rate--monthly-return--form-tran--1-etc-/2865/700163ade0960d5587d59c0a1603d8f8.html" target="_blank" rel="noopener">CGST Rules amendment: export invoice endorsement (Rule 46)</a> and <a href="https://gstcouncil.gov.in/sites/default/files/2024-06/final_master_circular_lut_bond_04102017.pdf" target="_blank" rel="noopener">GST Council master circular on LUT/bond</a></li>
+  <li><a href="https://busy.in/sac-code-998314.md" target="_blank" rel="noopener">SAC 998314 (Busy)</a> and <a href="https://www.registerkaro.in/post/gst-registration-for-software-it-services" target="_blank" rel="noopener">RegisterKaro: 998314 vs 998313</a></li>
+  <li><a href="https://support.upwork.com/hc/en-us/articles/360041114713" target="_blank" rel="noopener">Upwork Help: GST for India-based freelancers</a> and <a href="https://support.upwork.com/hc/en-us/articles/20997614861971-How-India-GST-works-for-clients" target="_blank" rel="noopener">Upwork Help: India GST for clients</a>: 18% GST on Upwork's variable 0–15% fee</li>
+  <li><a href="https://taxguru.in/rbi/rbi-fema-export-rules-2026-9-month-realisation-12-month-inr-deadline.html" target="_blank" rel="noopener">FEMA export rules 2026: 9-month realisation, 12 months INR (TaxGuru)</a> and <a href="https://www.india-briefing.com/news/india-rbi-fema-export-import-amendments-2026-47176.html/" target="_blank" rel="noopener">India Briefing: FEMA amendments in effect</a></li>
+  <li><a href="https://taxguru.in/rbi/rbi-relaxes-edf-filing-rs-10-lakh-limit-service-exporters-fema-2026.html" target="_blank" rel="noopener">RBI relaxes EDF filing: individuals deemed filed; ₹10L limit for others (TaxGuru)</a> and <a href="https://bfsi.eletsonline.com/rbi-edf-service-exporters/" target="_blank" rel="noopener">Elets BFSI: RBI EDF rules eased (2 Nov 2026)</a></li>
+  <li><a href="https://www.skydo.com/rbi-purpose-codes/P0802-software-consultancy-and-implementation" target="_blank" rel="noopener">Skydo: P0802</a> and <a href="https://razorpay.com/blog/p0807-purpose-code-software-exports/" target="_blank" rel="noopener">Razorpay: P0807</a>: purpose-code scope</li>
+  <li><a href="https://www.winvesta.in/blog/businesses/firc-vs-fira-vs-e-brc-which-proof-of-foreign-payment-do-you-actually-need" target="_blank" rel="noopener">FIRC vs FIRA vs e-BRC (Winvesta)</a>: freelancers need FIRA; e-BRC mostly for goods</li>
+  <li><a href="https://www.xflowpay.com/blog/skydo-fees" target="_blank" rel="noopener">Skydo fees breakdown (Xflow)</a> and <a href="https://www.skydo.com/compare/skydo-vs-payoneer" target="_blank" rel="noopener">Skydo vs Payoneer (Skydo)</a>: $19/$29/0.3% + GST</li>
+  <li><a href="https://www.skydo.com/compare/briskpe-pricing" target="_blank" rel="noopener">BriskPe pricing (Skydo comparison page)</a>: $16/$25/0.25% + GST (competitor-published; verify)</li>
+  <li><a href="https://razorpay.com/accept-international-payments/money-saver/" target="_blank" rel="noopener">Razorpay MoneySaver Export Account</a> and <a href="https://www.xflowpay.com/blog/razorpay-international-payment-gateway-charges" target="_blank" rel="noopener">Xflow on Razorpay charges</a>: 1% + GST</li>
+  <li><a href="https://www.xflowpay.com/pricing" target="_blank" rel="noopener">Xflow pricing</a></li>
+  <li><a href="https://www.wise.com/help/articles/6Kpm9pXlJW79OGAktSnHos/how-to-verify-your-indian-business-to-receive-payments" target="_blank" rel="noopener">Wise Help: verify your Indian business to receive payments</a> and <a href="https://newsroom.wise.com/en-CAS/249593-wise-doubles-down-in-india-announces-new-hub-in-hyderabad-and-launches-international-account-details-for-businesses-to-get-paid-from-a/" target="_blank" rel="noopener">Wise newsroom (Feb 2026)</a></li>
+  <li><a href="https://payoneer.com/fees" target="_blank" rel="noopener">Payoneer fees</a>: 1% ACH receive; conversion/withdrawal fees</li>
+  <li><a href="https://PayPal.com/in/webapps/mpp/merchant-fees" target="_blank" rel="noopener">PayPal India merchant fees</a>: 4.40% + fixed fee for international receipts</li>
+  <li><a href="https://support.stripe.com/questions/stripe-accounts-are-invite-only-in-india" target="_blank" rel="noopener">Stripe Support: accounts are invite-only in India</a></li>
+  <li><a href="https://www.skydo.com/blog/w8-form-india-guide" target="_blank" rel="noopener">W-8 form guide for Indians (Skydo)</a> and <a href="https://www.winvesta.in/blog/freelancers/how-to-complete-the-w8-ben-form-a-guide-for-indian-freelancers" target="_blank" rel="noopener">Winvesta: W-8BEN for Indian freelancers</a>: PAN as foreign TIN, Article 15</li>
+  <li><a href="https://www.patronaccounting.com/blog/zoho-books-pricing-india-2026" target="_blank" rel="noopener">Zoho Books pricing India 2026 (Patron)</a>: free plan under ₹25L turnover</li>
+</ol>
+</article>
+  <nav class="pager" aria-label="Memo navigation"><a class="prev" href="02-business-setup.html"><small>← Previous</small>Business Setup: Become a Real Business (India)</a><a class="next" href="04-pricing.html"><small>Next →</small>Pricing: Charge for Outcomes, Not Hours</a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#new-act">The new law in 60 seconds</a><a href="#presumptive">Presumptive taxation (s.58): your default</a><a href="#worked-examples">Slabs, rebate and worked examples</a><a href="#advance-tax">Advance tax: one date, 15 March</a><a href="#itr">Filing your return</a><a href="#tds">TDS from Indian clients</a><a href="#gst">GST in practice</a><a href="#foreign-income">Foreign clients: FIRA, purpose code, realisation, EDF, W-8BEN</a><a href="#payment-rails">Payment rails compared (receiving $2,000)</a><a href="#money-routine">Money routine: buckets, reserves, monthly close</a><a href="#tools">Bookkeeping tools</a><a href="#mistakes">Ten expensive mistakes to avoid</a><a href="#actions">Action list</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

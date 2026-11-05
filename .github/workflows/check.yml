@@ -1,0 +1,18 @@
+name: check
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build site (fails on broken internal links)
+        run: node site/build.mjs --strict
+      - name: Generated files are up to date
+        run: git diff --exit-code -- index.html memos library || (echo "Run 'npm run build' and commit the output." && exit 1)
+      - name: Scripts parse
+        run: for f in scripts/*.mjs; do node --check "$f"; done

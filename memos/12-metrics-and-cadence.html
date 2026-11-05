@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metrics &amp; Cadence: Run the Business Weekly · Freelance OS</title>
+<meta name="description" content="Funnel maths from revenue goal to daily touches, the KPI scorecard with targets, the Friday CEO review, monthly money close, quarterly strategy review and burnout guardrails.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="12-metrics-and-cadence" data-kind="memo">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../index.html#memos" class="on">Memos</a>
+    <a href="../index.html#tools">Tools</a>
+    <a href="../index.html#library">Templates</a>
+    <a href="../index.html#lists">Lists</a>
+    <a href="../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="All memos"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../index.html">Home</a><a class="nav-link" href="../index.html#memos">Memos</a><a class="nav-link" href="../index.html#tools">Tools</a><a class="nav-link" href="../index.html#library">Templates</a><a class="nav-link" href="../index.html#lists">Lists</a></div><div class="nav-group"><div class="nav-group-title">Strategy</div><a class="nav-link" href="../memos/00-start-here.html"><span class="nav-num">00</span><span>Start Here</span><span class="nav-prog" data-nav-prog="00-start-here" data-total="14"></span></a><a class="nav-link" href="../memos/01-positioning.html"><span class="nav-num">01</span><span>Positioning</span><span class="nav-prog" data-nav-prog="01-positioning" data-total="7"></span></a></div><div class="nav-group"><div class="nav-group-title">Foundation</div><a class="nav-link" href="../memos/02-business-setup.html"><span class="nav-num">02</span><span>Business Setup</span><span class="nav-prog" data-nav-prog="02-business-setup" data-total="30"></span></a><a class="nav-link" href="../memos/03-tax-and-money.html"><span class="nav-num">03</span><span>Tax &amp; Money</span><span class="nav-prog" data-nav-prog="03-tax-and-money" data-total="9"></span></a></div><div class="nav-group"><div class="nav-group-title">Revenue</div><a class="nav-link" href="../memos/04-pricing.html"><span class="nav-num">04</span><span>Pricing</span><span class="nav-prog" data-nav-prog="04-pricing" data-total="7"></span></a><a class="nav-link" href="../memos/05-lead-generation.html"><span class="nav-num">05</span><span>Lead Generation</span><span class="nav-prog" data-nav-prog="05-lead-generation" data-total="14"></span></a><a class="nav-link" href="../memos/06-sales-process.html"><span class="nav-num">06</span><span>Sales</span><span class="nav-prog" data-nav-prog="06-sales-process" data-total="17"></span></a></div><div class="nav-group"><div class="nav-group-title">Operations</div><a class="nav-link" href="../memos/07-contracts.html"><span class="nav-num">07</span><span>Contracts</span><span class="nav-prog" data-nav-prog="07-contracts" data-total="12"></span></a><a class="nav-link" href="../memos/08-delivery-ops.html"><span class="nav-num">08</span><span>Delivery Ops</span><span class="nav-prog" data-nav-prog="08-delivery-ops" data-total="19"></span></a></div><div class="nav-group"><div class="nav-group-title">Growth</div><a class="nav-link" href="../memos/09-portfolio-and-brand.html"><span class="nav-num">09</span><span>Portfolio &amp; Brand</span><span class="nav-prog" data-nav-prog="09-portfolio-and-brand" data-total="18"></span></a></div><div class="nav-group"><div class="nav-group-title">Execution</div><a class="nav-link" href="../memos/10-90-day-plan.html"><span class="nav-num">10</span><span>90-Day Launch Plan</span><span class="nav-prog" data-nav-prog="10-90-day-plan" data-total="61"></span></a><a class="nav-link active" href="../memos/12-metrics-and-cadence.html" aria-current="page"><span class="nav-num">12</span><span>Metrics &amp; Cadence</span><span class="nav-prog" data-nav-prog="12-metrics-and-cadence" data-total="6"></span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">Execution · Memo 12</div>
+    <h1>Metrics &amp; Cadence: Run the Business Weekly</h1>
+    <p class="subtitle">The few numbers that predict revenue, the funnel maths behind your targets, and a daily / weekly / monthly / quarterly rhythm.</p>
+    <div class="doc-meta"><span>⏱ 12 min read</span><span class="sep">·</span><span data-progress></span><span class="sep">·</span><button class="btn sm" data-action="reset-checks" type="button">Reset ticks</button></div>
+    <div class="progress-bar" data-progress-bar><i></i></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#funnel-math">Funnel maths: from revenue goal to daily touches</a><a href="#scorecard">The KPI scorecard</a><a href="#cadence">The operating rhythm</a><a href="#experiments">Run one experiment a week</a><a href="#time-allocation">Time allocation by phase</a><a href="#guardrails">Burnout guardrails</a><a href="#actions">Actions</a><a href="#sources">Sources</a></details>
+  <article class="prose">
+
+<div class="bluf"><strong>Bottom line.</strong> Revenue is a lagging number. By the time it's low, the cause is six weeks old. Track the <strong>leading numbers weekly</strong> (touches, conversations, calls, proposals) and the <strong>health numbers monthly</strong> (pipeline coverage, effective hourly rate, top-client share, runway). Run a fixed rhythm: <strong>15 touches every morning, a 45-minute CEO review every Friday, a money close on the first of each month, and a strategy review each quarter.</strong></div>
+
+<h2 id="funnel-math">Funnel maths: from revenue goal to daily touches<a class="anchor" href="#funnel-math" aria-label="Link to this section">#</a></h2>
+<pre><code>wins needed      = monthly revenue goal ÷ average deal size
+proposals needed = wins ÷ proposal win rate
+calls needed     = proposals ÷ call→proposal rate
+replies needed   = calls ÷ reply→call rate
+touches needed   = replies ÷ reply rate</code></pre>
+<div class="table-wrap"><table>
+<thead><tr><th>Scenario (goal ₹1L/month, avg deal ₹50k → 2 wins)</th><th>Reply rate</th><th>Reply → call</th><th>Call → proposal</th><th>Win rate</th><th>Touches / month</th><th>Per working day</th></tr></thead>
+<tbody>
+<tr><td><strong>Warm network</strong></td><td>30%</td><td>50%</td><td>60%</td><td>40%</td><td>56</td><td><strong>~3</strong></td></tr>
+<tr><td><strong>Planning mix</strong> (warm + signal-based)</td><td>10%</td><td>40%</td><td>50%</td><td>30%</td><td>333</td><td><strong>~15</strong></td></tr>
+<tr><td><strong>Pure cold</strong></td><td>3%</td><td>40%</td><td>50%</td><td>25%</td><td>1,333</td><td><strong>~60</strong></td></tr>
+</tbody></table></div>
+<div class="callout tip"><strong>What the table says.</strong> Warm leads need 1/20th of the effort of cold ones. Exhaust warm first, then make "cold" warmer with signals and personalisation (a Loom with <em>their</em> speed numbers is much warmer than a template). Re-calculate with your own rates after 30 days; the CRM dashboard shows them.</div>
+<p><strong>Track B example:</strong> goal $2,500/month (≈ ₹2.4L) with an average deal of $3,000 → 0.83 wins a month → at the planning-mix rates, ~140 touches a month (~7 a day).</p>
+
+<h2 id="scorecard">The KPI scorecard<a class="anchor" href="#scorecard" aria-label="Link to this section">#</a></h2>
+<h3 id="leading">Leading indicators (weekly)<a class="anchor" href="#leading" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Metric</th><th>Definition</th><th>Target (days 15–90)</th></tr></thead>
+<tbody>
+<tr><td>Touches</td><td>Personalised messages, comments-with-DM, Loom teardowns, proposals on platforms</td><td>75 / week (15 / day)</td></tr>
+<tr><td>New conversations</td><td>Two-way exchanges started</td><td>8 / week</td></tr>
+<tr><td>Discovery calls</td><td>Held, not just booked</td><td>3 / week</td></tr>
+<tr><td>Proposals sent</td><td>Within 24 h of the call</td><td>1–2 / week</td></tr>
+<tr><td>Follow-ups done on time</td><td>CRM follow-ups completed on their due date</td><td>≥ 90%</td></tr>
+<tr><td>Content</td><td>Posts published + daily comments</td><td>2 posts, 50 comments</td></tr>
+</tbody></table></div>
+<h3 id="lagging">Lagging indicators (monthly)<a class="anchor" href="#lagging" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Metric</th><th>Definition</th><th>Target by day 90</th></tr></thead>
+<tbody>
+<tr><td>Wins</td><td>Signed SOW + deposit received</td><td>2 / month</td></tr>
+<tr><td>Revenue booked</td><td>Total value of signed work this month</td><td>₹1L+</td></tr>
+<tr><td>Cash collected</td><td>Money in the bank this month (what actually pays rent)</td><td>₹1L+</td></tr>
+<tr><td>Average deal size</td><td>Booked revenue ÷ wins</td><td>₹50k India · $3k global</td></tr>
+<tr><td>Proposal win rate</td><td>Wins ÷ proposals</td><td>25–40% (above 50% → raise prices)</td></tr>
+</tbody></table></div>
+<h3 id="health">Health indicators (monthly)<a class="anchor" href="#health" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Metric</th><th>Definition</th><th>Healthy</th><th>Act when</th></tr></thead>
+<tbody>
+<tr><td>Pipeline coverage</td><td>Weighted pipeline ÷ next month's revenue goal</td><td>≥ 2×</td><td>&lt; 1× → more outreach now</td></tr>
+<tr><td>Utilization</td><td>Billable hours ÷ working hours</td><td>50–65%</td><td>&gt; 80% → raise prices; &lt; 30% → more selling</td></tr>
+<tr><td>Effective hourly rate</td><td>Project fee ÷ hours actually spent</td><td>≥ ₹2,000 · ≥ $50</td><td>Below MVR → fix estimates or scope control</td></tr>
+<tr><td>Days sales outstanding</td><td>Average days from invoice to payment</td><td>&lt; 15</td><td>&gt; 30 → enforce deposits and reminders</td></tr>
+<tr><td>Top client share</td><td>Largest client's share of last 3 months' revenue</td><td>&lt; 50%</td><td>&gt; 50% → prioritise new clients</td></tr>
+<tr><td>Recurring share</td><td>Retainer revenue ÷ total</td><td>30%+ by month 6</td><td>Offer a care plan at every handover</td></tr>
+<tr><td>Runway</td><td>Savings ÷ monthly burn</td><td>≥ 6 months</td><td>&lt; 3 → bridge income now</td></tr>
+<tr><td>Referral share</td><td>New leads from referrals and partners</td><td>Rising each quarter</td><td>Flat → ask at every handover</td></tr>
+</tbody></table></div>
+<p>The <a href="../tools/crm.html">CRM dashboard</a> computes most of these from your pipeline and activity log. Effective hourly rate needs your time logs; DSO and client share come from the <a href="../tools/invoice-generator.html">invoice register</a>.</p>
+
+<h2 id="cadence">The operating rhythm<a class="anchor" href="#cadence" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead><tr><th>When</th><th>Ritual</th><th>Time</th><th>Output</th></tr></thead>
+<tbody>
+<tr><td>Every morning</td><td>Outreach block</td><td>90 min</td><td>15 touches, all due follow-ups done</td></tr>
+<tr><td>Every evening</td><td>Shutdown</td><td>20 min</td><td>CRM updated, tomorrow's follow-ups set</td></tr>
+<tr><td>Monday</td><td>Plan the week</td><td>20 min</td><td>Run the prospecting scripts, pick the week's two posts, block client work</td></tr>
+<tr><td>Friday</td><td><strong>CEO review</strong></td><td>45 min</td><td>Scorecard filled, every open deal has a next action, one experiment chosen</td></tr>
+<tr><td>1st working day of the month</td><td><strong>Money close</strong></td><td>60 min</td><td>Invoices out, receivables chased, tax/GST reserve moved, runway updated, tool backups exported</td></tr>
+<tr><td>Quarterly</td><td><strong>Strategy review</strong></td><td>Half day</td><td>Positioning, offers, prices, channels, skills, health</td></tr>
+<tr><td>Annually</td><td>Compliance and reset</td><td>1 day</td><td>ITR, LUT (if GST-registered), rate review on 1 April, insurance renewal, goals</td></tr>
+</tbody></table></div>
+<p>Exact statutory dates are in the <a href="../library/lists/compliance-calendar.html">compliance calendar</a>; the monthly routine is in <a href="../library/templates/finance/monthly-money-close.html">monthly-money-close.md</a>.</p>
+
+<h3 id="friday-review">The Friday CEO review (copy this)<a class="anchor" href="#friday-review" aria-label="Link to this section">#</a></h3>
+<pre><code>WEEK OF: ____________
+
+NUMBERS            target   actual
+Touches              75     ____
+New conversations     8     ____
+Calls held            3     ____
+Proposals sent      1–2     ____
+Wins                  —     ____   (₹/$ ______)
+Cash collected        —     ____
+Posts / comments   2 / 50   ____
+
+PIPELINE WALK (every open deal)
+- Deal → stage → next action → date (no deal without a date)
+
+WINS: what worked and why?
+LOSSES: why did we lose? (price / timing / fit / proof / competitor / silence)
+
+ONE EXPERIMENT FOR NEXT WEEK
+Hypothesis: ____________________  Measure: ______  Sample: 50 touches
+
+ONE THING TO STOP DOING:
+MONDAY'S FIRST 15 TOUCHES ARE TO: ____________________</code></pre>
+
+<h3 id="quarterly-review">Quarterly strategy review<a class="anchor" href="#quarterly-review" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><strong>Positioning:</strong> which ICP produced the best clients (revenue, ease, referrals)? Narrow further?</li>
+<li><strong>Offers:</strong> which offer sold, which didn't? Kill or rewrite one.</li>
+<li><strong>Prices:</strong> apply the triggers in <a href="04-pricing.html#raising-rates">Pricing</a>.</li>
+<li><strong>Channels:</strong> hours spent vs revenue per channel. Double the best, drop the worst.</li>
+<li><strong>Skills:</strong> one learning goal tied to an offer (e.g., Shopify Functions, Hydrogen, Postgres performance).</li>
+<li><strong>Health:</strong> hours worked, days off, sleep, isolation. Book the next vacation.</li>
+</ul>
+
+<h2 id="experiments">Run one experiment a week<a class="anchor" href="#experiments" aria-label="Link to this section">#</a></h2>
+<p>Change one variable, measure it on about 50 touches, keep the winner. Tag touches in the CRM (<code>exp:loom-vs-text</code>) so the dashboard can split results.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Experiment</th><th>A</th><th>B</th><th>Metric</th></tr></thead>
+<tbody>
+<tr><td>Opener</td><td>Generic intro</td><td>Their own number first ("your mobile LCP is 5.8 s")</td><td>Reply rate</td></tr>
+<tr><td>Medium</td><td>Text email</td><td>90-second Loom</td><td>Reply rate</td></tr>
+<tr><td>Offer</td><td>Free teardown</td><td>Paid audit with credit</td><td>Calls booked</td></tr>
+<tr><td>Proposal</td><td>One price</td><td>Three options</td><td>Win rate, deal size</td></tr>
+<tr><td>Follow-up</td><td>"Just checking in"</td><td>New value (an extra finding)</td><td>Revived deals</td></tr>
+</tbody></table></div>
+
+<h2 id="time-allocation">Time allocation by phase<a class="anchor" href="#time-allocation" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Phase</th><th>Selling</th><th>Delivery</th><th>Proof &amp; content</th><th>Admin &amp; learning</th></tr></thead>
+<tbody>
+<tr><td>0 clients</td><td>50%</td><td>0%</td><td>30%</td><td>20%</td></tr>
+<tr><td>1–2 clients</td><td>30%</td><td>50%</td><td>10%</td><td>10%</td></tr>
+<tr><td>Fully booked</td><td>20% (never less)</td><td>65%</td><td>10%</td><td>5%</td></tr>
+</tbody></table></div>
+
+<h2 id="guardrails">Burnout guardrails<a class="anchor" href="#guardrails" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Cap at 50 hours a week, including Cultus. Keep one full day off.</li>
+<li>Two weeks of real vacation a year; tell clients four weeks ahead and price it into your rate.</li>
+<li>Work from a coworking space or a café with people twice a week. Isolation is the quiet freelancer killer.</li>
+<li>Keep a "wins" note: testimonials, thank-you messages, numbers. Read it on bad weeks.</li>
+</ul>
+
+<h2 id="actions">Actions<a class="anchor" href="#actions" aria-label="Link to this section">#</a></h2>
+<ul class="checklist">
+<li>Put the daily outreach and shutdown blocks in your calendar as recurring events.</li>
+<li>Book a recurring Friday 45-minute "CEO review".</li>
+<li>Book the first working day of each month for the money close.</li>
+<li>Set the CRM targets (touches/day, calls/week, proposals/week) in its settings.</li>
+<li>After 30 days, replace the planning conversion rates with your own and recalculate daily touches.</li>
+<li>Pick this week's experiment.</li>
+</ul>
+
+<h2 id="sources">Sources<a class="anchor" href="#sources" aria-label="Link to this section">#</a></h2>
+<ol class="sources">
+<li>Conversion rates are planning assumptions for a solo B2B services business; replace them with CRM data after 30 days. Channel benchmarks: <a href="05-lead-generation.html">Lead Generation</a>.</li>
+<li>Compliance dates: <a href="../library/lists/compliance-calendar.html">compliance calendar</a> (primary sources cited there).</li>
+</ol>
+</article>
+  <nav class="pager" aria-label="Memo navigation"><a class="prev" href="10-90-day-plan.html"><small>← Previous</small>90-Day Launch Plan</a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#funnel-math">Funnel maths: from revenue goal to daily touches</a><a href="#scorecard">The KPI scorecard</a><a href="#cadence">The operating rhythm</a><a href="#experiments">Run one experiment a week</a><a href="#time-allocation">Time allocation by phase</a><a href="#guardrails">Burnout guardrails</a><a href="#actions">Actions</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

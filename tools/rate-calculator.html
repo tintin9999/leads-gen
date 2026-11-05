@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rate, Tax &amp; Runway Calculator · Freelance OS</title>
+<style>
+:root{--bg:#f7f7f4;--surface:#fff;--ink:#16181d;--muted:#5d6572;--line:#e3e3dc;--accent:#3446d4;--accent-soft:#e8ebff;--good:#1f8a4c;--mid:#b7791f;--bad:#c2410c;--good-soft:#e6f4ec;--mid-soft:#fbf1e0;--bad-soft:#fbeae2;--radius:10px;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;--shadow:0 1px 2px rgba(16,24,40,.05),0 6px 20px rgba(16,24,40,.07)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--surface:#171a21;--ink:#e8e9ec;--muted:#9aa3b2;--line:#272c36;--accent:#7c8cff;--accent-soft:#1f2440;--good:#43b77a;--mid:#e0a645;--bad:#f07a4a;--good-soft:#14261c;--mid-soft:#2a2213;--bad-soft:#2c1a12;--shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--accent)}
+h1,h2,h3{line-height:1.2;margin:0}
+h1{font-size:17px;font-weight:650;letter-spacing:-.01em}
+h2{font-size:15px;font-weight:650}
+h3{font-size:12px;font-weight:650;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+p{margin:0}
+.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}.small{font-size:12px}
+button,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 11px;cursor:pointer;line-height:1.25;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+button:hover{border-color:var(--muted)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.icon{padding:3px 7px;border-color:transparent;background:transparent;color:var(--muted)}
+button.icon:hover{border-color:var(--line);color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select,textarea{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%;min-width:0}
+input.amt,input[type=number]{font-family:var(--mono)}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--accent)}
+label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted);font-weight:500}
+label>input,label>select{color:var(--ink);font-weight:400}
+label.check{flex-direction:row;align-items:center;gap:7px;color:var(--ink);font-size:13px;font-weight:400}
+.hint{font-family:var(--mono);font-size:11px;color:var(--muted);min-height:15px}
+.topbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--muted);text-decoration:none;font-size:13px}
+.back:hover{color:var(--accent)}
+.spacer{flex:1}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:3px}
+.tabs button{border:0;background:transparent;padding:5px 11px;border-radius:7px;color:var(--muted)}
+.tabs button[aria-selected=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+details.howto{margin:12px 20px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0 16px}
+details.howto summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:13px}
+details.howto ul{margin:0 0 12px;padding-left:18px;color:var(--muted)}
+details.howto li{margin:3px 0}
+main{flex:1;padding:14px 20px 8px;max-width:1280px;width:100%;margin:0 auto}
+footer.foot{color:var(--muted);font-size:12px;text-align:center;padding:18px 20px 24px}
+.view[hidden]{display:none}
+.split{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:16px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.card+.card{margin-top:12px}
+.card h2{margin-bottom:12px}
+.card h3{margin:14px 0 8px}
+.card h3:first-child{margin-top:0}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.fields .full{grid-column:1/-1}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.kpi .k{font-size:12px;color:var(--muted)}
+.kpi .v{font-size:23px;font-weight:650;font-family:var(--mono);letter-spacing:-.02em;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--muted);margin-top:2px}
+.kpi.hl{border-color:var(--accent);background:linear-gradient(0deg,var(--accent-soft),var(--surface) 70%)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+td.r,th.r{text-align:right}
+tr.total td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
+tr.sub td{color:var(--muted)}
+tbody tr:last-child td{border-bottom:0}
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:9px 12px;border-radius:0 8px 8px 0;font-size:13px}
+.note.warn{border-color:var(--mid);background:var(--mid-soft)}
+.note.bad{border-color:var(--bad);background:var(--bad-soft)}
+.note.good{border-color:var(--good);background:var(--good-soft)}
+.stack{display:flex;flex-direction:column;gap:10px}
+.gauge{position:relative;height:38px;margin:26px 0 8px}
+.gauge .track{position:absolute;left:0;right:0;top:14px;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--bad-soft),var(--mid-soft) 25%,var(--good-soft) 45%,var(--good-soft) 80%,var(--accent-soft))}
+.gauge .band{position:absolute;top:12px;height:14px;border:2px solid var(--good);border-radius:6px}
+.gauge .mark{position:absolute;top:2px;width:2px;height:34px;background:var(--ink)}
+.gauge .mark span{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-family:var(--mono);background:var(--ink);color:var(--bg);padding:1px 6px;border-radius:5px}
+.gauge .tick{position:absolute;top:28px;font-size:10px;color:var(--muted);font-family:var(--mono);transform:translateX(-50%);white-space:nowrap}
+.gauge .floor{position:absolute;top:8px;width:0;height:22px;border-left:2px dashed var(--bad)}
+.tasks td input{padding:4px 6px}
+.tasks td:first-child{width:44%}
+.tierwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tier{border:1px solid var(--line);border-radius:var(--radius);padding:12px;background:var(--surface)}
+.tier.rec{border:2px solid var(--accent)}
+.tier .name{font-weight:650}
+.tier .price{font-family:var(--mono);font-size:21px;font-weight:650;margin:4px 0}
+.badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--accent);color:#fff;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.months{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.months input{font-size:12px;padding:5px 6px}
+.months label{font-family:var(--mono)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;border-radius:0;border-left:1px solid var(--line)}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.prose{max-width:860px}
+.prose p,.prose li{color:var(--ink);margin:6px 0}
+.prose code{font-family:var(--mono);font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:0 4px}
+.prose h2{margin:18px 0 6px}
+.prose h2:first-child{margin-top:0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(10px);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media (max-width:860px){.split{grid-template-columns:1fr}.tierwrap{grid-template-columns:1fr}.months{grid-template-columns:repeat(4,1fr)}main,.topbar{padding-left:12px;padding-right:12px}details.howto{margin:10px 12px 0}}
+@media (max-width:480px){.fields{grid-template-columns:1fr}.months{grid-template-columns:repeat(3,1fr)}.tasks td input[type=number]{width:56px!important}}
+@media print{.topbar,.howto,footer,.noprint{display:none!important}body{background:#fff}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="../index.html">← Freelance OS</a>
+  <h1>Rate, Tax &amp; Runway Calculator</h1>
+  <nav class="tabs" role="tablist" aria-label="Calculators">
+    <button role="tab" data-view="rate" id="tab-rate" aria-controls="view-rate" aria-selected="true">Rate from goals</button>
+    <button role="tab" data-view="tax" id="tab-tax" aria-controls="view-tax" aria-selected="false">Tax estimator</button>
+    <button role="tab" data-view="runway" id="tab-runway" aria-controls="view-runway" aria-selected="false">Runway</button>
+    <button role="tab" data-view="quote" id="tab-quote" aria-controls="view-quote" aria-selected="false">Project quote</button>
+    <button role="tab" data-view="how" id="tab-how" aria-controls="view-how" aria-selected="false">How it's calculated</button>
+  </nav>
+  <div class="spacer"></div>
+  <button type="button" id="btnExport" title="Download all inputs as JSON">Export</button>
+  <button type="button" id="btnImport">Import…</button>
+  <button type="button" id="btnReset" title="Restore default inputs for this tab">Reset tab</button>
+</header>
+<details class="howto">
+  <summary>How to use</summary>
+  <ul>
+    <li><b>Rate from goals</b> — enter the yearly take-home you want, your business costs and realistic billable hours. It back-solves the minimum rate after platform fees, FX fees and income tax.</li>
+    <li><b>Tax estimator</b> — Indian tax for tax year 2026-27 (Income-tax Act, 2025): presumptive scheme (s.58, formerly 44ADA) vs actual profit, new vs old regime, TDS credit and monthly set-aside.</li>
+    <li><b>Runway</b> — how many months your savings last with your expected revenue ramp. Fix the red month <i>before</i> you reach it.</li>
+    <li><b>Project quote</b> — three-point (PERT) task estimates → fixed price with risk buffer → three options + deposit, ready to paste into a proposal.</li>
+    <li>Money fields accept shorthand: <code class="mono">12L</code>, <code class="mono">1.5cr</code>, <code class="mono">50k</code>, <code class="mono">12,00,000</code>. Everything autosaves in this browser. <b>Estimates — confirm with a CA.</b></li>
+  </ul>
+</details>
+
+<main>
+<!-- ============ RATE ============ -->
+<section class="view" id="view-rate" role="tabpanel" aria-labelledby="tab-rate">
+  <div class="split">
+    <div>
+      <div class="card">
+        <h2>Your goal</h2>
+        <div class="fields">
+          <label class="full">Target take-home per year (₹, after tax &amp; business costs)<input class="amt" data-k="rate.takeHome" inputmode="decimal"><span class="hint" data-hint="rate.takeHome"></span></label>
+        </div>
+        <h3>Business costs per year (₹)</h3>
+        <div class="fields">
+          <label>Laptop &amp; gear (amortised)<input class="amt" data-k="rate.exp.gear" inputmode="decimal"><span class="hint" data-hint="rate.exp.gear"></span></label>
+          <label>Software &amp; subscriptions<input class="amt" data-k="rate.exp.software" inputmode="decimal"><span class="hint" data-hint="rate.exp.software"></span></label>
+          <label>Internet &amp; phone<input class="amt" data-k="rate.exp.internet" inputmode="decimal"><span class="hint" data-hint="rate.exp.internet"></span></label>
+          <label>Coworking / office<input class="amt" data-k="rate.exp.cowork" inputmode="decimal"><span class="hint" data-hint="rate.exp.cowork"></span></label>
+          <label>Health &amp; other insurance<input class="amt" data-k="rate.exp.insurance" inputmode="decimal"><span class="hint" data-hint="rate.exp.insurance"></span></label>
+          <label>CA, compliance, banking<input class="amt" data-k="rate.exp.ca" inputmode="decimal"><span class="hint" data-hint="rate.exp.ca"></span></label>
+          <label class="full">Marketing, domains, travel, other<input class="amt" data-k="rate.exp.other" inputmode="decimal"><span class="hint" data-hint="rate.exp.other"></span></label>
+        </div>
+        <h3>Time</h3>
+        <div class="fields">
+          <label>Weeks off per year<input type="number" min="0" max="51" step="1" data-k="rate.weeksOff"><span class="hint">holidays + leave + sick</span></label>
+          <label>Working hours / week<input type="number" min="1" max="80" step="1" data-k="rate.hoursPerWeek"><span class="hint">incl. non-billable work</span></label>
+          <label class="full">Billable utilisation %<input type="number" min="5" max="100" step="1" data-k="rate.util"><span class="hint">year 1 realistic: 50–60% (sales, admin and learning eat the rest)</span></label>
+        </div>
+        <h3>Fees &amp; currency</h3>
+        <div class="fields">
+          <label class="full">Platform
+            <select data-k="rate.platform">
+              <option value="direct">Direct clients (0%)</option>
+              <option value="contra">Contra (0% for freelancer)</option>
+              <option value="upwork">Upwork (variable 0–15% + GST)</option>
+              <option value="fiverr">Fiverr (20%)</option>
+              <option value="custom">Custom…</option>
+            </select></label>
+          <label>Platform fee %<input type="number" min="0" max="50" step="0.5" data-k="rate.platformFee"></label>
+          <label class="check" style="align-self:end;padding-bottom:6px"><input type="checkbox" data-k="rate.gstOnFee"> GST on platform fee (India, 18%)</label>
+          <label>Share billed to foreign clients %<input type="number" min="0" max="100" step="5" data-k="rate.foreignShare"></label>
+          <label>USD → INR<input type="number" min="1" step="0.01" data-k="rate.fx"><span class="hint">default ≈ mid-2026 — check live rate</span></label>
+          <label class="full">FX conversion + transfer cost % (on foreign share)<input type="number" min="0" max="10" step="0.1" data-k="rate.fxFee"><span class="hint">FX markup + transfer fees: specialist exporter services ≈ 0.3–1.5%, PayPal ≈ 4–5%+</span></label>
+        </div>
+      </div>
+    </div>
+    <div id="rateOut"></div>
+  </div>
+</section>
+
+<!-- ============ TAX ============ -->
+<section class="view" id="view-tax" role="tabpanel" aria-labelledby="tab-tax" hidden>
+  <div class="split">
+    <div>
+      <div class="card">
+        <h2>Income — tax year 2026-27</h2>
+        <div class="fields">
+          <label class="full">Gross receipts for the year (₹, all clients, before platform fees)<input class="amt" data-k="tax.gross" inputmode="decimal"><span class="hint" data-hint="tax.gross"></span></label>
+          <label>Cash receipts % of gross<input type="number" min="0" max="100" step="1" data-k="tax.cashPct"><span class="hint">bank/UPI/forex = not cash</span></label>
+          <label>Other income (₹)<input class="amt" data-k="tax.other" inputmode="decimal"><span class="hint" data-hint="tax.other"></span></label>
+        </div>
+        <h3>Method</h3>
+        <div class="row" role="group" aria-label="Taxation method">
+          <span class="seg"><button type="button" data-mode="presumptive">Presumptive (s.58)</button><button type="button" data-mode="actual">Actual profit</button></span>
+        </div>
+        <div class="fields" style="margin-top:10px">
+          <label id="lblDeemed">Deemed profit % (min 50)<input type="number" min="50" max="100" step="1" data-k="tax.deemedPct"></label>
+          <label id="lblExp">Business expenses (₹, actual mode)<input class="amt" data-k="tax.expenses" inputmode="decimal"><span class="hint" data-hint="tax.expenses"></span></label>
+        </div>
+        <h3>Credits</h3>
+        <div class="fields">
+          <label>TDS already deducted (₹ — see AIS / Form 168)<input class="amt" data-k="tax.tds" inputmode="decimal"><span class="hint" data-hint="tax.tds"></span></label>
+          <label>Advance tax already paid (₹)<input class="amt" data-k="tax.adv" inputmode="decimal"><span class="hint" data-hint="tax.adv"></span></label>
+        </div>
+        <h3>Old regime comparison</h3>
+        <label class="check"><input type="checkbox" data-k="tax.compareOld"> Compare with the old regime</label>
+        <div class="fields" style="margin-top:8px">
+          <label class="full">Old-regime deductions (₹ — 80C, 80D, etc.)<input class="amt" data-k="tax.deductions" inputmode="decimal"><span class="hint" data-hint="tax.deductions"></span></label>
+        </div>
+      </div>
+    </div>
+    <div id="taxOut"></div>
+  </div>
+</section>
+
+<!-- ============ RUNWAY ============ -->
+<section class="view" id="view-runway" role="tabpanel" aria-labelledby="tab-runway" hidden>
+  <div class="split">
+    <div>
+      <div class="card">
+        <h2>Cash position</h2>
+        <div class="fields">
+          <label class="full">Savings available for the business (₹)<input class="amt" data-k="run.savings" inputmode="decimal"><span class="hint" data-hint="run.savings"></span></label>
+          <label>Personal burn / month (₹)<input class="amt" data-k="run.personal" inputmode="decimal"><span class="hint" data-hint="run.personal"></span></label>
+          <label>Business burn / month (₹)<input class="amt" data-k="run.business" inputmode="decimal"><span class="hint" data-hint="run.business"></span></label>
+          <label>Tax set-aside % of revenue<input type="number" min="0" max="40" step="1" data-k="run.taxPct"><span class="hint">~10% foreign · 0–8% if TDS deducted</span></label>
+          <label>First month<input type="month" data-k="run.start"></label>
+        </div>
+        <h3>Expected revenue received per month (₹ — cash in, not invoiced)</h3>
+        <div class="months" id="monthInputs"></div>
+        <div class="row" style="margin-top:10px">
+          <button type="button" id="btnRampZero">All zero (worst case)</button>
+          <button type="button" id="btnRampDefault">Default ramp</button>
+        </div>
+      </div>
+    </div>
+    <div id="runOut"></div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="view" id="view-quote" role="tabpanel" aria-labelledby="tab-quote" hidden>
+  <div class="card">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px"><h2 style="margin:0">Tasks — three-point estimates (hours)</h2>
+      <div class="row"><label style="flex-direction:row;align-items:center;gap:6px">Preset <select id="quotePreset" style="width:auto"><option value="">— choose —</option><option value="shopify">Shopify custom app (A2)</option><option value="speed">Store speed sprint (A1)</option><option value="razorpay">Razorpay checkout (A3)</option><option value="mvp">Prototype → production sprint (B1)</option><option value="admin">Internal admin module (B2)</option></select></label></div></div>
+    <table class="tasks" id="taskTable">
+      <thead><tr><th>Task</th><th class="r">Best</th><th class="r">Likely</th><th class="r">Worst</th><th class="r">PERT</th><th class="r" style="text-transform:none">± σ</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="row" style="margin-top:8px"><button type="button" id="btnAddTask">+ Add task</button></div>
+  </div>
+  <div class="split" style="margin-top:12px">
+    <div class="card">
+      <h2>Pricing inputs</h2>
+      <div class="fields">
+        <label>Currency<select data-k="quote.currency"><option>INR</option><option>USD</option><option>EUR</option><option>GBP</option></select></label>
+        <label>Hourly rate<input type="number" min="1" step="any" data-k="quote.rate"><span class="hint" id="rateHint"></span></label>
+        <label>PM &amp; comms overhead %<input type="number" min="0" max="100" step="1" data-k="quote.pm"><span class="hint">meetings, updates, QA, deploys</span></label>
+        <label>Risk buffer %<input type="number" min="0" max="100" step="1" data-k="quote.risk"><span class="hint">15–30% for fixed price</span></label>
+        <label>Essential × <input type="number" min="0.1" max="3" step="0.05" data-k="quote.mEss"><span class="hint">lean scope</span></label>
+        <label>Premium × <input type="number" min="0.1" max="5" step="0.05" data-k="quote.mPrem"><span class="hint">+ extras / support</span></label>
+        <label>Deposit %<input type="number" min="0" max="100" step="5" data-k="quote.deposit"><span class="hint" id="depHint"></span></label>
+        <label>Round to nearest<input type="number" min="1" step="1" data-k="quote.round"></label>
+      </div>
+    </div>
+    <div id="quoteOut"></div>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section class="view" id="view-how" role="tabpanel" aria-labelledby="tab-how" hidden>
+  <div class="card prose" id="howOut"></div>
+</section>
+</main>
+<footer class="foot">Data stays in this browser — export a backup weekly. <span class="mono">localStorage: fos.rates.v1</span> · Estimates only — confirm with a CA.</footer>
+<input type="file" id="fileJson" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   TAX_CONFIG — every tax constant used by this page lives here.
+   Tax year 2026-27 (1 Apr 2026 – 31 Mar 2027) under the Income-tax Act, 2025.
+   Review each Budget (1 Feb) and update. Sources: Finance Act 2025 slabs and
+   rebate (unchanged by Budget 2026); presumptive scheme for professionals
+   moved from s.44ADA (1961 Act) to s.58 (2025 Act).
+   ===================================================================== */
+const TAX_CONFIG = {
+  taxYear: '2026-27',
+  act: 'Income-tax Act, 2025',
+  presumptive: {
+    section: 's.58 (formerly s.44ADA)',
+    deemedPct: 50,             // minimum deemed profit as % of gross receipts
+    limitLowCash: 7500000,     // ₹75 lakh when cash receipts ≤ cashPctMax % of gross
+    limitDefault: 5000000,     // ₹50 lakh otherwise
+    cashPctMax: 5
+  },
+  newRegime: {
+    label: 'New regime (default)',
+    slabs: [[400000, 0], [800000, 5], [1200000, 10], [1600000, 15], [2000000, 20], [2400000, 25], [Infinity, 30]],
+    rebateIncomeLimit: 1200000, rebateMax: 60000, marginalRelief: true,   // rebate: s.156 (formerly s.87A)
+    surcharge: [[5000000, 10], [10000000, 15], [20000000, 25]]   // capped at 25% in new regime
+  },
+  oldRegime: {
+    label: 'Old regime',
+    slabs: [[250000, 0], [500000, 5], [1000000, 20], [Infinity, 30]],
+    rebateIncomeLimit: 500000, rebateMax: 12500, marginalRelief: false,
+    surcharge: [[5000000, 10], [10000000, 15], [20000000, 25], [50000000, 37]]
+  },
+  cessPct: 4,                  // health & education cess on tax + surcharge
+  rebateSection: 's.156 (formerly s.87A)',
+  tds: {section: 's.393(1)', professionalPct: 10, technicalPct: 2, noPanPct: 20, thresholdPerPayer: 50000, lowerCertSection: 's.395', creditStatement: 'AIS / Form 168'},
+  advanceTax: {
+    minLiability: 10000,       // advance tax applies if net tax after TDS ≥ this
+    presumptiveDue: '15 March', presumptiveSection: 's.408(2)',
+    schedule: [['15 June', 15], ['15 September', 45], ['15 December', 75], ['15 March', 100]]
+  }
+};
+/* Market anchors used for sanity checks (edit freely) */
+const ANCHORS = {
+  inr: {floor: 1200, low: 1500, high: 2500},          // your India rate band (₹/hr)
+  usd: {floor: 35, low: 40, high: 60},                // your global positioning band ($/hr)
+  upworkReact: {median: 63, low: 51, high: 75}        // Upwork React dev market (USD/hr)
+};
+
+(() => {
+'use strict';
+const KEY = 'fos.rates.v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = v => { const n = parseFloat(v); return Number.isFinite(n) ? n : 0; };
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const SYM = {INR: '₹', USD: '$', EUR: '€', GBP: '£'};
+const inr = n => (n < 0 ? '−' : '') + '₹' + Math.round(Math.abs(n)).toLocaleString('en-IN');
+const money = (n, cur) => (n < 0 ? '−' : '') + (SYM[cur] || '') + Math.round(Math.abs(n)).toLocaleString(cur === 'INR' ? 'en-IN' : 'en-US');
+const usd = n => money(n, 'USD');
+const short = n => { const a = Math.abs(n), s = n < 0 ? '−' : ''; if (a >= 1e7) return s + '₹' + (a / 1e7).toFixed(2) + ' Cr'; if (a >= 1e5) return s + '₹' + (a / 1e5).toFixed(2) + ' L'; if (a >= 1e3) return s + '₹' + (a / 1e3).toFixed(1) + 'k'; return s + '₹' + Math.round(a); };
+const pct = (n, d = 1) => (Number.isFinite(n) ? (n * 100).toFixed(d) : '—') + '%';
+function parseAmt(s) {
+  s = String(s ?? '').trim().toLowerCase().replace(/₹|\$|,|\s|rs\.?|inr|usd/g, '');
+  if (!s) return 0;
+  let m = 1;
+  if (/(cr|crore|crores)$/.test(s)) { m = 1e7; s = s.replace(/(cr|crore|crores)$/, ''); }
+  else if (/(l|lac|lacs|lakh|lakhs)$/.test(s)) { m = 1e5; s = s.replace(/(l|lac|lacs|lakh|lakhs)$/, ''); }
+  else if (/k$/.test(s)) { m = 1e3; s = s.slice(0, -1); }
+  else if (/m$/.test(s)) { m = 1e6; s = s.slice(0, -1); }
+  const n = parseFloat(s); return Number.isFinite(n) ? n * m : 0;
+}
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2200); }
+function download(name, text, type) { const blob = new Blob([text], {type}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800); }
+const pad = n => String(n).padStart(2, '0');
+const thisMonth = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`; };
+
+/* ---------------- tax engine ---------------- */
+function slabTax(income, slabs) { let t = 0, lo = 0; for (const [hi, r] of slabs) { if (income <= lo) break; t += (Math.min(income, hi) - lo) * r / 100; lo = hi; } return t; }
+const round10 = n => Math.round(n / 10) * 10;
+function computeTax(income, regimeKey) {
+  const R = TAX_CONFIG[regimeKey];
+  income = Math.max(0, round10(income));
+  const slab = slabTax(income, R.slabs);
+  let rebate = 0, relief = 0;
+  if (income <= R.rebateIncomeLimit) rebate = Math.min(slab, R.rebateMax);
+  else if (R.marginalRelief) { const excess = income - R.rebateIncomeLimit; if (slab > excess) relief = slab - excess; }
+  const afterRebate = slab - rebate - relief;
+  let rate = 0, th = 0, prevRate = 0;
+  for (const [t, r] of R.surcharge) if (income > t) { prevRate = rate; rate = r; th = t; }
+  let surcharge = afterRebate * rate / 100, surRelief = 0;
+  if (rate) {
+    const cap = slabTax(th, R.slabs) * (1 + prevRate / 100) + (income - th);
+    if (afterRebate + surcharge > cap) { surRelief = afterRebate + surcharge - cap; surcharge -= surRelief; }
+  }
+  const cess = (afterRebate + surcharge) * TAX_CONFIG.cessPct / 100;
+  const total = round10(afterRebate + surcharge + cess);
+  return {income, slab, rebate, relief, afterRebate, surcharge, surRate: rate, surRelief, cess, total};
+}
+function presumptiveLimit(cashPct) { const P = TAX_CONFIG.presumptive; return num(cashPct) <= P.cashPctMax ? P.limitLowCash : P.limitDefault; }
+/* Tax for a freelancer: presumptive when eligible, else actual profit. */
+function freelancerTax({gross, cashPct = 0, mode = 'presumptive', deemedPct = TAX_CONFIG.presumptive.deemedPct, expenses = 0, other = 0, regime = 'newRegime', deductions = 0}) {
+  const limit = presumptiveLimit(cashPct);
+  let usedMode = mode, forced = false;
+  if (mode === 'presumptive' && gross > limit) { usedMode = 'actual'; forced = true; }
+  const business = usedMode === 'presumptive' ? gross * Math.max(TAX_CONFIG.presumptive.deemedPct, num(deemedPct)) / 100 : Math.max(0, gross - expenses);
+  const ded = regime === 'oldRegime' ? Math.max(0, deductions) : 0;
+  const totalIncome = Math.max(0, business + other - ded);
+  return Object.assign(computeTax(totalIncome, regime), {business, usedMode, forced, limit, deductionsUsed: ded});
+}
+window.FOS_TAX = {computeTax, freelancerTax, TAX_CONFIG}; // handy for console checks
+
+/* ---------------- state ---------------- */
+const DEFAULT_TASKS = [
+  {name: 'Discovery, spec & technical plan', a: 4, m: 6, b: 10},
+  {name: 'Data model & API / webhooks', a: 10, m: 16, b: 28},
+  {name: 'Core UI screens', a: 16, m: 24, b: 40},
+  {name: 'Third-party integrations', a: 8, m: 14, b: 26},
+  {name: 'Tests for money/critical paths', a: 6, m: 10, b: 16},
+  {name: 'Deploy, docs & handover', a: 3, m: 5, b: 8}
+];
+const QUOTE_PRESETS = {
+  shopify: [['Discovery & API mapping', 4, 6, 10], ['App scaffold, auth, Shopify OAuth', 6, 10, 16], ['Webhooks + background jobs', 10, 16, 28], ['Sync logic & reconciliation', 12, 20, 36], ['Admin settings UI', 8, 12, 20], ['Tests (sync, idempotency)', 6, 10, 16], ['Deploy, monitoring, docs', 4, 6, 10]],
+  speed: [['Baseline audit (CWV, theme, apps, scripts)', 3, 4, 6], ['Image/font/media optimisation', 3, 5, 8], ['Remove/defer third-party scripts & apps', 3, 5, 9], ['Theme code fixes (Liquid/JS/CSS)', 4, 8, 14], ['PDP/cart conversion quick wins', 3, 5, 8], ['Before/after report + walkthrough', 2, 3, 4]],
+  razorpay: [['Payment flow design & edge cases', 3, 4, 6], ['Checkout integration', 6, 10, 16], ['Signature-verified webhooks, idempotent orders', 5, 8, 14], ['Refunds automation + retries', 4, 7, 12], ['Partial COD rules / pincode risk', 3, 6, 10], ['Reconciliation report + tests', 4, 6, 10]],
+  mvp: [['Production-readiness audit (RLS, auth, secrets)', 6, 8, 12], ['Fix critical security findings', 8, 14, 24], ['Tests for auth & payments', 8, 12, 20], ['CI/CD + staging environment', 4, 6, 10], ['Error monitoring, logging, backups', 3, 5, 8], ['Performance & data model fixes', 6, 10, 18], ['Handover docs + walkthrough', 2, 3, 5]],
+  admin: [['Workflow mapping & data model', 4, 6, 10], ['RBAC & auth', 6, 10, 16], ['Tables, filters, bulk actions', 10, 16, 26], ['Forms + validation', 8, 12, 20], ['Approval flow + audit log', 8, 14, 24], ['Tests + deploy', 5, 8, 12]]
+};
+const DEFAULTS = {
+  rate: {takeHome: 1200000, exp: {gear: 40000, software: 36000, internet: 15000, cowork: 0, insurance: 20000, ca: 20000, other: 24000}, weeksOff: 6, hoursPerWeek: 40, util: 55, platform: 'direct', platformFee: 0, gstOnFee: false, foreignShare: 50, fx: 95, fxFee: 1},
+  tax: {gross: 2400000, cashPct: 0, other: 0, mode: 'presumptive', deemedPct: 50, expenses: 300000, tds: 0, adv: 0, compareOld: false, deductions: 150000},
+  run: {savings: 600000, personal: 50000, business: 8000, taxPct: 5, start: thisMonth(), months: [0, 0, 30000, 50000, 75000, 100000, 120000, 120000, 140000, 140000, 150000, 150000]},
+  quote: {currency: 'INR', rate: 1800, pm: 15, risk: 20, mEss: 0.7, mPrem: 1.45, deposit: 50, round: 1000, tasks: DEFAULT_TASKS},
+  ui: {view: 'rate'}
+};
+const clone = o => JSON.parse(JSON.stringify(o));
+function deepMerge(base, over) { if (Array.isArray(base)) return Array.isArray(over) ? over : base; if (base && typeof base === 'object') { const o = {}; for (const k of Object.keys(base)) o[k] = deepMerge(base[k], over ? over[k] : undefined); if (over) for (const k of Object.keys(over)) if (!(k in o)) o[k] = over[k]; return o; } return over === undefined || over === null ? base : over; }
+function load() { try { const raw = localStorage.getItem(KEY); if (raw) return Object.assign(deepMerge(clone(DEFAULTS), JSON.parse(raw)), {version: 1}); } catch (e) { console.warn('rates: could not load', e); } return Object.assign(clone(DEFAULTS), {version: 1}); }
+let S = load();
+let saveT;
+function flush() { clearTimeout(saveT); saveT = null; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Could not save'); } }
+function save(now) { clearTimeout(saveT); if (now) flush(); else saveT = setTimeout(flush, 150); }
+window.addEventListener('pagehide', () => { if (saveT) flush(); });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && saveT) flush(); });
+const getPath = (o, p) => p.split('.').reduce((a, k) => a == null ? a : a[k], o);
+const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); const t = ks.reduce((a, k) => a[k] = a[k] ?? {}, o); t[last] = v; };
+
+/* ---------------- binding ---------------- */
+function bindInputs() {
+  $$('[data-k]').forEach(el => {
+    const p = el.dataset.k, v = getPath(S, p);
+    if (el.type === 'checkbox') el.checked = !!v;
+    else if (el.classList.contains('amt')) el.value = Math.round(num(v)).toLocaleString('en-IN');
+    else el.value = v ?? '';
+    updateHint(p);
+  });
+}
+function updateHint(p) { const h = document.querySelector(`[data-hint="${p}"]`); if (h) { const v = num(getPath(S, p)); h.textContent = v ? `${inr(v)}  ·  ${short(v)}` : ''; } }
+document.addEventListener('input', e => {
+  const el = e.target.closest('[data-k]'); if (!el) return;
+  const p = el.dataset.k;
+  let v;
+  if (el.type === 'checkbox') v = el.checked;
+  else if (el.classList.contains('amt')) v = parseAmt(el.value);
+  else if (el.type === 'number') v = num(el.value);
+  else v = el.value;
+  setPath(S, p, v);
+  if (p === 'rate.platform') applyPlatformPreset(v);
+  if (p === 'run.start') renderMonthInputs();
+  updateHint(p); save(); renderCurrent();
+});
+document.addEventListener('change', e => { const el = e.target.closest('input.amt[data-k]'); if (el) el.value = Math.round(num(getPath(S, el.dataset.k))).toLocaleString('en-IN'); });
+function applyPlatformPreset(v) {
+  const map = {direct: [0, false], contra: [0, false], upwork: [10, true], fiverr: [20, false]};
+  if (map[v]) { S.rate.platformFee = map[v][0]; S.rate.gstOnFee = map[v][1]; bindInputs(); }
+}
+
+/* ---------------- RATE ---------------- */
+function rateModel(r, billed) {
+  const fee = billed * num(r.platformFee) / 100 * (r.gstOnFee ? 1.18 : 1);
+  const afterFee = billed - fee;
+  const fxCost = afterFee * clamp(num(r.foreignShare), 0, 100) / 100 * num(r.fxFee) / 100;
+  const received = afterFee - fxCost;
+  const exp = Object.values(r.exp).reduce((a, v) => a + num(v), 0);
+  const t = freelancerTax({gross: billed, mode: 'presumptive', expenses: exp + fee + fxCost});
+  const takeHome = received - exp - t.total;
+  return {billed, fee, fxCost, received, exp, tax: t, takeHome};
+}
+function solveBilled(r) {
+  let lo = 0, hi = 5e8;
+  if (rateModel(r, hi).takeHome < num(r.takeHome)) return null;
+  for (let i = 0; i < 80; i++) { const mid = (lo + hi) / 2; if (rateModel(r, mid).takeHome >= num(r.takeHome)) hi = mid; else lo = mid; }
+  return hi;
+}
+function gaugeHTML(value, a, unit) {
+  const max = a.high * 1.6, min = 0;
+  const x = v => clamp((v - min) / (max - min) * 100, 0, 100);
+  const fmtv = v => unit === 'INR' ? '₹' + Math.round(v).toLocaleString('en-IN') : '$' + Math.round(v);
+  return `<div class="gauge" role="img" aria-label="Your minimum rate ${fmtv(value)} versus band ${fmtv(a.low)}–${fmtv(a.high)}, floor ${fmtv(a.floor)}">
+    <div class="track"></div>
+    <div class="band" style="left:${x(a.low)}%;width:${x(a.high) - x(a.low)}%" title="Your target band"></div>
+    <div class="floor" style="left:${x(a.floor)}%" title="Floor"></div>
+    <div class="mark" style="left:${x(value)}%"><span>you: ${fmtv(value)}</span></div>
+    <span class="tick" style="left:${x(a.floor)}%">floor ${fmtv(a.floor)}</span>
+    <span class="tick" style="left:${x(a.low)}%;top:-14px">${fmtv(a.low)}</span>
+    <span class="tick" style="left:${x(a.high)}%;top:-14px">${fmtv(a.high)}</span>
+  </div>`;
+}
+function renderRate() {
+  const r = S.rate;
+  const hours = Math.max(0, (52 - num(r.weeksOff)) * num(r.hoursPerWeek) * num(r.util) / 100);
+  const hpd = num(r.hoursPerWeek) / 5 || 8;
+  const billed = solveBilled(r);
+  const fx = num(r.fx) || 95;
+  if (!hours || billed == null) { $('#rateOut').innerHTML = '<div class="note bad">Check your inputs — billable hours are zero or the goal is unreachable.</div>'; return; }
+  const m = rateModel(r, billed);
+  const hr = billed / hours, day = hr * hpd;
+  // effective INR received per USD billed
+  const usdNet = fx * (1 - num(r.platformFee) / 100 * (r.gstOnFee ? 1.18 : 1)) * (1 - num(r.fxFee) / 100);
+  const hrUSD = hr / fx;
+  const A = ANCHORS;
+  let verdict;
+  if (hr < A.inr.floor) verdict = `<div class="note good"><b>Your goal needs only ${inr(hr)}/hr</b> — below your floor. Quote at least ${inr(A.inr.floor)}/hr (${usd(A.usd.floor)}/hr) anyway: underpricing signals junior work and leaves no room for slow months.</div>`;
+  else if (hr <= A.inr.high) verdict = `<div class="note"><b>${inr(hr)}/hr is inside the Indian market band</b> (${inr(A.inr.low)}–${inr(A.inr.high)}). Reachable with domestic clients; foreign clients at ${usd(A.usd.low)}–${usd(A.usd.high)}/hr give you margin.</div>`;
+  else if (hrUSD <= A.usd.high) verdict = `<div class="note warn"><b>${inr(hr)}/hr is above typical Indian rates</b> — you need mostly foreign clients at ≈ ${usd(hrUSD)}/hr, fixed-price/value pricing, or higher utilisation.</div>`;
+  else verdict = `<div class="note bad"><b>${usd(hrUSD)}/hr is above your current positioning</b> (${usd(A.usd.low)}–${usd(A.usd.high)}). Lower costs, raise utilisation, add retainers, or sell outcomes (fixed price) instead of hours.</div>`;
+  const rows = [
+    ['Billed to clients (gross)', m.billed],
+    [`Platform fees${r.gstOnFee ? ' incl. 18% GST' : ''}`, -m.fee],
+    ['FX conversion & transfer costs', -m.fxCost],
+    ['Received in bank', m.received, 'sub'],
+    ['Business costs', -m.exp],
+    [`Income tax (${m.tax.usedMode === 'presumptive' ? 'presumptive s.58' : 'actual profit'}, new regime)`, -m.tax.total],
+    ['Take-home', m.takeHome, 'total']
+  ];
+  const anchorRows = [[A.inr.floor, 'INR'], [A.inr.low, 'INR'], [2000, 'INR'], [A.inr.high, 'INR'], [A.usd.floor, 'USD'], [A.usd.low, 'USD'], [50, 'USD'], [A.usd.high, 'USD'], [A.upworkReact.median, 'USD']].map(([rt, cur]) => {
+    const rr = Object.assign({}, r, cur === 'INR' ? {foreignShare: 0} : {foreignShare: 100});
+    const b = cur === 'INR' ? rt * hours : rt * fx * hours;
+    const mm = rateModel(rr, b);
+    return `<tr><td>${cur === 'INR' ? inr(rt) : usd(rt)}/hr${rt === A.upworkReact.median && cur === 'USD' ? ' <span class="muted small">(Upwork React median)</span>' : ''}</td><td class="r num">${short(b)}</td><td class="r num">${short(mm.tax.total)}</td><td class="r num">${short(mm.takeHome)}</td><td class="r num">${short(mm.takeHome / 12)}</td></tr>`;
+  }).join('');
+  $('#rateOut').innerHTML = `
+  <div class="kpis">
+    <div class="kpi hl"><div class="k">Minimum hourly rate</div><div class="v">${inr(hr)}</div><div class="s">≈ ${usd(hrUSD)}/hr at ₹${fx}/$</div></div>
+    <div class="kpi"><div class="k">Day rate (${hpd.toFixed(hpd % 1 ? 1 : 0)} h)</div><div class="v">${inr(day)}</div><div class="s">≈ ${usd(day / fx)}/day</div></div>
+    <div class="kpi"><div class="k">Billable hours / year</div><div class="v">${Math.round(hours).toLocaleString('en-IN')}</div><div class="s">${(hours / 12).toFixed(0)} h/month · ${num(r.util)}% utilisation</div></div>
+    <div class="kpi"><div class="k">Revenue needed</div><div class="v">${short(billed)}</div><div class="s">${short(billed / 12)}/month · effective tax ${pct(m.tax.total / billed)}</div></div>
+  </div>
+  <div class="card"><h2>Sanity check vs market</h2>
+    ${verdict}
+    <h3 style="margin-top:14px">India (₹/hr)</h3>${gaugeHTML(hr, A.inr, 'INR')}
+    <h3 style="margin-top:22px">Global ($/hr) <span class="muted small" style="text-transform:none;letter-spacing:0;font-weight:400">— Upwork React market: median ${usd(A.upworkReact.median)}, typical ${usd(A.upworkReact.low)}–${usd(A.upworkReact.high)}</span></h3>${gaugeHTML(hrUSD, A.usd, 'USD')}
+    <p class="muted small" style="margin-top:14px">₹1 billed in USD reaches your bank as ≈ ₹${(usdNet / fx).toFixed(3)} after platform + FX costs (₹${usdNet.toFixed(2)} per $1).</p>
+  </div>
+  <div class="card"><h2>Where the money goes (per year)</h2>
+    <table><tbody>${rows.map(([k, v, c]) => `<tr class="${c || ''}"><td>${k}</td><td class="r num">${inr(v)}</td><td class="r num muted">${short(v / 12)}/mo</td></tr>`).join('')}</tbody></table>
+  </div>
+  <div class="card"><h2>What standard rates earn you</h2>
+    <p class="muted small" style="margin-bottom:8px">Same hours, costs and fees as your inputs; INR rows assume all-domestic, USD rows all-foreign.</p>
+    <table><thead><tr><th>Rate</th><th class="r">Billed / yr</th><th class="r">Tax</th><th class="r">Take-home / yr</th><th class="r">/ month</th></tr></thead><tbody>${anchorRows}</tbody></table>
+  </div>`;
+}
+
+/* ---------------- TAX ---------------- */
+function taxTable(t, gross, label, regimeKey = 'newRegime') {
+  const rows = [
+    ['Business income', t.business],
+    ...(t.deductionsUsed ? [['Less: deductions (old regime)', -t.deductionsUsed]] : []),
+    ['Total income (rounded)', t.income, 'sub'],
+    ['Tax on slabs', t.slab],
+    ...(t.rebate ? [[`Less: rebate${regimeKey === 'newRegime' ? ' ' + TAX_CONFIG.rebateSection : ''} (income ≤ ${short(TAX_CONFIG[regimeKey].rebateIncomeLimit)})`, -t.rebate]] : []),
+    ...(t.relief ? [[`Less: marginal relief (tax capped at income − ${short(TAX_CONFIG.newRegime.rebateIncomeLimit)})`, -t.relief]] : []),
+    ...(t.surRate ? [[`Surcharge @ ${t.surRate}%${t.surRelief ? ' (after marginal relief)' : ''}`, t.surcharge]] : []),
+    [`Health & education cess @ ${TAX_CONFIG.cessPct}%`, t.cess],
+    ['Total tax', t.total, 'total']
+  ];
+  return `<table aria-label="${esc(label)}"><tbody>${rows.map(([k, v, c]) => `<tr class="${c || ''}"><td>${k}</td><td class="r num">${inr(v)}</td></tr>`).join('')}</tbody></table>`;
+}
+function renderTax() {
+  const x = S.tax, gross = num(x.gross);
+  const args = {gross, cashPct: x.cashPct, mode: x.mode, deemedPct: x.deemedPct, expenses: num(x.expenses), other: num(x.other)};
+  const tn = freelancerTax(Object.assign({}, args, {regime: 'newRegime'}));
+  const to = x.compareOld ? freelancerTax(Object.assign({}, args, {regime: 'oldRegime', deductions: num(x.deductions)})) : null;
+  $$('.seg [data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === x.mode)));
+  $('#lblDeemed').style.opacity = x.mode === 'presumptive' ? 1 : .45;
+  $('#lblExp').style.opacity = x.mode === 'actual' ? 1 : .45;
+  const credits = num(x.tds) + num(x.adv);
+  const best = to && to.total < tn.total ? to : tn;
+  const bal = best.total - credits;
+  const P = TAX_CONFIG.presumptive, AT = TAX_CONFIG.advanceTax;
+  const notes = [];
+  if (tn.forced) notes.push(`<div class="note bad"><b>Presumptive scheme not available</b> above ${short(tn.limit)} gross receipts${num(x.cashPct) > P.cashPctMax ? ` (₹75 L limit needs cash receipts ≤ ${P.cashPctMax}%)` : ''}. Computed on actual profit — you'll need books of account and possibly a tax audit. Talk to a CA.</div>`);
+  else if (x.mode === 'presumptive') notes.push(`<div class="note good">Presumptive (${P.section}): ${Math.max(P.deemedPct, num(x.deemedPct))}% of receipts is taxed as profit; no expense records needed for tax (keep them anyway). Limit: ${short(tn.limit)} gross receipts.</div>`);
+  if (x.mode === 'actual' && !tn.forced && gross > 0 && num(x.expenses) / gross < 0.5) notes.push(`<div class="note warn">Your expenses are ${pct(num(x.expenses) / gross, 0)} of receipts — presumptive (50% deemed) would give a lower taxable income.</div>`);
+  const netLiability = best.total - num(x.tds);
+  notes.push(netLiability >= AT.minLiability
+    ? `<div class="note">${best.usedMode === 'presumptive' ? `<b>Advance tax (${AT.presumptiveSection}):</b> on presumptive income pay the full amount (${inr(Math.max(0, netLiability - num(x.adv)))} still due) by <b>${AT.presumptiveDue}</b> ${TAX_CONFIG.taxYear.slice(0, 2)}${TAX_CONFIG.taxYear.slice(5)}.` : `<b>Advance tax instalments:</b> ${AT.schedule.map(([d, p]) => `${p}% by ${d}`).join(' · ')}.`} Interest applies if you underpay.</div>`
+    : `<div class="note good">Net tax after TDS is under ${inr(AT.minLiability)} — no advance tax needed. File the return anyway${num(x.tds) > best.total ? ' to claim your TDS refund' : ''}.</div>`);
+  const ex = [1200000, 2400000, 2500000, 3000000, 3600000, 6000000, 7500000].map(g => { const t = freelancerTax({gross: g, mode: 'presumptive', regime: 'newRegime'}); return `<tr><td class="num">${short(g)}</td><td class="r num">${short(t.income)}</td><td class="r num">${inr(t.total)}</td><td class="r num">${pct(g ? t.total / g : 0)}</td><td class="r num">${inr(t.total / 12)}</td></tr>`; }).join('');
+  $('#taxOut').innerHTML = `
+  <div class="kpis">
+    <div class="kpi hl"><div class="k">Total tax (${best === to ? 'old' : 'new'} regime)</div><div class="v">${inr(best.total)}</div><div class="s">effective ${pct(gross ? best.total / gross : 0)} of gross</div></div>
+    <div class="kpi"><div class="k">Set aside monthly</div><div class="v">${inr(best.total / 12)}</div><div class="s">≈ ${pct(gross ? best.total / gross : 0, 1)} of every payment</div></div>
+    <div class="kpi"><div class="k">${bal >= 0 ? 'Still payable' : 'Refund due'}</div><div class="v">${inr(Math.abs(bal))}</div><div class="s">after TDS ${inr(num(x.tds))} + advance ${inr(num(x.adv))}</div></div>
+    <div class="kpi"><div class="k">Taxable income</div><div class="v">${short(best.income)}</div><div class="s">${best.usedMode === 'presumptive' ? 'presumptive' : 'actual profit'}</div></div>
+  </div>
+  <div class="stack">${notes.join('')}</div>
+  <div class="card" style="margin-top:12px"><div style="display:grid;grid-template-columns:${to ? '1fr 1fr' : '1fr'};gap:16px">
+    <div><h2>${TAX_CONFIG.newRegime.label}${to && best === tn ? ' <span class="badge">lower</span>' : ''}</h2>${taxTable(tn, gross, 'New regime')}</div>
+    ${to ? `<div><h2>${TAX_CONFIG.oldRegime.label}${best === to ? ' <span class="badge">lower</span>' : ''}</h2>${taxTable(to, gross, 'Old regime', 'oldRegime')}</div>` : ''}
+  </div></div>
+  <div class="card"><h2>Worked examples — presumptive, new regime, no other income</h2>
+    <table><thead><tr><th>Gross receipts</th><th class="r">Taxable (50%)</th><th class="r">Tax</th><th class="r">Effective</th><th class="r">Set aside / mo</th></tr></thead><tbody>${ex}</tbody></table>
+    <p class="muted small" style="margin-top:8px">Up to ₹24 L of receipts the ₹12 L rebate makes tax nil. Just above it, marginal relief caps tax at (income − ₹12 L) — e.g. ₹25 L gross → ₹52,000. TDS deducted by Indian clients still happens: claim it back by filing. GST, if registered, is separate and is not your income.</p>
+  </div>
+  <div class="card"><h2>Tax reserve — rule of thumb</h2>
+    <ul style="margin:0;padding-left:18px">
+      <li>Foreign clients (no TDS): move <b>~10%</b> of every receipt to a tax savings account.</li>
+      <li>Indian clients who deduct <b>10% TDS</b>: reserve <b>0%</b> extra; if they deduct <b>2%</b>: reserve <b>~8%</b>.</li>
+      <li>GST collected (if registered): reserve <b>100%</b> — it belongs to the government.</li>
+      <li>Check your TDS credits in <b>${TAX_CONFIG.tds.creditStatement}</b> before filing; refunds come only after you file.</li>
+    </ul>
+  </div>`;
+}
+
+/* ---------------- RUNWAY ---------------- */
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function monthLabels(start) { const [y, m] = String(start || thisMonth()).split('-').map(Number); return Array.from({length: 12}, (_, i) => { const d = new Date(y, (m || 1) - 1 + i, 1); return `${MONTHS[d.getMonth()]} ${String(d.getFullYear()).slice(2)}`; }); }
+function renderMonthInputs() {
+  const labels = monthLabels(S.run.start);
+  $('#monthInputs').innerHTML = labels.map((l, i) => `<label>${l}<input class="amt" data-month="${i}" inputmode="decimal" value="${Math.round(num(S.run.months[i])).toLocaleString('en-IN')}" aria-label="Revenue ${l}"></label>`).join('');
+}
+$('#monthInputs').addEventListener('input', e => { const el = e.target.closest('[data-month]'); if (!el) return; S.run.months[+el.dataset.month] = parseAmt(el.value); save(); renderRunway(); });
+$('#monthInputs').addEventListener('change', e => { const el = e.target.closest('[data-month]'); if (el) el.value = Math.round(num(S.run.months[+el.dataset.month])).toLocaleString('en-IN'); });
+function renderRunway() {
+  const R = S.run, labels = monthLabels(R.start);
+  const burn = num(R.personal) + num(R.business);
+  let bal = num(R.savings);
+  const rows = []; let negIdx = -1, dangerIdx = -1;
+  for (let i = 0; i < 12; i++) {
+    const rev = num(R.months[i]); const tax = rev * num(R.taxPct) / 100;
+    bal = bal + rev - tax - burn;
+    rows.push({label: labels[i], rev, tax, burn, bal});
+    if (bal < 0 && negIdx < 0) negIdx = i;
+    if (bal < burn * 3 && dangerIdx < 0) dangerIdx = i;
+  }
+  const zeroRun = burn ? num(R.savings) / burn : Infinity;
+  const runway = negIdx < 0 ? null : negIdx; // months fully covered
+  const breakEvenIdx = R.months.findIndex(v => num(v) * (1 - num(R.taxPct) / 100) >= burn);
+  // chart
+  const W = 760, H = 260, pl = 64, pr = 14, pt = 16, pb = 30;
+  const vals = [num(R.savings), ...rows.map(r => r.bal)];
+  const maxV = Math.max(...vals, burn * 3, 1), minV = Math.min(0, ...vals);
+  const xs = i => pl + (W - pl - pr) * i / 12;
+  const ys = v => pt + (H - pt - pb) * (1 - (v - minV) / (maxV - minV || 1));
+  const pts = vals.map((v, i) => `${xs(i).toFixed(1)},${ys(v).toFixed(1)}`).join(' ');
+  const area = `${xs(0)},${ys(0)} ${pts} ${xs(12)},${ys(0)}`;
+  const gridVals = [minV, (minV + maxV) / 2, maxV, 0, burn * 3].filter((v, i, a) => a.indexOf(v) === i);
+  const dz = ys(burn * 3);
+  const chart = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cash balance over the next 12 months">
+    <rect x="${pl}" y="${dz}" width="${W - pl - pr}" height="${Math.max(0, ys(0) - dz)}" fill="var(--mid-soft)"/>
+    ${minV < 0 ? `<rect x="${pl}" y="${ys(0)}" width="${W - pl - pr}" height="${Math.max(0, ys(minV) - ys(0))}" fill="var(--bad-soft)"/>` : ''}
+    ${gridVals.map(v => `<line x1="${pl}" x2="${W - pr}" y1="${ys(v)}" y2="${ys(v)}" stroke="var(--line)" ${v === 0 ? 'stroke-width="1.5" stroke="var(--muted)"' : ''}/><text x="${pl - 6}" y="${ys(v) + 3}" text-anchor="end">${short(v).replace('₹', '₹')}</text>`).join('')}
+    <text x="${W - pr - 4}" y="${dz - 4}" text-anchor="end" style="fill:var(--mid)">3-month buffer</text>
+    <polygon points="${area}" fill="var(--accent-soft)" opacity=".7"/>
+    <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>
+    ${vals.map((v, i) => { const isNeg = negIdx >= 0 && i === negIdx + 1, isDanger = dangerIdx >= 0 && i === dangerIdx + 1 && !isNeg; return `<circle cx="${xs(i)}" cy="${ys(v)}" r="${isNeg || isDanger ? 6 : 3}" fill="${isNeg ? 'var(--bad)' : isDanger ? 'var(--mid)' : 'var(--accent)'}" stroke="var(--surface)" stroke-width="1.5"><title>${i ? labels[i - 1] : 'Start'}: ${inr(v)}</title></circle>`; }).join('')}
+    ${['Now', ...labels].map((l, i) => `<text x="${xs(i)}" y="${H - 10}" text-anchor="middle">${l.split(' ')[0]}</text>`).join('')}
+  </svg>`;
+  const verdict = negIdx >= 0
+    ? `<div class="note bad"><b>Cash runs out in ${labels[negIdx]}</b> (month ${negIdx + 1}). ${dangerIdx >= 0 && dangerIdx < negIdx ? `You drop under a 3-month buffer in ${labels[dangerIdx]} — that is your decision point: add bridge income (contract role, talent network, interviewing) or cut burn before then.` : 'Act now: add bridge income or cut burn.'}</div>`
+    : dangerIdx >= 0 ? `<div class="note warn"><b>No cash-out in 12 months</b>, but the balance falls under 3 months of burn in <b>${labels[dangerIdx]}</b>. Treat that month as your trigger to add bridge income.</div>`
+    : `<div class="note good"><b>Healthy:</b> balance stays above a 3-month buffer for all 12 months.</div>`;
+  $('#runOut').innerHTML = `
+  <div class="kpis">
+    <div class="kpi hl"><div class="k">Runway with your plan</div><div class="v">${runway == null ? '12+ mo' : runway + ' mo'}</div><div class="s">${runway == null ? 'never negative in 12 months' : 'cash out in ' + labels[negIdx]}</div></div>
+    <div class="kpi"><div class="k">Runway with zero revenue</div><div class="v">${Number.isFinite(zeroRun) ? zeroRun.toFixed(1) + ' mo' : '∞'}</div><div class="s">savings ÷ ${inr(burn)}/mo burn</div></div>
+    <div class="kpi"><div class="k">Break-even month</div><div class="v">${breakEvenIdx >= 0 ? labels[breakEvenIdx] : '—'}</div><div class="s">revenue after tax ≥ burn</div></div>
+    <div class="kpi"><div class="k">Balance after 12 months</div><div class="v">${short(rows[11].bal)}</div><div class="s">12-mo revenue ${short(R.months.reduce((a, v) => a + num(v), 0))}</div></div>
+  </div>
+  <div class="stack">${verdict}</div>
+  <div class="card" style="margin-top:12px"><h2>Cash balance</h2>${chart}</div>
+  <div class="card"><h2>Month by month</h2><table><thead><tr><th>Month</th><th class="r">Revenue</th><th class="r">Tax set-aside</th><th class="r">Burn</th><th class="r">End balance</th></tr></thead><tbody>${rows.map((r, i) => `<tr${i === negIdx ? ' style="background:var(--bad-soft)"' : i === dangerIdx ? ' style="background:var(--mid-soft)"' : ''}><td>${r.label}</td><td class="r num">${inr(r.rev)}</td><td class="r num">${inr(r.tax)}</td><td class="r num">${inr(r.burn)}</td><td class="r num">${inr(r.bal)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+$('#btnRampZero').addEventListener('click', () => { S.run.months = Array(12).fill(0); save(); renderMonthInputs(); renderRunway(); });
+$('#btnRampDefault').addEventListener('click', () => { S.run.months = clone(DEFAULTS.run.months); save(); renderMonthInputs(); renderRunway(); });
+
+/* ---------------- QUOTE ---------------- */
+function renderTasks() {
+  $('#taskTable tbody').innerHTML = S.quote.tasks.map((t, i) => { const pe = (num(t.a) + 4 * num(t.m) + num(t.b)) / 6, sd = Math.abs(num(t.b) - num(t.a)) / 6; return `<tr data-i="${i}"><td><input data-t="name" value="${esc(t.name)}" aria-label="Task name"></td><td class="r"><input type="number" min="0" step="0.5" data-t="a" value="${num(t.a)}" aria-label="Best case hours" style="width:72px"></td><td class="r"><input type="number" min="0" step="0.5" data-t="m" value="${num(t.m)}" aria-label="Likely hours" style="width:72px"></td><td class="r"><input type="number" min="0" step="0.5" data-t="b" value="${num(t.b)}" aria-label="Worst case hours" style="width:72px"></td><td class="r num" data-pe>${pe.toFixed(1)}</td><td class="r num muted" data-sd>${sd.toFixed(1)}</td><td><button type="button" class="icon" data-del="${i}" aria-label="Remove task">✕</button></td></tr>`; }).join('');
+}
+$('#taskTable').addEventListener('input', e => {
+  const tr = e.target.closest('tr[data-i]'); const k = e.target.dataset.t; if (!tr || !k) return;
+  const t = S.quote.tasks[+tr.dataset.i]; t[k] = k === 'name' ? e.target.value : num(e.target.value);
+  const pe = (num(t.a) + 4 * num(t.m) + num(t.b)) / 6, sd = Math.abs(num(t.b) - num(t.a)) / 6;
+  $('[data-pe]', tr).textContent = pe.toFixed(1); $('[data-sd]', tr).textContent = sd.toFixed(1);
+  save(); renderQuote();
+});
+$('#taskTable').addEventListener('click', e => { const b = e.target.closest('[data-del]'); if (!b) return; S.quote.tasks.splice(+b.dataset.del, 1); save(); renderTasks(); renderQuote(); });
+$('#btnAddTask').addEventListener('click', () => { S.quote.tasks.push({name: 'New task', a: 2, m: 4, b: 8}); save(); renderTasks(); renderQuote(); const ins = $$('#taskTable [data-t=name]'); ins[ins.length - 1].select(); });
+$('#quotePreset').addEventListener('change', e => { const p = QUOTE_PRESETS[e.target.value]; if (!p) return; if (S.quote.tasks.length && !confirm('Replace current tasks with this preset?')) { e.target.value = ''; return; } S.quote.tasks = p.map(([name, a, m, b]) => ({name, a, m, b})); e.target.value = ''; save(); renderTasks(); renderQuote(); });
+let lastQuoteText = '';
+function renderQuote() {
+  const q = S.quote, cur = q.currency;
+  const T = q.tasks.map(t => ({pe: (num(t.a) + 4 * num(t.m) + num(t.b)) / 6, v: Math.pow((num(t.b) - num(t.a)) / 6, 2), t}));
+  const mean = T.reduce((a, x) => a + x.pe, 0), sd = Math.sqrt(T.reduce((a, x) => a + x.v, 0));
+  const p85 = mean + 1.04 * sd;
+  const withPM = mean * (1 + num(q.pm) / 100);
+  const base = withPM * num(q.rate) * (1 + num(q.risk) / 100);
+  const rnd = v => { const r = Math.max(1, num(q.round)); return Math.round(v / r) * r; };
+  const rec = rnd(base), ess = rnd(base * num(q.mEss)), prem = rnd(base * num(q.mPrem));
+  const fxRate = num(S.rate.fx) || 95;
+  const recINR = cur === 'INR' ? rec : cur === 'USD' ? rec * fxRate : rec * fxRate * (cur === 'EUR' ? 1.16 : 1.34);
+  const suggestDep = recINR > 200000 ? 40 : 50;
+  $('#depHint').textContent = `suggested ${suggestDep}%${suggestDep === 40 ? ' (40/40/20 above ₹2L / $5k)' : ' (50/50)'}`;
+  $('#rateHint').textContent = cur === 'INR' ? `≈ ${usd(num(q.rate) / fxRate)}/hr` : `≈ ${inr(num(q.rate) * fxRate)}/hr (₹${fxRate}/$)`;
+  const dep = rnd(rec * num(q.deposit) / 100);
+  const effAtP85 = rec / (p85 * (1 + num(q.pm) / 100) || 1);
+  const schedule = num(q.deposit) <= 40 && num(q.deposit) > 0 ? [[num(q.deposit), 'on signing'], [40, 'at mid-project milestone'], [100 - num(q.deposit) - 40, 'on delivery']] : [[num(q.deposit), 'on signing'], [100 - num(q.deposit), 'on delivery']];
+  const tiers = [
+    ['Essential', ess, 'Core scope only, fewer revisions, standard support. Use to anchor the low end or fit a tight budget — remove scope, never just discount.'],
+    ['Recommended', rec, 'The full scope above with buffer. This is the option you want them to pick.'],
+    ['Premium', prem, 'Recommended + extras: priority turnaround, extended support (30–60 days), docs/training, analytics or extra polish.']
+  ];
+  $('#quoteOut').innerHTML = `
+  <div class="kpis">
+    <div class="kpi"><div class="k">Expected effort (PERT)</div><div class="v">${mean.toFixed(1)} h</div><div class="s">± ${sd.toFixed(1)} h · 85% ≤ ${p85.toFixed(0)} h</div></div>
+    <div class="kpi"><div class="k">With ${num(q.pm)}% overhead</div><div class="v">${withPM.toFixed(0)} h</div><div class="s">${(withPM / 30).toFixed(1)} weeks at 30 billable h/wk</div></div>
+    <div class="kpi hl"><div class="k">Fixed price (recommended)</div><div class="v">${money(rec, cur)}</div><div class="s">incl. ${num(q.risk)}% risk buffer</div></div>
+    <div class="kpi"><div class="k">Effective rate if it hits P85</div><div class="v">${money(effAtP85, cur)}/h</div><div class="s">vs ${money(num(q.rate), cur)}/h target</div></div>
+  </div>
+  <div class="tierwrap">${tiers.map(([n, p, d], i) => `<div class="tier${i === 1 ? ' rec' : ''}"><div class="name">${n}${i === 1 ? '<span class="badge">recommended</span>' : ''}</div><div class="price">${money(p, cur)}</div><div class="muted small">${d}</div></div>`).join('')}</div>
+  <div class="card" style="margin-top:12px"><h2>Payment schedule (recommended option)</h2>
+    <table><tbody>${schedule.filter(s => s[0] > 0).map(([p, w]) => `<tr><td>${p}% ${w}</td><td class="r num">${money(rnd(rec * p / 100), cur)}</td></tr>`).join('')}</tbody></table>
+    <div class="row" style="margin-top:10px"><button type="button" class="primary" id="btnCopyQuote">Copy quote as text</button><span class="muted small">Paste into the Proposal Builder or an email.</span></div>
+  </div>`;
+  lastQuoteText = [
+    `Estimate — ${q.tasks.length} work items, ~${withPM.toFixed(0)} hours including project management.`,
+    '', 'Scope:', ...q.tasks.map(t => `• ${t.name}`), '',
+    'Options:', ...tiers.map(([n, p]) => `• ${n}: ${money(p, cur)}${n === 'Recommended' ? '  (recommended)' : ''}`), '',
+    'Payment: ' + schedule.filter(s => s[0] > 0).map(([p, w]) => `${p}% ${w}`).join(', ') + '. Invoices due within 7 days.',
+    'Fixed price for the scope above; changes are quoted separately via a change request.',
+    cur === 'INR' ? 'GST extra at 18% if applicable.' : 'Export of services — no Indian GST charged.'
+  ].join('\n');
+  $('#btnCopyQuote').addEventListener('click', () => copyText(lastQuoteText));
+}
+function copyText(t) {
+  const done = () => toast('Copied to clipboard');
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, () => fallback());
+  else fallback();
+  function fallback() { const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('Copy failed — select and copy manually'); } ta.remove(); }
+}
+
+/* ---------------- HOW ---------------- */
+function renderHow() {
+  const C = TAX_CONFIG, N = C.newRegime;
+  $('#howOut').innerHTML = `
+  <h2>Rate from goals</h2>
+  <p><code>billable hours = (52 − weeks off) × hours/week × utilisation</code></p>
+  <p><code>platform fee = billed × fee% × (1.18 if GST on fee)</code> · <code>FX cost = (billed − platform fee) × foreign share × FX%</code></p>
+  <p><code>take-home = billed − platform fee − FX cost − business costs − income tax</code>. The page back-solves (binary search) the smallest <i>billed</i> that meets your take-home, then divides by billable hours. Income tax is computed on gross billed (conservative) with the presumptive scheme when eligible.</p>
+  <h2>Tax estimator (tax year ${C.taxYear}, ${C.act})</h2>
+  <ul>
+    <li><b>Presumptive</b> (${C.presumptive.section}): taxable business income = ${C.presumptive.deemedPct}% of gross receipts (you may declare more). Available up to ${short(C.presumptive.limitLowCash)} gross receipts when cash receipts ≤ ${C.presumptive.cashPctMax}%, otherwise ${short(C.presumptive.limitDefault)}. No separate expense deduction. Advance tax: 100% by ${C.advanceTax.presumptiveDue} (${C.advanceTax.presumptiveSection}) if tax after TDS ≥ ${inr(C.advanceTax.minLiability)}.</li>
+    <li><b>Actual profit</b>: receipts − business expenses. Needs books of account; a tax audit may apply above limits.</li>
+    <li><b>${N.label} slabs</b>: ${N.slabs.map(([hi, r], i) => `${i ? short(N.slabs[i - 1][0]) : '₹0'}–${hi === Infinity ? '∞' : short(hi)}: ${r}%`).join(' · ')}.</li>
+    <li><b>Rebate</b> (${C.rebateSection}): if total income ≤ ${short(N.rebateIncomeLimit)}, tax is reduced by up to ${inr(N.rebateMax)} (= nil). Just above, <b>marginal relief</b> caps tax at (income − ${short(N.rebateIncomeLimit)}).</li>
+    <li><b>Surcharge</b> (new regime): ${N.surcharge.map(([t, r]) => `${r}% above ${short(t)}`).join(', ')}, with marginal relief at each threshold. <b>Cess</b> ${C.cessPct}% on tax + surcharge. Income and tax rounded to the nearest ₹10.</li>
+    <li><b>Old regime</b>: ${C.oldRegime.slabs.map(([hi, r], i) => `${i ? short(C.oldRegime.slabs[i - 1][0]) : '₹0'}–${hi === Infinity ? '∞' : short(hi)}: ${r}%`).join(' · ')}; rebate up to ${inr(C.oldRegime.rebateMax)} if income ≤ ${short(C.oldRegime.rebateIncomeLimit)}; deductions (80C, 80D…) allowed.</li>
+    <li><b>TDS</b> (${C.tds.section}): Indian business clients deduct ${C.tds.professionalPct}% on professional fees or ${C.tds.technicalPct}% on technical services once payments from that client cross ${inr(C.tds.thresholdPerPayer)} in the year (${C.tds.noPanPct}% if you don't give your PAN). It is a credit against your tax — check ${C.tds.creditStatement}, and file to get any excess refunded. If TDS will far exceed your real tax, a lower-deduction certificate can be requested (${C.tds.lowerCertSection}).</li>
+  </ul>
+  <h2>Runway</h2>
+  <p><code>balance(month) = balance(prev) + revenue − tax set-aside − (personal + business burn)</code>. Amber = below 3 months of burn (decision point); red = negative. Enter revenue in the month the money <i>arrives</i>, not when you invoice.</p>
+  <h2>Project quote</h2>
+  <p><code>PERT = (best + 4 × likely + worst) ÷ 6</code>, <code>σ = (worst − best) ÷ 6</code>, totals: σ = √Σσ². 85th percentile ≈ mean + 1.04σ. <code>price = PERT hours × (1 + overhead) × rate × (1 + risk buffer)</code>, rounded. Essential / Premium are multipliers of the recommended price — change scope with the price, never discount the same scope.</p>
+  <h2>Where to change constants</h2>
+  <p>All tax constants are in <code>TAX_CONFIG</code> and market anchors in <code>ANCHORS</code> at the top of this file's script. Update them after every Budget (1 February).</p>
+  <div class="note warn" style="margin-top:12px"><b>Estimates — confirm with a CA.</b> This page does not cover GST, capital gains, special-rate income, losses, or every edge case of the ${C.act}. Not tax advice.</div>`;
+}
+
+/* ---------------- tabs & io ---------------- */
+function renderCurrent() {
+  const v = S.ui.view;
+  if (v === 'rate') renderRate(); else if (v === 'tax') renderTax(); else if (v === 'runway') renderRunway(); else if (v === 'quote') renderQuote(); else renderHow();
+}
+function setView(v) {
+  if (!['rate','tax','runway','quote','how'].includes(v)) v = 'rate';
+  S.ui.view = v; save(true);
+  $$('.tabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === v)));
+  $$('.view').forEach(s => { s.hidden = s.id !== 'view-' + v; });
+  if (v === 'runway') renderMonthInputs();
+  if (v === 'quote') renderTasks();
+  renderCurrent();
+}
+$$('.tabs [role=tab]').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+$('.tabs').addEventListener('keydown', e => { if (!['ArrowLeft','ArrowRight'].includes(e.key)) return; const t = $$('.tabs [role=tab]'); const i = t.indexOf(document.activeElement); if (i < 0) return; const n = t[(i + (e.key === 'ArrowRight' ? 1 : t.length - 1)) % t.length]; n.focus(); setView(n.dataset.view); });
+$$('.seg [data-mode]').forEach(b => b.addEventListener('click', () => { S.tax.mode = b.dataset.mode; save(); renderTax(); }));
+$('#btnReset').addEventListener('click', () => {
+  const v = S.ui.view; const map = {rate: 'rate', tax: 'tax', runway: 'run', quote: 'quote'}; const k = map[v];
+  if (!k) return; if (!confirm('Reset this tab to default inputs?')) return;
+  S[k] = clone(DEFAULTS[k]); if (k === 'run') S.run.start = thisMonth();
+  save(); bindInputs(); setView(v); toast('Tab reset');
+});
+$('#btnExport').addEventListener('click', () => { download(`rate-calculator-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(S, null, 2), 'application/json'); toast('Exported'); });
+$('#btnImport').addEventListener('click', () => $('#fileJson').click());
+$('#fileJson').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { try { const d = JSON.parse(t); if (!d || typeof d !== 'object' || !('rate' in d || 'tax' in d)) throw new Error('not a rates file'); S = Object.assign(deepMerge(clone(DEFAULTS), d), {version: 1}); save(); bindInputs(); setView(S.ui.view); toast('Imported'); } catch (err) { toast('Import failed: ' + err.message); } }); e.target.value = ''; });
+window.addEventListener('storage', e => { if (e.key === KEY) { S = load(); bindInputs(); setView(S.ui.view); } });
+
+bindInputs();
+setView(S.ui.view);
+})();
+</script>
+</body>
+</html>

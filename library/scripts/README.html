@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prospecting scripts · Freelance OS</title>
+<meta name="description" content="Four small Node scripts that turn public signals into ranked, CRM-ready lead lists — so your daily outreach block starts with &quot;who and why&quot; already answered.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="lib-scriptsreadmemd" data-kind="library">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../../index.html#memos">Memos</a>
+    <a href="../../index.html#tools">Tools</a>
+    <a href="../../index.html#library">Templates</a>
+    <a href="../../index.html#lists">Lists</a>
+    <a href="../../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="Library"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../../index.html">Home</a><a class="nav-link" href="../../index.html#memos">Memos</a><a class="nav-link" href="../../index.html#tools">Tools</a><a class="nav-link" href="../../index.html#library">Templates</a><a class="nav-link" href="../../index.html#lists">Lists</a></div><div class="nav-group"><a class="nav-link" href="../../index.html#memos">← All memos</a><a class="nav-link" href="../../index.html#tools">Tools</a></div><div class="nav-group"><div class="nav-group-title">Templates · Contracts</div><a class="nav-link" href="../../library/templates/contracts/change-request.html"><span>Change Request (CR) Form</span></a><a class="nav-link" href="../../library/templates/contracts/clause-library.html"><span>Clause Library — pick, adapt, defend</span></a><a class="nav-link" href="../../library/templates/contracts/msa-india.html"><span>Master Services Agreement — India</span></a><a class="nav-link" href="../../library/templates/contracts/msa-international.html"><span>Master Services Agreement — International Clients (USD)</span></a><a class="nav-link" href="../../library/templates/contracts/mutual-nda.html"><span>Mutual Non-Disclosure Agreement</span></a><a class="nav-link" href="../../library/templates/contracts/one-page-agreement.html"><span>One-Page Project Agreement (small jobs)</span></a><a class="nav-link" href="../../library/templates/contracts/red-flag-clauses.html"><span>Red-Flag Clauses — redlining a client's contract</span></a><a class="nav-link" href="../../library/templates/contracts/retainer-agreement.html"><span>Care Plan / Retainer Agreement</span></a><a class="nav-link" href="../../library/templates/contracts/sow-template.html"><span>Statement of Work (SOW)</span></a><a class="nav-link" href="../../library/templates/contracts/subcontractor-white-label-agreement.html"><span>Subcontractor / White-Label Agreement (you ↔ an agency)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Delivery</div><a class="nav-link" href="../../library/templates/delivery/ai-usage-policy.html"><span>AI Usage Policy</span></a><a class="nav-link" href="../../library/templates/delivery/change-request-email.html"><span>Change Request — Email &amp; Chat Templates</span></a><a class="nav-link" href="../../library/templates/delivery/client-onboarding-questionnaire.html"><span>Client Onboarding Questionnaire</span></a><a class="nav-link" href="../../library/templates/delivery/credentials-and-access-policy.html"><span>Credentials &amp; Access Policy</span></a><a class="nav-link" href="../../library/templates/delivery/handover-checklist.html"><span>Handover Checklist</span></a><a class="nav-link" href="../../library/templates/delivery/kickoff-agenda.html"><span>Kickoff Meeting — Agenda &amp; Recap</span></a><a class="nav-link" href="../../library/templates/delivery/payment-reminder-ladder.html"><span>Payment Reminder Ladder</span></a><a class="nav-link" href="../../library/templates/delivery/project-closeout.html"><span>Project Closeout — testimonial, case study, referral, retainer</span></a><a class="nav-link" href="../../library/templates/delivery/scope-creep-responses.html"><span>Scope-Creep Responses — what to say in the moment</span></a><a class="nav-link" href="../../library/templates/delivery/weekly-update.html"><span>Weekly Update (send every Friday)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Finance</div><a class="nav-link" href="../../library/templates/finance/ca-engagement-brief.html"><span>CA engagement brief: hiring and using a Chartered Accountant</span></a><a class="nav-link" href="../../library/templates/finance/client-tax-faq.html"><span>Client tax FAQ: copy-paste answers</span></a><a class="nav-link" href="../../library/templates/finance/invoice-checklist.html"><span>Invoice checklist: mandatory fields for every invoice type (India)</span></a><a class="nav-link" href="../../library/templates/finance/monthly-money-close.html"><span>Monthly money close: 30 minutes, first working day of the month</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Outreach</div><a class="nav-link" href="../../library/templates/outreach/agency-partnership.html"><span>Agency Partnership Templates (white-label and overflow)</span></a><a class="nav-link" href="../../library/templates/outreach/cold-email.html"><span>Cold Email Templates (signal-based, one offer per email)</span></a><a class="nav-link" href="../../library/templates/outreach/community-posts.html"><span>Community Post Templates (HN, Reddit, Indie Hackers, Discord)</span></a><a class="nav-link" href="../../library/templates/outreach/follow-ups.html"><span>Follow-up Sequences, Breakup Email, and 90-Day Re-engagement</span></a><a class="nav-link" href="../../library/templates/outreach/linkedin.html"><span>LinkedIn Templates — notes, follow-ups, comment-first</span></a><a class="nav-link" href="../../library/templates/outreach/referral-partner.html"><span>Referral Partner Templates (10% finder's fee)</span></a><a class="nav-link" href="../../library/templates/outreach/upwork-and-marketplaces.html"><span>Upwork and Marketplace Templates</span></a><a class="nav-link" href="../../library/templates/outreach/warm-network.html"><span>Warm Network Templates (announcement + 6 DMs)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Portfolio &amp; brand</div><a class="nav-link" href="../../library/templates/portfolio/case-studies.html"><span>Case study drafts</span></a><a class="nav-link" href="../../library/templates/portfolio/content-calendar.html"><span>Content calendar: 30 post ideas + a 4-week plan</span></a><a class="nav-link" href="../../library/templates/portfolio/github-profile-readme.html"><span>GitHub profile README</span></a><a class="nav-link" href="../../library/templates/portfolio/linkedin-profile.html"><span>LinkedIn profile kit</span></a><a class="nav-link" href="../../library/templates/portfolio/spec-projects.html"><span>Spec project briefs</span></a><a class="nav-link" href="../../library/templates/portfolio/website-copy.html"><span>Website copy: one page first</span></a></div><div class="nav-group"><div class="nav-group-title">Lists &amp; resources</div><a class="nav-link" href="../../library/lists/bridge-income.html"><span>Bridge Income: Fund the Runway Without Killing the Pipeline (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/business-tool-stack.html"><span>Business tool stack</span></a><a class="nav-link" href="../../library/lists/communities.html"><span>Communities: Online and Pune/India Offline (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/compliance-calendar.html"><span>Compliance calendar: Pune-based freelancer (income tax, GST, PT, FEMA)</span></a><a class="nav-link" href="../../library/lists/lead-sources.html"><span>Lead Sources: Where Buyers Show Up, and the Search Strings That Find Them (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/market-rates.html"><span>Market Rates — React / Next.js / TypeScript freelancing (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/payment-rails.html"><span>Payment rails: getting paid from abroad (and at home) as an India-based freelancer</span></a><a class="nav-link" href="../../library/lists/platforms.html"><span>Platforms &amp; Talent Networks: Where an India-Based Product Engineer Gets Paid (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/reading-list.html"><span>Reading list: the business side, fast</span></a></div><div class="nav-group"><div class="nav-group-title">Docs</div><a class="nav-link active" href="../../library/scripts/README.html"><span>Prospecting scripts</span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">Documentation</div>
+    <h1>Prospecting scripts</h1>
+    <div class="doc-meta"><span><code>scripts/README.md</code></span></div>
+    <div class="doc-actions"><button class="btn sm primary" type="button" data-action="copy-source">Copy as Markdown</button><a class="btn sm" href="../../scripts/README.md">Open .md source</a><button class="btn sm" type="button" data-action="print">Print / PDF</button></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#setup">Setup</a><a href="#1-hn-freelancemjs-hacker-news-contract-roles">1. hn-freelance.mjs — Hacker News contract roles</a><a href="#2-site-auditmjs-storeapp-homepage-audit-offer-hook">2. site-audit.mjs — store/app homepage audit → offer + hook</a><a href="#3-funding-feedmjs-just-raised-radar">3. funding-feed.mjs — &amp;quot;just raised&amp;quot; radar</a><a href="#4-reddit-leadsmjs-people-hiring-on-reddit">4. reddit-leads.mjs — people hiring on Reddit</a><a href="#importing-into-the-crm">Importing into the CRM</a><a href="#weekly-routine-90-minutes-monday">Weekly routine (≈ 90 minutes, Monday)</a><a href="#ethics-tos-and-the-law-read-once">Ethics, ToS and the law (read once)</a><a href="#troubleshooting">Troubleshooting</a></details>
+  <article class="prose"><p>Four small Node scripts that turn public signals into <strong>ranked, CRM-ready lead lists</strong> — so your daily outreach block starts with &quot;who and why&quot; already answered.</p>
+<div class="table-wrap"><table><thead><tr><th>Script</th><th>Finds</th><th>Best for</th><th>Typical yield (Nov 2026)</th></tr></thead><tbody><tr><td><code>hn-freelance.mjs</code></td><td>Contract / freelance roles in Hacker News monthly threads</td><td>Track B (global startups)</td><td>2–8 relevant contract roles/month with <code>--hiring</code></td></tr><tr><td><code>site-audit.mjs</code></td><td>Stack, checkout, apps, speed signals on store/app homepages → offer + hook</td><td>Track A (Indian D2C/Shopify), B3 (Angular)</td><td>1 scored lead per domain you feed it</td></tr><tr><td><code>funding-feed.mjs</code></td><td>Startups that just raised (Inc42, Entrackr, YourStory, ET, TechCrunch, Crunchbase News, EU-Startups, Tech.eu)</td><td>&quot;Why now&quot; outreach to founders</td><td>15–40 items per 2 weeks before your filtering</td></tr><tr><td><code>reddit-leads.mjs</code></td><td>People hiring on r/forhire + founder/builder subs</td><td>Opportunistic, B1 (vibe-coded apps)</td><td>Low (0–3/week) — use it for listening, not volume</td></tr></tbody></table></div>
+<p>Everything writes two files to <code>out/</code> (gitignored): a <strong>CSV in the shared CRM schema</strong> and a <strong>Markdown digest</strong> you can read in 2 minutes.</p>
+<blockquote><p><strong>Rule zero:</strong> these scripts <em>find and rank</em>. They never send anything. Every message you send is written (or at least edited) by you, for one person, with one specific observation. That’s what makes the 5–10% reply-rate target in memo 05 realistic — and what keeps you on the right side of anti-spam norms.</p></blockquote>
+<hr>
+<h2 id="setup">Setup</h2>
+<ul><li><strong>Node 20+</strong> (Node 18 works; 22 LTS recommended). No <code>npm install</code> — zero dependencies.</li><li>Run from the repo root: <code>node scripts/&lt;name&gt;.mjs --help</code></li><li><strong>Behind a corporate/VPN proxy?</strong> Node's built-in <code>fetch</code> ignores <code>HTTPS_PROXY</code> unless you opt in (Node ≥ 22.21 / 24.5):
+<pre><code class="lang-bash">NODE_USE_ENV_PROXY=1 node scripts/hn-freelance.mjs --hiring</code></pre></li><li>Optional keys (both free):
+<ul><li><code>PSI_API_KEY</code> — Google PageSpeed Insights. Google Cloud Console → create project → <em>APIs &amp; Services → Library</em> → enable <strong>PageSpeed Insights API</strong> → <em>Credentials → Create API key</em> (restrict it to that API). Default quota is reported as ~25,000 requests/day (check <em>Quotas</em> in your project). Without a key, Google usually answers <code>429</code> after a call or two — the script detects this and stops calling PSI for the rest of the run.</li><li><code>REDDIT_TOKEN</code> — only if you <strong>already</strong> hold approved Reddit API credentials. Since Nov 2025 Reddit's <em>Responsible Builder Policy</em> requires manual approval for new OAuth apps; the script works without a token via public JSON → RSS fallback.</li></ul></li></ul>
+<pre><code class="lang-bash">export PSI_API_KEY=&quot;your-key&quot;        # macOS/Linux; on Windows PowerShell: $env:PSI_API_KEY=&quot;your-key&quot;</code></pre>
+<hr>
+<h2 id="1-hn-freelancemjs-hacker-news-contract-roles">1. <code>hn-freelance.mjs</code> — Hacker News contract roles</h2>
+<pre><code class="lang-bash">node scripts/hn-freelance.mjs --hiring                    # recommended
+node scripts/hn-freelance.mjs --only-hiring --months 1
+node scripts/hn-freelance.mjs --hiring --add-keywords &quot;erlang:4,elixir:3,vitest:2&quot;
+node scripts/hn-freelance.mjs --hiring --all-roles        # also full-time remote roles (bridge income)</code></pre>
+<ul><li>Uses the public <a href="https://hn.algolia.com/api" target="_blank" rel="noopener">HN Algolia API</a> (no key). Finds the latest N monthly threads, reads top-level comments only.</li><li><strong>Freelancer thread</strong> (<code>Ask HN: Freelancer? Seeking freelancer?</code>): keeps <code>SEEKING FREELANCER</code> posts, drops <code>SEEKING WORK</code>.</li><li><strong><code>--hiring</code></strong> adds <code>Ask HN: Who is hiring?</code> and keeps only posts that say contract / contractor / freelance / part-time / fractional / 1099 / C2C, are engineering roles, and aren't job-seeker profiles.</li><li>Drops onsite-only and US/EU/UK-resident-only posts (use <code>--include-restricted</code> to keep them), penalises posts whose stated rate is below your $35/hr floor (tag <code>below-floor</code>), dedupes companies that repost monthly.</li><li><strong>What the data says (checked Nov 2026):</strong> the freelancer thread stopped being posted by <code>whoishiring</code> in Nov 2025; community reposts get 10–35 comments, ~95% of them <em>SEEKING WORK</em> (Oct 2025 thread: 116 posts, 0 <em>SEEKING FREELANCER</em>). The <em>Who is hiring?</em> thread (190–260 top-level posts/month) has ~10% contract-flavoured posts — that's where the leads are.</li></ul>
+<p><strong>Output:</strong> <code>out/hn-leads-YYYY-MM-DD.csv|.md</code> — <code>source=hn-thread</code>, <code>stage=prospect</code>, notes = snippet + HN link, a draft opener tailored to the inferred segment.</p>
+<p><strong>Work it:</strong> reply within 24h. Email if an address is given (most HN hiring posts include one), reference one line of their post, one proof line, one question. No CV attachment in message 1.</p>
+<hr>
+<h2 id="2-site-auditmjs-storeapp-homepage-audit-offer-hook">2. <code>site-audit.mjs</code> — store/app homepage audit → offer + hook</h2>
+<pre><code class="lang-bash">node scripts/site-audit.mjs scripts/sample-domains.txt
+node scripts/site-audit.mjs my-shortlist.txt --psi --concurrency 2
+node scripts/site-audit.mjs snitch.co.in bluetokaicoffee.com
+node scripts/site-audit.mjs out/funding-leads-2026-11-05.csv          # any CSV with website/url/domain column</code></pre>
+<p>Per site it fetches the homepage (honest User-Agent, follows redirects, 20s timeout) and detects:</p>
+<div class="table-wrap"><table><thead><tr><th>Group</th><th>Signals</th></tr></thead><tbody><tr><td>Platform</td><td>Shopify, WooCommerce, WordPress, Magento, BigCommerce, Wix, Squarespace, Webflow, Dukaan, Salesforce Commerce, PrestaShop</td></tr><tr><td>Framework</td><td>Next.js, Nuxt, Gatsby, Remix/Hydrogen, Astro, SvelteKit, Angular (<code>ng-version</code>), AngularJS (<code>ng-app</code>, angular.js), Vue, React, jQuery</td></tr><tr><td>Payments / checkout</td><td>Razorpay, Razorpay Magic Checkout, Shiprocket Fastrr, GoKwik, Simpl, Snapmint, Cashfree, PayU, Juspay, PhonePe, Paytm, Stripe, PayPal</td></tr><tr><td>Messaging</td><td>WhatsApp links, Interakt, WATI, Gallabox, AiSensy, Zoko, LimeChat</td></tr><tr><td>Apps (budget signal)</td><td>Klaviyo, CleverTap, MoEngage, WebEngage, Wigzo, Judge.me, Yotpo, Gorgias, Freshchat, Intercom, Tidio, Hotjar</td></tr><tr><td>Analytics</td><td>GA4, GTM, Meta Pixel, Microsoft Clarity, legacy Universal Analytics</td></tr><tr><td>Page weight</td><td>HTML KB, <code>&lt;script&gt;</code> count, third-party script domains, images / lazy images</td></tr><tr><td><code>--psi</code> (mobile)</td><td>Performance score, LCP, FCP, TBT, CLS (lab) + CrUX field data (LCP/INP/CLS p75) when Google has it</td></tr></tbody></table></div>
+<p>Then it scores <strong>fit × opportunity (0–100)</strong>, picks an offer and writes a <strong>one-line hook</strong>:</p>
+<div class="table-wrap"><table><thead><tr><th>Situation</th><th>Offer</th><th>Hook angle</th></tr></thead><tbody><tr><td>Shopify + PSI &lt; 70 (or heavy page without PSI)</td><td><strong>A1</strong> Speed &amp; Conversion Sprint</td><td>&quot;PageSpeed mobile 38/100, LCP 6.1s — fixable in 1–2 weeks without a redesign&quot;</td></tr><tr><td>Shopify + Magic Checkout / GoKwik / Fastrr / Simpl / Snapmint</td><td><strong>A3</strong> Checkout &amp; payments</td><td>Partial-COD for high-risk pincodes (Cultus) — COD/RTO conversation</td></tr><tr><td>Shopify, fast, no checkout signal</td><td><strong>A2</strong> Custom app / integrations</td><td>Cultus Sales Channel app: webhook inventory sync, orders back to Shopify</td></tr><tr><td>WooCommerce / Magento / Dukaan …</td><td><strong>A4</strong> (or A1 if slow)</td><td>Replatform / headless conversation</td></tr><tr><td>Angular or AngularJS</td><td><strong>B3</strong> Modernisation</td><td>Deribit Angular→React migration, Vitest in CI</td></tr><tr><td>Custom Next.js/React storefront</td><td>custom</td><td>&quot;Extra hands on checkout/integrations/performance&quot;</td></tr></tbody></table></div>
+<p>Sites that block bots (403/challenge pages — normal for big brands) are kept with tag <code>blocked</code> so you can check them by hand.</p>
+<p><strong>Work it:</strong> open the site <strong>on your phone</strong> and confirm the problem is real before you send anything. For A1, record a 2-minute Loom of the top 3 issues — that video <em>is</em> the pitch. A wrong &quot;audit&quot; kills trust instantly.</p>
+<p><strong>Where to get domains:</strong> Cultus brand partners and their peers, brands running Meta ads (Meta Ad Library), Inc42/YourStory D2C coverage, <code>funding-feed.mjs</code> output, Shopify app-review authors, D2C meetup attendee lists. Target ₹1–30 Cr revenue brands with no in-house engineer — <code>sample-domains.txt</code> is big brands, for demo only.</p>
+<hr>
+<h2 id="3-funding-feedmjs-just-raised-radar">3. <code>funding-feed.mjs</code> — &quot;just raised&quot; radar</h2>
+<pre><code class="lang-bash">node scripts/funding-feed.mjs --region india --since 7
+node scripts/funding-feed.mjs --keywords &quot;d2c,consumer,ecommerce,shopify&quot; --since 30
+node scripts/funding-feed.mjs --region global --keywords &quot;fintech,saas,ai&quot;
+node scripts/funding-feed.mjs --feed https://inc42.com/feed/ --since 3     # custom feed(s), repeatable</code></pre>
+<ul><li>Reads RSS/Atom (list at the top of the file — edit freely; a dead feed is skipped, not fatal).</li><li>Keeps funding headlines (raises / secures / bags / seed / Series X …), drops VC-fund closes, IPOs, earnings, acquisitions, bonds, round-ups, and anything ≥ $300M (not a freelancer client).</li><li>Extracts company, amount (USD conversion assumes <strong>₹95 = $1 — check the live rate</strong>), round, sector (D2C, e-commerce, fintech, SaaS, AI, logistics, healthtech, edtech).</li><li>Scores: India +15 · D2C/e-com +25 · fintech +20 · SaaS +15 · AI +10 · seed/angel/pre-A/Series A +15 · Series C+ −10 · ≤$20M +5.</li><li>Dedupes the same raise across outlets; tags <code>in-talks</code> for &quot;in talks to raise&quot; stories.</li></ul>
+<p><strong>Work it:</strong> shortlist ≤10. Find the founder/CTO on LinkedIn, check their careers page (open engineering roles = pain you can bridge with a contract). Message 1 = congratulations + one useful, specific observation — no pitch. Feed the shortlist's domains to <code>site-audit.mjs</code> for a hook.</p>
+<hr>
+<h2 id="4-reddit-leadsmjs-people-hiring-on-reddit">4. <code>reddit-leads.mjs</code> — people hiring on Reddit</h2>
+<pre><code class="lang-bash">node scripts/reddit-leads.mjs                       # r/forhire [Hiring], last 14 days
+node scripts/reddit-leads.mjs --subs all --since 30 # + shopify, SaaS, startups, nextjs, reactjs, Supabase, lovable, vibecoding</code></pre>
+<ul><li>Tries OAuth (<code>REDDIT_TOKEN</code>) → public JSON → public RSS. Many cloud/VPN IPs get <code>403</code> on JSON; RSS usually still works but is rate-limited (the script waits 4s between subreddits and backs off on 429).</li><li>Keeps software work only (r/forhire <em>[Hiring]</em> is mostly editors/designers/VAs), flags <code>low-budget</code> (equity-only, &quot;$50 for an app&quot;), drops US/EU-only posts.</li><li><strong>Honest expectation:</strong> in a Nov 2026 test, 0 of the last 100 r/forhire posts were dev roles that fit. Reddit is better for <em>listening and helping</em> (answer Supabase/Shopify/Lovable questions well, people DM you) than for scraping leads.</li></ul>
+<hr>
+<h2 id="importing-into-the-crm">Importing into the CRM</h2>
+<ol><li>Open <code>tools/crm.html</code> → <strong>Data → Import CSV</strong> → pick the file from <code>out/</code>.</li><li>Headers already match the schema (<code>id,company,contact,…,createdAt,updatedAt</code>). Duplicates are detected by email / website / company; our <code>id</code>s are stable (<code>hn-&lt;comment&gt;</code>, <code>site-&lt;domain&gt;</code>, <code>fund-&lt;hash&gt;</code>, <code>rd-&lt;post&gt;</code>), so re-running and re-importing is safe.</li><li><code>score</code> and <code>probability</code> are integers 0–100. Values that start with <code>= + - @</code> are prefixed with <code>'</code> (CSV-injection protection — the data comes from the open web).</li><li>Only import what you'll actually work this week. A CRM with 400 cold rows is a graveyard; 20 researched rows is a pipeline.</li></ol>
+<hr>
+<h2 id="weekly-routine-90-minutes-monday">Weekly routine (≈ 90 minutes, Monday)</h2>
+<div class="table-wrap"><table><thead><tr><th>When</th><th>Do</th><th>Time</th></tr></thead><tbody><tr><td>Mon 09:30</td><td><code>funding-feed.mjs --region india --since 7</code> + <code>--region global --keywords &quot;fintech,saas,ai&quot;</code></td><td>10 min</td></tr><tr><td>Mon 09:45</td><td>Shortlist ≤10 funded companies; add their domains + 10–20 D2C brands you found during the week to <code>this-week.txt</code></td><td>20 min</td></tr><tr><td>Mon 10:05</td><td><code>site-audit.mjs this-week.txt --psi</code> → read the digest, verify the top 10 on your phone</td><td>30 min</td></tr><tr><td>1st Monday of the month (HN threads post on the 1st working day)</td><td><code>hn-freelance.mjs --hiring --months 1</code></td><td>10 min</td></tr><tr><td>Mon 10:45</td><td><code>reddit-leads.mjs --subs all --since 7</code> (skim, don't chase)</td><td>5 min</td></tr><tr><td>Mon 10:50</td><td>Import into CRM; set <code>nextDate</code> so each day Tue–Fri has 5–10 personalised touches queued</td><td>15 min</td></tr></tbody></table></div>
+<p>Want it automatic? A cron entry (macOS/Linux) that runs Monday 08:30 and leaves fresh digests waiting:</p>
+<pre><code class="lang-bash">30 8 * * 1 cd ~/leads-gen &amp;&amp; /usr/local/bin/node scripts/funding-feed.mjs --region india --since 7 &gt;&gt; out/cron.log 2&gt;&amp;1</code></pre>
+<hr>
+<h2 id="ethics-tos-and-the-law-read-once">Ethics, ToS and the law (read once)</h2>
+<ul><li><strong>Public data, low volume, human sending.</strong> These scripts read public pages/APIs at a few requests per second or less, identify themselves (<code>User-Agent: FreelanceOS-prospector/1.0</code>), and back off on 429. Don't crank up concurrency, don't rotate IPs or spoof browsers to get past bot protection — if a site blocks you, look at it in a browser like a human.</li><li><strong>Respect each platform's terms.</strong> HN Algolia API is public; Reddit's Data API terms apply (new OAuth apps need approval since Nov 2025); RSS feeds are published for syndication; PageSpeed Insights is an official API.</li><li><strong>Never auto-send.</strong> No mail-merge blasts, no LinkedIn automation tools (they get accounts restricted). Every message is 1:1 and specific.</li><li><strong>Personal data.</strong> <code>out/</code> contains names/emails of real people — it's gitignored for a reason. Don't publish it, don't share it, delete what you won't use. India's DPDP Act applies to how you store personal data; for EU/UK prospects keep cold email B2B, relevant, and honour opt-outs immediately; for US emails include a real postal address / opt-out line per CAN-SPAM if you ever send at volume.</li><li><strong>Verify before you claim.</strong> A hook built on a wrong detection (&quot;you're on AngularJS&quot; when they're not) is worse than no hook. Check, then send.</li></ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<div class="table-wrap"><table><thead><tr><th>Symptom</th><th>Fix</th></tr></thead><tbody><tr><td><code>fetch failed</code> / timeouts on every request</td><td>Behind a proxy → <code>NODE_USE_ENV_PROXY=1</code> (Node ≥ 22.21). Otherwise check your connection.</td></tr><tr><td>PSI: <code>quota exceeded</code></td><td>Set <code>PSI_API_KEY</code>; keep <code>--concurrency 2</code>.</td></tr><tr><td>Reddit: <code>json 403 → rss 429</code></td><td>Network is blocked/rate-limited. Wait 10 min, run fewer subs, or use the browser.</td></tr><tr><td>A feed shows <code>404</code></td><td>The outlet moved its feed — edit <code>FEEDS</code> at the top of <code>funding-feed.mjs</code>.</td></tr><tr><td>Site shows <code>blocked</code></td><td>Bot protection. Check manually; PSI (<code>--psi</code>) may still work since Google fetches it.</td></tr><tr><td>Company name looks wrong</td><td>Heuristic from <code>og:site_name</code> / <code>&lt;title&gt;</code> / headline. Fix it in the CRM.</td></tr></tbody></table></div></article>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#setup">Setup</a><a href="#1-hn-freelancemjs-hacker-news-contract-roles">1. hn-freelance.mjs — Hacker News contract roles</a><a href="#2-site-auditmjs-storeapp-homepage-audit-offer-hook">2. site-audit.mjs — store/app homepage audit → offer + hook</a><a href="#3-funding-feedmjs-just-raised-radar">3. funding-feed.mjs — &amp;quot;just raised&amp;quot; radar</a><a href="#4-reddit-leadsmjs-people-hiring-on-reddit">4. reddit-leads.mjs — people hiring on Reddit</a><a href="#importing-into-the-crm">Importing into the CRM</a><a href="#weekly-routine-90-minutes-monday">Weekly routine (≈ 90 minutes, Monday)</a><a href="#ethics-tos-and-the-law-read-once">Ethics, ToS and the law (read once)</a><a href="#troubleshooting">Troubleshooting</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script type="text/markdown" id="md-source"># Prospecting scripts
+
+Four small Node scripts that turn public signals into **ranked, CRM-ready lead lists** — so your daily outreach block starts with "who and why" already answered.
+
+| Script | Finds | Best for | Typical yield (Nov 2026) |
+|---|---|---|---|
+| `hn-freelance.mjs` | Contract / freelance roles in Hacker News monthly threads | Track B (global startups) | 2–8 relevant contract roles/month with `--hiring` |
+| `site-audit.mjs` | Stack, checkout, apps, speed signals on store/app homepages → offer + hook | Track A (Indian D2C/Shopify), B3 (Angular) | 1 scored lead per domain you feed it |
+| `funding-feed.mjs` | Startups that just raised (Inc42, Entrackr, YourStory, ET, TechCrunch, Crunchbase News, EU-Startups, Tech.eu) | "Why now" outreach to founders | 15–40 items per 2 weeks before your filtering |
+| `reddit-leads.mjs` | People hiring on r/forhire + founder/builder subs | Opportunistic, B1 (vibe-coded apps) | Low (0–3/week) — use it for listening, not volume |
+
+Everything writes two files to `out/` (gitignored): a **CSV in the shared CRM schema** and a **Markdown digest** you can read in 2 minutes.
+
+> **Rule zero:** these scripts *find and rank*. They never send anything. Every message you send is written (or at least edited) by you, for one person, with one specific observation. That’s what makes the 5–10% reply-rate target in memo 05 realistic — and what keeps you on the right side of anti-spam norms.
+
+---
+
+## Setup
+
+- **Node 20+** (Node 18 works; 22 LTS recommended). No `npm install` — zero dependencies.
+- Run from the repo root: `node scripts/<name>.mjs --help`
+- **Behind a corporate/VPN proxy?** Node's built-in `fetch` ignores `HTTPS_PROXY` unless you opt in (Node ≥ 22.21 / 24.5):
+  ```bash
+  NODE_USE_ENV_PROXY=1 node scripts/hn-freelance.mjs --hiring
+  ```
+- Optional keys (both free):
+  - `PSI_API_KEY` — Google PageSpeed Insights. Google Cloud Console → create project → *APIs & Services → Library* → enable **PageSpeed Insights API** → *Credentials → Create API key* (restrict it to that API). Default quota is reported as ~25,000 requests/day (check *Quotas* in your project). Without a key, Google usually answers `429` after a call or two — the script detects this and stops calling PSI for the rest of the run.
+  - `REDDIT_TOKEN` — only if you **already** hold approved Reddit API credentials. Since Nov 2025 Reddit's *Responsible Builder Policy* requires manual approval for new OAuth apps; the script works without a token via public JSON → RSS fallback.
+
+```bash
+export PSI_API_KEY="your-key"        # macOS/Linux; on Windows PowerShell: $env:PSI_API_KEY="your-key"
+```
+
+---
+
+## 1. `hn-freelance.mjs` — Hacker News contract roles
+
+```bash
+node scripts/hn-freelance.mjs --hiring                    # recommended
+node scripts/hn-freelance.mjs --only-hiring --months 1
+node scripts/hn-freelance.mjs --hiring --add-keywords "erlang:4,elixir:3,vitest:2"
+node scripts/hn-freelance.mjs --hiring --all-roles        # also full-time remote roles (bridge income)
+```
+
+- Uses the public [HN Algolia API](https://hn.algolia.com/api) (no key). Finds the latest N monthly threads, reads top-level comments only.
+- **Freelancer thread** (`Ask HN: Freelancer? Seeking freelancer?`): keeps `SEEKING FREELANCER` posts, drops `SEEKING WORK`.
+- **`--hiring`** adds `Ask HN: Who is hiring?` and keeps only posts that say contract / contractor / freelance / part-time / fractional / 1099 / C2C, are engineering roles, and aren't job-seeker profiles.
+- Drops onsite-only and US/EU/UK-resident-only posts (use `--include-restricted` to keep them), penalises posts whose stated rate is below your $35/hr floor (tag `below-floor`), dedupes companies that repost monthly.
+- **What the data says (checked Nov 2026):** the freelancer thread stopped being posted by `whoishiring` in Nov 2025; community reposts get 10–35 comments, ~95% of them *SEEKING WORK* (Oct 2025 thread: 116 posts, 0 *SEEKING FREELANCER*). The *Who is hiring?* thread (190–260 top-level posts/month) has ~10% contract-flavoured posts — that's where the leads are.
+
+**Output:** `out/hn-leads-YYYY-MM-DD.csv|.md` — `source=hn-thread`, `stage=prospect`, notes = snippet + HN link, a draft opener tailored to the inferred segment.
+
+**Work it:** reply within 24h. Email if an address is given (most HN hiring posts include one), reference one line of their post, one proof line, one question. No CV attachment in message 1.
+
+---
+
+## 2. `site-audit.mjs` — store/app homepage audit → offer + hook
+
+```bash
+node scripts/site-audit.mjs scripts/sample-domains.txt
+node scripts/site-audit.mjs my-shortlist.txt --psi --concurrency 2
+node scripts/site-audit.mjs snitch.co.in bluetokaicoffee.com
+node scripts/site-audit.mjs out/funding-leads-2026-11-05.csv          # any CSV with website/url/domain column
+```
+
+Per site it fetches the homepage (honest User-Agent, follows redirects, 20s timeout) and detects:
+
+| Group | Signals |
+|---|---|
+| Platform | Shopify, WooCommerce, WordPress, Magento, BigCommerce, Wix, Squarespace, Webflow, Dukaan, Salesforce Commerce, PrestaShop |
+| Framework | Next.js, Nuxt, Gatsby, Remix/Hydrogen, Astro, SvelteKit, Angular (`ng-version`), AngularJS (`ng-app`, angular.js), Vue, React, jQuery |
+| Payments / checkout | Razorpay, Razorpay Magic Checkout, Shiprocket Fastrr, GoKwik, Simpl, Snapmint, Cashfree, PayU, Juspay, PhonePe, Paytm, Stripe, PayPal |
+| Messaging | WhatsApp links, Interakt, WATI, Gallabox, AiSensy, Zoko, LimeChat |
+| Apps (budget signal) | Klaviyo, CleverTap, MoEngage, WebEngage, Wigzo, Judge.me, Yotpo, Gorgias, Freshchat, Intercom, Tidio, Hotjar |
+| Analytics | GA4, GTM, Meta Pixel, Microsoft Clarity, legacy Universal Analytics |
+| Page weight | HTML KB, `<script>` count, third-party script domains, images / lazy images |
+| `--psi` (mobile) | Performance score, LCP, FCP, TBT, CLS (lab) + CrUX field data (LCP/INP/CLS p75) when Google has it |
+
+Then it scores **fit × opportunity (0–100)**, picks an offer and writes a **one-line hook**:
+
+| Situation | Offer | Hook angle |
+|---|---|---|
+| Shopify + PSI < 70 (or heavy page without PSI) | **A1** Speed & Conversion Sprint | "PageSpeed mobile 38/100, LCP 6.1s — fixable in 1–2 weeks without a redesign" |
+| Shopify + Magic Checkout / GoKwik / Fastrr / Simpl / Snapmint | **A3** Checkout & payments | Partial-COD for high-risk pincodes (Cultus) — COD/RTO conversation |
+| Shopify, fast, no checkout signal | **A2** Custom app / integrations | Cultus Sales Channel app: webhook inventory sync, orders back to Shopify |
+| WooCommerce / Magento / Dukaan … | **A4** (or A1 if slow) | Replatform / headless conversation |
+| Angular or AngularJS | **B3** Modernisation | Deribit Angular→React migration, Vitest in CI |
+| Custom Next.js/React storefront | custom | "Extra hands on checkout/integrations/performance" |
+
+Sites that block bots (403/challenge pages — normal for big brands) are kept with tag `blocked` so you can check them by hand.
+
+**Work it:** open the site **on your phone** and confirm the problem is real before you send anything. For A1, record a 2-minute Loom of the top 3 issues — that video *is* the pitch. A wrong "audit" kills trust instantly.
+
+**Where to get domains:** Cultus brand partners and their peers, brands running Meta ads (Meta Ad Library), Inc42/YourStory D2C coverage, `funding-feed.mjs` output, Shopify app-review authors, D2C meetup attendee lists. Target ₹1–30 Cr revenue brands with no in-house engineer — `sample-domains.txt` is big brands, for demo only.
+
+---
+
+## 3. `funding-feed.mjs` — "just raised" radar
+
+```bash
+node scripts/funding-feed.mjs --region india --since 7
+node scripts/funding-feed.mjs --keywords "d2c,consumer,ecommerce,shopify" --since 30
+node scripts/funding-feed.mjs --region global --keywords "fintech,saas,ai"
+node scripts/funding-feed.mjs --feed https://inc42.com/feed/ --since 3     # custom feed(s), repeatable
+```
+
+- Reads RSS/Atom (list at the top of the file — edit freely; a dead feed is skipped, not fatal).
+- Keeps funding headlines (raises / secures / bags / seed / Series X …), drops VC-fund closes, IPOs, earnings, acquisitions, bonds, round-ups, and anything ≥ $300M (not a freelancer client).
+- Extracts company, amount (USD conversion assumes **₹95 = $1 — check the live rate**), round, sector (D2C, e-commerce, fintech, SaaS, AI, logistics, healthtech, edtech).
+- Scores: India +15 · D2C/e-com +25 · fintech +20 · SaaS +15 · AI +10 · seed/angel/pre-A/Series A +15 · Series C+ −10 · ≤$20M +5.
+- Dedupes the same raise across outlets; tags `in-talks` for "in talks to raise" stories.
+
+**Work it:** shortlist ≤10. Find the founder/CTO on LinkedIn, check their careers page (open engineering roles = pain you can bridge with a contract). Message 1 = congratulations + one useful, specific observation — no pitch. Feed the shortlist's domains to `site-audit.mjs` for a hook.
+
+---
+
+## 4. `reddit-leads.mjs` — people hiring on Reddit
+
+```bash
+node scripts/reddit-leads.mjs                       # r/forhire [Hiring], last 14 days
+node scripts/reddit-leads.mjs --subs all --since 30 # + shopify, SaaS, startups, nextjs, reactjs, Supabase, lovable, vibecoding
+```
+
+- Tries OAuth (`REDDIT_TOKEN`) → public JSON → public RSS. Many cloud/VPN IPs get `403` on JSON; RSS usually still works but is rate-limited (the script waits 4s between subreddits and backs off on 429).
+- Keeps software work only (r/forhire *[Hiring]* is mostly editors/designers/VAs), flags `low-budget` (equity-only, "$50 for an app"), drops US/EU-only posts.
+- **Honest expectation:** in a Nov 2026 test, 0 of the last 100 r/forhire posts were dev roles that fit. Reddit is better for *listening and helping* (answer Supabase/Shopify/Lovable questions well, people DM you) than for scraping leads.
+
+---
+
+## Importing into the CRM
+
+1. Open `tools/crm.html` → **Data → Import CSV** → pick the file from `out/`.
+2. Headers already match the schema (`id,company,contact,…,createdAt,updatedAt`). Duplicates are detected by email / website / company; our `id`s are stable (`hn-<comment>`, `site-<domain>`, `fund-<hash>`, `rd-<post>`), so re-running and re-importing is safe.
+3. `score` and `probability` are integers 0–100. Values that start with `= + - @` are prefixed with `'` (CSV-injection protection — the data comes from the open web).
+4. Only import what you'll actually work this week. A CRM with 400 cold rows is a graveyard; 20 researched rows is a pipeline.
+
+---
+
+## Weekly routine (≈ 90 minutes, Monday)
+
+| When | Do | Time |
+|---|---|---|
+| Mon 09:30 | `funding-feed.mjs --region india --since 7` + `--region global --keywords "fintech,saas,ai"` | 10 min |
+| Mon 09:45 | Shortlist ≤10 funded companies; add their domains + 10–20 D2C brands you found during the week to `this-week.txt` | 20 min |
+| Mon 10:05 | `site-audit.mjs this-week.txt --psi` → read the digest, verify the top 10 on your phone | 30 min |
+| 1st Monday of the month (HN threads post on the 1st working day) | `hn-freelance.mjs --hiring --months 1` | 10 min |
+| Mon 10:45 | `reddit-leads.mjs --subs all --since 7` (skim, don't chase) | 5 min |
+| Mon 10:50 | Import into CRM; set `nextDate` so each day Tue–Fri has 5–10 personalised touches queued | 15 min |
+
+Want it automatic? A cron entry (macOS/Linux) that runs Monday 08:30 and leaves fresh digests waiting:
+
+```bash
+30 8 * * 1 cd ~/leads-gen && /usr/local/bin/node scripts/funding-feed.mjs --region india --since 7 >> out/cron.log 2>&1
+```
+
+---
+
+## Ethics, ToS and the law (read once)
+
+- **Public data, low volume, human sending.** These scripts read public pages/APIs at a few requests per second or less, identify themselves (`User-Agent: FreelanceOS-prospector/1.0`), and back off on 429. Don't crank up concurrency, don't rotate IPs or spoof browsers to get past bot protection — if a site blocks you, look at it in a browser like a human.
+- **Respect each platform's terms.** HN Algolia API is public; Reddit's Data API terms apply (new OAuth apps need approval since Nov 2025); RSS feeds are published for syndication; PageSpeed Insights is an official API.
+- **Never auto-send.** No mail-merge blasts, no LinkedIn automation tools (they get accounts restricted). Every message is 1:1 and specific.
+- **Personal data.** `out/` contains names/emails of real people — it's gitignored for a reason. Don't publish it, don't share it, delete what you won't use. India's DPDP Act applies to how you store personal data; for EU/UK prospects keep cold email B2B, relevant, and honour opt-outs immediately; for US emails include a real postal address / opt-out line per CAN-SPAM if you ever send at volume.
+- **Verify before you claim.** A hook built on a wrong detection ("you're on AngularJS" when they're not) is worse than no hook. Check, then send.
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `fetch failed` / timeouts on every request | Behind a proxy → `NODE_USE_ENV_PROXY=1` (Node ≥ 22.21). Otherwise check your connection. |
+| PSI: `quota exceeded` | Set `PSI_API_KEY`; keep `--concurrency 2`. |
+| Reddit: `json 403 → rss 429` | Network is blocked/rate-limited. Wait 10 min, run fewer subs, or use the browser. |
+| A feed shows `404` | The outlet moved its feed — edit `FEEDS` at the top of `funding-feed.mjs`. |
+| Site shows `blocked` | Bot protection. Check manually; PSI (`--psi`) may still work since Google fetches it. |
+| Company name looks wrong | Heuristic from `og:site_name` / `<title>` / headline. Fix it in the CRM. |
+</script>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

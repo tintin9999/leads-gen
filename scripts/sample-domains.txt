@@ -1,0 +1,17 @@
+# Demo list for scripts/site-audit.mjs — public homepages of well-known Indian D2C brands.
+# These are big brands (in-house teams) and only here to show the output format.
+# Your real targets are smaller brands (roughly ₹1–30 Cr revenue, 2–20 people, no in-house engineer):
+# Cultus partners and their peers, brands running Instagram/Meta ads, Inc42/YourStory D2C coverage,
+# Shopify app-review authors, and brands at D2C meetups. One domain per line; '#' starts a comment.
+bombayshavingcompany.com
+sugarcosmetics.com
+snitch.co.in
+mcaffeine.com
+bluetokaicoffee.com
+thesleepcompany.in
+thesouledstore.com
+wowskinscienceindia.com
+plumgoodness.com
+bellavitaorganic.com
+chumbak.com
+beardo.in

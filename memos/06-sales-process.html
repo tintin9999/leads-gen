@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales: From First Reply to Signed Deal · Freelance OS</title>
+<meta name="description" content="Pipeline stages, speed-to-lead, qualification, a 30-minute discovery script, paid audits, three-option proposals, follow-ups, objections, negotiation and closing, for Indian and global clients.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="06-sales-process" data-kind="memo">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../index.html#memos" class="on">Memos</a>
+    <a href="../index.html#tools">Tools</a>
+    <a href="../index.html#library">Templates</a>
+    <a href="../index.html#lists">Lists</a>
+    <a href="../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="All memos"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../index.html">Home</a><a class="nav-link" href="../index.html#memos">Memos</a><a class="nav-link" href="../index.html#tools">Tools</a><a class="nav-link" href="../index.html#library">Templates</a><a class="nav-link" href="../index.html#lists">Lists</a></div><div class="nav-group"><div class="nav-group-title">Strategy</div><a class="nav-link" href="../memos/00-start-here.html"><span class="nav-num">00</span><span>Start Here</span><span class="nav-prog" data-nav-prog="00-start-here" data-total="14"></span></a><a class="nav-link" href="../memos/01-positioning.html"><span class="nav-num">01</span><span>Positioning</span><span class="nav-prog" data-nav-prog="01-positioning" data-total="7"></span></a></div><div class="nav-group"><div class="nav-group-title">Foundation</div><a class="nav-link" href="../memos/02-business-setup.html"><span class="nav-num">02</span><span>Business Setup</span><span class="nav-prog" data-nav-prog="02-business-setup" data-total="30"></span></a><a class="nav-link" href="../memos/03-tax-and-money.html"><span class="nav-num">03</span><span>Tax &amp; Money</span><span class="nav-prog" data-nav-prog="03-tax-and-money" data-total="9"></span></a></div><div class="nav-group"><div class="nav-group-title">Revenue</div><a class="nav-link" href="../memos/04-pricing.html"><span class="nav-num">04</span><span>Pricing</span><span class="nav-prog" data-nav-prog="04-pricing" data-total="7"></span></a><a class="nav-link" href="../memos/05-lead-generation.html"><span class="nav-num">05</span><span>Lead Generation</span><span class="nav-prog" data-nav-prog="05-lead-generation" data-total="14"></span></a><a class="nav-link active" href="../memos/06-sales-process.html" aria-current="page"><span class="nav-num">06</span><span>Sales</span><span class="nav-prog" data-nav-prog="06-sales-process" data-total="17"></span></a></div><div class="nav-group"><div class="nav-group-title">Operations</div><a class="nav-link" href="../memos/07-contracts.html"><span class="nav-num">07</span><span>Contracts</span><span class="nav-prog" data-nav-prog="07-contracts" data-total="12"></span></a><a class="nav-link" href="../memos/08-delivery-ops.html"><span class="nav-num">08</span><span>Delivery Ops</span><span class="nav-prog" data-nav-prog="08-delivery-ops" data-total="19"></span></a></div><div class="nav-group"><div class="nav-group-title">Growth</div><a class="nav-link" href="../memos/09-portfolio-and-brand.html"><span class="nav-num">09</span><span>Portfolio &amp; Brand</span><span class="nav-prog" data-nav-prog="09-portfolio-and-brand" data-total="18"></span></a></div><div class="nav-group"><div class="nav-group-title">Execution</div><a class="nav-link" href="../memos/10-90-day-plan.html"><span class="nav-num">10</span><span>90-Day Launch Plan</span><span class="nav-prog" data-nav-prog="10-90-day-plan" data-total="61"></span></a><a class="nav-link" href="../memos/12-metrics-and-cadence.html"><span class="nav-num">12</span><span>Metrics &amp; Cadence</span><span class="nav-prog" data-nav-prog="12-metrics-and-cadence" data-total="6"></span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">Revenue · Memo 06</div>
+    <h1>Sales: From First Reply to Signed Deal</h1>
+    <p class="subtitle">A repeatable path from a reply to a signed agreement and a paid deposit: qualify fast, diagnose before you prescribe, sell a paid first step, propose three options, follow up without begging, close on contract plus deposit.</p>
+    <div class="doc-meta"><span>⏱ 22 min read</span><span class="sep">·</span><span data-progress></span><span class="sep">·</span><button class="btn sm" data-action="reset-checks" type="button">Reset ticks</button></div>
+    <div class="progress-bar" data-progress-bar><i></i></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#pipeline-stages">1. The pipeline: stages, exit criteria, time limits</a><a href="#speed-to-lead">2. Speed-to-lead: the cheapest edge you have</a><a href="#qualification">3. Qualification: 5 questions before you invest an hour</a><a href="#discovery-call">4. The 30-minute discovery call</a><a href="#diagnose-then-prescribe">5. Diagnose, then prescribe (and don't consult for free)</a><a href="#paid-first-step">6. Sell a small paid first step</a><a href="#proposals">7. Proposals that win</a><a href="#follow-up">8. Follow-up without begging</a><a href="#objections">9. Objection handling</a><a href="#negotiation">10. Negotiation: trade, don't discount</a><a href="#closing">11. Closing: contract + deposit = start</a><a href="#marketplace-sales">12. Marketplace sales (Upwork, Contra, talent networks)</a><a href="#india-vs-global">13. Indian vs global clients: what changes</a><a href="#benchmarks">14. Cycle times and conversion benchmarks (planning numbers)</a><a href="#scorecard">15. Sales scorecard: review it every Friday</a><a href="#actions">16. Actions this week</a><a href="#sources">Sources</a></details>
+  <article class="prose">
+
+<div class="bluf"><strong>Bottom line.</strong> You don't need to be "good at sales". You need a short process you run the same way every time. <b>Reply within the hour.</b> <b>Qualify in 5 questions.</b> <b>Diagnose on a 30-minute call</b>, and don't solve the problem for free. <b>Sell a small paid first step</b> (A1 sprint, B1 audit, B3 assessment). <b>Send three options within 24 hours</b> and walk the client through them live. <b>Follow up 4 times, then move them to nurture.</b> Work starts only when <b>the contract is signed and the deposit has cleared</b>. Trade scope, never price. Your engineering record (Cultus, Deribit, Twinntax) is the proof. Sales is just putting it in front of the right person at the right moment.</div>
+
+<div class="kpi-row">
+  <div class="kpi"><b>&lt; 1 hr</b><span>reply to inbound leads and referrals (working hours)</span></div>
+  <div class="kpi"><b>30 min</b><span>discovery call, with you talking under 40% of the time</span></div>
+  <div class="kpi"><b>24 hrs</b><span>call → three-option proposal</span></div>
+  <div class="kpi"><b>14 days</b><span>proposal validity</span></div>
+  <div class="kpi"><b>0</b><span>hours of work before contract + deposit</span></div>
+</div>
+
+<h2 id="pipeline-stages">1. The pipeline: stages, exit criteria, time limits<a class="anchor" href="#pipeline-stages" aria-label="Link to this section">#</a></h2>
+<p>These match the <a href="../tools/crm.html">CRM</a> stages exactly. A lead moves forward only when its <em>exit criterion</em> is true. "Feels promising" is not a stage.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Stage</th><th>Means</th><th>Exit criterion (move on when…)</th><th>Time limit</th><th>Your next action</th></tr></thead>
+  <tbody>
+    <tr><td><span class="tag">prospect</span></td><td>Researched, not contacted</td><td>You've sent a personalised first touch</td><td>Contact within 7 days or delete</td><td>One specific observation + one proof line</td></tr>
+    <tr><td><span class="tag">contacted</span></td><td>First touch sent</td><td>They reply (anything but "no")</td><td>4 touches over ~14 days</td><td>Follow-up cadence (§9)</td></tr>
+    <tr><td><span class="tag">replied</span></td><td>Two-way conversation</td><td>Discovery call booked, or qualified in writing</td><td>Book within 3 days</td><td>Send your <code><span class="var">{{CAL_LINK}}</span></code> plus two time slots</td></tr>
+    <tr><td><span class="tag">call</span></td><td>Discovery done</td><td>Qualified (§3 score ≥ 7) and next step agreed</td><td>Proposal within 24h</td><td>Recap email the same day (<a href="../templates/sales/post-call-recap.md">template</a>)</td></tr>
+    <tr><td><span class="tag">proposal</span></td><td>Options sent and walked through</td><td>Signed + deposit (won) or explicit no (lost)</td><td>14-day validity</td><td>Walk-through call, then follow-ups</td></tr>
+    <tr><td><span class="tag">won</span></td><td>Contract signed, deposit cleared</td><td>Hand off to delivery (<a href="08-delivery-ops.html">Delivery Ops</a>)</td><td>Kickoff within 5 working days</td><td>Kickoff agenda, access checklist</td></tr>
+    <tr><td><span class="tag">lost</span></td><td>Explicit no, or 4 touches without a reply after the proposal</td><td>Reason logged</td><td>—</td><td><a href="../templates/sales/lost-deal-followup.md">Lost-deal follow-up</a>, then nurture in 60–90 days</td></tr>
+    <tr><td><span class="tag">nurture</span></td><td>Good fit, wrong time</td><td>New trigger (funding, hiring, launch, sale season)</td><td>Check in every 60–90 days</td><td>Send something useful, not "just checking in"</td></tr>
+  </tbody>
+</table></div>
+<div class="callout tip"><strong>One rule.</strong> Every open lead in the CRM has a <code>nextAction</code> and a <code>nextDate</code>. A lead without a next step is a lead you've already lost.</div>
+
+<h2 id="speed-to-lead">2. Speed-to-lead: the cheapest edge you have<a class="anchor" href="#speed-to-lead" aria-label="Link to this section">#</a></h2>
+<p>Harvard Business Review audited 2,241 US companies. Firms that replied to a web lead within an hour were nearly <b>7×</b> as likely to have a meaningful conversation with a decision-maker as firms that waited even one hour longer. The average response time was 42 hours, and 23% never replied at all. Agencies with account managers are slow. A solo engineer who answers in 20 minutes looks senior and organised.</p>
+<ul>
+  <li><b>Inbound or referral:</b> reply within 1 working hour. A short holding reply counts: "Thanks, I've read it. Two quick questions so I don't waste your time: … Here's my calendar if a 30-min call is easier: <span class="var">{{CAL_LINK}}</span>".</li>
+  <li><b>Indian clients:</b> if they started on WhatsApp, reply on WhatsApp. A 30-second voice note is fine. Move the details to email afterwards so there's a paper trail.</li>
+  <li><b>HN and job-post leads:</b> same day. The first 10 replies get read, the 60th doesn't. That's why <code>scripts/hn-freelance.mjs</code> exists.</li>
+  <li><b>Marketplaces:</b> send proposals only on posts under ~2 hours old (<a href="05-lead-generation.html#play-marketplaces">Lead Gen → Marketplaces</a>).</li>
+</ul>
+<ul class="checklist">
+  <li>Turn on phone notifications for your business email and LinkedIn messages, but only during work blocks.</li>
+  <li>Create a free scheduling link (Cal.com or Calendly) with 30-min "Discovery" and 15-min "Quick question" slots and a 2-hour minimum notice.</li>
+  <li>Save the holding reply above as a text snippet on your laptop and phone.</li>
+</ul>
+
+<h2 id="qualification">3. Qualification: 5 questions before you invest an hour<a class="anchor" href="#qualification" aria-label="Link to this section">#</a></h2>
+<p>Qualification protects your scarcest resource, which is focused time. Score each item 0–2. Total ≥ 7 → proposal. 5–6 → paid audit only. ≤ 4 → politely decline or nurture. Full scorecard: <a href="../templates/sales/qualification-scorecard.md">qualification-scorecard.md</a>.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Check</th><th>The question you need answered</th><th>2 = strong</th><th>0 = weak</th></tr></thead>
+  <tbody>
+    <tr><td><b>Fit</b></td><td>Is this one of my offers (A1–A4, B1–B3, C1) or close to one?</td><td>Squarely an offer you've done (Shopify, Razorpay, admin tools, Next.js/Supabase)</td><td>Native iOS, WordPress theme tweaks, "build me Uber"</td></tr>
+    <tr><td><b>Pain + why now</b></td><td>What happens if they do nothing for 3 months?</td><td>Sale season, launch date, investor demo, revenue leaking</td><td>"Nice to have someday"</td></tr>
+    <tr><td><b>Budget</b></td><td>Is there money set aside that covers at least your Essential option?</td><td>Range stated and ≥ your Essential tier</td><td>"Tell us your best price", or equity only</td></tr>
+    <tr><td><b>Authority</b></td><td>Who signs? Who else has a veto?</td><td>You're talking to the founder or budget owner</td><td>Intern collecting quotes, "need to ask the boss", no access to them</td></tr>
+    <tr><td><b>Timeline + payment ability</b></td><td>When must it be live? Can they pay 50% now?</td><td>Clear date; deposit OK; company registered or established</td><td>No date; "pay after launch / after funding"</td></tr>
+  </tbody>
+</table></div>
+<div class="grid">
+  <div class="card"><h4>Instant disqualifiers</h4><p>Asks for free spec work or an unpaid "test task" larger than about 1 hour. Wants payment via crypto or to "overpay and refund". Wants to move off Upwork before a contract. Won't put anything in writing. Wants you to run their repo on your machine "quickly" (see <a href="11-risks-and-scams.html">Risks</a>). Budget is clearly a tenth of the work.</p></div>
+  <div class="card"><h4>Yellow flags (price them in, or decline)</h4><p>"It's a simple app, should take a weekend." Third developer on the project. Five decision-makers. Wants daily calls. Pushes for hourly with a cap. Changes scope during the first call. Every one of these needs a tighter scope, a bigger buffer and stricter payment terms.</p></div>
+  <div class="card"><h4>Green flags</h4><p>Names a budget range. Has a deadline tied to money (sale, launch, funding). Shares data (orders/month, AOV, RTO%). Has hired freelancers before and paid on time. Introduced by someone you trust. Asks about your process, not just your rate.</p></div>
+</div>
+
+<h2 id="discovery-call">4. The 30-minute discovery call<a class="anchor" href="#discovery-call" aria-label="Link to this section">#</a></h2>
+<p>The goal is not to "pitch". It's to find out whether there's a valuable problem you can solve, what it's worth, and what the next step is. You should talk less than 40% of the time. Full script with per-offer questions: <a href="../templates/sales/discovery-call-script.md">discovery-call-script.md</a>.</p>
+<ol class="steps">
+  <li><strong>0–2 min, set the frame.</strong> "Thanks for making time. My plan: I'll ask a few questions to understand what's going on, then tell you honestly whether I'm a fit and what I'd suggest as a next step. If I'm not the right person, I'll say so. Sound good?"</li>
+  <li><strong>2–12 min, the situation and the pain.</strong> "What's prompting this now?" · "Walk me through how it works today." · "What have you tried?" · "What does it cost you, in orders, hours or risk?"</li>
+  <li><strong>12–18 min, the outcome.</strong> "If we're talking in 3 months and this went really well, what changed?" · "How will you measure it?" Write their words down. They go into the proposal.</li>
+  <li><strong>18–23 min, constraints.</strong> Timeline, who decides, budget range (wording below), tech access, other vendors.</li>
+  <li><strong>23–28 min, reflect and suggest a next step.</strong> Summarise in their words. "Here's what I'd suggest as a first step…" (usually a paid audit/sprint, §6). Name the price range.</li>
+  <li><strong>28–30 min, lock it in.</strong> "I'll send three options by tomorrow 6 pm. Can we take 15 minutes on Thursday to walk through them?" Put that meeting in the calendar before you hang up.</li>
+</ol>
+
+<h3 id="questions-that-work-by-offer">Questions that work, by offer<a class="anchor" href="#questions-that-work-by-offer" aria-label="Link to this section">#</a></h3>
+<details><summary>A1 Speed &amp; Conversion · A3 Checkout/COD (Indian D2C)</summary>
+<ul>
+  <li>Orders per month? AOV? What share is mobile? What's your conversion rate (Shopify Analytics → Conversion)?</li>
+  <li>COD share and RTO %? Which pincodes or states hurt most? Do you run partial COD or COD charges today?</li>
+  <li>Which checkout: native Shopify, Razorpay Magic Checkout, GoKwik, Shiprocket Fastrr, Simpl? Why that one?</li>
+  <li>How many apps are installed? Which ones did someone add "for one campaign" and never remove?</li>
+  <li>When is your next big sale (Diwali, EOSS, brand day)? <em>Never ship risky changes in sale week. Code freeze 7 days before.</em></li>
+</ul></details>
+<details><summary>A2 Shopify app / integrations · A4 Headless storefront</summary>
+<ul>
+  <li>What are you syncing by hand today (inventory, orders, marketplaces, ERP, WhatsApp)? How many hours a week, and how many errors?</li>
+  <li>Source of truth for inventory? How many SKUs and locations? Which warehouses/3PLs?</li>
+  <li>Why headless? (If the answer is "it sounds modern", steer back to A1. Headless only pays off with a real content or UX need.)</li>
+</ul></details>
+<details><summary>B1 Prototype → Production (Lovable / v0 / Bolt / Cursor-built MVPs)</summary>
+<ul>
+  <li>Is it live with real users or payments? How many? What's the worst thing that could leak?</li>
+  <li>Supabase: is Row Level Security on for every table? Who has the service-role key? Any secrets in the front end?</li>
+  <li>How do you deploy? Any tests? What broke last month?</li>
+  <li>Who will maintain it after me: you, a future hire, or me on a care plan?</li>
+</ul></details>
+<details><summary>B2 Internal tools &amp; admin dashboards · B3 Angular → React/Next</summary>
+<ul>
+  <li>Who uses the tool daily, and what do they do in spreadsheets or Slack because the tool can't?</li>
+  <li>Roles and permissions? Approval flows? Audit-log needs? (Your Deribit experience: RFQ, user management, approval layers.)</li>
+  <li>Angular version (AngularJS 1.x reached end of life in January 2022)? Size of the codebase? Can we migrate one module at a time while features keep shipping?</li>
+  <li>Test coverage today? CI? (Vitest in GitLab CI is your proof.)</li>
+</ul></details>
+
+<h3 id="budget-question">Asking about budget without being awkward<a class="anchor" href="#budget-question" aria-label="Link to this section">#</a></h3>
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>Indian clients (Track A)</th><th>Global clients (Track B)</th></tr></thead>
+  <tbody>
+    <tr><td>Range-anchor (best)</td><td>"Projects like this usually land between ₹40k and ₹1.2L depending on scope. Where would you want this to sit?"</td><td>"Engagements like this typically run $3k–8k depending on scope. Is that in the range you were expecting?"</td></tr>
+    <tr><td>If they won't say</td><td>"Totally fine. I'll send three options: a lean one, the one I'd recommend, and a complete one. You pick."</td><td>"No problem. I'll give you three options with fixed prices so you can choose the level of investment."</td></tr>
+    <tr><td>If it's far too low</td><td>"With ₹15k I'd be doing you a disservice on checkout work. What I can do in that budget is a written audit with the top 5 fixes your team can apply."</td><td>"For $500 the honest answer is an audit, not a build. Here's what that would cover…"</td></tr>
+  </tbody>
+</table></div>
+<div class="callout info"><strong>"What's your rate?"</strong> Don't lead with an hourly number. Say: "Most of my work is fixed-price, so you know the total upfront. My Store Speed Sprint is usually ₹30–75k, and MVP audits start at $850. Can I ask a few questions first? Then you'll get three options with exact prices within 24 hours." If they insist, give your <em>standard</em> rate (₹2,000/hr or $50/hr), never your floor. Full guidance: <a href="04-pricing.html#answering-rate">Pricing → Answering "What's your rate?"</a>.</div>
+
+<h2 id="diagnose-then-prescribe">5. Diagnose, then prescribe (and don't consult for free)<a class="anchor" href="#diagnose-then-prescribe" aria-label="Link to this section">#</a></h2>
+<p>Doctors don't hand out prescriptions in the waiting room. Engineers in sales mode often do the opposite: they start solving on the call ("Oh, you just need to move that to a webhook queue and…"). The client walks away with your best idea for free.</p>
+<ul>
+  <li><b>On the call:</b> name the <em>category</em> of fix, not the steps. "This looks like a third-party script problem plus an unoptimised image pipeline. Both are fixable without a redesign."</li>
+  <li><b>Show you know the territory:</b> one short story, not a lecture. "At Cultus, partial COD for high-risk pincodes was the lever for us. The rules matter more than the gateway."</li>
+  <li><b>Then prescribe the next step:</b> a paid audit or a fixed sprint, with a price range.</li>
+  <li><b>If they push for specifics:</b> "Happy to go deep. That's exactly what the audit is for. It's credited if you go ahead with the sprint."</li>
+</ul>
+
+<h2 id="paid-first-step">6. Sell a small paid first step<a class="anchor" href="#paid-first-step" aria-label="Link to this section">#</a></h2>
+<p>With no portfolio and no reviews, the hardest sale is a ₹4L build. The easiest is a small, fixed, low-risk first step that proves you're good. Then you expand. This is "paid discovery" (also called roadmapping): the client pays you to diagnose, you deliver a written plan, and the plan becomes the proposal for the real project.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>First step</th><th>Price (see <a href="04-pricing.html#three-options">Pricing</a>)</th><th>Delivers</th><th>Expands into</th></tr></thead>
+  <tbody>
+    <tr><td><b>A1</b> Store Speed Sprint (Essential)</td><td>₹30,000 · 7 days</td><td>Audit plus top fixes on home and product templates, before/after report</td><td>Recommended/Premium tier, A3 checkout work, C1 care plan</td></tr>
+    <tr><td><b>B1</b> Production-readiness audit</td><td>from $850 · 5–7 days</td><td>Red/amber/green report: RLS, auth, secrets, webhooks, CI, costs. A 45-min walkthrough.</td><td>B1 sprint $3,200–8,500</td></tr>
+    <tr><td><b>B3</b> Modernisation assessment</td><td>$1,500–3,000 · 1–2 weeks</td><td>Module map, migration order, risk list, estimate, one module migrated as proof</td><td>Migration sprints or retainer</td></tr>
+  </tbody>
+</table></div>
+<div class="callout tip"><strong>Audit credit</strong> (<a href="04-pricing.html#discounts">Pricing → Discounts</a>). "If you book the sprint within 14 days, 50% of the audit fee is credited." The audit pays for your time either way. The credit gives them a reason to decide quickly, and you never discount the sprint itself.</div>
+
+<h2 id="proposals">7. Proposals that win<a class="anchor" href="#proposals" aria-label="Link to this section">#</a></h2>
+<p>A proposal confirms what you already agreed on the call. It is not where you persuade them. If anything in it surprises the client, the call didn't do its job. Build it in the <a href="../tools/proposal-builder.html">Proposal Builder</a> (prints to PDF) from your offer presets.</p>
+<h3 id="structure-12-pages">Structure (1–2 pages)<a class="anchor" href="#structure-12-pages" aria-label="Link to this section">#</a></h3>
+<ol>
+  <li><b>Situation:</b> their problem in <em>their</em> words, from your call notes.</li>
+  <li><b>Outcome and how we'll measure it:</b> "Mobile LCP under 2.5s on product pages; conversion tracked weekly for 4 weeks."</li>
+  <li><b>Three options:</b> Essential / <b>Recommended</b> / Premium, at a price ratio of about 1 : 1.6 : 2.5. Highlight the middle one. Each option is a clear list of deliverables plus a timeline.</li>
+  <li><b>Why me:</b> 2–3 lines of relevant proof (Cultus metrics, Deribit, Twinntax), plus one link.</li>
+  <li><b>Timeline:</b> start date (after deposit), milestones, the client's responsibilities (access, feedback within 2 working days).</li>
+  <li><b>Assumptions and out of scope:</b> this is where scope creep is stopped before it starts.</li>
+  <li><b>Investment and terms:</b> 50% to start / 50% on delivery (40/40/20 above ₹2L or $5k), Net 7, prices exclude GST where applicable, IP transfers on full payment (<a href="04-pricing.html#payment-terms">Payment terms</a>).</li>
+  <li><b>Valid for 14 days.</b> Then a single next step: "Reply 'Recommended' and I'll send the agreement and deposit invoice the same day."</li>
+</ol>
+<h3 id="value-framing-price-against-their-numbers-not-your-hours">Value framing: price against their numbers, not your hours<a class="anchor" href="#value-framing-price-against-their-numbers-not-your-hours" aria-label="Link to this section">#</a></h3>
+<pre><code>Example (A1, Indian D2C):
+  12,000 sessions/month on mobile × 1.2% conversion × ₹1,400 AOV = ₹2.0L/month revenue from mobile
+  +0.2 pts conversion after a speed sprint  → +₹33,600/month
+  Recommended option ₹48,000 → pays back in ~6 weeks, and keeps paying.
+Use their real numbers from the call. Never promise the lift. Show the arithmetic and let them judge.</code></pre>
+<h3 id="send-it-then-walk-them-through-it">Send it, then walk them through it<a class="anchor" href="#send-it-then-walk-them-through-it" aria-label="Link to this section">#</a></h3>
+<ul>
+  <li><b>Send within 24 hours</b> of the call, with a short email (<a href="../templates/sales/proposal-email.md">proposal-email.md</a>).</li>
+  <li><b>Walk-through call (15 min):</b> share your screen and go through it top to bottom. Stop after the options: "Which of these feels closest?" Then be quiet.</li>
+  <li><b>Never</b> send the PDF and wait. Unpresented proposals get forwarded, compared on price alone, and forgotten.</li>
+</ul>
+
+<h2 id="follow-up">8. Follow-up without begging<a class="anchor" href="#follow-up" aria-label="Link to this section">#</a></h2>
+<p>Most deals that are lost aren't lost on price. They die of silence. Your follow-ups should be useful, short and spaced out, and they stop.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Day</th><th>After the first touch (no reply yet)</th><th>After the proposal</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>Personalised first touch</td><td>Proposal + walk-through call</td></tr>
+    <tr><td>2–3</td><td>Bump with one extra useful detail (a metric, a 2-min Loom)</td><td>"Any questions on the options? Happy to adjust scope."</td></tr>
+    <tr><td>6–7</td><td>Different angle: a short case-study link or teardown</td><td>Share one relevant result or idea (not "just checking in")</td></tr>
+    <tr><td>12–14</td><td>Close the loop: "Should I close the file on this?"</td><td>Validity reminder: "The options are valid until <span class="var">{{DATE}}</span>. After that I'll re-check my calendar."</td></tr>
+    <tr><td>45–90</td><td colspan="2">Nurture: one useful thing per quarter (a teardown, a sale-season checklist, a congrats on funding)</td></tr>
+  </tbody>
+</table></div>
+<p>Templates: <a href="../library/templates/outreach/follow-ups.html">outreach/follow-ups.md</a> (pre-reply) and <a href="../templates/sales/lost-deal-followup.md">sales/lost-deal-followup.md</a>. India: a polite WhatsApp nudge on day 3 is normal and expected. US/EU: stay on email unless they used another channel first.</p>
+
+<h2 id="objections">9. Objection handling<a class="anchor" href="#objections" aria-label="Link to this section">#</a></h2>
+<p>An objection is usually a question in disguise. Acknowledge it, ask what's behind it, then answer the real concern. Never argue, and never cut the price as a reflex. Longer scripts: <a href="../templates/sales/objection-handling.md">objection-handling.md</a>.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>They say</th><th>It often means</th><th>You say</th></tr></thead>
+  <tbody>
+    <tr><td>"Too expensive."</td><td>Value isn't clear, or the scope is bigger than their budget</td><td>"Fair. Compared to what? … If budget is the constraint, Essential gets you the biggest wins for ₹30k. If we keep the price, which parts matter least to you?"</td></tr>
+    <tr><td>"Let me think about it."</td><td>An unspoken doubt</td><td>"Of course. Usually when someone says that, it's price, timing or trust. Is it one of those? I'd rather fix it now than leave you guessing."</td></tr>
+    <tr><td>"I can get it cheaper on Upwork / Fiverr."</td><td>They're comparing hours, not outcomes</td><td>"You can, and for some jobs you should. The difference is who owns the outcome. I fix the problem, show before/after numbers, and support it for 30 days. If you just need hands, a cheaper option is fine."</td></tr>
+    <tr><td>"We'll pay you in equity."</td><td>No cash, or they're testing you</td><td>"I don't take equity in place of cash, because I can't pay rent with it. If you're raising soon, let's do the paid audit now and plan the build for after the round."</td></tr>
+    <tr><td>"Do a small free test task first."</td><td>Risk aversion (sometimes free-labour farming)</td><td>"I don't do unpaid work, but I can lower your risk: a paid audit with a clear deliverable in 5 days, credited against the sprint. If you don't like the audit, you've lost very little."</td></tr>
+    <tr><td>"Start now, we'll sign the contract later."</td><td>Urgency, or a red flag</td><td>"I can start tomorrow. The one-page agreement takes 2 minutes to sign, and the deposit invoice goes out with it. As soon as both are done, I'm on it."</td></tr>
+    <tr><td>"Send your portfolio / CV first."</td><td>They need proof</td><td>Send 2–3 targeted links, not everything: a Cultus case study, the relevant spec project, and a one-paragraph summary of Deribit/Twinntax. Then: "Want me to walk you through how I'd approach yours?"</td></tr>
+    <tr><td>"Can you guarantee results?"</td><td>They fear wasting money</td><td>"I guarantee the deliverables and the measurements. Revenue depends on things outside the code, like traffic and pricing. What I can promise: if I don't hit the agreed technical targets, I keep working until I do."</td></tr>
+    <tr><td>"Can we do hourly instead?"</td><td>They want control</td><td>"For well-defined work I prefer fixed prices so you carry no overrun risk. For open-ended work, a weekly rate with a weekly demo works well. Which fits better?"</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="negotiation">10. Negotiation: trade, don't discount<a class="anchor" href="#negotiation" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><b>Price is the last thing that moves.</b> First move scope (drop to the Essential tier), then time (a slower timeline), then terms (100% upfront for 5% off), then proof (a named case study, testimonial or referral call). Never give a discount without getting something back. See the full list in <a href="04-pricing.html#discounts">Pricing → Discounts</a>.</li>
+  <li><b>Founding-client pricing (first 3 clients only):</b> 25–30% off, in writing, with an expiry date, in exchange for a case study, a testimonial and a referral call. It's a trade, not charity.</li>
+  <li><b>Indian D2C clients will usually counter.</b> Don't pad your prices to leave room. Sell fixed packages and answer a counter with scope: "To get to ₹35k, we'd skip the app/script cleanup. You keep the image and theme fixes." Your hourly floor is ₹1,200. Below it, walk away.</li>
+  <li><b>Know your walk-away point before the call.</b> Your alternative is your pipeline. That's why §1 matters: a full pipeline makes you a calm negotiator.</li>
+  <li><b>Use silence and calibrated questions</b> (Chris Voss): "How am I supposed to do that for half?" · "What would need to be true for the Recommended option to work?"</li>
+  <li><b>Don't negotiate against yourself.</b> If they say "too high" without a number, ask: "What did you have in mind?"</li>
+  <li><b>Put every change in writing</b> the same day (scope, price, dates), so the agreement matches what was said.</li>
+</ul>
+<p>Playbook with give/get table and scripts: <a href="../templates/sales/negotiation-playbook.md">negotiation-playbook.md</a>.</p>
+
+<h2 id="closing">11. Closing: contract + deposit = start<a class="anchor" href="#closing" aria-label="Link to this section">#</a></h2>
+<ol class="steps">
+  <li><strong>Verbal yes</strong> → "Great. I'll send the agreement and the deposit invoice within the hour."</li>
+  <li><strong>Agreement:</strong> under about ₹1L, use the <a href="../library/templates/contracts/one-page-agreement.html">one-page agreement</a>. Above that, use the MSA (<a href="../library/templates/contracts/msa-india.html">India</a> / <a href="../library/templates/contracts/msa-international.html">international</a>) plus an <a href="../library/templates/contracts/sow-template.html">SOW</a>. Electronic signatures are valid under India's IT Act 2000. Stamp-duty and other details are in <a href="07-contracts.html">Contracts</a>.</li>
+  <li><strong>Deposit invoice:</strong> generated in the <a href="../tools/invoice-generator.html">Invoice Generator</a> (GST, non-GST or export-under-LUT version). Payment by UPI/NEFT/Razorpay link for India, or your <a href="03-tax-and-money.html#payment-rails">payment rail</a> for abroad.</li>
+  <li><strong>Deposit cleared</strong> → schedule the kickoff, send the onboarding questionnaire and the access checklist (<a href="08-delivery-ops.html">Delivery Ops</a>).</li>
+  <li><strong>Update the CRM:</strong> stage <span class="tag">won</span>, value, and the start date. Book a "testimonial ask" reminder for delivery day.</li>
+</ol>
+<div class="callout warn"><strong>No deposit, no start.</strong> Not even "just setting up the repo". Work before payment teaches the client that your terms don't matter. It also leaves you with no leverage if they disappear.</div>
+
+<h2 id="marketplace-sales">12. Marketplace sales (Upwork, Contra, talent networks)<a class="anchor" href="#marketplace-sales" aria-label="Link to this section">#</a></h2>
+<ul>
+  <li><b>Proposals:</b> 120–180 words. The proof goes in the first two lines (those are all the client sees in the list). One sharp question. No "Dear Sir/Madam", no CV dump. Full playbook: <a href="05-lead-generation.html#play-marketplaces">Lead Gen → Marketplaces</a>; templates: <a href="../library/templates/outreach/upwork-and-marketplaces.html">upwork-and-marketplaces.md</a>.</li>
+  <li><b>Interview = discovery call.</b> Same script, same 3-option follow-up (as fixed-price milestones).</li>
+  <li><b>Escrow is your deposit.</b> Don't start until the milestone is funded, and never accept "I'll fund it after you start".</li>
+  <li><b>Stay on the platform.</b> Upwork clients must stay on Upwork for 24 months unless the conversion fee is paid. Asking to move off-platform can get your account suspended. Off-platform requests are also the most common scam opener (<a href="11-risks-and-scams.html">Risks</a>).</li>
+  <li><b>Fees:</b> Upwork's fee is 0–15% per contract, plus 18% GST on the fee for India-based freelancers. Gross up your quotes (<a href="04-pricing.html#platform-gross-up">Pricing → Gross-up</a>).</li>
+  <li><b>Talent networks</b> (Toptal, Arc, Flexiple, Braintrust): the network sells. Your job is to pass the vetting and then run a great client interview with the same discovery questions.</li>
+</ul>
+
+<h2 id="india-vs-global">13. Indian vs global clients: what changes<a class="anchor" href="#india-vs-global" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th></th><th>Indian clients (mostly Track A)</th><th>US / UK / EU clients (Track B)</th></tr></thead>
+  <tbody>
+    <tr><td>First contact</td><td>WhatsApp, Instagram DMs, warm intros, LinkedIn. Voice notes and calls are normal.</td><td>Email, LinkedIn, Slack/Discord communities. Async-first; calls are booked.</td></tr>
+    <tr><td>Price sensitivity</td><td>High. Expect a counter. Sell fixed packages and cut scope, not price.</td><td>Lower on price, higher on reliability and communication.</td></tr>
+    <tr><td>Decision speed</td><td>Fast with the founder (days); slow once a "team" gets involved</td><td>1–3 weeks; procurement at bigger firms</td></tr>
+    <tr><td>Taxes on your invoice</td><td>GST 18% if you're registered (see <a href="03-tax-and-money.html#gst">GST</a>). Companies may <b>deduct TDS</b> (10% professional or 2% technical, s.393 of the Income-tax Act 2025, formerly s.194J; ₹50k threshold). Ask for Form 16A each quarter and check AIS/26AS.</td><td>No GST on exports (under LUT if registered). US clients may ask for a W-8BEN. Usually no withholding. See <a href="03-tax-and-money.html#foreign-income">Foreign income</a>.</td></tr>
+    <tr><td>Payment habits</td><td>Deposits are essential; reminders are normal. If you're Udyam-registered, B2B buyers face the 45-day MSMED rule (<a href="02-business-setup.html#udyam">Udyam</a>).</td><td>Usually prompt once invoiced; Net 7–15. Transfer fees: ask for "OUR" on SWIFT, or use a low-fee rail.</td></tr>
+    <tr><td>Calendar risks</td><td>Sale seasons (festive Sept–Nov, EOSS, brand days): <b>code freeze</b> 7 days before. Diwali week is slow for decisions.</td><td>US Thanksgiving to New Year is slow; Q1 budgets open in January.</td></tr>
+    <tr><td>Time zones from IST</td><td>—</td><td>UK +4:30/5:30 behind, Central Europe +3:30/4:30, US East +9:30/10:30. Offer 2–3 overlap hours a day; don't promise 24/7.</td></tr>
+  </tbody>
+</table></div>
+<div class="callout info"><strong>Talking about TDS without friction.</strong> "If you deduct TDS, that's fine. Please deduct it on the invoice value excluding GST and share Form 16A each quarter so it reflects in my 26AS." Your invoice total stays the same; they just pay you the net amount. Details: <a href="03-tax-and-money.html#tds">Tax → TDS</a> and <a href="../library/templates/finance/client-tax-faq.html">client-tax-faq.md</a>.</div>
+
+<h2 id="benchmarks">14. Cycle times and conversion benchmarks (planning numbers)<a class="anchor" href="#benchmarks" aria-label="Link to this section">#</a></h2>
+<p>There is no rigorous public survey of freelancer close rates by lead source. What exists is vendor and blogger data, which agrees on the direction: <b>referrals close several times better than cold outreach</b>. Use the planning numbers below (the same ones as <a href="12-metrics-and-cadence.html#funnel-math">Metrics → Funnel maths</a>). After 20 calls, replace them with your own.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Lead type</th><th>Reply</th><th>Reply → call</th><th>Call → proposal</th><th>Proposal → win</th></tr></thead>
+  <tbody>
+    <tr><td>Warm network / referral</td><td>30%</td><td>50%</td><td>60%</td><td>40%</td></tr>
+    <tr><td>Planning mix (warm + signal-based)</td><td>10%</td><td>40%</td><td>50%</td><td>30%</td></tr>
+    <tr><td>Pure cold</td><td>3%</td><td>40%</td><td>50%</td><td>25%</td></tr>
+  </tbody>
+</table></div>
+<div class="table-wrap"><table>
+  <thead><tr><th>Offer</th><th>Typical cycle (first reply → deposit)</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>A1 / A3 (small Indian D2C)</td><td>3–10 days</td><td>Founder decides. Fastest around sale prep.</td></tr>
+    <tr><td>A2 / A4</td><td>2–4 weeks</td><td>Needs scoping; sometimes an agency is involved.</td></tr>
+    <tr><td>B1 audit → sprint</td><td>1–2 weeks → 2–4 weeks</td><td>Audit credit speeds up the second decision.</td></tr>
+    <tr><td>B2 / B3</td><td>3–8 weeks</td><td>Multiple stakeholders; sell the assessment first.</td></tr>
+    <tr><td>HN / job-post contracts</td><td>1–4 weeks</td><td>Often an interview loop. Treat it like a hiring process.</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="scorecard">15. Sales scorecard: review it every Friday<a class="anchor" href="#scorecard" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>Metric</th><th>Target (first 90 days)</th><th>Why it matters</th></tr></thead>
+  <tbody>
+    <tr><td>Median time to first reply (inbound)</td><td>&lt; 1 working hour</td><td>The cheapest edge you have (§2)</td></tr>
+    <tr><td>Discovery calls held / week</td><td>3–5</td><td>Leading indicator of revenue</td></tr>
+    <tr><td>Calls with a booked next step</td><td>≥ 80%</td><td>Calls without a next step are chats</td></tr>
+    <tr><td>Proposal turnaround</td><td>≤ 24h, 100% walked through live</td><td>Keeps momentum and avoids price-only comparison</td></tr>
+    <tr><td>Proposal → win</td><td>≥ 30% (warm ≥ 40%)</td><td>Below 20%: qualification or pricing problem</td></tr>
+    <tr><td>Paid first steps sold</td><td>≥ 1 per 2 weeks</td><td>The land-and-expand engine</td></tr>
+    <tr><td>Follow-up compliance</td><td>100% of open leads have nextDate</td><td>Silence kills deals</td></tr>
+    <tr><td>Discount given without a trade</td><td>0</td><td>Protects your price and your positioning</td></tr>
+  </tbody>
+</table></div>
+<h3 id="after-every-call-2-minute-self-review">After every call, 2-minute self-review<a class="anchor" href="#after-every-call-2-minute-self-review" aria-label="Link to this section">#</a></h3>
+<ul class="checklist">
+  <li>Did I talk less than 40% of the time?</li>
+  <li>Do I know their success metric, in their words?</li>
+  <li>Did we discuss a budget range?</li>
+  <li>Do I know who decides and how?</li>
+  <li>Is a next meeting in the calendar?</li>
+  <li>Did I log the call and set nextAction/nextDate in the CRM?</li>
+</ul>
+
+<h2 id="actions">16. Actions this week<a class="anchor" href="#actions" aria-label="Link to this section">#</a></h2>
+<ul class="checklist">
+  <li>Set up a scheduling link with "Discovery (30 min)" and "Walk-through (15 min)" event types.</li>
+  <li>Copy <a href="../templates/sales/discovery-call-script.md">discovery-call-script.md</a> into your notes app. Rehearse it out loud twice with a friend playing a D2C founder.</li>
+  <li>Load your A1, A3 and B1 presets into the <a href="../tools/proposal-builder.html">Proposal Builder</a> with the Essential/Recommended/Premium tiers from <a href="04-pricing.html#three-options">Pricing</a>.</li>
+  <li>Write your 3 proof snippets (Cultus, Deribit, Twinntax). Two lines each, numbers first.</li>
+  <li>Save the holding reply, the budget question and the "What's your rate?" answer as text snippets.</li>
+  <li>Prepare the one-page agreement and a deposit-invoice template so you can close within the hour.</li>
+  <li>Decide your walk-away numbers: ₹1,200/hr and $35/hr equivalents for fixed bids.</li>
+  <li>Book a 30-minute Friday "sales review" in your calendar (scorecard above).</li>
+</ul>
+
+<h2 id="sources">Sources<a class="anchor" href="#sources" aria-label="Link to this section">#</a></h2>
+<ol class="sources">
+  <li><a href="https://hbr.org/2011/03/the-short-life-of-online-sales-leads" target="_blank" rel="noopener">Oldroyd, McElheran &amp; Elkington, "The Short Life of Online Sales Leads", Harvard Business Review (2011)</a>: replying within an hour gives ~7× the odds of a meaningful conversation; 42-hour average response; 23% never replied.</li>
+  <li><a href="https://toolkit-dev.pages.dev/content/freelance-getting-referrals.html" target="_blank" rel="noopener">Freelance referrals guide</a> and <a href="https://clawanalytics.pages.dev/learn/improve-conversion-rate-for-freelancers" target="_blank" rel="noopener">freelancer conversion benchmarks</a>: directional data that referrals close ~30–50% vs 5–15% for cold leads (vendor/blogger data, not peer-reviewed).</li>
+  <li><a href="https://www.instantly.ai/blog/evolving-user-jobs-during-trial/" target="_blank" rel="noopener">Instantly: proposal and cold-email reply benchmarks</a>: average cold reply rates ~5% by 2025; proposal data is sparse.</li>
+  <li><a href="https://www.winwithoutpitching.com/" target="_blank" rel="noopener">Blair Enns, Win Without Pitching</a>: diagnose before you prescribe; don't give away free thinking.</li>
+  <li><a href="https://doubleyourfreelancing.com/" target="_blank" rel="noopener">Brennan Dunn, Double Your Freelancing</a>: paid discovery/roadmapping as the first engagement; value-based proposals.</li>
+  <li><a href="https://jonathanstark.com/" target="_blank" rel="noopener">Jonathan Stark, Hourly Billing Is Nuts / Ditching Hourly</a>: three-option pricing, "why now" questions, value framing.</li>
+  <li><a href="https://www.blackswanltd.com/" target="_blank" rel="noopener">Chris Voss / Black Swan Group, Never Split the Difference</a>: calibrated questions, labelling, silence in negotiation.</li>
+  <li><a href="https://support.upwork.com/hc/en-us/articles/211062538-Learn-about-the-Freelancer-Service-Fee" target="_blank" rel="noopener">Upwork Help: Freelancer Service Fee</a>, <a href="https://support.upwork.com/hc/en-us/articles/360041114713" target="_blank" rel="noopener">Upwork Help: GST for India-based freelancers</a> and <a href="https://support.upwork.com/hc/en-us/articles/360043723533" target="_blank" rel="noopener">Upwork Help: Conversion fee</a>: 0–15% variable fee, 18% GST on the fee, 24-month rule (as of Nov 2026).</li>
+  <li><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code: Information Technology Act, 2000</a>: legal recognition of electronic records and electronic signatures (ss. 4–5).</li>
+  <li>Internal: <a href="04-pricing.html">Pricing</a> (tiers, payment terms, discount rules), <a href="12-metrics-and-cadence.html">Metrics</a> (funnel planning numbers), <a href="03-tax-and-money.html">Tax &amp; Money</a> (TDS s.393, GST, LUT, W-8BEN).</li>
+</ol>
+</article>
+  <nav class="pager" aria-label="Memo navigation"><a class="prev" href="05-lead-generation.html"><small>← Previous</small>Lead Generation: Build the Pipeline From Zero</a><a class="next" href="07-contracts.html"><small>Next →</small>Contracts: Protect the Work, Get Paid</a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#pipeline-stages">1. The pipeline: stages, exit criteria, time limits</a><a href="#speed-to-lead">2. Speed-to-lead: the cheapest edge you have</a><a href="#qualification">3. Qualification: 5 questions before you invest an hour</a><a href="#discovery-call">4. The 30-minute discovery call</a><a href="#diagnose-then-prescribe">5. Diagnose, then prescribe (and don't consult for free)</a><a href="#paid-first-step">6. Sell a small paid first step</a><a href="#proposals">7. Proposals that win</a><a href="#follow-up">8. Follow-up without begging</a><a href="#objections">9. Objection handling</a><a href="#negotiation">10. Negotiation: trade, don't discount</a><a href="#closing">11. Closing: contract + deposit = start</a><a href="#marketplace-sales">12. Marketplace sales (Upwork, Contra, talent networks)</a><a href="#india-vs-global">13. Indian vs global clients: what changes</a><a href="#benchmarks">14. Cycle times and conversion benchmarks (planning numbers)</a><a href="#scorecard">15. Sales scorecard: review it every Friday</a><a href="#actions">16. Actions this week</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

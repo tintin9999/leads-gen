@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lead Sources: Where Buyers Show Up, and the Search Strings That Find Them (as of Nov 2026) · Freelance OS</title>
+<meta name="description" content="Bottom line. Pursue leads that come with a signal , meaning a reason they need you now . Good signals: a brand just raised money, is hiring a React dev, runs a slow Shopify store w">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="lib-listslead-sourcesmd" data-kind="library">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../../index.html#memos">Memos</a>
+    <a href="../../index.html#tools">Tools</a>
+    <a href="../../index.html#library">Templates</a>
+    <a href="../../index.html#lists">Lists</a>
+    <a href="../../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="Library"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../../index.html">Home</a><a class="nav-link" href="../../index.html#memos">Memos</a><a class="nav-link" href="../../index.html#tools">Tools</a><a class="nav-link" href="../../index.html#library">Templates</a><a class="nav-link" href="../../index.html#lists">Lists</a></div><div class="nav-group"><a class="nav-link" href="../../index.html#memos">← All memos</a><a class="nav-link" href="../../index.html#tools">Tools</a></div><div class="nav-group"><div class="nav-group-title">Templates · Contracts</div><a class="nav-link" href="../../library/templates/contracts/change-request.html"><span>Change Request (CR) Form</span></a><a class="nav-link" href="../../library/templates/contracts/clause-library.html"><span>Clause Library — pick, adapt, defend</span></a><a class="nav-link" href="../../library/templates/contracts/msa-india.html"><span>Master Services Agreement — India</span></a><a class="nav-link" href="../../library/templates/contracts/msa-international.html"><span>Master Services Agreement — International Clients (USD)</span></a><a class="nav-link" href="../../library/templates/contracts/mutual-nda.html"><span>Mutual Non-Disclosure Agreement</span></a><a class="nav-link" href="../../library/templates/contracts/one-page-agreement.html"><span>One-Page Project Agreement (small jobs)</span></a><a class="nav-link" href="../../library/templates/contracts/red-flag-clauses.html"><span>Red-Flag Clauses — redlining a client's contract</span></a><a class="nav-link" href="../../library/templates/contracts/retainer-agreement.html"><span>Care Plan / Retainer Agreement</span></a><a class="nav-link" href="../../library/templates/contracts/sow-template.html"><span>Statement of Work (SOW)</span></a><a class="nav-link" href="../../library/templates/contracts/subcontractor-white-label-agreement.html"><span>Subcontractor / White-Label Agreement (you ↔ an agency)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Delivery</div><a class="nav-link" href="../../library/templates/delivery/ai-usage-policy.html"><span>AI Usage Policy</span></a><a class="nav-link" href="../../library/templates/delivery/change-request-email.html"><span>Change Request — Email &amp; Chat Templates</span></a><a class="nav-link" href="../../library/templates/delivery/client-onboarding-questionnaire.html"><span>Client Onboarding Questionnaire</span></a><a class="nav-link" href="../../library/templates/delivery/credentials-and-access-policy.html"><span>Credentials &amp; Access Policy</span></a><a class="nav-link" href="../../library/templates/delivery/handover-checklist.html"><span>Handover Checklist</span></a><a class="nav-link" href="../../library/templates/delivery/kickoff-agenda.html"><span>Kickoff Meeting — Agenda &amp; Recap</span></a><a class="nav-link" href="../../library/templates/delivery/payment-reminder-ladder.html"><span>Payment Reminder Ladder</span></a><a class="nav-link" href="../../library/templates/delivery/project-closeout.html"><span>Project Closeout — testimonial, case study, referral, retainer</span></a><a class="nav-link" href="../../library/templates/delivery/scope-creep-responses.html"><span>Scope-Creep Responses — what to say in the moment</span></a><a class="nav-link" href="../../library/templates/delivery/weekly-update.html"><span>Weekly Update (send every Friday)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Finance</div><a class="nav-link" href="../../library/templates/finance/ca-engagement-brief.html"><span>CA engagement brief: hiring and using a Chartered Accountant</span></a><a class="nav-link" href="../../library/templates/finance/client-tax-faq.html"><span>Client tax FAQ: copy-paste answers</span></a><a class="nav-link" href="../../library/templates/finance/invoice-checklist.html"><span>Invoice checklist: mandatory fields for every invoice type (India)</span></a><a class="nav-link" href="../../library/templates/finance/monthly-money-close.html"><span>Monthly money close: 30 minutes, first working day of the month</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Outreach</div><a class="nav-link" href="../../library/templates/outreach/agency-partnership.html"><span>Agency Partnership Templates (white-label and overflow)</span></a><a class="nav-link" href="../../library/templates/outreach/cold-email.html"><span>Cold Email Templates (signal-based, one offer per email)</span></a><a class="nav-link" href="../../library/templates/outreach/community-posts.html"><span>Community Post Templates (HN, Reddit, Indie Hackers, Discord)</span></a><a class="nav-link" href="../../library/templates/outreach/follow-ups.html"><span>Follow-up Sequences, Breakup Email, and 90-Day Re-engagement</span></a><a class="nav-link" href="../../library/templates/outreach/linkedin.html"><span>LinkedIn Templates — notes, follow-ups, comment-first</span></a><a class="nav-link" href="../../library/templates/outreach/referral-partner.html"><span>Referral Partner Templates (10% finder's fee)</span></a><a class="nav-link" href="../../library/templates/outreach/upwork-and-marketplaces.html"><span>Upwork and Marketplace Templates</span></a><a class="nav-link" href="../../library/templates/outreach/warm-network.html"><span>Warm Network Templates (announcement + 6 DMs)</span></a></div><div class="nav-group"><div class="nav-group-title">Templates · Portfolio &amp; brand</div><a class="nav-link" href="../../library/templates/portfolio/case-studies.html"><span>Case study drafts</span></a><a class="nav-link" href="../../library/templates/portfolio/content-calendar.html"><span>Content calendar: 30 post ideas + a 4-week plan</span></a><a class="nav-link" href="../../library/templates/portfolio/github-profile-readme.html"><span>GitHub profile README</span></a><a class="nav-link" href="../../library/templates/portfolio/linkedin-profile.html"><span>LinkedIn profile kit</span></a><a class="nav-link" href="../../library/templates/portfolio/spec-projects.html"><span>Spec project briefs</span></a><a class="nav-link" href="../../library/templates/portfolio/website-copy.html"><span>Website copy: one page first</span></a></div><div class="nav-group"><div class="nav-group-title">Lists &amp; resources</div><a class="nav-link" href="../../library/lists/bridge-income.html"><span>Bridge Income: Fund the Runway Without Killing the Pipeline (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/business-tool-stack.html"><span>Business tool stack</span></a><a class="nav-link" href="../../library/lists/communities.html"><span>Communities: Online and Pune/India Offline (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/compliance-calendar.html"><span>Compliance calendar: Pune-based freelancer (income tax, GST, PT, FEMA)</span></a><a class="nav-link active" href="../../library/lists/lead-sources.html"><span>Lead Sources: Where Buyers Show Up, and the Search Strings That Find Them (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/market-rates.html"><span>Market Rates — React / Next.js / TypeScript freelancing (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/payment-rails.html"><span>Payment rails: getting paid from abroad (and at home) as an India-based freelancer</span></a><a class="nav-link" href="../../library/lists/platforms.html"><span>Platforms &amp; Talent Networks: Where an India-Based Product Engineer Gets Paid (as of Nov 2026)</span></a><a class="nav-link" href="../../library/lists/reading-list.html"><span>Reading list: the business side, fast</span></a></div><div class="nav-group"><div class="nav-group-title">Docs</div><a class="nav-link" href="../../library/scripts/README.html"><span>Prospecting scripts</span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">List / resource</div>
+    <h1>Lead Sources: Where Buyers Show Up, and the Search Strings That Find Them (as of Nov 2026)</h1>
+    <div class="doc-meta"><span><code>lists/lead-sources.md</code></span></div>
+    <div class="doc-actions"><button class="btn sm primary" type="button" data-action="copy-source">Copy as Markdown</button><a class="btn sm" href="../../lists/lead-sources.md">Open .md source</a><button class="btn sm" type="button" data-action="print">Print / PDF</button></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#1-warm-and-owned-lists-start-here-they-convert-best">1. Warm and owned lists (start here, they convert best)</a><a href="#2-funding-and-launch-news-they-just-got-budget">2. Funding and launch news (&amp;quot;they just got budget&amp;quot;)</a><a href="#3-hiring-signals-they-need-capacity">3. Hiring signals (&amp;quot;they need capacity&amp;quot;)</a><a href="#4-tech-stack-and-store-discovery-theyre-on-the-stack-you-fix">4. Tech-stack and store discovery (&amp;quot;they're on the stack you fix&amp;quot;)</a><a href="#5-agencies-to-partner-with-they-have-clients-you-have-capacity">5. Agencies to partner with (they have clients, you have capacity)</a><a href="#6-ai-built-app-signals-b1">6. AI-built app signals (B1)</a><a href="#7-ready-made-search-strings">7. Ready-made search strings</a><a href="#8-lead-hygiene-rules">8. Lead hygiene rules</a><a href="#sources">Sources</a></details>
+  <article class="prose"><blockquote><p><strong>Bottom line.</strong> Pursue leads that come with a <strong>signal</strong>, meaning a reason they need you <em>now</em>. Good signals: a brand just raised money, is hiring a React dev, runs a slow Shopify store while paying for ads, launched an AI-built app, or posted &quot;need a developer&quot;. Build lists every <strong>Monday</strong> from the sources below. Pull lists by script where you can (<a href="../scripts/README.html">scripts/README.md</a>). Save every lead into the CRM using the shared CSV header so it imports cleanly into <a href="../../tools/crm.html">the CRM</a>.</p></blockquote>
+<p>Every lead should leave this process with four things: a <strong>source</strong> (CRM <code>source</code>), a <strong>segment</strong>, the <strong>offer</strong> you'll pitch (A1–A4, B1–B3, C1), and <strong>one specific detail</strong> to use in the first line of the message.</p>
+<hr>
+<h2 id="1-warm-and-owned-lists-start-here-they-convert-best">1. Warm and owned lists (start here, they convert best)</h2>
+<div class="table-wrap"><table><thead><tr><th>Source</th><th>How to get it</th><th>Use</th></tr></thead><tbody><tr><td><strong>LinkedIn connections export</strong></td><td>LinkedIn → Settings → Data privacy → <em>Get a copy of your data</em> → Connections. You get a CSV with names, company, and position. Email is included only when the person allows it.</td><td>Tag each row: ex-Noovosoft / mentee / alumni / client-side / founder. Import into the CRM as <code>source=warm-network</code>.</td></tr><tr><td><strong>Phone + WhatsApp contacts</strong></td><td>Manual. Go through your chat list from top to bottom.</td><td>Founders, small-business owners, people who've asked you for tech help before.</td></tr><tr><td><strong>Cultus network</strong></td><td>The 12 brand partners, the co-founders' contacts, and vendors (photographers, logistics, agencies).</td><td><code>source=cultus-network</code>, <code>segment=d2c-shopify</code>. See Play 2 in <a href="../../memos/05-lead-generation.html#play-cultus-network">memo 05</a>.</td></tr><tr><td><strong>SKNCOE alumni</strong></td><td><code>linkedin.com/school/&lt;college-page&gt;/people/</code>, filtered by &quot;Where they work&quot; and &quot;What they do&quot; (Engineering, Entrepreneurship, Product).</td><td>Alumni at startups make good referrers. Alumni who are founders are buyers.</td></tr><tr><td><strong>Bro bot community</strong></td><td>Server owners and mods you know, plus any community Discord/GitHub org (<code>github.com/Bro-Projects</code>).</td><td>Some run businesses or communities that need bots, dashboards, or sites.</td></tr><tr><td><strong>Past interview candidates / mentees</strong></td><td>The 10+ developers you mentored, now at other companies.</td><td>They hear about contract needs early. Ask them for referrals, not for work.</td></tr></tbody></table></div>
+<h2 id="2-funding-and-launch-news-they-just-got-budget">2. Funding and launch news (&quot;they just got budget&quot;)</h2>
+<div class="table-wrap"><table><thead><tr><th>Source</th><th>URL</th><th>Cadence</th><th>How to use</th></tr></thead><tbody><tr><td>Inc42 &quot;Funding Galore&quot; (India)</td><td><a href="https://inc42.com/buzz/" target="_blank" rel="noopener">inc42.com/buzz</a> (search &quot;Funding Galore&quot; / &quot;Indian startups raised&quot;)</td><td>Weekly</td><td>D2C, consumer, and SaaS rounds. Reach out 2–8 weeks after the announcement.</td></tr><tr><td>Entrackr weekly funding report</td><td><a href="https://entrackr.com/report/weekly-funding-report/" target="_blank" rel="noopener">entrackr.com/report/weekly-funding-report</a></td><td>Weekly</td><td>Lists every deal, including small seed rounds. That's the sweet spot.</td></tr><tr><td>YourStory weekly funding roundup</td><td><a href="https://yourstory.com/" target="_blank" rel="noopener">yourstory.com</a> (search &quot;weekly funding roundup&quot;)</td><td>Weekly</td><td>Cross-check. Founder names usually appear in the article.</td></tr><tr><td>Tracxn / Crunchbase</td><td><a href="https://tracxn.com" target="_blank" rel="noopener">tracxn.com</a> · <a href="https://www.crunchbase.com" target="_blank" rel="noopener">crunchbase.com</a></td><td>Ad hoc</td><td>Free tiers are limited. Use them to look up a company you already found, not to browse.</td></tr><tr><td>TechCrunch funding</td><td><a href="https://techcrunch.com/category/startups/" target="_blank" rel="noopener">techcrunch.com/category/startups</a></td><td>Daily</td><td>Global seed/Series A for Track B.</td></tr><tr><td>YC company directory</td><td><a href="https://www.ycombinator.com/companies" target="_blank" rel="noopener">ycombinator.com/companies</a></td><td>Each batch</td><td>Filter by batch, &quot;Is hiring&quot;, and region. Recent batches mean small teams that ship fast.</td></tr><tr><td>Product Hunt</td><td><a href="https://www.producthunt.com" target="_blank" rel="noopener">producthunt.com</a></td><td>Daily</td><td>Launches by non-technical founders are B1 candidates. Look for &quot;built with Lovable/Bolt/v0&quot; in maker comments.</td></tr><tr><td>Lovable Launched (Lovable-run showcase)</td><td><code>launched.lovable.dev</code> (status: verify)</td><td>Ongoing</td><td>B1 candidates. <strong>Never probe their apps.</strong> See the ethics rule below.</td></tr><tr><td>Indie Hackers products</td><td><a href="https://www.indiehackers.com" target="_blank" rel="noopener">indiehackers.com</a></td><td>Ongoing</td><td>Solo founders at revenue. B1/B2.</td></tr></tbody></table></div>
+<p>Automate: <a href="../scripts/README.html"><code>scripts/funding-feed.mjs</code></a> → CSV with the CRM header.</p>
+<h2 id="3-hiring-signals-they-need-capacity">3. Hiring signals (&quot;they need capacity&quot;)</h2>
+<div class="table-wrap"><table><thead><tr><th>Source</th><th>URL</th><th>How to use</th></tr></thead><tbody><tr><td>HN &quot;Ask HN: Freelancer? Seeking freelancer?&quot;</td><td><a href="https://news.ycombinator.com/submitted?id=whoishiring" target="_blank" rel="noopener">news.ycombinator.com/submitted?id=whoishiring</a> · RSS <a href="https://hnrss.org/whoishiring/freelance" target="_blank" rel="noopener">hnrss.org/whoishiring/freelance</a></td><td>Posted on the <strong>first weekday of each month</strong>. Post your own SEEKING WORK; reply to SEEKING FREELANCER within 24 h.</td></tr><tr><td>HN &quot;Ask HN: Who is hiring?&quot;</td><td>same account · RSS <a href="https://hnrss.org/whoishiring/jobs" target="_blank" rel="noopener">hnrss.org/whoishiring/jobs</a></td><td>Search the thread for <code>contract</code>, <code>part-time</code>, <code>freelance</code>, <code>REMOTE</code>, <code>Next.js</code>, <code>React</code>. Offer to ship a scoped project while they hire full-time.</td></tr><tr><td>Wellfound</td><td><a href="https://wellfound.com/remote" target="_blank" rel="noopener">wellfound.com/remote</a></td><td>Filter: Remote, India-OK. Look for &quot;Contract&quot; job types or teams without an Indian entity, which often hire contractors.</td></tr><tr><td>YC Work at a Startup</td><td><a href="https://www.workatastartup.com" target="_blank" rel="noopener">workatastartup.com</a></td><td>&quot;First frontend engineer&quot; posts: offer interim capacity.</td></tr><tr><td>RemoteOK / We Work Remotely / Himalayas / Remotive</td><td><a href="https://remoteok.com" target="_blank" rel="noopener">remoteok.com</a> · <a href="https://weworkremotely.com" target="_blank" rel="noopener">weworkremotely.com</a> · <a href="https://himalayas.app" target="_blank" rel="noopener">himalayas.app</a> · <a href="https://remotive.com" target="_blank" rel="noopener">remotive.com</a></td><td>Contract roles open worldwide. Read location rules, since many &quot;remote&quot; roles mean &quot;remote within the US&quot;.</td></tr><tr><td>LinkedIn Jobs</td><td>Jobs → filters: <em>Job type: Contract</em>, <em>Remote</em>, location <em>Worldwide</em> or <em>India</em></td><td>Save searches for &quot;Next.js contract&quot;, &quot;React contract&quot;, &quot;Shopify developer&quot;.</td></tr><tr><td>Upwork job feed</td><td>Saved searches (below)</td><td>Fresh posts (&lt; 2 h old) get read. Older ones are buried under 50 proposals.</td></tr><tr><td>Cutshort / Instahyre</td><td><a href="https://cutshort.io" target="_blank" rel="noopener">cutshort.io</a> · <a href="https://www.instahyre.com" target="_blank" rel="noopener">instahyre.com</a></td><td>Indian startups. Mostly FT; pitch contract-to-hire.</td></tr><tr><td>Reddit hiring posts</td><td>r/forhire <code>[Hiring]</code> · r/developersIndia hiring threads (check rules)</td><td>Automate: <a href="../scripts/README.html"><code>scripts/reddit-leads.mjs</code></a>.</td></tr></tbody></table></div>
+<p>Automate: <a href="../scripts/README.html"><code>scripts/hn-freelance.mjs</code></a> parses both monthly HN threads into CSV.</p>
+<h2 id="4-tech-stack-and-store-discovery-theyre-on-the-stack-you-fix">4. Tech-stack and store discovery (&quot;they're on the stack you fix&quot;)</h2>
+<div class="table-wrap"><table><thead><tr><th>Tool</th><th>Cost (as of Nov 2026)</th><th>Use</th></tr></thead><tbody><tr><td><strong>StoreLeads</strong></td><td>Premium $75 · Pro $250 · Elite $450 · Enterprise $950 /mo (15% off yearly). CSV export reportedly starts at Pro (third-party)</td><td>Filter Shopify stores by country = India, category, apps installed, estimated sales. Worth one month at most, once your A1 offer is proven.</td></tr><tr><td><strong>StoreCensus</strong></td><td>Free pages + paid</td><td>Shows ~60,445 active India Shopify stores (Sep 2026). Category lists such as Fashion &amp; Apparel and Home &amp; Garden.</td></tr><tr><td><strong>Bootleads</strong></td><td>Free pages + paid</td><td>Shows ~101,663 active India Shopify stores, with 15,005 added in the 30 days to Apr 27, 2026. Counts differ by crawler.</td></tr><tr><td><strong>BuiltWith</strong></td><td>Free single-site lookup; lead lists are paid</td><td>Confirm the stack on a shortlist: Shopify theme, apps, Angular/AngularJS, Next.js.</td></tr><tr><td><strong>Wappalyzer</strong></td><td>Free browser extension</td><td>One-click stack check while you browse.</td></tr><tr><td><strong>PageSpeed Insights</strong></td><td>Free (also an API)</td><td>Mobile score + LCP make the A1 hook. <a href="../scripts/README.html"><code>scripts/site-audit.mjs</code></a> batches it.</td></tr><tr><td><strong>Meta Ad Library</strong></td><td>Free: <a href="https://www.facebook.com/ads/library/" target="_blank" rel="noopener">facebook.com/ads/library</a></td><td>Brands <strong>running ads</strong> have revenue and care about conversion, so a slow store means wasted ad spend. A strong A1 qualifier.</td></tr><tr><td><strong>Shopify App Store reviews</strong></td><td>Free: <a href="https://apps.shopify.com" target="_blank" rel="noopener">apps.shopify.com</a></td><td>Read the 1–2★ reviews on India-relevant apps (COD, checkout, shipping, marketplace sync). Complaints like &quot;doesn't support X&quot; or &quot;breaks Y&quot; are A2 and A3 openings.</td></tr></tbody></table></div>
+<p><strong>Shopify-India discovery workflow (A1/A2/A3):</strong> pick a category (fashion, beauty, home, food) → pull 50 domains from StoreCensus/Bootleads/StoreLeads → run <code>site-audit.mjs</code> (stack + PageSpeed + checkout app detection: GoKwik / Shiprocket / Razorpay Magic) → keep stores with <strong>mobile score &lt; 50</strong>, <strong>active Meta ads</strong>, and <strong>50+ products</strong> → record a Loom for the top 10 → email or Instagram-DM the founder.</p>
+<h2 id="5-agencies-to-partner-with-they-have-clients-you-have-capacity">5. Agencies to partner with (they have clients, you have capacity)</h2>
+<div class="table-wrap"><table><thead><tr><th>Source</th><th>How</th></tr></thead><tbody><tr><td><a href="https://clutch.co" target="_blank" rel="noopener">Clutch</a></td><td>Filter: Shopify / e-commerce development or web design; team size 2–49; India, US, UK, AU. Small agencies outsource the most.</td></tr><tr><td><a href="https://www.goodfirms.co" target="_blank" rel="noopener">GoodFirms</a></td><td>Same filters. Lots of Indian agencies.</td></tr><tr><td>Shopify Partner Directory</td><td><a href="https://www.shopify.com/partners/directory" target="_blank" rel="noopener">shopify.com/partners/directory</a>. Agencies listed here are established, so pitch white-label overflow.</td></tr><tr><td>Dribbble / Behance</td><td>Design studios that show web work but have no developers on the team.</td></tr><tr><td>LinkedIn</td><td>&quot;Shopify agency&quot; / &quot;D2C growth agency&quot; / &quot;performance marketing agency&quot; founders in India. Marketing agencies get asked to fix sites all the time.</td></tr></tbody></table></div>
+<h2 id="6-ai-built-app-signals-b1">6. AI-built app signals (B1)</h2>
+<ul><li>Product Hunt / Indie Hackers launches that mention Lovable, Bolt, v0, Cursor, Replit, or Supabase.</li><li><code>site:lovable.app</code> in Google. Lovable's default hosting domain shows live projects, so use it to <strong>find the founder</strong>, not to inspect the app.</li><li>Founders posting &quot;need a developer to take my Lovable app to production&quot; on LinkedIn, X, or Reddit (r/lovable, r/vibecoding, r/Supabase; read each sub's rules).</li><li><strong>Why it matters (proof point you can cite):</strong> CVE-2025-48757. In 2025, a researcher found ~170 Lovable showcase apps (~10% of those checked) with Supabase tables readable or writable by anyone. The cause was missing or weak Row Level Security. Lovable's scanner checked that a policy <em>existed</em>, not that it <em>worked</em>.</li><li><strong>Ethics and law, non-negotiable:</strong> do <strong>not</strong> test, scan, or query a prospect's app, API, or database without <strong>written authorization</strong>. Unauthorized access is a crime (IT Act 2000 in India, CFAA in the US) and ends your reputation. Your outreach offers an <em>authorized</em> audit. It never says &quot;I found a hole in your app&quot;.</li></ul>
+<h2 id="7-ready-made-search-strings">7. Ready-made search strings</h2>
+<h3 id="linkedin-main-search-bar-people-or-posts">LinkedIn (main search bar → People or Posts)</h3>
+<pre><code>(&quot;founder&quot; OR &quot;co-founder&quot;) AND (&quot;D2C&quot; OR &quot;DTC&quot; OR &quot;Shopify&quot;) AND (&quot;India&quot;)
+(&quot;head of ecommerce&quot; OR &quot;ecommerce manager&quot; OR &quot;growth lead&quot;) AND &quot;Shopify&quot;
+(&quot;CTO&quot; OR &quot;technical co-founder&quot; OR &quot;founding engineer&quot;) AND (&quot;seed&quot; OR &quot;pre-seed&quot; OR &quot;YC&quot;)
+(&quot;founder&quot;) AND (&quot;Lovable&quot; OR &quot;Bolt&quot; OR &quot;v0&quot; OR &quot;no-code&quot; OR &quot;vibe coding&quot;)
+(&quot;Shopify agency&quot; OR &quot;Shopify partner&quot; OR &quot;ecommerce agency&quot;) AND (&quot;founder&quot; OR &quot;director&quot;)
+(&quot;operations&quot; OR &quot;COO&quot;) AND (&quot;spreadsheets&quot; OR &quot;Retool&quot; OR &quot;internal tools&quot;)</code></pre>
+<p>Posts tab, sorted by <em>Latest</em>:</p>
+<pre><code>&quot;looking for a developer&quot; OR &quot;need a developer&quot; OR &quot;looking for a freelancer&quot; (Next.js OR React OR Shopify)
+&quot;Lovable&quot; (&quot;production&quot; OR &quot;developer&quot; OR &quot;help&quot;)
+&quot;Razorpay&quot; (&quot;integration&quot; OR &quot;COD&quot; OR &quot;RTO&quot;) developer</code></pre>
+<h3 id="google">Google</h3>
+<pre><code>inurl:collections &quot;₹&quot; (&quot;cash on delivery&quot; OR &quot;COD&quot;) -amazon -flipkart -myntra
+&quot;powered by shopify&quot; &quot;₹&quot; (saree OR skincare OR &quot;home decor&quot;) 
+site:lovable.app
+site:linkedin.com/jobs (&quot;Next.js&quot; OR &quot;React&quot;) &quot;contract&quot; remote
+site:wellfound.com/jobs &quot;Next.js&quot; contract
+site:linkedin.com/jobs &quot;AngularJS&quot; &quot;React&quot;            ← migration candidates
+&quot;internal tools&quot; (&quot;contract&quot; OR &quot;freelance&quot;) (&quot;React&quot; OR &quot;Next.js&quot;)</code></pre>
+<h3 id="x-twitter-search">X / Twitter (search)</h3>
+<pre><code>(&quot;need a developer&quot; OR &quot;looking for a dev&quot;) (Next.js OR Supabase OR Shopify) -is:retweet
+(&quot;built with lovable&quot; OR &quot;built on lovable&quot;) -is:retweet</code></pre>
+<h3 id="upwork-saved-searches-one-per-offer">Upwork saved searches (one per offer)</h3>
+<pre><code>&quot;Next.js&quot; Supabase                 → B1
+Lovable OR Bolt OR &quot;v0&quot;            → B1
+&quot;admin dashboard&quot; OR &quot;internal tool&quot; React → B2
+&quot;Angular to React&quot; OR &quot;AngularJS&quot; migration → B3
+Shopify &quot;custom app&quot; OR &quot;private app&quot;      → A2
+Razorpay OR &quot;cash on delivery&quot;             → A3
+&quot;Core Web Vitals&quot; Shopify OR &quot;page speed&quot;  → A1</code></pre>
+<h3 id="reddit">Reddit</h3>
+<pre><code>site:reddit.com/r/forhire &quot;[Hiring]&quot; (Next.js OR React OR Supabase)
+site:reddit.com (r/startups OR r/SaaS) &quot;technical co-founder&quot; OR &quot;need a developer&quot;</code></pre>
+<h2 id="8-lead-hygiene-rules">8. Lead hygiene rules</h2>
+<ul><li><strong>One row per person</strong> in the CRM, with company, website, source, segment, offer, and <code>nextDate</code>.</li><li><strong>No bought lists</strong> and no scraped personal emails. Find business emails through the company site, the founder's own posts, or a polite LinkedIn ask.</li><li>Store only what you need. Delete on request. India's DPDP Rules phase in through ~May 2027, and EU/UK contacts are covered by GDPR/PECR (see <a href="../../memos/05-lead-generation.html#compliance">memo 05 → Compliance</a>).</li><li><strong>Deduplicate weekly.</strong> The same founder will show up on HN, Wellfound, and LinkedIn.</li></ul>
+<h2 id="sources">Sources</h2>
+<ol><li><a href="https://inc42.com/buzz/from-the-indus-valley-to-incuspaze-indian-startups-raised-105-mn-this-week/" target="_blank" rel="noopener">Inc42 — weekly funding</a>: &quot;Indian startups raised&quot; weekly series.</li><li><a href="https://entrackr.com/report/weekly-funding-report/funding-and-acquisitions-in-indian-startup-this-week-feb-23-feb-28-11163180" target="_blank" rel="noopener">Entrackr — weekly funding report</a>: format and deal coverage.</li><li><a href="https://yourstory.com/2026/01/weekly-funding-roundup-jan-10-16-sharp-rise-in-vc-inflow-into-indian-startups" target="_blank" rel="noopener">YourStory — weekly funding roundup</a>.</li><li><a href="https://hnrss.org/whoishiring/freelance" target="_blank" rel="noopener">hnrss — whoishiring/freelance</a>: RSS for the monthly freelancer thread.</li><li><a href="https://zeli.app/story/49922572" target="_blank" rel="noopener">HN mirror — Freelancer? Seeking freelancer? (Oct 2026)</a>: thread format (SEEKING WORK / SEEKING FREELANCER, location, remote).</li><li><a href="https://wellfound.com/remote" target="_blank" rel="noopener">Wellfound — remote</a>: &quot;Remote • India&quot; listings.</li><li><a href="https://coldiq.com/blog/storeleads-pricing" target="_blank" rel="noopener">StoreLeads pricing (ColdIQ)</a> and <a href="https://syncgtm.com/blog/store-leads-review-2026" target="_blank" rel="noopener">Store Leads review (SyncGTM)</a>: tiers, CSV at Pro (third-party).</li><li><a href="https://api.storecensus.com/stores/country/india?page=560" target="_blank" rel="noopener">StoreCensus — India</a>: ~60,445 active India stores (Sep 2026).</li><li><a href="https://bootleads.com/stores/shopify/countries/in/" target="_blank" rel="noopener">Bootleads — Shopify India</a>: ~101,663 stores; +15,005 in 30 days (Apr 2026).</li><li><a href="https://www.superblocks.com/blog/lovable-rls-breach" target="_blank" rel="noopener">Superblocks — Lovable RLS exposure</a> and <a href="https://cvemon.intruder.io/cves/CVE-2025-48757" target="_blank" rel="noopener">CVE-2025-48757 (Intruder)</a>.</li><li><a href="https://alternativeto.net/news/2025/2/lovable-announces-lovable-launched--a-platform-for-lovable-apps-discovery" target="_blank" rel="noopener">AlternativeTo — Lovable Launched</a>: Lovable's showcase.</li><li><a href="https://thed2cpulse.com/d2c-tech-stack/best-shopify-apps-indian-d2c-brands-2026/" target="_blank" rel="noopener">The D2C Pulse — Shopify apps for Indian D2C 2026</a>: checkout/COD app landscape.</li><li><a href="https://razorpay.com/docs/payments/magic-checkout.md" target="_blank" rel="noopener">Razorpay Docs — Magic Checkout</a>: COD + RTO features.</li><li><a href="https://www.herodevs.com/blog-posts/is-angularjs-still-supported-in-2026" target="_blank" rel="noopener">HeroDevs — Is AngularJS still supported in 2026</a>: AngularJS EOL (Dec 31, 2021) and paid extended support, i.e. legacy apps still exist.</li></ol></article>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#1-warm-and-owned-lists-start-here-they-convert-best">1. Warm and owned lists (start here, they convert best)</a><a href="#2-funding-and-launch-news-they-just-got-budget">2. Funding and launch news (&amp;quot;they just got budget&amp;quot;)</a><a href="#3-hiring-signals-they-need-capacity">3. Hiring signals (&amp;quot;they need capacity&amp;quot;)</a><a href="#4-tech-stack-and-store-discovery-theyre-on-the-stack-you-fix">4. Tech-stack and store discovery (&amp;quot;they're on the stack you fix&amp;quot;)</a><a href="#5-agencies-to-partner-with-they-have-clients-you-have-capacity">5. Agencies to partner with (they have clients, you have capacity)</a><a href="#6-ai-built-app-signals-b1">6. AI-built app signals (B1)</a><a href="#7-ready-made-search-strings">7. Ready-made search strings</a><a href="#8-lead-hygiene-rules">8. Lead hygiene rules</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script type="text/markdown" id="md-source"># Lead Sources: Where Buyers Show Up, and the Search Strings That Find Them (as of Nov 2026)
+
+> **Bottom line.** Pursue leads that come with a **signal**, meaning a reason they need you *now*. Good signals: a brand just raised money, is hiring a React dev, runs a slow Shopify store while paying for ads, launched an AI-built app, or posted "need a developer". Build lists every **Monday** from the sources below. Pull lists by script where you can ([scripts/README.md](../scripts/README.md)). Save every lead into the CRM using the shared CSV header so it imports cleanly into [the CRM](../tools/crm.html).
+
+Every lead should leave this process with four things: a **source** (CRM `source`), a **segment**, the **offer** you'll pitch (A1–A4, B1–B3, C1), and **one specific detail** to use in the first line of the message.
+
+---
+
+## 1. Warm and owned lists (start here, they convert best)
+
+| Source | How to get it | Use |
+|---|---|---|
+| **LinkedIn connections export** | LinkedIn → Settings → Data privacy → *Get a copy of your data* → Connections. You get a CSV with names, company, and position. Email is included only when the person allows it. | Tag each row: ex-Noovosoft / mentee / alumni / client-side / founder. Import into the CRM as `source=warm-network`. |
+| **Phone + WhatsApp contacts** | Manual. Go through your chat list from top to bottom. | Founders, small-business owners, people who've asked you for tech help before. |
+| **Cultus network** | The 12 brand partners, the co-founders' contacts, and vendors (photographers, logistics, agencies). | `source=cultus-network`, `segment=d2c-shopify`. See Play 2 in [memo 05](../memos/05-lead-generation.html#play-cultus-network). |
+| **SKNCOE alumni** | `linkedin.com/school/<college-page>/people/`, filtered by "Where they work" and "What they do" (Engineering, Entrepreneurship, Product). | Alumni at startups make good referrers. Alumni who are founders are buyers. |
+| **Bro bot community** | Server owners and mods you know, plus any community Discord/GitHub org (`github.com/Bro-Projects`). | Some run businesses or communities that need bots, dashboards, or sites. |
+| **Past interview candidates / mentees** | The 10+ developers you mentored, now at other companies. | They hear about contract needs early. Ask them for referrals, not for work. |
+
+## 2. Funding and launch news ("they just got budget")
+
+| Source | URL | Cadence | How to use |
+|---|---|---|---|
+| Inc42 "Funding Galore" (India) | [inc42.com/buzz](https://inc42.com/buzz/) (search "Funding Galore" / "Indian startups raised") | Weekly | D2C, consumer, and SaaS rounds. Reach out 2–8 weeks after the announcement. |
+| Entrackr weekly funding report | [entrackr.com/report/weekly-funding-report](https://entrackr.com/report/weekly-funding-report/) | Weekly | Lists every deal, including small seed rounds. That's the sweet spot. |
+| YourStory weekly funding roundup | [yourstory.com](https://yourstory.com/) (search "weekly funding roundup") | Weekly | Cross-check. Founder names usually appear in the article. |
+| Tracxn / Crunchbase | [tracxn.com](https://tracxn.com) · [crunchbase.com](https://www.crunchbase.com) | Ad hoc | Free tiers are limited. Use them to look up a company you already found, not to browse. |
+| TechCrunch funding | [techcrunch.com/category/startups](https://techcrunch.com/category/startups/) | Daily | Global seed/Series A for Track B. |
+| YC company directory | [ycombinator.com/companies](https://www.ycombinator.com/companies) | Each batch | Filter by batch, "Is hiring", and region. Recent batches mean small teams that ship fast. |
+| Product Hunt | [producthunt.com](https://www.producthunt.com) | Daily | Launches by non-technical founders are B1 candidates. Look for "built with Lovable/Bolt/v0" in maker comments. |
+| Lovable Launched (Lovable-run showcase) | `launched.lovable.dev` (status: verify) | Ongoing | B1 candidates. **Never probe their apps.** See the ethics rule below. |
+| Indie Hackers products | [indiehackers.com](https://www.indiehackers.com) | Ongoing | Solo founders at revenue. B1/B2. |
+
+Automate: [`scripts/funding-feed.mjs`](../scripts/README.md) → CSV with the CRM header.
+
+## 3. Hiring signals ("they need capacity")
+
+| Source | URL | How to use |
+|---|---|---|
+| HN "Ask HN: Freelancer? Seeking freelancer?" | [news.ycombinator.com/submitted?id=whoishiring](https://news.ycombinator.com/submitted?id=whoishiring) · RSS [hnrss.org/whoishiring/freelance](https://hnrss.org/whoishiring/freelance) | Posted on the **first weekday of each month**. Post your own SEEKING WORK; reply to SEEKING FREELANCER within 24 h. |
+| HN "Ask HN: Who is hiring?" | same account · RSS [hnrss.org/whoishiring/jobs](https://hnrss.org/whoishiring/jobs) | Search the thread for `contract`, `part-time`, `freelance`, `REMOTE`, `Next.js`, `React`. Offer to ship a scoped project while they hire full-time. |
+| Wellfound | [wellfound.com/remote](https://wellfound.com/remote) | Filter: Remote, India-OK. Look for "Contract" job types or teams without an Indian entity, which often hire contractors. |
+| YC Work at a Startup | [workatastartup.com](https://www.workatastartup.com) | "First frontend engineer" posts: offer interim capacity. |
+| RemoteOK / We Work Remotely / Himalayas / Remotive | [remoteok.com](https://remoteok.com) · [weworkremotely.com](https://weworkremotely.com) · [himalayas.app](https://himalayas.app) · [remotive.com](https://remotive.com) | Contract roles open worldwide. Read location rules, since many "remote" roles mean "remote within the US". |
+| LinkedIn Jobs | Jobs → filters: *Job type: Contract*, *Remote*, location *Worldwide* or *India* | Save searches for "Next.js contract", "React contract", "Shopify developer". |
+| Upwork job feed | Saved searches (below) | Fresh posts (< 2 h old) get read. Older ones are buried under 50 proposals. |
+| Cutshort / Instahyre | [cutshort.io](https://cutshort.io) · [instahyre.com](https://www.instahyre.com) | Indian startups. Mostly FT; pitch contract-to-hire. |
+| Reddit hiring posts | r/forhire `[Hiring]` · r/developersIndia hiring threads (check rules) | Automate: [`scripts/reddit-leads.mjs`](../scripts/README.md). |
+
+Automate: [`scripts/hn-freelance.mjs`](../scripts/README.md) parses both monthly HN threads into CSV.
+
+## 4. Tech-stack and store discovery ("they're on the stack you fix")
+
+| Tool | Cost (as of Nov 2026) | Use |
+|---|---|---|
+| **StoreLeads** | Premium $75 · Pro $250 · Elite $450 · Enterprise $950 /mo (15% off yearly). CSV export reportedly starts at Pro (third-party) | Filter Shopify stores by country = India, category, apps installed, estimated sales. Worth one month at most, once your A1 offer is proven. |
+| **StoreCensus** | Free pages + paid | Shows ~60,445 active India Shopify stores (Sep 2026). Category lists such as Fashion & Apparel and Home & Garden. |
+| **Bootleads** | Free pages + paid | Shows ~101,663 active India Shopify stores, with 15,005 added in the 30 days to Apr 27, 2026. Counts differ by crawler. |
+| **BuiltWith** | Free single-site lookup; lead lists are paid | Confirm the stack on a shortlist: Shopify theme, apps, Angular/AngularJS, Next.js. |
+| **Wappalyzer** | Free browser extension | One-click stack check while you browse. |
+| **PageSpeed Insights** | Free (also an API) | Mobile score + LCP make the A1 hook. [`scripts/site-audit.mjs`](../scripts/README.md) batches it. |
+| **Meta Ad Library** | Free: [facebook.com/ads/library](https://www.facebook.com/ads/library/) | Brands **running ads** have revenue and care about conversion, so a slow store means wasted ad spend. A strong A1 qualifier. |
+| **Shopify App Store reviews** | Free: [apps.shopify.com](https://apps.shopify.com) | Read the 1–2★ reviews on India-relevant apps (COD, checkout, shipping, marketplace sync). Complaints like "doesn't support X" or "breaks Y" are A2 and A3 openings. |
+
+**Shopify-India discovery workflow (A1/A2/A3):** pick a category (fashion, beauty, home, food) → pull 50 domains from StoreCensus/Bootleads/StoreLeads → run `site-audit.mjs` (stack + PageSpeed + checkout app detection: GoKwik / Shiprocket / Razorpay Magic) → keep stores with **mobile score < 50**, **active Meta ads**, and **50+ products** → record a Loom for the top 10 → email or Instagram-DM the founder.
+
+## 5. Agencies to partner with (they have clients, you have capacity)
+
+| Source | How |
+|---|---|
+| [Clutch](https://clutch.co) | Filter: Shopify / e-commerce development or web design; team size 2–49; India, US, UK, AU. Small agencies outsource the most. |
+| [GoodFirms](https://www.goodfirms.co) | Same filters. Lots of Indian agencies. |
+| Shopify Partner Directory | [shopify.com/partners/directory](https://www.shopify.com/partners/directory). Agencies listed here are established, so pitch white-label overflow. |
+| Dribbble / Behance | Design studios that show web work but have no developers on the team. |
+| LinkedIn | "Shopify agency" / "D2C growth agency" / "performance marketing agency" founders in India. Marketing agencies get asked to fix sites all the time. |
+
+## 6. AI-built app signals (B1)
+
+- Product Hunt / Indie Hackers launches that mention Lovable, Bolt, v0, Cursor, Replit, or Supabase.
+- `site:lovable.app` in Google. Lovable's default hosting domain shows live projects, so use it to **find the founder**, not to inspect the app.
+- Founders posting "need a developer to take my Lovable app to production" on LinkedIn, X, or Reddit (r/lovable, r/vibecoding, r/Supabase; read each sub's rules).
+- **Why it matters (proof point you can cite):** CVE-2025-48757. In 2025, a researcher found ~170 Lovable showcase apps (~10% of those checked) with Supabase tables readable or writable by anyone. The cause was missing or weak Row Level Security. Lovable's scanner checked that a policy *existed*, not that it *worked*.
+- **Ethics and law, non-negotiable:** do **not** test, scan, or query a prospect's app, API, or database without **written authorization**. Unauthorized access is a crime (IT Act 2000 in India, CFAA in the US) and ends your reputation. Your outreach offers an *authorized* audit. It never says "I found a hole in your app".
+
+## 7. Ready-made search strings
+
+### LinkedIn (main search bar → People or Posts)
+```
+("founder" OR "co-founder") AND ("D2C" OR "DTC" OR "Shopify") AND ("India")
+("head of ecommerce" OR "ecommerce manager" OR "growth lead") AND "Shopify"
+("CTO" OR "technical co-founder" OR "founding engineer") AND ("seed" OR "pre-seed" OR "YC")
+("founder") AND ("Lovable" OR "Bolt" OR "v0" OR "no-code" OR "vibe coding")
+("Shopify agency" OR "Shopify partner" OR "ecommerce agency") AND ("founder" OR "director")
+("operations" OR "COO") AND ("spreadsheets" OR "Retool" OR "internal tools")
+```
+Posts tab, sorted by *Latest*:
+```
+"looking for a developer" OR "need a developer" OR "looking for a freelancer" (Next.js OR React OR Shopify)
+"Lovable" ("production" OR "developer" OR "help")
+"Razorpay" ("integration" OR "COD" OR "RTO") developer
+```
+
+### Google
+```
+inurl:collections "₹" ("cash on delivery" OR "COD") -amazon -flipkart -myntra
+"powered by shopify" "₹" (saree OR skincare OR "home decor") 
+site:lovable.app
+site:linkedin.com/jobs ("Next.js" OR "React") "contract" remote
+site:wellfound.com/jobs "Next.js" contract
+site:linkedin.com/jobs "AngularJS" "React"            ← migration candidates
+"internal tools" ("contract" OR "freelance") ("React" OR "Next.js")
+```
+
+### X / Twitter (search)
+```
+("need a developer" OR "looking for a dev") (Next.js OR Supabase OR Shopify) -is:retweet
+("built with lovable" OR "built on lovable") -is:retweet
+```
+
+### Upwork saved searches (one per offer)
+```
+"Next.js" Supabase                 → B1
+Lovable OR Bolt OR "v0"            → B1
+"admin dashboard" OR "internal tool" React → B2
+"Angular to React" OR "AngularJS" migration → B3
+Shopify "custom app" OR "private app"      → A2
+Razorpay OR "cash on delivery"             → A3
+"Core Web Vitals" Shopify OR "page speed"  → A1
+```
+
+### Reddit
+```
+site:reddit.com/r/forhire "[Hiring]" (Next.js OR React OR Supabase)
+site:reddit.com (r/startups OR r/SaaS) "technical co-founder" OR "need a developer"
+```
+
+## 8. Lead hygiene rules
+- **One row per person** in the CRM, with company, website, source, segment, offer, and `nextDate`.
+- **No bought lists** and no scraped personal emails. Find business emails through the company site, the founder's own posts, or a polite LinkedIn ask.
+- Store only what you need. Delete on request. India's DPDP Rules phase in through ~May 2027, and EU/UK contacts are covered by GDPR/PECR (see [memo 05 → Compliance](../memos/05-lead-generation.html#compliance)).
+- **Deduplicate weekly.** The same founder will show up on HN, Wellfound, and LinkedIn.
+
+## Sources
+1. [Inc42 — weekly funding](https://inc42.com/buzz/from-the-indus-valley-to-incuspaze-indian-startups-raised-105-mn-this-week/): "Indian startups raised" weekly series.
+2. [Entrackr — weekly funding report](https://entrackr.com/report/weekly-funding-report/funding-and-acquisitions-in-indian-startup-this-week-feb-23-feb-28-11163180): format and deal coverage.
+3. [YourStory — weekly funding roundup](https://yourstory.com/2026/01/weekly-funding-roundup-jan-10-16-sharp-rise-in-vc-inflow-into-indian-startups).
+4. [hnrss — whoishiring/freelance](https://hnrss.org/whoishiring/freelance): RSS for the monthly freelancer thread.
+5. [HN mirror — Freelancer? Seeking freelancer? (Oct 2026)](https://zeli.app/story/49922572): thread format (SEEKING WORK / SEEKING FREELANCER, location, remote).
+6. [Wellfound — remote](https://wellfound.com/remote): "Remote • India" listings.
+7. [StoreLeads pricing (ColdIQ)](https://coldiq.com/blog/storeleads-pricing) and [Store Leads review (SyncGTM)](https://syncgtm.com/blog/store-leads-review-2026): tiers, CSV at Pro (third-party).
+8. [StoreCensus — India](https://api.storecensus.com/stores/country/india?page=560): ~60,445 active India stores (Sep 2026).
+9. [Bootleads — Shopify India](https://bootleads.com/stores/shopify/countries/in/): ~101,663 stores; +15,005 in 30 days (Apr 2026).
+10. [Superblocks — Lovable RLS exposure](https://www.superblocks.com/blog/lovable-rls-breach) and [CVE-2025-48757 (Intruder)](https://cvemon.intruder.io/cves/CVE-2025-48757).
+11. [AlternativeTo — Lovable Launched](https://alternativeto.net/news/2025/2/lovable-announces-lovable-launched--a-platform-for-lovable-apps-discovery): Lovable's showcase.
+12. [The D2C Pulse — Shopify apps for Indian D2C 2026](https://thed2cpulse.com/d2c-tech-stack/best-shopify-apps-indian-d2c-brands-2026/): checkout/COD app landscape.
+13. [Razorpay Docs — Magic Checkout](https://razorpay.com/docs/payments/magic-checkout.md): COD + RTO features.
+14. [HeroDevs — Is AngularJS still supported in 2026](https://www.herodevs.com/blog-posts/is-angularjs-still-supported-in-2026): AngularJS EOL (Dec 31, 2021) and paid extended support, i.e. legacy apps still exist.
+</script>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

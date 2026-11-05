@@ -1,0 +1,140 @@
+<!--meta {"title":"Portfolio & Brand: Proof That Sells","subtitle":"Turn what you've already built into case studies, a one-page site, a buyer-focused LinkedIn profile and a content habit you can keep.","order":9,"group":"Growth","summary":"Four case studies you can write this week, two spec projects that double as lead magnets, the one-page site, LinkedIn as a sales asset, and a sustainable content engine.","reading":"16 min"} -->
+
+<div class="bluf"><strong>Bottom line.</strong> You don't need ten projects. You need <strong>four strong case studies</strong> (Cultus, the Deribit back office, Twinntax forms, the Bro rescue), <strong>a one-page site</strong> with two offers and a booking link, <strong>a LinkedIn profile written for buyers</strong>, and <strong>two posts a week</strong>. Ship a minimum version in 7 days and improve it weekly. Portfolio work never replaces outreach: cap it at about a third of your week until you have two clients.</div>
+
+<h2 id="what-buyers-check">What buyers check in 60 seconds</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Buyer's question</th><th>What answers it</th><th>Where it lives</th></tr></thead>
+<tbody>
+<tr><td>Do you solve <em>my</em> problem?</td><td>Outcome headline naming the buyer and the result</td><td>Site hero, LinkedIn headline, first line of every message</td></tr>
+<tr><td>Have you done it before?</td><td>Case studies with numbers, recognisable names, live links</td><td>Site, LinkedIn Featured, proposals</td></tr>
+<tr><td>Will it go smoothly?</td><td>A visible process: weekly updates, tests, ADRs, contracts</td><td>"How I work" section, proposal</td></tr>
+<tr><td>Can I afford you?</td><td>"From" prices or ranges</td><td>Offer cards</td></tr>
+<tr><td>Do others trust you?</td><td>Testimonials and recommendations</td><td>Site, LinkedIn recommendations</td></tr>
+<tr><td>What do I do next?</td><td>One clear call to action: book a 20-minute call</td><td>Every page and post</td></tr>
+</tbody></table></div>
+
+<h2 id="case-studies">Four case studies you can write this week</h2>
+<p>Drafts with the structure filled in are in <a href="../templates/portfolio/case-studies.md">case-studies.md</a>. Each needs about 2 hours to finish: confirm the numbers, add one diagram and two screenshots.</p>
+<div class="grid">
+<div class="card"><h4>1 · Cultus — Shopify-connected marketplace</h4><p><strong>For:</strong> Track A (D2C), B1 founders.</p><p><strong>Story:</strong> sales channel app, minute-level webhook sync plus nightly reconciliation, Magic Checkout with partial COD for risky pincodes, refund retries, 115 test files on money paths.</p><p><strong>Numbers:</strong> 890+ users, 180+ orders, ₹2.9L+ GMV, 12 brands, 450+ products in 4 months.</p><p><span class="tag">get co-founder sign-off on numbers</span></p></div>
+<div class="card"><h4>2 · Back office for a crypto derivatives exchange</h4><p><strong>For:</strong> B2 internal tools, B3 modernization.</p><p><strong>Story:</strong> admin modules (Block RFQ, user management), Angular → React migration into independent modules, Vitest introduced into GitLab CI, approval layer integration on the Erlang/OTP side.</p><p><span class="tag">check NDA before naming details</span></p></div>
+<div class="card"><h4>3 · Tax-filing forms for 100k+ users</h4><p><strong>For:</strong> B2 (complex forms), fintech and insurance.</p><p><strong>Story:</strong> ETL from JSON schemas into dynamic forms across 15 sections, recursive cross-field validation, versioning by tax year, full i18n.</p><p><span class="tag">anonymise if required</span></p></div>
+<div class="card"><h4>4 · Rescuing and scaling a legacy bot</h4><p><strong>For:</strong> B1 Prototype → Production.</p><p><strong>Story:</strong> took over a poorly built codebase, rewrote it, migrated the database, sharded across 10 clusters with &lt;60 ms gateway latency, Prometheus/Grafana monitoring. 10k+ servers, 2.4M members.</p><p><span class="tag">your own project — no NDA</span></p></div>
+</div>
+
+<h3 id="case-study-format">Case study format</h3>
+<ol class="steps">
+<li><strong>Title = outcome.</strong> "Keeping 12 brands' Shopify inventory in sync with a marketplace — without overselling."</li>
+<li><strong>Context</strong> — who the client is, in two sentences.</li>
+<li><strong>Problem</strong> — in business terms (lost orders, manual work, risk), then the technical cause.</li>
+<li><strong>Constraints</strong> — budget, timeline, legacy systems, team size.</li>
+<li><strong>Approach</strong> — 3–5 key decisions, each with the trade-off. One architecture diagram.</li>
+<li><strong>Results</strong> — numbers, before/after, what happened next.</li>
+<li><strong>Quote</strong> — one sentence from the client or a colleague.</li>
+<li><strong>Call to action</strong> — "Have a similar problem? Book a 20-minute call."</li>
+</ol>
+<p>Keep three lengths of every case study: the full page (600–1,000 words), a three-bullet version for proposals, and a one-liner for DMs ("I built the Shopify Sales Channel app behind Cultus — 12 brands syncing inventory every minute").</p>
+<div class="callout warn"><strong>NDA and confidentiality.</strong> Client work you did as a Noovosoft employee is covered by your employment terms and the client's agreements. Safe default: name the client only as it appears on your résumé, describe your <em>approach</em> and publicly known facts, and never share code, screenshots of internal tools, data, or internal metrics. When unsure, anonymise ("a top crypto derivatives exchange"). See <a href="11-risks-and-scams.html">Risks &amp; Scams</a>.</div>
+
+<h2 id="spec-projects">Two spec projects that double as lead magnets</h2>
+<p>A spec project is something you build without a client to prove a specific offer. Choose ones that also <em>start conversations</em>. Briefs are in <a href="../templates/portfolio/spec-projects.md">spec-projects.md</a>.</p>
+<div class="grid">
+<div class="card"><h4>The Indian D2C Store Speed Report (Track A)</h4><p>Run <code>scripts/site-audit.mjs</code> with PageSpeed on ~100 Indian D2C stores. Publish <em>aggregate</em> findings (median mobile LCP, top slow apps, image weight, checkout stacks) without shaming individual brands. Then send each brand its own results privately.</p><p><strong>Effort:</strong> 2–3 days. <strong>Payoff:</strong> a LinkedIn post series, a site page, and a reason to message 100 brands.</p></div>
+<div class="card"><h4>Supabase Production-Readiness Kit (Track B)</h4><p>An open-source checklist plus a small CLI that founders run against <em>their own</em> project: RLS enabled on every table, policies tested, storage buckets private, service-role key never in the client, auth redirect URLs locked, backups on. Ship a demo repo with RLS tests in CI.</p><p><strong>Effort:</strong> 4–5 days. <strong>Payoff:</strong> credibility for B1, GitHub stars, posts for builder communities.</p></div>
+</div>
+<details><summary>Later (month 2–3): two more spec projects</summary>
+<ul>
+<li><strong>Admin dashboard starter</strong> (B2): Next.js + Supabase + shadcn/ui with RBAC, approval flow, audit log, CSV export, tests. Live demo with seeded data.</li>
+<li><strong>Angular → React strangler demo</strong> (B3): an AngularJS app with React islands mounted per route, shared state bridge, Vitest suite, and a write-up of the migration plan.</li>
+</ul></details>
+<div class="callout danger"><strong>Only audit what you're allowed to.</strong> Public PageSpeed tests of homepages are fine. Probing someone else's app or database for security holes without written permission is not, even with good intentions. For B1 teardowns, ask first or use your own demo apps.</div>
+
+<h2 id="website">Your website: one page first</h2>
+<p>Full copy is drafted in <a href="../templates/portfolio/website-copy.md">website-copy.md</a>. Build it in a day on the stack you know (Next.js on Vercel), and make it fast: the site <em>is</em> an A1 demo. Aim for Lighthouse 95+ on mobile.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Section</th><th>Content</th></tr></thead>
+<tbody>
+<tr><td>Hero</td><td>"I build and fix the parts of your product that touch money." Sub-line naming both buyers. Button: Book a 20-min call.</td></tr>
+<tr><td>Proof bar</td><td>Built Cultus (live marketplace) · Back-office tools for Deribit (Coinbase) · Tax module used by 100k+ · Bot used by 2.4M</td></tr>
+<tr><td>Two offer cards</td><td>"For D2C brands in India": A1 from ₹30k. "For founders worldwide": B1 audit from $850. Each links to its own page later.</td></tr>
+<tr><td>Case studies</td><td>Four cards → full pages</td></tr>
+<tr><td>How I work</td><td>Fixed price, three options, contract + deposit, weekly written updates, tests on money paths, ADRs, 30-day warranty</td></tr>
+<tr><td>About</td><td>Photo, five sentences, Pune / IST with US and EU overlap hours</td></tr>
+<tr><td>FAQ</td><td>Pricing, timezones, contracts and NDAs, payment methods, GST for Indian clients, what you don't do</td></tr>
+<tr><td>Contact</td><td>Cal.com link, email, WhatsApp for Indian clients</td></tr>
+</tbody></table></div>
+<ul>
+<li><strong>Technical basics:</strong> custom domain, professional email, privacy-friendly analytics (Plausible, Umami or Vercel Analytics), Open Graph images, schema.org <code>ProfessionalService</code>, sitemap, spam-protected contact form.</li>
+<li><strong>SEO targets</strong> (long-tail, buyer intent): "Shopify speed optimization India", "Razorpay Magic Checkout integration", "Shopify custom app developer India", "Lovable app to production", "Supabase RLS audit", "AngularJS to React migration".</li>
+</ul>
+
+<h2 id="linkedin">LinkedIn as a sales asset</h2>
+<p>For B2B services in India, LinkedIn is where buyers check you out after any first contact. Full copy in <a href="../templates/portfolio/linkedin-profile.md">linkedin-profile.md</a>.</p>
+<ul class="checklist">
+<li>Headline: outcome + buyers + proof ("Product engineer for commerce &amp; internal tools · Built Cultus · Ex-Deribit (Coinbase) back office").</li>
+<li>Banner: one line of offer, one line of proof, your site URL.</li>
+<li>About: problem → proof → offers → call to action (not a résumé).</li>
+<li>Featured: Cultus case study, the speed report, booking link.</li>
+<li>Experience: add "Independent product engineer" as current; rewrite Noovosoft bullets as outcomes.</li>
+<li>Create a free LinkedIn <strong>Service Page</strong> (category: web development / software development) so buyers can send you proposal requests.</li>
+<li>Ask five people for recommendations: ex-manager, a senior colleague, two mentees, a Cultus brand partner.</li>
+<li>Turn on "Providing services"; don't use the #OpenToWork photo frame (it signals job-seeking).</li>
+</ul>
+<div class="callout info"><strong>How Service Page requests work.</strong> Clients can send a request for proposal for free; requests are matched by service category and locale and may also be sent to other providers, with a cap on responses. Reply within 24 hours and reference details from the request.</div>
+
+<h2 id="content">A content habit you can keep</h2>
+<p>Budget: <strong>3 hours a week</strong> in the first 90 days. Two posts a week plus 15 minutes a day commenting on buyers' posts. Thirty ready ideas are in <a href="../templates/portfolio/content-calendar.md">content-calendar.md</a>.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Pillar</th><th>Example posts</th><th>Serves</th></tr></thead>
+<tbody>
+<tr><td><strong>Build stories</strong></td><td>"How we sync inventory for 12 Shopify brands every minute (and why we still reconcile nightly)"</td><td>Track A + B</td></tr>
+<tr><td><strong>Teardowns</strong></td><td>"I tested 100 Indian D2C stores on mobile. Here's what slows them down."</td><td>Track A</td></tr>
+<tr><td><strong>Hard-won lessons</strong></td><td>"Migrating Angular to React without a rewrite: the strangler pattern we used"</td><td>B2/B3</td></tr>
+<tr><td><strong>Production checklists</strong></td><td>"Before you launch your Lovable app: 9 things to check in Supabase"</td><td>B1</td></tr>
+<tr><td><strong>Opinions</strong></td><td>"AI writes 60% of my code. Here's what I never let it touch."</td><td>B1, trust</td></tr>
+</tbody></table></div>
+<ul>
+<li><strong>Repurpose:</strong> one deep post per fortnight → 3 LinkedIn posts → 1 X thread → 1 dev.to/Hashnode article.</li>
+<li><strong>Every post ends softly:</strong> "If your store's mobile LCP is above 4 s, reply 'speed' and I'll send you a free 5-minute teardown."</li>
+<li><strong>Comment-first:</strong> 10 thoughtful comments a day on D2C founders' and builder-community posts do more in month one than your own posts do.</li>
+</ul>
+
+<h2 id="testimonials">Get social proof before your first client</h2>
+<ul>
+<li><strong>LinkedIn recommendations</strong> from people who saw your work (script in <a href="../templates/portfolio/linkedin-profile.md">linkedin-profile.md</a>). Five is plenty.</li>
+<li><strong>Cultus brand partners:</strong> a quote about onboarding through the Shopify integration is direct Track A proof.</li>
+<li><strong>Mentees:</strong> evidence that you explain things well, which non-technical founders care about.</li>
+<li><strong>After each project:</strong> testimonial, case study, referral and retainer in one handover conversation (see <a href="08-delivery-ops.html">Delivery Ops</a>).</li>
+</ul>
+
+<h2 id="brand-basics">Brand basics</h2>
+<div class="grid">
+<div class="card"><h4>Identity</h4><p>Your name + "Product Engineering". One accent colour, one typeface, a good photo. Same handle everywhere.</p></div>
+<div class="card"><h4>Email</h4><p>you@yourdomain on Zoho Mail (free tier) or Google Workspace. A signature with one offer line and the booking link.</p></div>
+<div class="card"><h4>WhatsApp Business</h4><p>For Indian clients: business profile, catalogue with your offers, quick replies for FAQs, away message after hours.</p></div>
+<div class="card"><h4>GitHub</h4><p>Profile README with offers, pinned spec projects, Bro org, clean repos with licences. Template: <a href="../templates/portfolio/github-profile-readme.md">github-profile-readme.md</a>.</p></div>
+</div>
+
+<h2 id="actions">Actions</h2>
+<ul class="checklist">
+<li>Ask Cultus co-founders to approve the numbers and screenshots you'll publish.</li>
+<li>Finish the Cultus case study (full, three-bullet and one-line versions).</li>
+<li>Finish the Bro rescue case study (no NDA issues — fastest to publish).</li>
+<li>Draft the Deribit and Twinntax case studies within your NDA limits.</li>
+<li>Rewrite LinkedIn (headline, banner, About, Featured, Experience) and create the Service Page.</li>
+<li>Request five LinkedIn recommendations.</li>
+<li>Ship the one-page site on your domain with Cal.com booking and analytics.</li>
+<li>Run the D2C speed audit on 100 stores and publish the aggregate report.</li>
+<li>Start the Supabase Production-Readiness Kit repo.</li>
+<li>Schedule two posts a week for four weeks from the content calendar.</li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ol class="sources">
+<li><a href="https://www.linkedin.com/help/lms/answer/a550345">LinkedIn Help — Get started as a service provider</a> and <a href="https://www.linkedin.com/help/lms/answer/a570671">best practices for writing a proposal</a> — Service Page request/proposal model.</li>
+<li><a href="https://searchengineland.com/freelancers-can-now-market-their-services-on-linkedin-375970">Search Engine Land — LinkedIn services marketplace</a> — background on Service Pages.</li>
+<li><a href="https://supabase.com/docs/guides/database/postgres/row-level-security">Supabase — Row Level Security</a> and <a href="https://supabase.com/docs/guides/deployment/going-into-prod">Supabase — production checklist</a> — basis for the readiness kit.</li>
+<li><a href="https://developers.google.com/speed/docs/insights/v5/get-started">PageSpeed Insights API</a> — data source for the speed report.</li>
+<li>Parth Kulkarni, résumé (Nov 2026) — case study facts.</li>
+</ol>

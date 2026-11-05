@@ -1,0 +1,21 @@
+{
+  "name": "freelance-os",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Operating system for a solo software freelancing business: memos, tools, templates, lists and prospecting scripts.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node site/build.mjs",
+    "dev": "node site/build.mjs --watch",
+    "serve": "node site/serve.mjs",
+    "start": "node site/build.mjs && node site/serve.mjs",
+    "check": "node site/build.mjs --strict",
+    "hn": "node scripts/hn-freelance.mjs --hiring",
+    "audit": "node scripts/site-audit.mjs",
+    "funding": "node scripts/funding-feed.mjs",
+    "reddit": "node scripts/reddit-leads.mjs"
+  }
+}

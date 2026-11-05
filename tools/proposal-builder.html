@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Proposal Builder · Freelance OS</title>
+<style>
+:root{--bg:#f7f7f4;--surface:#fff;--ink:#16181d;--muted:#5d6572;--line:#e3e3dc;--accent:#3446d4;--accent-soft:#e8ebff;--good:#1f8a4c;--mid:#b7791f;--bad:#c2410c;--good-soft:#e6f4ec;--mid-soft:#fbf1e0;--bad-soft:#fbeae2;--radius:10px;--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;--shadow:0 1px 2px rgba(16,24,40,.05),0 6px 20px rgba(16,24,40,.07)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--surface:#171a21;--ink:#e8e9ec;--muted:#9aa3b2;--line:#272c36;--accent:#7c8cff;--accent-soft:#1f2440;--good:#43b77a;--mid:#e0a645;--bad:#f07a4a;--good-soft:#14261c;--mid-soft:#2a2213;--bad-soft:#2c1a12;--shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 var(--font);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--accent)}
+h1,h2,h3{line-height:1.2;margin:0}
+h1{font-size:17px;font-weight:650;letter-spacing:-.01em}
+.muted{color:var(--muted)}.small{font-size:12px}.mono{font-family:var(--mono)}
+button,.btn{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 11px;cursor:pointer;line-height:1.25;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+button:hover{border-color:var(--muted)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.danger{color:var(--bad)}
+button.icon{padding:3px 7px;border-color:transparent;background:transparent;color:var(--muted)}
+button.icon:hover{border-color:var(--line);color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select,textarea{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%;min-width:0}
+textarea{resize:vertical;line-height:1.45}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--accent)}
+label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted);font-weight:500}
+label>input,label>select,label>textarea{color:var(--ink);font-weight:400}
+label.check{flex-direction:row;align-items:center;gap:7px;color:var(--ink);font-weight:400;font-size:13px}
+.topbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--muted);text-decoration:none;font-size:13px}
+.back:hover{color:var(--accent)}
+.spacer{flex:1}
+.topbar select{width:auto;max-width:280px}
+details.howto{margin:12px 20px 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:0 16px}
+details.howto summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:13px}
+details.howto ul{margin:0 0 12px;padding-left:18px;color:var(--muted)}
+details.howto li{margin:3px 0}
+main{flex:1;display:grid;grid-template-columns:minmax(360px,460px) 1fr;gap:16px;padding:14px 20px 8px;align-items:start}
+.editor{display:flex;flex-direction:column;gap:12px;max-height:calc(100vh - 120px);overflow:auto;padding-right:4px;position:sticky;top:64px}
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.sec>summary{cursor:pointer;font-weight:650;font-size:13px;list-style:none;display:flex;align-items:center;gap:6px}
+.sec>summary::-webkit-details-marker{display:none}
+.sec>summary::before{content:'▸';color:var(--muted);transition:transform .15s}
+.sec[open]>summary::before{transform:rotate(90deg)}
+.sec .body{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.hintline{font-size:11px;color:var(--muted)}
+.opt{border:1px solid var(--line);border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:6px}
+.opt.rec{border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 40%,var(--surface))}
+.ms-row{display:grid;grid-template-columns:1.1fr 1.6fr .8fr .8fr auto;gap:5px;align-items:center}
+.ms-row input{padding:5px 6px;font-size:12px}
+.warn{border:1px solid var(--mid);background:var(--mid-soft);border-radius:8px;padding:8px 10px;font-size:12px;margin-bottom:10px}
+.preview-wrap{min-width:0}
+.paper{background:#fff;color:#1b1d22;max-width:820px;margin:0 auto;box-shadow:var(--shadow);border:1px solid var(--line);border-radius:4px;padding:56px 60px;font:13.5px/1.6 var(--font)}
+.paper h1{font-size:28px;letter-spacing:-.02em;line-height:1.15;margin:0 0 6px;color:#111}
+.paper h2{font-size:15px;margin:26px 0 8px;color:#111;display:flex;gap:10px;align-items:baseline;break-after:avoid}
+.paper h2 .n{color:var(--doc-accent,#3446d4);font-family:var(--mono);font-size:12px}
+.paper p{margin:6px 0}
+.paper ul,.paper ol{margin:6px 0;padding-left:20px}
+.paper li{margin:3px 0}
+.paper table{border-collapse:collapse;width:100%;font-size:12.5px;margin:6px 0}
+.paper th,.paper td{border-bottom:1px solid #e4e4de;padding:7px 8px;text-align:left;vertical-align:top}
+.paper th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:#5d6572;font-weight:600}
+.cover{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid #111;padding-bottom:18px;margin-bottom:8px}
+.logo,.recb,.terms,.option.rec,.ph{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.logo{width:46px;height:46px;border-radius:10px;background:var(--doc-accent,#3446d4);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;letter-spacing:.02em;flex:none}
+.meta{font-size:12px;color:#5d6572;text-align:right;line-height:1.6}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--doc-accent,#3446d4);font-weight:700;margin:16px 0 4px}
+.options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0}
+.option{border:1px solid #dcdcd5;border-radius:8px;padding:12px;break-inside:avoid;position:relative}
+.option.rec{border:2px solid var(--doc-accent,#3446d4)}
+.option .on{font-weight:700;font-size:13px}
+.option .op{font-family:var(--mono);font-size:18px;font-weight:700;margin:4px 0 6px;color:#111}
+.option .os{font-size:12px;color:#454a55;margin-bottom:6px}
+.option ul{font-size:12px;padding-left:16px}
+.recb{position:absolute;top:-9px;right:10px;background:var(--doc-accent,#3446d4);color:#fff;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:1px 8px}
+.terms{background:#f6f6f2;border-radius:8px;padding:10px 14px}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:14px;break-inside:avoid}
+.sign .line{border-bottom:1px solid #111;height:36px}
+.sign .lbl{font-size:11px;color:#5d6572;margin-top:4px}
+.ph{background:#fff3c4;border-radius:3px;padding:0 2px}
+.footer-doc{margin-top:28px;padding-top:10px;border-top:1px solid #e4e4de;font-size:11px;color:#5d6572;display:flex;justify-content:space-between;gap:10px}
+dialog{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);padding:0;box-shadow:var(--shadow);width:min(560px,94vw)}
+dialog::backdrop{background:rgba(10,12,18,.45)}
+.dlg-h{display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+.dlg-h h2{flex:1;font-size:15px}
+.dlg-b{padding:14px 18px;display:flex;flex-direction:column;gap:10px;max-height:70vh;overflow:auto}
+.dlg-f{display:flex;gap:8px;justify-content:flex-end;padding:12px 18px;border-top:1px solid var(--line)}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.presets button{flex-direction:column;align-items:flex-start;white-space:normal;text-align:left;padding:9px 11px}
+.presets button b{font-size:13px}
+.presets button span{font-size:12px;color:var(--muted)}
+footer.foot{color:var(--muted);font-size:12px;text-align:center;padding:18px 20px 24px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(10px);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media (max-width:1000px){main{grid-template-columns:1fr}.editor{max-height:none;position:static;overflow:visible}.paper{padding:28px 22px}.options{grid-template-columns:1fr}}
+@media (max-width:860px){.topbar{position:static}}
+@media (max-width:520px){.grid2,.presets{grid-template-columns:1fr}.ms-row{grid-template-columns:1fr 1fr}.sign{grid-template-columns:1fr}main,.topbar{padding-left:12px;padding-right:12px}details.howto{margin:10px 12px 0}}
+@media print{
+  @page{size:A4;margin:16mm 15mm}
+  body{background:#fff;display:block}
+  .topbar,.howto,.editor,footer.foot,.warn,.toast,dialog{display:none!important}
+  main{display:block;padding:0}
+  .paper{box-shadow:none;border:0;padding:0;max-width:none;font-size:11pt}
+  .ph{background:none}
+  .options{grid-template-columns:repeat(3,1fr)}
+  h2,.option,.sign,table,tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="../index.html">← Freelance OS</a>
+  <h1>Proposal Builder</h1>
+  <select id="draftSelect" aria-label="Open draft"></select>
+  <button type="button" class="primary" id="btnNew">+ New</button>
+  <button type="button" id="btnDup">Duplicate</button>
+  <button type="button" class="danger" id="btnDel">Delete</button>
+  <div class="spacer"></div>
+  <button type="button" id="btnSettings">⚙ Your details</button>
+  <button type="button" id="btnExport">Export</button>
+  <button type="button" id="btnImport">Import…</button>
+  <button type="button" class="primary" id="btnPrint">Print / Save PDF</button>
+</header>
+<details class="howto">
+  <summary>How to use</summary>
+  <ul>
+    <li>Click <b>+ New</b> and pick an offer preset (A1–A4, B1–B3, C1). It pre-fills a proven structure — then rewrite the <span class="ph">[bracketed]</span> parts with what you learned on the discovery call. Highlighted placeholders are counted above the preview.</li>
+    <li>Send proposals only <b>after</b> a call, within 24–48 hours, and walk the client through it live if you can. Three options anchor the price: most clients pick the middle one.</li>
+    <li>Fill <b>⚙ Your details</b> once (name, email, site, booking link) — <code>{{CAL_LINK}}</code> in any text becomes your booking link.</li>
+    <li><b>Print / Save PDF</b> → choose "Save as PDF", A4, margins default, background graphics on. Drafts autosave in this browser; export a backup weekly.</li>
+  </ul>
+</details>
+<main>
+  <div class="editor" id="editor" aria-label="Proposal editor"></div>
+  <div class="preview-wrap">
+    <div id="phWarn"></div>
+    <article class="paper" id="doc" aria-label="Proposal preview"></article>
+  </div>
+</main>
+<footer class="foot">Data stays in this browser — export a backup weekly. <span class="mono">localStorage: fos.proposals.v1</span></footer>
+<input type="file" id="fileJson" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="dlgNew" aria-labelledby="newTitle">
+  <div class="dlg-h"><h2 id="newTitle">New proposal — choose a starting point</h2><button type="button" class="icon" data-close aria-label="Close">✕</button></div>
+  <div class="dlg-b"><div class="presets" id="presetList"></div></div>
+</dialog>
+
+<dialog id="dlgSettings" aria-labelledby="setTitle">
+  <form method="dialog" id="setForm">
+    <div class="dlg-h"><h2 id="setTitle">Your details (shown on every proposal)</h2><button type="button" class="icon" data-close aria-label="Close">✕</button></div>
+    <div class="dlg-b">
+      <div class="grid2">
+        <label>Your name<input name="name" placeholder="Your full name" autocomplete="off"></label>
+        <label>Business / trading name (optional)<input name="business" placeholder="e.g. Studio name" autocomplete="off"></label>
+        <label>Email<input name="email" type="email" placeholder="you@yourdomain.com" autocomplete="off"></label>
+        <label>Phone (optional)<input name="phone" placeholder="+91 …" autocomplete="off"></label>
+        <label>Website / portfolio<input name="website" placeholder="https://…" autocomplete="off"></label>
+        <label>City<input name="city" placeholder="City, Country" autocomplete="off"></label>
+        <label>Booking link ({{CAL_LINK}})<input name="calLink" placeholder="https://cal.com/…" autocomplete="off"></label>
+        <label>Logo initials<input name="logoText" maxlength="3" placeholder="e.g. PK" autocomplete="off"></label>
+        <label>Accent colour<input name="accent" type="color" value="#3446d4"></label>
+        <label>Default currency<select name="currency"><option>INR</option><option>USD</option><option>EUR</option><option>GBP</option></select></label>
+      </div>
+      <p class="muted small">Stored only in this browser. Nothing is sent anywhere.</p>
+    </div>
+    <div class="dlg-f"><button type="button" data-close>Cancel</button><button type="submit" class="primary">Save</button></div>
+  </form>
+</dialog>
+
+<script>
+(() => {
+'use strict';
+const KEY = 'fos.proposals.v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const toISO = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = () => toISO(new Date());
+const addDays = (iso, n) => { const [y, m, d] = iso.split('-').map(Number); const x = new Date(y, m - 1, d + n); return toISO(x); };
+const fmtDate = iso => { if (!iso) return ''; const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'}); };
+const uid = () => 'P' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const SYM = {INR: '₹', USD: '$', EUR: '€', GBP: '£'};
+const lines = s => String(s || '').split('\n').map(x => x.replace(/^\s*[-•*]\s*/, '').trim()).filter(Boolean);
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2200); }
+function download(name, text, type) { const blob = new Blob([text], {type}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800); }
+function fmtPrice(p, cur) {
+  const s = String(p ?? '').trim(); if (!s) return '';
+  if (/^[\d,.\s]+$/.test(s)) { const n = parseFloat(s.replace(/[,\s]/g, '')); if (Number.isFinite(n)) return (SYM[cur] || '') + n.toLocaleString(cur === 'INR' ? 'en-IN' : 'en-US', {maximumFractionDigits: 2}); }
+  return s;
+}
+
+/* ---------------- presets ---------------- */
+const PROOF = {
+  cultus: 'Built Cultus — a live marketplace — end to end: Next.js + Supabase, Razorpay Magic Checkout with partial COD, and a custom Shopify Sales Channel app. First 4 months: 890+ users, 180+ orders, ₹2.9L+ GMV, 12 brands.',
+  tests: 'Money-critical code is tested: Cultus ships with 115 test files and 17 architecture decision records (pricing, refunds, coupons, Shopify sync).',
+  deribit: "Built and maintained back-office admin modules for Coinbase's Deribit derivatives exchange (React/TypeScript), migrated legacy Angular features to React and introduced Vitest into CI.",
+  twinntax: 'Built the tax-filing module of Twinntax used by 100,000+ people — schema-driven dynamic forms, recursive cross-field validation, versioning by tax year, i18n.',
+  bro: 'Grew a Discord bot to 10,000+ servers and 2.4M members as sole developer — sharded across 10 clusters, monitored with Prometheus/Grafana.',
+  mentor: 'Mentored 10+ developers and wrote internal React training material — I document and hand over cleanly.'
+};
+const NEXT = ['Reply with the option you would like — or book a 15-minute call to talk it through: {{CAL_LINK}}', 'I send the agreement (MSA + statement of work) and the deposit invoice.', 'We kick off within 2 business days of the deposit clearing.'];
+const P = {
+  A1: {label: 'A1 · Store Speed & Conversion Sprint', hint: '₹25k–60k · 1–2 weeks', currency: 'INR', payment: '50-50', gst: 'gst',
+    project: 'Store Speed & Conversion Sprint', timeline: '1–2 weeks from kick-off',
+    situation: "[Brand]'s store is slow on mobile — [e.g. mobile PageSpeed 34/100, product-page LCP 5.8 s]. Most of your traffic is mobile and much of it is paid, so every extra second on a product page means fewer add-to-carts and a higher cost per order.",
+    goals: 'Faster home, collection and product pages on mobile\nPass Core Web Vitals on key templates (LCP < 2.5 s, INP < 200 ms, CLS < 0.1)\nRemove cart and checkout friction that costs orders\nA before/after report so you can see exactly what changed',
+    approach: 'Audit (days 1–2): real-user data, lab tests, theme code review, inventory of apps and third-party scripts\nFix (days 3–8): images and fonts, lazy-loading, defer or remove scripts and unused apps, theme code clean-up\nConversion quick wins on product page and cart\nVerify (days 9–10): before/after measurements, walkthrough call, handover notes',
+    scope: 'Performance work on home, collection, product and cart templates (mobile + desktop)\nImage, font and media optimisation\nApp and third-party script audit with recommendations — removals only with your sign-off\nTheme code fixes (Liquid/JS/CSS) on a duplicate theme, published with your approval\nUp to [5] conversion quick wins on product page and cart',
+    deliverables: 'Optimised theme, published after your approval\nBefore/after report (PageSpeed + Core Web Vitals) with screenshots\n30-minute walkthrough + written notes on keeping the store fast',
+    milestones: [['Kick-off', 'Access set up, baseline measured', 'Day 0', '50% deposit'], ['Audit & plan', 'Findings + prioritised fix list', 'Day 2', ''], ['Fixes ready', 'All agreed fixes on preview theme', 'Day 7', ''], ['Publish & report', 'Theme live, before/after report, walkthrough', 'Day 10', '50% balance']],
+    options: [['Essential', '25000', 'Audit + top fixes', 'Audit of home and product pages\nTop 10 performance fixes\nBefore/after report'], ['Recommended', '40000', 'Full sprint', 'Everything in Essential\nAll key templates incl. collection + cart\nApp & script clean-up\nConversion quick wins\n14-day check-in'], ['Premium', '60000', 'Sprint + monitoring', 'Everything in Recommended\nFunnel analytics events set up\n30 days of monitoring and fixes\nPriority support']],
+    assumptions: 'Collaborator/staff access to Shopify and analytics within 1 business day\nAll changes are made on a duplicate theme and published with your approval\nSome third-party app scripts cannot be optimised — we will flag them\nScores vary run to run; we measure the same pages under the same conditions before and after',
+    out: 'Redesign or new sections/features\nNew copy, photography or video\nChanges inside third-party apps’ own code\nOngoing optimisation after the sprint (available as a care plan)',
+    client: 'One decision-maker who can approve changes within 2 business days\nAccess: Shopify (collaborator), Google Analytics / Search Console, app dashboards\nA list of apps you consider essential',
+    why: ['cultus', 'tests', 'mentor']},
+  A2: {label: 'A2 · Shopify custom app / integrations', hint: '₹1L–4L · 3–6 weeks', currency: 'INR', payment: '40-40-20', gst: 'gst',
+    project: 'Shopify Custom App & Integration', timeline: '4–6 weeks from kick-off',
+    situation: '[Brand] runs on Shopify, but [orders / inventory / customer data] move between Shopify and [ERP / marketplace / 3PL] by hand. That causes [overselling, delayed dispatch, hours of manual work each week] — and it gets worse with every new SKU and channel.',
+    goals: 'Automate the [Shopify ↔ system] flow end to end\nKeep inventory and orders consistent — no overselling, no duplicates\nMake failures visible and recoverable (alerts + retries), never silent\nYou own the code: documented, tested, deployed on your accounts',
+    approach: 'Discovery (week 1): map data, edge cases, API limits and failure modes; agree the spec\nBuild (weeks 2–4): custom app on the Shopify Admin GraphQL API, webhooks + background jobs, idempotent processing\nReconcile: nightly job that detects and fixes drift between systems\nHarden & launch: tests on sync logic, staging run with real data, monitoring, handover',
+    scope: 'Custom Shopify app for your store (custom distribution)\nWebhook handlers for [orders, inventory levels, products]\nSync logic to/from [system] with retries and idempotency\nNightly reconciliation + error alerts (email / Slack)\nAdmin page: sync status, errors, manual re-sync',
+    deliverables: 'Source code in your Git repository\nApp deployed on your hosting account\nAutomated tests for sync and reconciliation\nRunbook: how it works and how to recover from failures',
+    milestones: [['Kick-off', 'Spec signed off, access ready', 'Week 1', '40% deposit'], ['Sync on staging', 'Webhooks + sync demo with test data', 'Week 3', '40%'], ['Launch', 'Reconciliation, alerts, admin page, handover', 'Week 5', '20%']],
+    options: [['Essential', '100000', 'One-way sync', 'One entity (e.g. orders → [system])\nWebhooks + retries\nBasic status page'], ['Recommended', '225000', 'Two-way sync', 'Orders + inventory both ways\nNightly reconciliation\nAlerts + admin page\nTests + runbook'], ['Premium', '400000', 'Multi-channel', 'Everything in Recommended\nMulti-location / multi-store\nOps dashboard\n60 days of care after launch']],
+    assumptions: '[System] has a documented API and test credentials\nYour Shopify plan supports the APIs required\nOne round of spec changes before build; later changes go through a change request',
+    out: 'Changes to [system] itself\nTheme / storefront changes\nCleaning historical data beyond a one-time import script\nPublic Shopify App Store listing and review',
+    client: 'Admin/API access to Shopify and [system] (test + live)\nA 60-minute walkthrough of today’s manual process with the person who does it\nTesting feedback within 2 business days',
+    why: ['cultus', 'tests', 'deribit']},
+  A3: {label: 'A3 · Razorpay checkout & payments', hint: '₹40k–1.5L · 1–4 weeks', currency: 'INR', payment: '50-50', gst: 'gst',
+    project: 'Razorpay Checkout & Payments Upgrade', timeline: '2–3 weeks from kick-off',
+    situation: '[Brand] is leaking money around payments: [high COD return-to-origin rate / failed payments / manual refunds / reconciliation in spreadsheets]. Each returned COD order costs about [₹X] in shipping and handling, and every unclear payment status becomes a support ticket.',
+    goals: 'Higher prepaid share and fewer failed payments\nLower COD losses with risk-based partial COD\nAutomated refunds and reconciliation\nCorrect, verifiable payment state — no "paid but not confirmed" orders',
+    approach: 'Map the current flow, failure points and edge cases (timeouts, retries, duplicate webhooks)\nImplement Razorpay [Magic Checkout / Standard Checkout] with signature-verified webhooks and idempotent order updates\nPartial-COD rules by pincode / order risk; automated refunds with scheduled retries\nReconciliation report and tests for every money path',
+    scope: 'Checkout integration on [platform]\nSignature-verified webhook handling with idempotency\nOrder/payment state machine fixes\nRefund automation with retries\nPartial-COD rules for high-risk pincodes\nDaily reconciliation report',
+    deliverables: 'Code in your repository, deployed\nTests for payment, refund and webhook paths\nDocumentation of the payment flow and failure handling',
+    milestones: [['Kick-off', 'Flow mapped, access ready', 'Week 1', '50% deposit'], ['Checkout + webhooks', 'Live on staging, tested', 'Week 2', ''], ['Refunds, COD, recon', 'Launched + documented', 'Week 3', '50% balance']],
+    options: [['Essential', '40000', 'Reliable checkout', 'Checkout integration\nVerified webhooks\nOrder state fixes'], ['Recommended', '85000', 'Checkout + automation', 'Everything in Essential\nRefund automation with retries\nPartial COD by risk\nReconciliation report'], ['Premium', '150000', 'Full payments stack', 'Everything in Recommended\nPayment links / subscriptions\nPayments dashboard + alerts\n30 days of care']],
+    assumptions: 'Razorpay account active with the required products enabled\nAccess to test and live keys through a secure channel (never by chat/email)\nCOD/RTO data for the last 3–6 months is available for the risk rules',
+    out: 'Payment gateway pricing negotiations\nLogistics / courier integrations\nAccounting software integration (quoted separately)',
+    client: 'Razorpay dashboard + platform admin access\nSign-off on partial-COD rules and refund policy\nA test window to run real low-value transactions',
+    why: ['cultus', 'tests', 'deribit']},
+  A4: {label: 'A4 · Headless Next.js storefront', hint: '₹3L–8L · 6–10 weeks', currency: 'INR', payment: '40-40-20', gst: 'gst',
+    project: 'Headless Next.js Storefront', timeline: '6–10 weeks from kick-off',
+    situation: "[Brand]'s theme limits what you can build: [slow pages, rigid layouts, custom experiences like bundles / quizzes / lookbooks that are hard to add]. You want a fast, custom storefront while Shopify keeps handling catalogue, checkout and operations.",
+    goals: 'A storefront that loads fast everywhere and converts better\nFreedom to build custom experiences without theme hacks\nNo SEO loss during migration\nA codebase your next developer can work in',
+    approach: 'Discovery & architecture: Next.js (App Router) + Shopify Storefront API; CMS choice; URL and SEO plan\nDesign system and core templates: home, collection, product, cart, search\nCheckout hand-off to Shopify checkout; analytics and pixels\nSEO migration (redirects, structured data, sitemaps), performance budget, launch',
+    scope: 'Core templates: home, collection, product, cart, search, content pages\nShopify Storefront API integration (catalogue, cart, customer)\nCMS integration for marketing content [CMS]\nAnalytics, pixels and consent\nSEO migration: redirects, metadata, structured data, sitemap',
+    deliverables: 'Storefront code in your repository, deployed on your Vercel account\nComponent library + documentation\nLaunch checklist and 2 weeks of post-launch fixes',
+    milestones: [['Kick-off', 'Architecture + design system agreed', 'Week 1', '40% deposit'], ['Core templates on staging', 'Browse → cart flow working', 'Week 5', '40%'], ['Launch', 'SEO migration, analytics, go-live', 'Week 8', '20%']],
+    options: [['Essential', '300000', 'Core storefront', 'Home, collection, product, cart\nCheckout hand-off\nBasic SEO + analytics'], ['Recommended', '550000', 'Full migration', 'Everything in Essential\nCMS + search & filtering\nFull SEO migration + redirects\nPerformance budget'], ['Premium', '800000', 'Custom experiences', 'Everything in Recommended\n[Bundles / quiz / lookbook]\nMulti-language / currency\n60 days of care']],
+    assumptions: 'Designs are provided or a design phase is added\nShopify plan and apps are compatible with headless (we will check during discovery)\nContent migration is limited to existing pages listed in discovery',
+    out: 'Brand / visual design (unless added)\nRe-platforming catalogue or orders\nNative mobile apps',
+    client: 'A product owner available for weekly reviews\nAccess to Shopify, analytics, domain/DNS\nTimely content and asset delivery',
+    why: ['cultus', 'tests', 'twinntax']},
+  B1: {label: 'B1 · Prototype → Production', hint: 'audit $600–1,200 → sprint $3k–8k', currency: 'USD', payment: '50-50', gst: 'lut',
+    project: 'Prototype → Production: Audit & Hardening', timeline: 'Audit: 3–5 days · Sprint: 2–4 weeks',
+    situation: "[Company]'s product was built fast — [with Lovable / Bolt / v0 / Cursor, or in a rushed sprint] — and it works in demos. Before paying users and real data go on it, there are usually gaps: database access rules (e.g. Supabase RLS) that expose data, secrets in the client, untested payment and auth flows, manual deploys and no monitoring.",
+    goals: 'Know exactly what is risky, ranked by severity\nFix the critical issues before [launch / fundraising / scale]\nMake shipping safe: tests on critical paths, CI, staging and monitoring',
+    approach: 'Audit (3–5 days): security (RLS policies, auth, secrets, API exposure), payments, data model, performance, deployment\nReport: findings ranked critical / high / medium with fixes and effort; 45-minute walkthrough\nHardening sprint: fix criticals, add tests for auth / payments / data access, CI/CD, staging, error monitoring, backups',
+    scope: 'Production-readiness audit of [app] (codebase, database, auth, payments, infra)\nWritten report with prioritised fixes\nHardening sprint covering the agreed fixes (Recommended / Premium)',
+    deliverables: 'Audit report (PDF) + walkthrough call\nFixes merged via pull requests in your repository\nCI pipeline, staging environment, error monitoring\nHandover notes for your team',
+    milestones: [['Kick-off', 'Read-only access set up', 'Day 0', '50% deposit'], ['Audit report', 'Findings + walkthrough', 'Day 5', ''], ['Sprint complete', 'Fixes merged, CI + monitoring live', 'Week 3', '50% balance']],
+    options: [['Essential', '900', 'Audit only', 'Production-readiness audit\nPrioritised written report\n45-min walkthrough'], ['Recommended', '4000', 'Audit + 2-week sprint', 'Everything in Essential\nCritical + high fixes\nTests for auth & payments\nCI, staging, monitoring'], ['Premium', '8000', 'Audit + 4-week sprint + care', 'Everything in Recommended\nMedium-severity fixes + performance\n30 days of care\nWeekly check-ins']],
+    assumptions: 'Read access to the repository, database (or schema) and hosting dashboards\nThe audit covers the code and configuration as of the kick-off date\nFixes are delivered as pull requests for your review',
+    out: 'New product features\nPenetration testing / formal compliance certification\nDesign changes',
+    client: 'A technical point of contact (founder or engineer)\nTest accounts for each user role\nQuick decisions on fix priorities',
+    why: ['tests', 'cultus', 'deribit']},
+  B2: {label: 'B2 · Internal tools & admin dashboards', hint: '$4k–15k · 3–10 weeks', currency: 'USD', payment: '40-40-20', gst: 'lut',
+    project: 'Internal Admin Dashboard', timeline: '4–8 weeks from kick-off',
+    situation: 'Your ops team runs [refunds / KYC reviews / order exceptions / content approvals] through spreadsheets, Slack threads and direct database edits. It is slow, error-prone and impossible to audit — and it does not scale with the team.',
+    goals: 'One admin where the team runs [workflow] end to end\nRole-based access and approvals so the right people take the right actions\nAn audit log of who changed what, and when\nFaster handling time per [ticket / order / case]',
+    approach: 'Map workflows with the people who do them; define roles, data and approvals\nBuild in React / Next.js + TypeScript on your API or database: tables with filters and bulk actions, validated forms, approval flows, audit log\nShip module by module behind authentication; train the team',
+    scope: '[N] workflow modules: [module list]\nRole-based access control\nApproval flow for sensitive actions\nAudit log\nIntegration with [existing API / database]',
+    deliverables: 'Admin app deployed on your infrastructure\nSource code + tests in your repository\nShort user guide + recorded walkthrough for the team',
+    milestones: [['Kick-off', 'Workflows + roles mapped', 'Week 1', '40% deposit'], ['First module live', 'Team using module 1', 'Week 3', '40%'], ['All modules + audit log', 'Training + handover', 'Week 6', '20%']],
+    options: [['Essential', '4000', 'One module', '1 workflow module\nCRUD + filters\nRoles & auth'], ['Recommended', '9000', 'Core admin', '3 workflow modules\nApprovals + audit log\nBulk actions\nTests + training'], ['Premium', '15000', 'Admin platform', 'Everything in Recommended\nReporting dashboards\nSSO + integrations\n60 days of care']],
+    assumptions: 'An existing API or database we can build on\nRoles and approval rules are confirmed in week 1\nUp to [2] rounds of UI feedback per module',
+    out: 'Changes to your core product\nData warehouse / BI tooling\nMobile apps',
+    client: 'An ops lead who uses the workflows daily (1 h/week)\nAccess to staging data and environments\nFeedback within 2 business days',
+    why: ['deribit', 'twinntax', 'tests']},
+  B3: {label: 'B3 · Frontend modernisation', hint: 'assessment $1.5k–3k → sprints / retainer', currency: 'USD', payment: '50-50', gst: 'lut',
+    project: 'Frontend Modernisation: Angular → React', timeline: 'Assessment 1–2 weeks · migration in monthly sprints',
+    situation: "[Company]'s frontend runs on [AngularJS / Angular N]. Features take longer than they should, hiring is harder, and a big-bang rewrite is too risky for a product customers use every day.",
+    goals: 'A migration plan that keeps shipping features while it runs\nTests and CI in place before code moves\nOne module migrated to prove the approach and the estimate',
+    approach: 'Assessment: module inventory, dependency graph, risk map, effort estimate\nStrangler-fig plan: React inside the Angular shell or route-level split; shared auth and state strategy\nFoundation: Vitest + Testing Library, CI pipeline, lint and type checks\nPilot: migrate one representative module end to end; measure and adjust',
+    scope: 'Assessment of [app] frontend\nMigration roadmap with sequencing and estimates\nTest + CI foundation (Recommended / Premium)\nPilot module migration (Recommended / Premium)',
+    deliverables: 'Assessment & roadmap document + walkthrough\nCI pipeline running Vitest on every merge request\nPilot module in production behind a flag',
+    milestones: [['Kick-off', 'Access + module list', 'Week 1', '50% deposit'], ['Assessment', 'Roadmap + estimates', 'Week 2', ''], ['Pilot module', 'Migrated + tested + released', 'Week 4', '50% balance']],
+    options: [['Essential', '1500', 'Assessment', 'Inventory + risk map\nMigration roadmap\nEstimates + walkthrough'], ['Recommended', '3000', 'Assessment + pilot', 'Everything in Essential\nVitest + CI foundation\nOne module migrated'], ['Premium', '$3,000 + $4,500/month', 'Pilot + migration retainer', 'Everything in Recommended\n≈ 60 h/month of migration\nMonthly progress report']],
+    assumptions: 'Access to the repository and CI\nA staging environment that mirrors production\nYour team reviews merge requests within 2 business days',
+    out: 'Backend changes beyond what the migrated module needs\nVisual redesign\nRewriting modules outside the agreed roadmap',
+    client: 'A tech lead for weekly sync\nAgreement on code standards and review process\nFeature-freeze windows for modules being migrated (if needed)',
+    why: ['deribit', 'twinntax', 'mentor']},
+  C1: {label: 'C1 · Care plan / retainer', hint: '₹25k–75k/mo or $1k–3k/mo', currency: 'INR', payment: 'monthly', gst: 'gst',
+    project: 'Care Plan — Monthly Maintenance & Improvements', timeline: 'Monthly, 3-month minimum, then 30 days’ notice',
+    situation: 'After launch nobody owns the boring-but-critical work — dependency and security updates, monitoring, small fixes — or the steady stream of small improvements. Things break at the worst possible time and every fix starts with someone re-learning the codebase.',
+    goals: 'A named engineer who knows your codebase\nPredictable monthly cost\nProactive maintenance instead of emergencies',
+    approach: 'Monthly block of hours with a response-time commitment\nProactive: dependency and security updates, uptime and error monitoring, backup checks\nSmall features and fixes from a shared priority list\nMonthly report + 30-minute planning call',
+    scope: 'Maintenance of [app / store]\nMonitoring and incident response within the agreed response time\nSmall features and fixes within the monthly hours',
+    deliverables: 'Monthly report: work done, hours used, risks, next priorities\nUpdated dependencies and documentation',
+    milestones: [['Onboarding', 'Access, monitoring, priority list', 'Week 1', 'Month 1 in advance'], ['Monthly cycle', 'Work + report + planning call', 'Monthly', 'Billed in advance']],
+    options: [['Essential', '25000', '10 h / month', '10 hours\n2-business-day response\nUpdates + monitoring'], ['Recommended', '45000', '20 h / month', '20 hours\nNext-business-day response\nMonthly report + planning call'], ['Premium', '75000', '35 h / month', '35 hours\nSame-day response for critical issues\nPriority queue']],
+    assumptions: 'Unused hours roll over for one month, then expire\nWork beyond the monthly hours is billed at the plan’s hourly rate with your approval\nResponse times apply on business days (IST)',
+    out: 'Large projects (quoted separately)\n24/7 on-call\nThird-party service costs',
+    client: 'A single channel for requests (email / shared board)\nAccess to hosting, repository and monitoring\nPriorities reviewed monthly',
+    why: ['cultus', 'bro', 'tests']},
+  blank: {label: 'Blank proposal', hint: 'start from scratch', currency: 'INR', payment: '50-50', gst: 'gst', project: '[Project name]', timeline: '[timeline]', situation: '[What is happening today and why it matters to them]', goals: '[Goal 1]\n[Goal 2]', approach: '[Phase 1]\n[Phase 2]', scope: '[Scope item]', deliverables: '[Deliverable]', milestones: [['Kick-off', '', 'Week 1', '50% deposit'], ['Delivery', '', '[date]', '50% balance']], options: [['Essential', '', '', ''], ['Recommended', '', '', ''], ['Premium', '', '', '']], assumptions: '', out: '', client: '', why: ['cultus', 'deribit', 'twinntax']}
+};
+function draftFromPreset(key) {
+  const p = P[key] || P.blank, d = today();
+  return {preset: key, client: {name: '[Client name]', company: '[Company]', email: ''}, project: p.project, ref: 'P-' + d.replace(/-/g, '') + '-' + Math.random().toString(36).slice(2, 4).toUpperCase(), date: d, validUntil: addDays(d, 14), currency: p.currency, timeline: p.timeline,
+    situation: p.situation, goals: p.goals, approach: p.approach, scope: p.scope, deliverables: p.deliverables,
+    milestones: p.milestones.map(([name, desc, when, pay]) => ({name, desc, when, pay})),
+    options: p.options.map(([name, price, summary, items]) => ({name, price, summary, items})), recommended: 1,
+    payment: p.payment, paymentCustom: '', gst: p.gst,
+    assumptions: p.assumptions, out: p.out, clientResp: p.client,
+    why: p.why.map(k => PROOF[k]).join('\n'), next: NEXT.join('\n'), acceptance: true};
+}
+
+/* ---------------- state ---------------- */
+const DEFAULT_SETTINGS = {name: '', business: '', email: '', phone: '', website: '', city: 'Pune, India', calLink: '', logoText: '', accent: '#3446d4', currency: 'INR'};
+function load() {
+  try { const raw = localStorage.getItem(KEY); if (raw) { const d = JSON.parse(raw); return {version: 1, settings: Object.assign({}, DEFAULT_SETTINGS, d.settings || {}), drafts: Array.isArray(d.drafts) ? d.drafts.filter(x => x && x.data) : [], currentId: d.currentId || null}; } } catch (e) { console.warn('proposals: could not load', e); }
+  return {version: 1, settings: Object.assign({}, DEFAULT_SETTINGS), drafts: [], currentId: null};
+}
+let S = load();
+let saveT = null;
+function flush() { clearTimeout(saveT); saveT = null; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Could not save — export a backup'); } }
+function save(now) { clearTimeout(saveT); if (now) flush(); else saveT = setTimeout(flush, 250); }
+window.addEventListener('pagehide', () => { if (saveT) flush(); });
+const cur = () => S.drafts.find(d => d.id === S.currentId);
+const titleOf = d => `${d.data.client.company && !/^\[/.test(d.data.client.company) ? d.data.client.company : 'Untitled'} — ${d.data.project || 'proposal'}`;
+function newDraft(key) {
+  const data = draftFromPreset(key);
+  if (S.settings.currency && key === 'blank') data.currency = S.settings.currency;
+  const d = {id: uid(), title: '', updatedAt: new Date().toISOString(), data}; d.title = titleOf(d);
+  S.drafts.unshift(d); S.currentId = d.id; save(true); renderAll();
+  toast('New proposal from ' + (P[key] ? P[key].label : 'blank'));
+}
+
+/* ---------------- editor ---------------- */
+const PAYMENT_TEXT = {
+  '50-50': '50% on signing (work starts when the deposit clears) and 50% on delivery, before final hand-over.',
+  '40-40-20': '40% on signing, 40% at the mid-project milestone, 20% on delivery.',
+  'monthly': 'Billed monthly in advance; 3-month minimum, then month-to-month with 30 days’ notice.',
+  'custom': ''
+};
+const GST_TEXT = {
+  gst: 'Prices exclude GST; GST at 18% is added to invoices where applicable.',
+  lut: 'Export of services under LUT — no Indian GST is charged.',
+  unregistered: 'I am not registered under GST, so no GST is charged.',
+  none: ''
+};
+function field(label, path, opts = {}) {
+  const v = getPath(cur().data, path) ?? '';
+  const id = 'f_' + path.replace(/\W/g, '_');
+  if (opts.area) return `<label for="${id}">${label}${opts.hint ? ` <span class="hintline">${opts.hint}</span>` : ''}<textarea id="${id}" data-p="${path}" rows="${opts.rows || 4}">${esc(v)}</textarea></label>`;
+  if (opts.select) return `<label for="${id}">${label}<select id="${id}" data-p="${path}">${opts.select.map(([val, txt]) => `<option value="${val}"${val === v ? ' selected' : ''}>${esc(txt)}</option>`).join('')}</select></label>`;
+  return `<label for="${id}">${label}<input id="${id}" data-p="${path}" type="${opts.type || 'text'}" value="${esc(v)}"${opts.ph ? ` placeholder="${esc(opts.ph)}"` : ''}></label>`;
+}
+const getPath = (o, p) => p.split('.').reduce((a, k) => a == null ? a : a[k], o);
+const setPath = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); const t = ks.reduce((a, k) => a[k], o); t[last] = v; };
+let openSecs = new Set(['basics', 'story', 'options']);
+function sec(id, title, body) { return `<details class="sec" data-sec="${id}"${openSecs.has(id) ? ' open' : ''}><summary>${title}</summary><div class="body">${body}</div></details>`; }
+function renderEditor() {
+  const d = cur(); const ed = $('#editor');
+  if (!d) { ed.innerHTML = `<div class="sec"><p style="margin:0 0 10px"><b>No proposal yet.</b></p><p class="muted small" style="margin:0 0 10px">Start from one of your offer presets — each has proven structure, scope, options and terms you then tailor.</p><button type="button" class="primary" id="btnNew2">+ New proposal</button></div>`; $('#btnNew2').addEventListener('click', openNew); return; }
+  const x = d.data;
+  ed.innerHTML =
+    sec('basics', 'Client & basics', `<div class="grid2">${field('Client name', 'client.name')}${field('Company', 'client.company')}</div>${field('Project title', 'project')}<div class="grid2">${field('Date', 'date', {type: 'date'})}${field('Valid until', 'validUntil', {type: 'date'})}${field('Reference', 'ref')}${field('Currency', 'currency', {select: [['INR', 'INR ₹'], ['USD', 'USD $'], ['EUR', 'EUR €'], ['GBP', 'GBP £']]})}</div>${field('Timeline', 'timeline')}`) +
+    sec('story', 'Situation, goals & approach', `${field('Situation — their problem in their words', 'situation', {area: true, rows: 5})}${field('Goals', 'goals', {area: true, hint: 'one per line'})}${field('Approach / phases', 'approach', {area: true, rows: 5, hint: 'one per line'})}`) +
+    sec('scope', 'Scope & deliverables', `${field('Scope', 'scope', {area: true, rows: 5, hint: 'one per line'})}${field('Deliverables', 'deliverables', {area: true, hint: 'one per line'})}`) +
+    sec('milestones', 'Milestones', `<div class="ms-row hintline"><span>Milestone</span><span>What is delivered</span><span>Timing</span><span>Payment</span><span></span></div>${x.milestones.map((m, i) => `<div class="ms-row" data-ms="${i}"><input data-m="name" value="${esc(m.name)}" aria-label="Milestone ${i + 1} name"><input data-m="desc" value="${esc(m.desc)}" aria-label="Milestone ${i + 1} description"><input data-m="when" value="${esc(m.when)}" aria-label="Milestone ${i + 1} timing"><input data-m="pay" value="${esc(m.pay)}" aria-label="Milestone ${i + 1} payment"><button type="button" class="icon" data-delms="${i}" aria-label="Remove milestone">✕</button></div>`).join('')}<div><button type="button" id="btnAddMs">+ Add milestone</button></div>`) +
+    sec('options', 'Options (good / better / best)', x.options.map((o, i) => `<div class="opt${x.recommended === i ? ' rec' : ''}" data-opt="${i}"><div class="grid2">${field('Name', `options.${i}.name`)}${field(`Price (${x.currency})`, `options.${i}.price`, {ph: 'e.g. 40000 or "$3,000 + $4,500/mo"'})}</div>${field('One-line summary', `options.${i}.summary`)}${field('Includes', `options.${i}.items`, {area: true, rows: 3, hint: 'one per line'})}<label class="check"><input type="radio" name="recommended" value="${i}"${x.recommended === i ? ' checked' : ''}> Recommended option</label></div>`).join('')) +
+    sec('terms', 'Payment & tax', `${field('Payment schedule', 'payment', {select: [['50-50', '50% upfront / 50% on delivery'], ['40-40-20', '40% / 40% / 20% (above ₹2L or $5k)'], ['monthly', 'Monthly in advance (retainers)'], ['custom', 'Custom…']]})}${x.payment === 'custom' ? field('Custom payment terms', 'paymentCustom', {area: true, rows: 2}) : ''}${field('GST line', 'gst', {select: [['gst', '+18% GST if applicable (Indian client, GST-registered)'], ['lut', 'Export of services under LUT — no GST'], ['unregistered', 'Not GST-registered — no GST'], ['none', 'No GST line']]})}<p class="hintline">Standard terms (Net 7, IP on full payment, change requests, pause on overdue) are added automatically.</p>`) +
+    sec('fine', 'Assumptions, exclusions, responsibilities', `${field('Assumptions', 'assumptions', {area: true, hint: 'one per line'})}${field('Out of scope', 'out', {area: true, hint: 'one per line'})}${field('Client responsibilities', 'clientResp', {area: true, hint: 'one per line'})}`) +
+    sec('close', 'Why me, next steps, acceptance', `${field('Why me — proof', 'why', {area: true, rows: 5, hint: 'one per line; keep the 3 most relevant'})}${field('Next steps', 'next', {area: true, hint: '{{CAL_LINK}} = your booking link'})}<label class="check"><input type="checkbox" data-p="acceptance"${x.acceptance ? ' checked' : ''}> Include acceptance / signature block</label>`);
+  $('#btnAddMs').addEventListener('click', () => { cur().data.milestones.push({name: '', desc: '', when: '', pay: ''}); touched(); renderEditor(); renderDoc(); });
+}
+function touched() { const d = cur(); if (!d) return; d.updatedAt = new Date().toISOString(); d.title = titleOf(d); save(); }
+$('#editor').addEventListener('toggle', e => { const s = e.target.closest('[data-sec]'); if (s) { if (s.open) openSecs.add(s.dataset.sec); else openSecs.delete(s.dataset.sec); } }, true);
+$('#editor').addEventListener('input', e => {
+  const d = cur(); if (!d) return;
+  const t = e.target;
+  if (t.dataset.p) { setPath(d.data, t.dataset.p, t.type === 'checkbox' ? t.checked : t.value); }
+  else if (t.dataset.m) { const i = +t.closest('[data-ms]').dataset.ms; d.data.milestones[i][t.dataset.m] = t.value; }
+  else if (t.name === 'recommended') { d.data.recommended = +t.value; $$('.opt').forEach(o => o.classList.toggle('rec', +o.dataset.opt === d.data.recommended)); }
+  touched(); renderDoc();
+  if (t.dataset.p === 'currency' || t.dataset.p === 'payment') renderEditor();
+  if (t.dataset.p === 'client.company' || t.dataset.p === 'project') renderDraftSelect();
+});
+$('#editor').addEventListener('change', e => { if (e.target.dataset.p === 'acceptance' || e.target.name === 'recommended') { const d = cur(); if (e.target.dataset.p) d.data.acceptance = e.target.checked; else d.data.recommended = +e.target.value; touched(); renderDoc(); } });
+$('#editor').addEventListener('click', e => { const b = e.target.closest('[data-delms]'); if (!b) return; cur().data.milestones.splice(+b.dataset.delms, 1); touched(); renderEditor(); renderDoc(); });
+
+/* ---------------- document ---------------- */
+function fill(text) {
+  const cal = S.settings.calLink ? S.settings.calLink : '[your booking link]';
+  return String(text || '').replace(/\{\{\s*CAL_LINK\s*\}\}/g, cal);
+}
+function rich(text) {
+  // escape, linkify URLs, highlight [placeholders]
+  let h = esc(fill(text));
+  h = h.replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)\]])/g, '<a href="$1">$1</a>');
+  h = h.replace(/\[([^\]\n]{1,80})\]/g, '<span class="ph">[$1]</span>');
+  return h;
+}
+const ul = t => { const l = lines(t); return l.length ? `<ul>${l.map(x => `<li>${rich(x)}</li>`).join('')}</ul>` : ''; };
+function renderDoc() {
+  const d = cur(); const doc = $('#doc'); const st = S.settings;
+  doc.style.setProperty('--doc-accent', st.accent || '#3446d4');
+  if (!d) { doc.innerHTML = '<p class="muted" style="text-align:center;margin:40px 0">Your proposal preview appears here.</p>'; $('#phWarn').innerHTML = ''; return; }
+  const x = d.data; let n = 0; const H = t => `<h2><span class="n">${pad(++n)}</span>${t}</h2>`;
+  const who = st.business || st.name || '[Your name]';
+  const initials = (st.logoText || (st.name || 'Y N').split(/\s+/).map(w => w[0]).join('').slice(0, 2)).toUpperCase();
+  const pay = x.payment === 'custom' ? x.paymentCustom : PAYMENT_TEXT[x.payment];
+  const ms = x.milestones.filter(m => m.name || m.desc);
+  const opts = x.options.filter(o => o.name || o.price);
+  const html = `
+  <div class="cover">
+    <div style="display:flex;gap:14px;align-items:center"><div class="logo">${esc(initials)}</div><div><div style="font-weight:700">${esc(who)}</div><div style="font-size:12px;color:#5d6572">${esc([st.business && st.name ? st.name : '', st.city].filter(Boolean).join(' · '))}</div></div></div>
+    <div class="meta">Proposal ${esc(x.ref)}<br>${esc(fmtDate(x.date))}<br>Valid until ${esc(fmtDate(x.validUntil))}</div>
+  </div>
+  <div class="kicker">Proposal for ${rich(x.client.company)}</div>
+  <h1>${rich(x.project)}</h1>
+  <p style="color:#454a55">Prepared for ${rich(x.client.name)}${x.timeline ? ` · Timeline: ${rich(x.timeline)}` : ''}</p>
+  ${x.situation ? H('Where you are today') + `<p>${rich(x.situation).replace(/\n/g, '<br>')}</p>` : ''}
+  ${lines(x.goals).length ? H('What success looks like') + ul(x.goals) : ''}
+  ${lines(x.approach).length ? H('Approach') + `<ol>${lines(x.approach).map(l => `<li>${rich(l)}</li>`).join('')}</ol>` : ''}
+  ${lines(x.scope).length || lines(x.deliverables).length ? H('Scope &amp; deliverables') + (lines(x.scope).length ? `<p style="font-weight:600;margin-bottom:0">In scope</p>${ul(x.scope)}` : '') + (lines(x.deliverables).length ? `<p style="font-weight:600;margin-bottom:0">You receive</p>${ul(x.deliverables)}` : '') : ''}
+  ${ms.length ? H('Milestones') + `<table><thead><tr><th>Milestone</th><th>What is delivered</th><th>Timing</th><th>Payment</th></tr></thead><tbody>${ms.map(m => `<tr><td><b>${rich(m.name)}</b></td><td>${rich(m.desc)}</td><td>${rich(m.when)}</td><td>${rich(m.pay)}</td></tr>`).join('')}</tbody></table>` : ''}
+  ${opts.length ? H('Options') + `<div class="options">${opts.map((o, i) => { const rec = x.options.indexOf(o) === x.recommended; return `<div class="option${rec ? ' rec' : ''}">${rec ? '<span class="recb">Recommended</span>' : ''}<div class="on">${rich(o.name)}</div><div class="op">${rich(fmtPrice(o.price, x.currency))}</div>${o.summary ? `<div class="os">${rich(o.summary)}</div>` : ''}${ul(o.items)}</div>`; }).join('')}</div>` : ''}
+  ${H('Investment &amp; terms')}
+  <div class="terms"><ul>
+    ${pay ? `<li><b>Payment:</b> ${rich(pay)}</li>` : ''}
+    <li>Invoices are due within 7 days. Work pauses if an invoice is more than 14 days overdue.</li>
+    <li>Prices are fixed for the scope above. Changes are welcome — each one is estimated and approved in writing (change request) before work starts.</li>
+    <li>Intellectual property in the deliverables transfers to ${rich(x.client.company)} on full payment.</li>
+    ${GST_TEXT[x.gst] ? `<li>${esc(GST_TEXT[x.gst])}</li>` : ''}
+    ${x.currency !== 'INR' ? `<li>All amounts in ${esc(x.currency)}. Bank / transfer fees on the sender’s side are paid by the client.</li>` : ''}
+  </ul></div>
+  ${lines(x.assumptions).length ? H('Assumptions') + ul(x.assumptions) : ''}
+  ${lines(x.out).length ? H('Not included') + ul(x.out) : ''}
+  ${lines(x.clientResp).length ? H('What I need from you') + ul(x.clientResp) : ''}
+  ${lines(x.why).length ? H('Why me') + ul(x.why) : ''}
+  ${lines(x.next).length ? H('Next steps') + `<ol>${lines(x.next).map(l => `<li>${rich(l)}</li>`).join('')}</ol>` : ''}
+  ${x.acceptance ? H('Acceptance') + `<p>To accept, sign below or reply “Accepted — Option ______” by email before ${esc(fmtDate(x.validUntil))}.</p><div class="sign"><div><div class="line"></div><div class="lbl">For ${rich(x.client.company)} — name, signature, date</div></div><div><div class="line"></div><div class="lbl">${esc(st.name || '[Your name]')}${st.business ? ', ' + esc(st.business) : ''} — signature, date</div></div></div>` : ''}
+  <div class="footer-doc"><span>${esc([st.name, st.email, st.phone, st.website].filter(Boolean).join(' · ') || '[Add your contact details in ⚙ Your details]')}</span><span>${esc(x.ref)}</span></div>`;
+  doc.innerHTML = html;
+  const phs = (html.match(/class="ph"/g) || []).length;
+  $('#phWarn').innerHTML = phs ? `<div class="warn">⚠ ${phs} placeholder${phs > 1 ? 's' : ''} like <span class="ph">[this]</span> still in the proposal — replace them before sending.</div>` : '';
+}
+
+/* ---------------- drafts ---------------- */
+function renderDraftSelect() {
+  const s = $('#draftSelect');
+  s.innerHTML = S.drafts.length ? S.drafts.map(d => `<option value="${esc(d.id)}"${d.id === S.currentId ? ' selected' : ''}>${esc(titleOf(d))} · ${esc((d.updatedAt || '').slice(0, 10))}</option>`).join('') : '<option value="">No drafts</option>';
+  $('#btnDup').disabled = $('#btnDel').disabled = $('#btnPrint').disabled = !cur();
+}
+function renderAll() { if (!cur() && S.drafts.length) S.currentId = S.drafts[0].id; renderDraftSelect(); renderEditor(); renderDoc(); }
+$('#draftSelect').addEventListener('change', e => { S.currentId = e.target.value; save(true); renderAll(); });
+function openNew() {
+  $('#presetList').innerHTML = Object.entries(P).map(([k, p]) => `<button type="button" data-preset="${k}"><b>${esc(p.label)}</b><span>${esc(p.hint)}</span></button>`).join('');
+  $('#dlgNew').showModal();
+}
+$('#btnNew').addEventListener('click', openNew);
+$('#presetList').addEventListener('click', e => { const b = e.target.closest('[data-preset]'); if (!b) return; $('#dlgNew').close(); newDraft(b.dataset.preset); });
+$('#btnDup').addEventListener('click', () => { const d = cur(); if (!d) return; const c = JSON.parse(JSON.stringify(d)); c.id = uid(); c.data.ref = d.data.ref + '-B'; c.updatedAt = new Date().toISOString(); S.drafts.unshift(c); S.currentId = c.id; save(true); renderAll(); toast('Duplicated'); });
+$('#btnDel').addEventListener('click', () => { const d = cur(); if (!d || !confirm(`Delete "${titleOf(d)}"?`)) return; S.drafts = S.drafts.filter(x => x.id !== d.id); S.currentId = S.drafts[0] ? S.drafts[0].id : null; save(true); renderAll(); toast('Deleted'); });
+$('#btnPrint').addEventListener('click', () => { if (!cur()) return; flush(); window.print(); });
+$('#btnExport').addEventListener('click', () => { download(`proposals-backup-${today()}.json`, JSON.stringify(S, null, 2), 'application/json'); toast('Exported'); });
+$('#btnImport').addEventListener('click', () => $('#fileJson').click());
+$('#fileJson').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  f.text().then(t => {
+    try {
+      const d = JSON.parse(t);
+      const drafts = Array.isArray(d.drafts) ? d.drafts : d.data ? [d] : null;
+      if (!drafts) throw new Error('no drafts found');
+      const ids = new Set(S.drafts.map(x => x.id)); let n = 0;
+      drafts.filter(x => x && x.data).forEach(x => { if (ids.has(x.id)) x.id = uid(); S.drafts.push(x); n++; });
+      if (d.settings && confirm('Also import "Your details" from this file?')) S.settings = Object.assign({}, DEFAULT_SETTINGS, d.settings);
+      if (!cur() && S.drafts.length) S.currentId = S.drafts[0].id;
+      save(true); renderAll(); toast(`Imported ${n} draft${n === 1 ? '' : 's'}`);
+    } catch (err) { toast('Import failed: ' + err.message); }
+  });
+  e.target.value = '';
+});
+$('#btnSettings').addEventListener('click', () => { const f = $('#setForm'); Object.keys(DEFAULT_SETTINGS).forEach(k => { if (f.elements[k]) f.elements[k].value = S.settings[k] || DEFAULT_SETTINGS[k]; }); $('#dlgSettings').showModal(); });
+$('#setForm').addEventListener('submit', e => { e.preventDefault(); const f = $('#setForm'); Object.keys(DEFAULT_SETTINGS).forEach(k => { if (f.elements[k]) S.settings[k] = f.elements[k].value.trim(); }); save(true); $('#dlgSettings').close(); renderDoc(); toast('Details saved'); });
+$$('dialog [data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
+$$('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+window.addEventListener('storage', e => { if (e.key === KEY) { S = load(); renderAll(); } });
+
+renderAll();
+})();
+</script>
+</body>
+</html>

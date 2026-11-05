@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start Here: Your Freelance Operating System · Freelance OS</title>
+<meta name="description" content="Read first. Your asset audit, the business model on one page, the 10 decisions for month one, and a glossary of business terms.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233446d4'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='17' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<style>/* Freelance OS — shared stylesheet (inlined into every generated page by site/build.mjs) */
+:root {
+  --bg: #f7f7f4; --surface: #ffffff; --surface-2: #f0f0ea; --ink: #16181d; --ink-2: #2d313a; --muted: #5d6572;
+  --line: #e3e3dc; --line-2: #d3d3c9;
+  --accent: #3446d4; --accent-ink: #ffffff; --accent-soft: #e8ebff;
+  --good: #1f8a4c; --good-soft: #e2f3e9; --mid: #9a6412; --mid-soft: #fbf0d9; --bad: #c2410c; --bad-soft: #fde9de;
+  --info: #2459c9; --info-soft: #e7eefc; --danger: #b42318; --danger-soft: #fde8e6;
+  --code-bg: #12162a; --code-ink: #e6e8ef;
+  --radius: 10px; --shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 1px 3px rgba(16, 24, 40, .06);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --content: 780px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+    --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+    --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+    --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+    --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1115; --surface: #161a21; --surface-2: #1c2129; --ink: #e8e9ec; --ink-2: #cdd2da; --muted: #9aa3b2;
+  --line: #262b35; --line-2: #333a47; --accent: #8b98ff; --accent-ink: #0f1115; --accent-soft: #1e2342;
+  --good: #4ade80; --good-soft: #11261a; --mid: #fbbf24; --mid-soft: #2a2210; --bad: #fb923c; --bad-soft: #2b1a10;
+  --info: #7cb0ff; --info-soft: #132037; --danger: #f87171; --danger-soft: #2c1515; --code-bg: #0b0e1a;
+  --shadow: none; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 8px; }
+.skip:focus { left: 12px; z-index: 100; background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; height: 58px; padding: 0 20px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 750; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; }
+.brand:hover { text-decoration: none; }
+.logo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 13px; }
+.topnav { display: flex; gap: 2px; margin-left: 8px; }
+.topnav a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 14px; }
+.topnav a:hover, .topnav a.on { background: var(--surface-2); color: var(--ink); text-decoration: none; }
+.top-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; height: 32px; min-width: 32px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.icon-btn:hover { border-color: var(--line-2); background: var(--surface-2); }
+.menu-btn { display: none; }
+.mobile-only { display: none; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr) 210px; gap: 44px; max-width: 1380px; margin: 0 auto; padding: 30px 24px 72px; }
+.sidenav { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 14px; padding: 0 6px 24px 0; scrollbar-width: thin; }
+.toc { position: sticky; top: 82px; align-self: start; max-height: calc(100vh - 100px); overflow: auto; font-size: 13px; scrollbar-width: thin; }
+.content { min-width: 0; max-width: var(--content); width: 100%; }
+.toc-title { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin: 0 0 8px; }
+.toc a { display: block; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); color: var(--muted); line-height: 1.35; }
+.toc a:hover { color: var(--ink); text-decoration: none; }
+.toc a.active { border-left-color: var(--accent); color: var(--ink); font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 22px; }
+.toc-inline a { display: block; padding: 3px 0; }
+
+.nav-group { margin: 0 0 18px; }
+.nav-group-title { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 0 0 4px 10px; }
+.nav-link { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--ink-2); line-height: 1.35; }
+.nav-link:hover { background: var(--surface-2); text-decoration: none; }
+.nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 16px; }
+.nav-prog { margin-left: auto; font-size: 10.5px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+.nav-prog.full { color: var(--good); }
+
+/* ---------- document head ---------- */
+.doc-head { margin: 0 0 26px; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.doc-head h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -.025em; margin: .3em 0 .25em; }
+.subtitle { font-size: 1.12rem; color: var(--muted); margin: 0 0 .7em; line-height: 1.5; }
+.doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.doc-meta .sep { opacity: .5; }
+.doc-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.progress-bar { height: 4px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 14px; }
+.progress-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* ---------- prose ---------- */
+.prose { font-size: 16.5px; }
+.prose > :first-child { margin-top: 0; }
+.prose h2 { font-size: 1.5rem; line-height: 1.28; margin: 2.3em 0 .65em; padding-top: 1.1em; border-top: 1px solid var(--line); letter-spacing: -.018em; }
+.prose h2:first-child, .prose .bluf + h2 { margin-top: 1.4em; }
+.prose h3 { font-size: 1.14rem; line-height: 1.35; margin: 1.8em 0 .45em; letter-spacing: -.01em; }
+.prose h4 { font-size: 1rem; margin: 1.4em 0 .3em; }
+.prose h2 .anchor, .prose h3 .anchor { margin-left: 8px; color: var(--line-2); font-weight: 400; opacity: 0; transition: opacity .15s; }
+.prose h2:hover .anchor, .prose h3:hover .anchor { opacity: 1; text-decoration: none; }
+.prose p, .prose ul, .prose ol { margin: .7em 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin: .28em 0; }
+.prose li > ul, .prose li > ol { margin: .25em 0; }
+.prose li::marker { color: var(--muted); }
+.prose strong { font-weight: 650; color: var(--ink); }
+.prose code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); padding: .06em .36em; border-radius: 6px; overflow-wrap: anywhere; }
+.prose pre { position: relative; background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); padding: 16px 18px; overflow: auto; font-size: 13.5px; line-height: 1.6; margin: 1em 0; white-space: pre-wrap; word-break: break-word; }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; overflow-wrap: normal; }
+.copy-btn { position: absolute; top: 8px; right: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .08); color: #e6e8ef; border-radius: 6px; font: 600 11.5px var(--font); padding: 4px 8px; cursor: pointer; opacity: .75; }
+.copy-btn:hover { opacity: 1; }
+.prose blockquote { margin: 1.1em 0; padding: .4em 1.1em; border-left: 3px solid var(--accent); color: var(--ink-2); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.2em 0; }
+.prose hr + h2 { border-top: 0; padding-top: 0; margin-top: 1em; }
+.prose img { max-width: 100%; border-radius: var(--radius); }
+.table-wrap { overflow-x: auto; margin: 1.1em 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.prose table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.5; }
+.prose th, .prose td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.prose thead th { background: var(--surface-2); font-weight: 650; font-size: 12.5px; color: var(--ink-2); letter-spacing: .01em; }
+.prose tbody tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
+.prose td code, .prose th code { font-size: .82em; }
+.ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
+.bluf > :first-child { margin-top: 0; } .bluf > :last-child { margin-bottom: 0; }
+.bluf ul, .bluf ol { margin: .5em 0 0; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--info); background: var(--info-soft); border-radius: var(--radius); padding: 12px 16px; margin: 1.15em 0; font-size: .97rem; }
+.callout.tip { border-left-color: var(--good); background: var(--good-soft); }
+.callout.warn { border-left-color: var(--mid); background: var(--mid-soft); }
+.callout.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose ul.checklist > li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin: 6px 0; transition: opacity .2s; }
+.prose ul.checklist > li > input { margin: .32em 0 0; width: 16px; height: 16px; accent-color: var(--good); flex: none; cursor: pointer; }
+.prose ul.checklist > li.done { opacity: .58; }
+.prose ul.checklist > li.done .chk-text { text-decoration: line-through; text-decoration-color: var(--muted); }
+.chk-text { flex: 1; min-width: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 1.1em 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.card h4 { margin: 0 0 .35em; font-size: 1rem; line-height: 1.35; }
+.card p, .card ul { margin: .35em 0; font-size: .94rem; color: var(--ink-2); }
+.card > :last-child { margin-bottom: 0; }
+.prose details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0 16px; margin: 1em 0; }
+.prose details > summary { cursor: pointer; padding: 11px 0; font-weight: 600; list-style: none; }
+.prose details > summary::-webkit-details-marker { display: none; }
+.prose details > summary::before { content: "▸"; display: inline-block; width: 1em; margin-right: 6px; transition: transform .15s; color: var(--muted); }
+.prose details[open] > summary::before { transform: rotate(90deg); }
+.prose details[open] { padding-bottom: 12px; }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+.pill.good { background: var(--good-soft); color: var(--good); }
+.pill.mid { background: var(--mid-soft); color: var(--mid); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.tag { display: inline-block; padding: 0 7px; border-radius: 6px; font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); line-height: 1.75; white-space: nowrap; }
+.prose ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.prose ol.steps > li { counter-increment: step; position: relative; padding-left: 44px; margin: 14px 0; min-height: 28px; }
+.prose ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 1.1em 0; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi b { display: block; font-size: 1.45rem; letter-spacing: -.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.prose ol.sources { font-size: 13.5px; color: var(--muted); }
+.prose ol.sources li { margin: .4em 0; overflow-wrap: anywhere; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 14px; font-weight: 600; font-size: 14.5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-family: inherit; }
+.btn:hover { text-decoration: none; border-color: var(--line-2); background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); background: var(--accent); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
+
+/* ---------- pager + footer ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px; background: var(--surface); color: var(--ink); }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager small { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+.pager .next { text-align: right; grid-column: 2; }
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 22px 24px 40px; text-align: center; }
+.foot p { margin: .3em auto; max-width: 900px; }
+
+/* ---------- hub ---------- */
+.hub { max-width: 1200px; margin: 0 auto; padding: 34px 24px 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 30px; align-items: stretch; padding: 34px; border: 1px solid var(--line); border-radius: 18px;
+  background: radial-gradient(1200px 400px at 0% 0%, var(--accent-soft), transparent 60%), var(--surface); box-shadow: var(--shadow); }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 2.9rem); letter-spacing: -.035em; line-height: 1.06; margin: .25em 0 .35em; }
+.hero p.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 1.2em; max-width: 60ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-side { display: flex; flex-direction: column; gap: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); }
+.stat b { display: block; font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.15; }
+.stat span { font-size: 12.5px; color: var(--muted); }
+.overall { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--bg); font-size: 13.5px; color: var(--muted); }
+.overall b { color: var(--ink); }
+.search-wrap { position: relative; margin: 26px 0 8px; }
+.search-wrap input { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px 13px 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search-wrap input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search-wrap .s-ico { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search-wrap kbd { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--bg); }
+.results { display: none; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-top: 8px; max-height: 420px; overflow: auto; }
+.results.on { display: block; }
+.results a { display: block; padding: 10px 16px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.results a:last-child { border-bottom: 0; }
+.results a:hover, .results a.sel { background: var(--accent-soft); text-decoration: none; }
+.results small { display: block; color: var(--muted); font-size: 12.5px; }
+.results .none { padding: 12px 16px; color: var(--muted); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 50px 0 14px; flex-wrap: wrap; }
+.section-head h2 { font-size: 1.45rem; letter-spacing: -.02em; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 4px; counter-reset: flow; }
+.flow a { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); color: var(--ink); position: relative; box-shadow: var(--shadow); }
+.flow a:hover { border-color: var(--accent); text-decoration: none; }
+.flow a b { font-size: 14.5px; }
+.flow a span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.flow a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.flow a::after { content: "→"; position: absolute; right: 12px; top: 12px; color: var(--line-2); font-size: 14px; }
+.flow a:nth-child(8)::after { content: "↺"; color: var(--accent); }
+.flow-base { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+.flow-base a { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 14px; color: var(--ink-2); font-size: 14px; background: transparent; }
+.flow-base a:hover { border-color: var(--accent); text-decoration: none; }
+.flow-base a span { display: block; color: var(--muted); font-size: 12.5px; }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); font-weight: 700; margin: 22px 0 10px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.mcard { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow); transition: border-color .15s, transform .15s; }
+.mcard:hover { border-color: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.mcard .num { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.mcard h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
+.mcard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.mcard .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.mini-bar { height: 3px; background: var(--line); border-radius: 9px; overflow: hidden; width: 70px; }
+.mini-bar i { display: block; height: 100%; background: var(--good); width: 0; }
+.tool-card .ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-size: 18px; font-weight: 700; }
+.lib-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.lib-box { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lib-box h3 { margin: 0 0 8px; font-size: 1rem; display: flex; justify-content: space-between; align-items: baseline; }
+.lib-box h3 small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.lib-box ul { list-style: none; padding: 0; margin: 0; font-size: 14px; }
+.lib-box li { padding: 4px 0; border-top: 1px dashed var(--line); }
+.lib-box li:first-child { border-top: 0; }
+.cmd { font-family: var(--mono); font-size: 13px; background: var(--code-bg); color: var(--code-ink); border-radius: 10px; padding: 12px 14px; overflow: auto; white-space: pre; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1200px) {
+  .shell { grid-template-columns: 230px minmax(0, 1fr); gap: 36px; }
+  .toc { display: none; }
+  .toc-inline { display: block; }
+}
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); padding: 22px 16px 56px; }
+  .sidenav { display: none; position: fixed; inset: 58px 0 0 0; max-height: none; background: var(--bg); z-index: 25; padding: 18px 18px 40px; border-top: 1px solid var(--line); }
+  body.nav-open .sidenav { display: block; }
+  .mobile-only { display: block; }
+  body[data-kind="hub"].nav-open .topnav { display: flex; flex-direction: column; position: fixed; top: 58px; left: 0; right: 0; z-index: 26; background: var(--bg); padding: 10px 14px 16px; border-bottom: 1px solid var(--line); margin: 0; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); }
+  body[data-kind="hub"].nav-open .topnav a { padding: 10px 12px; font-size: 15px; }
+  .topnav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); padding: 24px; }
+  .prose { font-size: 16px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { grid-column: 1; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- print ---------- */
+@media print {
+  @page { margin: 16mm 14mm; }
+  .topbar, .sidenav, .toc, .toc-inline, .pager, .foot, .copy-btn, .icon-btn, .doc-actions, .anchor, .skip { display: none !important; }
+  :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f4; --ink: #000; --ink-2: #111; --muted: #444; --line: #ccc; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .shell { display: block; padding: 0; max-width: none; }
+  .content { max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  .prose pre { background: #f5f5f5; color: #000; border: 1px solid #ddd; }
+  .prose details { border: 0; padding: 0; }
+  .prose details > summary::before { display: none; }
+  .callout, .bluf, .card, .kpi, .prose ul.checklist > li, .table-wrap, pre { break-inside: avoid; box-shadow: none; }
+  h2, h3 { break-after: avoid; }
+  .prose h2 { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-page="00-start-here" data-kind="memo">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-action="menu" aria-label="Open navigation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <a class="brand" href="../index.html"><span class="logo">F</span><span>Freelance OS</span></a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="../index.html#memos" class="on">Memos</a>
+    <a href="../index.html#tools">Tools</a>
+    <a href="../index.html#library">Templates</a>
+    <a href="../index.html#lists">Lists</a>
+    <a href="../index.html#automation">Scripts</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" data-action="print" title="Print or save as PDF" aria-label="Print or save as PDF"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>PDF</span></button>
+    <button class="icon-btn" data-action="theme" title="Toggle light/dark" aria-label="Toggle light or dark theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="shell">
+<aside class="sidenav" aria-label="All memos"><div class="nav-group mobile-only"><div class="nav-group-title">Sections</div><a class="nav-link" href="../index.html">Home</a><a class="nav-link" href="../index.html#memos">Memos</a><a class="nav-link" href="../index.html#tools">Tools</a><a class="nav-link" href="../index.html#library">Templates</a><a class="nav-link" href="../index.html#lists">Lists</a></div><div class="nav-group"><div class="nav-group-title">Strategy</div><a class="nav-link active" href="../memos/00-start-here.html" aria-current="page"><span class="nav-num">00</span><span>Start Here</span><span class="nav-prog" data-nav-prog="00-start-here" data-total="14"></span></a><a class="nav-link" href="../memos/01-positioning.html"><span class="nav-num">01</span><span>Positioning</span><span class="nav-prog" data-nav-prog="01-positioning" data-total="7"></span></a></div><div class="nav-group"><div class="nav-group-title">Foundation</div><a class="nav-link" href="../memos/02-business-setup.html"><span class="nav-num">02</span><span>Business Setup</span><span class="nav-prog" data-nav-prog="02-business-setup" data-total="30"></span></a><a class="nav-link" href="../memos/03-tax-and-money.html"><span class="nav-num">03</span><span>Tax &amp; Money</span><span class="nav-prog" data-nav-prog="03-tax-and-money" data-total="9"></span></a></div><div class="nav-group"><div class="nav-group-title">Revenue</div><a class="nav-link" href="../memos/04-pricing.html"><span class="nav-num">04</span><span>Pricing</span><span class="nav-prog" data-nav-prog="04-pricing" data-total="7"></span></a><a class="nav-link" href="../memos/05-lead-generation.html"><span class="nav-num">05</span><span>Lead Generation</span><span class="nav-prog" data-nav-prog="05-lead-generation" data-total="14"></span></a><a class="nav-link" href="../memos/06-sales-process.html"><span class="nav-num">06</span><span>Sales</span><span class="nav-prog" data-nav-prog="06-sales-process" data-total="17"></span></a></div><div class="nav-group"><div class="nav-group-title">Operations</div><a class="nav-link" href="../memos/07-contracts.html"><span class="nav-num">07</span><span>Contracts</span><span class="nav-prog" data-nav-prog="07-contracts" data-total="12"></span></a><a class="nav-link" href="../memos/08-delivery-ops.html"><span class="nav-num">08</span><span>Delivery Ops</span><span class="nav-prog" data-nav-prog="08-delivery-ops" data-total="19"></span></a></div><div class="nav-group"><div class="nav-group-title">Growth</div><a class="nav-link" href="../memos/09-portfolio-and-brand.html"><span class="nav-num">09</span><span>Portfolio &amp; Brand</span><span class="nav-prog" data-nav-prog="09-portfolio-and-brand" data-total="18"></span></a></div><div class="nav-group"><div class="nav-group-title">Execution</div><a class="nav-link" href="../memos/10-90-day-plan.html"><span class="nav-num">10</span><span>90-Day Launch Plan</span><span class="nav-prog" data-nav-prog="10-90-day-plan" data-total="61"></span></a><a class="nav-link" href="../memos/12-metrics-and-cadence.html"><span class="nav-num">12</span><span>Metrics &amp; Cadence</span><span class="nav-prog" data-nav-prog="12-metrics-and-cadence" data-total="6"></span></a></div></aside>
+<main id="main" class="content">
+  <div class="doc-head">
+    <div class="eyebrow">Strategy · Memo 00</div>
+    <h1>Start Here: Your Freelance Operating System</h1>
+    <p class="subtitle">What this is, how to use it, and the decisions that matter in your first month.</p>
+    <div class="doc-meta"><span>⏱ 12 min read</span><span class="sep">·</span><span data-progress></span><span class="sep">·</span><button class="btn sm" data-action="reset-checks" type="button">Reset ticks</button></div>
+    <div class="progress-bar" data-progress-bar><i></i></div>
+  </div>
+  <details class="toc-inline card"><summary><strong>On this page</strong></summary><a href="#you-have-proof">You have more to show than you think</a><a href="#business-model">The business on one page</a><a href="#how-to-use">How to use this OS</a><a href="#ten-decisions">The 10 decisions for month one</a><a href="#first-14-days">Your first 14 days</a><a href="#principles">Operating principles</a><a href="#glossary">Business glossary (plain English)</a><a href="#repo-map">What's where</a><a href="#sources">Sources</a></details>
+  <article class="prose">
+
+<div class="bluf"><strong>Bottom line.</strong> You are not starting from zero. You have proof most freelancers never get: a live marketplace you built and run (real orders, real GMV, a custom Shopify Sales Channel app, Razorpay in production), back-office work for a Coinbase-owned exchange, a tax-filing module used by 100,000+ people, and a bot that reached 2.4M members. What you're missing is <em>packaging</em> (clear offers), a <em>pipeline</em> (a repeatable way to start conversations), and <em>plumbing</em> (bank, contracts, invoices, tax). This OS gives you all three.
+<ul>
+<li><strong>Weeks 1–2:</strong> set up the plumbing, package two offers, tell your warm network you're available.</li>
+<li><strong>Target:</strong> first paid project by day 30–45. ₹1L/month run-rate by day 90. Then raise prices.</li>
+<li><strong>Every day:</strong> 90 minutes of outreach before any portfolio polishing. Pipeline beats portfolio.</li>
+</ul></div>
+
+<h2 id="you-have-proof">You have more to show than you think<a class="anchor" href="#you-have-proof" aria-label="Link to this section">#</a></h2>
+<p>Clients don't buy portfolios, they buy <strong>reduced risk</strong>. Each asset below takes away a specific fear a buyer has. Use them that way, not as a list of technologies.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Asset</th><th>What it proves</th><th>Who cares most</th><th>How to use it</th></tr></thead>
+<tbody>
+<tr><td><strong>Cultus</strong> (live, launched Apr 2026)</td><td>You can ship a whole commerce product end to end and keep it running: storefront, checkout, partial COD, refunds, a Shopify Sales Channel app, webhooks, reconciliation. 890+ users, 180+ orders, ₹2.9L+ GMV, 12 brands in 4 months.</td><td>Indian D2C brands, Shopify merchants, marketplace and commerce founders</td><td>Flagship case study. Live demo. The 12 brand partners are your warmest leads (see <a href="05-lead-generation.html">Lead Generation</a>).</td></tr>
+<tr><td><strong>Deribit (Coinbase)</strong> back office</td><td>You've worked inside a regulated, high-stakes trading business: RBAC, approval flows, Block RFQ, user management, code review under someone else's standards, Angular→React migration, test infrastructure in CI.</td><td>Fintech, SaaS and ops-heavy companies that need internal tools; teams stuck on legacy Angular</td><td>"Internal tools & admin dashboards" and "Frontend modernization" offers. Logo credibility, but check your NDA before naming specifics.</td></tr>
+<tr><td><strong>Twinntax</strong> tax module</td><td>Schema-driven dynamic forms with recursive validation, versioned by tax year, i18n, 100k+ users. You can handle complex business rules without breaking production.</td><td>Insurance, fintech, legal-tech, HR and any company with heavy forms</td><td>Anonymised case study: "Complex forms that don't break every year."</td></tr>
+<tr><td><strong>Bro Discord bot</strong></td><td>You can take over a messy codebase, rewrite it, migrate data and scale it (10 shards, &lt;60 ms gateway latency, 10k+ servers).</td><td>Startups with a "legacy" MVP, community and gaming products</td><td>Rescue/scale story. Strong proof for the "Prototype → Production" offer.</td></tr>
+<tr><td><strong>Engineering habits</strong>: 115 test files on money paths, 17 ADRs, Vitest in CI</td><td>You build things that stay correct. That's rare among freelancers and it's exactly what clients fear they won't get.</td><td>Every client, especially non-technical founders</td><td>Put it in every proposal's "How I work" section. Offer the ADRs as a deliverable.</td></tr>
+<tr><td><strong>Mentored 10+ devs, ran 5+ interviews</strong></td><td>You can lead, review and communicate.</td><td>Agencies and startups that need a senior IC, not just hands</td><td>Agency pitch, fractional tech-lead offer, paid mentoring as side income.</td></tr>
+<tr><td><strong>CTF background</strong></td><td>Security mindset.</td><td>Founders with AI-built apps (exposed Supabase tables, leaked keys)</td><td>The security-audit angle of the B1 offer.</td></tr>
+</tbody></table></div>
+<div class="callout warn"><strong>Two boundaries to settle first.</strong> (1) <strong>Noovosoft:</strong> re-read your appointment letter and exit papers for confidentiality and non-solicitation clauses before contacting anyone at Deribit or Twinntax. Your ex-employer can also be a <em>client</em> — agencies often subcontract overflow to people they trust. (2) <strong>Cultus:</strong> agree with your co-founders, in writing, how many hours a week Cultus gets, and whether you may pitch services to Cultus brand partners. Doing that without their blessing can damage the marketplace. See <a href="11-risks-and-scams.html">Risks &amp; Scams</a>.</div>
+
+<h2 id="business-model">The business on one page<a class="anchor" href="#business-model" aria-label="Link to this section">#</a></h2>
+<p>A freelance business is a loop, not a line. Each turn of the loop should make the next turn easier: every delivered project should produce a case study, a testimonial, a referral and ideally a retainer.</p>
+<ol class="steps">
+<li><strong>Position</strong> — pick who you serve and what outcome you sell. → <a href="01-positioning.html">01 Positioning</a></li>
+<li><strong>Price</strong> — package the outcome into fixed-scope offers with three options. → <a href="04-pricing.html">04 Pricing</a></li>
+<li><strong>Find leads</strong> — warm network first, then signal-based outreach, platforms and content. → <a href="05-lead-generation.html">05 Lead Generation</a></li>
+<li><strong>Sell</strong> — discovery call → diagnosis → proposal → follow-up → yes. → <a href="06-sales-process.html">06 Sales</a></li>
+<li><strong>Contract</strong> — MSA + SOW, deposit before work starts. → <a href="07-contracts.html">07 Contracts</a></li>
+<li><strong>Deliver</strong> — kickoff, weekly updates, change control, acceptance, handover. → <a href="08-delivery-ops.html">08 Delivery Ops</a></li>
+<li><strong>Get paid &amp; stay compliant</strong> — invoice, collect, GST, income tax, FIRA. → <a href="03-tax-and-money.html">03 Tax &amp; Money</a></li>
+<li><strong>Compound</strong> — case study, testimonial, referral, retainer, content. → <a href="09-portfolio-and-brand.html">09 Portfolio &amp; Brand</a></li>
+</ol>
+<p>Underneath the loop sit four foundations: <a href="02-business-setup.html">business setup</a>, the <a href="10-90-day-plan.html">90-day plan</a>, <a href="11-risks-and-scams.html">risk management</a> and a <a href="12-metrics-and-cadence.html">weekly operating cadence</a>.</p>
+
+<h3 id="two-tracks">Two tracks, one brand<a class="anchor" href="#two-tracks" aria-label="Link to this section">#</a></h3>
+<div class="grid">
+<div class="card"><h4>Track A — Cash now</h4><p><strong>Who:</strong> Indian D2C brands on Shopify.</p><p><strong>Why first:</strong> warm access through Cultus, your proof is exactly their stack, short sales cycles, fixed-price work.</p><p><strong>Offers:</strong> Store Speed Sprint, Shopify apps &amp; integrations, Razorpay checkout, headless storefronts.</p><p><span class="pill mid">₹25k–₹4L per project</span></p></div>
+<div class="card"><h4>Track B — Rate growth</h4><p><strong>Who:</strong> global startups and SMBs (US/UK/EU/AU/SG).</p><p><strong>Why:</strong> 2–4× the rate for the same hour, dollar-denominated, export income is GST zero-rated.</p><p><strong>Offers:</strong> Prototype → Production for AI-built MVPs, internal tools &amp; admin dashboards, Angular→React modernization.</p><p><span class="pill good">$40–60/hr · $3k–15k projects</span></p></div>
+<div class="card"><h4>Always — Recurring</h4><p><strong>Care plans / retainers</strong> for every client after delivery: maintenance, small features, monitoring.</p><p><strong>Why:</strong> predictable income kills the feast-or-famine cycle.</p><p><span class="pill good">₹25k–75k or $1k–3k / month</span></p></div>
+</div>
+
+<h2 id="how-to-use">How to use this OS<a class="anchor" href="#how-to-use" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Part</th><th>What it is</th><th>When you use it</th></tr></thead>
+<tbody>
+<tr><td><strong>Memos</strong> (this site)</td><td>13 decision memos. Each opens with a bottom line and ends with a checklist. Ticks are saved in your browser.</td><td>Read 00→12 once (about 3 hours total). Re-read the relevant memo before each decision.</td></tr>
+<tr><td><strong>Tools</strong> (<code>tools/</code>)</td><td><a href="../tools/crm.html">CRM</a>, <a href="../tools/outreach-composer.html">Outreach Composer</a>, <a href="../tools/proposal-builder.html">Proposal Builder</a>, <a href="../tools/rate-calculator.html">Rate/Tax/Runway Calculator</a>, <a href="../tools/invoice-generator.html">Invoice Generator</a>. Single HTML files, offline, data stays in your browser.</td><td>Daily (CRM, composer), per deal (proposal), monthly (invoices), quarterly (rates).</td></tr>
+<tr><td><strong>Templates</strong> (<code>templates/</code>)</td><td>Contracts, outreach scripts, sales scripts, delivery emails, finance checklists, portfolio copy.</td><td>Copy, fill the <span class="var">{{VARIABLES}}</span>, send. Never send a template unedited.</td></tr>
+<tr><td><strong>Lists</strong> (<code>lists/</code>)</td><td>Platforms, lead sources, communities, market rates, payment rails, bridge income, tool stack, reading list, compliance calendar.</td><td>When choosing a channel or tool.</td></tr>
+<tr><td><strong>Scripts</strong> (<code>scripts/</code>)</td><td>Node scripts that mine HN freelancer threads, audit store speed and tech stacks, pull funding news and Reddit posts into CRM-ready CSVs.</td><td>Weekly, on Monday morning, to refill the prospect list.</td></tr>
+</tbody></table></div>
+<div class="callout tip"><strong>Run it locally on one origin.</strong> <code>npm start</code> builds the site and serves it at <code>http://localhost:4321</code>. Using one origin lets the Outreach Composer write touches into the CRM. Opening files directly also works; export a CRM backup every Friday either way.</div>
+
+<h2 id="ten-decisions">The 10 decisions for month one<a class="anchor" href="#ten-decisions" aria-label="Link to this section">#</a></h2>
+<p>Each has a recommended default so you can decide in minutes and move on. Revisit at day 90 with real data.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>#</th><th>Decision</th><th>Recommended default</th><th>Where</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>What do I sell, to whom?</td><td>Track A (D2C/Shopify, India) for cash + Track B1 (Prototype → Production, global) for rate growth. One headline: "Product engineer for commerce &amp; internal tools."</td><td><a href="01-positioning.html">01</a></td></tr>
+<tr><td>2</td><td>What's my floor rate?</td><td>₹1,200/hr India, $35/hr global. Quote fixed prices built from ₹1,500–2,500/hr and $40–60/hr.</td><td><a href="04-pricing.html">04</a>, <a href="../tools/rate-calculator.html">calculator</a></td></tr>
+<tr><td>3</td><td>What legal form?</td><td>Sole proprietorship (no registration needed) + free Udyam registration. Revisit an LLP/Pvt Ltd only past ~₹50–75L receipts, when hiring, or when a client demands it.</td><td><a href="02-business-setup.html">02</a></td></tr>
+<tr><td>4</td><td>GST: register or not?</td><td>Mandatory above ₹20L aggregate turnover. Below that it depends on your client mix: get a CA's view if you'll serve Indian B2B clients who want input credit, or have only export income.</td><td><a href="03-tax-and-money.html">03</a></td></tr>
+<tr><td>5</td><td>How do foreign clients pay me?</td><td>A low-fee rail that issues a FIRA/FIRC (proof of export). Keep PayPal as a last resort.</td><td><a href="03-tax-and-money.html">03</a>, <a href="../library/lists/payment-rails.html">payment rails</a></td></tr>
+<tr><td>6</td><td>What do clients sign?</td><td>MSA (once) + SOW (per project) + change requests. 50% deposit before work. IP transfers on full payment.</td><td><a href="07-contracts.html">07</a></td></tr>
+<tr><td>7</td><td>How do I split my week?</td><td>Until two clients: 50% selling, 30% portfolio and proof, 20% skills and admin. Once booked: never below 20% selling.</td><td><a href="12-metrics-and-cadence.html">12</a></td></tr>
+<tr><td>8</td><td>Do I take bridge income?</td><td>Yes if runway is under 6 months: capped at 15–20 hrs/week, ideally something that builds the business (contract roles, interviewing, AI code-evaluation work).</td><td><a href="../library/lists/bridge-income.html">bridge income</a></td></tr>
+<tr><td>9</td><td>What's my runway target?</td><td>6 months of personal and business burn in a separate account before you depend on freelance income. Health insurance in place this month, because your group cover ended with the job.</td><td><a href="02-business-setup.html">02</a>, <a href="../tools/rate-calculator.html">runway tab</a></td></tr>
+<tr><td>10</td><td>How much time goes to Cultus?</td><td>A fixed block (e.g., 10 hrs/week), written down with your co-founders, so freelancing and Cultus don't silently eat each other.</td><td><a href="11-risks-and-scams.html">11</a></td></tr>
+</tbody></table></div>
+
+<h2 id="first-14-days">Your first 14 days<a class="anchor" href="#first-14-days" aria-label="Link to this section">#</a></h2>
+<p>The full week-by-week plan is in <a href="10-90-day-plan.html">10 · 90-Day Plan</a>. These are the non-negotiables.</p>
+<ul class="checklist">
+<li>Read memos 00, 01, 05 and 10 (about 75 minutes).</li>
+<li>Write down your personal monthly burn and current savings, then compute runway in the <a href="../tools/rate-calculator.html">calculator</a>.</li>
+<li>Buy personal health insurance if your group cover lapsed with the job.</li>
+<li>Open (or designate) a separate bank account for business money only.</li>
+<li>Register on Udyam (free, about 20 minutes with Aadhaar + PAN).</li>
+<li>Agree a written time boundary with your Cultus co-founders, and whether you can offer services to Cultus brands.</li>
+<li>Re-read your Noovosoft exit papers for NDA and non-solicit clauses.</li>
+<li>Pick your two launch offers (recommended: A1 Store Speed Sprint + B1 Prototype → Production audit).</li>
+<li>Update your LinkedIn headline, About and Featured section (copy in <a href="../library/templates/portfolio/linkedin-profile.html">linkedin-profile.md</a>).</li>
+<li>Build your 100-person warm list in the <a href="../tools/crm.html">CRM</a> (source = warm-network).</li>
+<li>Post your "I'm taking on projects" announcement and send the first 25 personal DMs.</li>
+<li>Get a domain and professional email. Publish a one-page site with two offers and a booking link.</li>
+<li>Fill in the MSA and SOW templates with your details so you can send a contract the same day someone says yes.</li>
+<li>Draft the Cultus case study (outline in <a href="../library/templates/portfolio/case-studies.html">case-studies.md</a>).</li>
+</ul>
+
+<h2 id="principles">Operating principles<a class="anchor" href="#principles" aria-label="Link to this section">#</a></h2>
+<div class="grid">
+<div class="card"><h4>1 · Warm before cold</h4><p>People who already trust you convert 5–10× better. Exhaust the warm network before you scale outreach to strangers.</p></div>
+<div class="card"><h4>2 · Sell outcomes, price packages</h4><p>"Mobile LCP under 2.5 s in 10 days for ₹45k" beats "React dev, ₹1,500/hr."</p></div>
+<div class="card"><h4>3 · Diagnose before you prescribe</h4><p>Paid audits and discovery sprints turn strangers into clients with low risk on both sides.</p></div>
+<div class="card"><h4>4 · No deposit, no start</h4><p>Signed SOW + deposit received = kickoff. No exceptions for "urgent" work. Urgency is when it matters most.</p></div>
+<div class="card"><h4>5 · Always be prospecting</h4><p>Keep at least 20% of your week on pipeline, even when busy, or you'll hit a famine 6 weeks after the feast.</p></div>
+<div class="card"><h4>6 · Write it down</h4><p>Every conversation goes in the CRM with a next action and a date. Memory is not a system.</p></div>
+<div class="card"><h4>7 · Raise prices on a schedule</h4><p>Increase rates 10–20% for new clients after every 3 wins, or when you're booked more than 6 weeks out.</p></div>
+<div class="card"><h4>8 · Protect the downside</h4><p>Six months' runway, no client above 50% of revenue, contracts for everything, a sandbox for untrusted code.</p></div>
+<div class="card"><h4>9 · Every project → four assets</h4><p>Case study, testimonial, referral ask, retainer offer. Ask for all four at handover, while the client is happiest.</p></div>
+</div>
+
+<h2 id="glossary">Business glossary (plain English)<a class="anchor" href="#glossary" aria-label="Link to this section">#</a></h2>
+<details><summary>Sales &amp; marketing terms</summary>
+<div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>ICP (ideal customer profile)</td><td>A precise description of the client you serve best: industry, size, stage, stack, trigger events. You write messages for one ICP at a time.</td></tr>
+<tr><td>Positioning</td><td>What you're known for and for whom. Good positioning makes you the obvious choice for a narrow problem.</td></tr>
+<tr><td>Offer / productized service</td><td>A packaged service with a fixed scope, timeline and price, e.g., "Store Speed Sprint — ₹45k, 10 days".</td></tr>
+<tr><td>Lead → prospect → opportunity</td><td>Lead: a name that might fit. Prospect: qualified fit you've contacted. Opportunity/deal: a real conversation about a project.</td></tr>
+<tr><td>Pipeline</td><td>All open deals by stage. Weighted pipeline = Σ (deal value × win probability).</td></tr>
+<tr><td>Warm / cold outreach</td><td>Warm: they know you or a mutual contact. Cold: they don't. Warm converts far better.</td></tr>
+<tr><td>Trigger / signal</td><td>An event that creates a need now: funding round, new hire posting, replatforming, bad reviews, slow site, launch.</td></tr>
+<tr><td>Discovery call</td><td>A 20–30 minute call to understand the problem, the impact, the budget and the decision process before proposing anything.</td></tr>
+<tr><td>Qualification</td><td>Deciding whether a lead is worth pursuing: fit, budget, authority, timeline, ability to pay.</td></tr>
+<tr><td>Proposal</td><td>A written recommendation with scope, options, price and next steps. Not a quote — it sells.</td></tr>
+<tr><td>Anchoring</td><td>Showing a higher-priced option first so the recommended option feels reasonable.</td></tr>
+<tr><td>Conversion rate</td><td>Percent moving from one stage to the next (e.g., calls → proposals).</td></tr>
+<tr><td>CAC / LTV</td><td>Cost (mostly your time) to acquire a client / total revenue from a client over the relationship.</td></tr>
+<tr><td>Case study / testimonial / referral</td><td>A written story with numbers / a quote from the client / an introduction to a new client from an existing one.</td></tr>
+</tbody></table></div></details>
+<details><summary>Delivery &amp; contract terms</summary>
+<div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>MSA (master services agreement)</td><td>The umbrella contract: IP, payment, liability, confidentiality. Signed once per client.</td></tr>
+<tr><td>SOW (statement of work)</td><td>Per-project document: scope, deliverables, acceptance criteria, timeline, price, milestones.</td></tr>
+<tr><td>Change request (CR)</td><td>A written, priced change to the SOW. Your defence against scope creep.</td></tr>
+<tr><td>Scope creep</td><td>Unpaid growth of the work ("small tweak", "while you're at it").</td></tr>
+<tr><td>Acceptance criteria / UAT</td><td>The agreed test of "done" / the client's user-acceptance testing window.</td></tr>
+<tr><td>Deposit / milestone billing</td><td>Upfront payment before work / staged payments tied to deliverables.</td></tr>
+<tr><td>Net 7 / Net 30</td><td>Invoice due 7 / 30 days after the invoice date.</td></tr>
+<tr><td>Kill fee</td><td>Payment owed if the client cancels mid-project.</td></tr>
+<tr><td>Retainer / care plan</td><td>Monthly fee for a reserved block of availability or ongoing maintenance.</td></tr>
+<tr><td>Utilization</td><td>Billable hours ÷ available hours. 50–65% is healthy for a solo freelancer; the rest is selling and admin.</td></tr>
+<tr><td>Effective hourly rate</td><td>Project fee ÷ hours you actually spent. The real measure of a fixed-price deal.</td></tr>
+<tr><td>Limitation of liability</td><td>A cap on how much you can owe if something goes wrong, usually the fees paid.</td></tr>
+</tbody></table></div></details>
+<details><summary>India tax &amp; money terms</summary>
+<div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Presumptive taxation (s.58, formerly 44ADA)</td><td>Professionals with receipts within the limit can declare 50% of gross receipts as taxable income without detailed books. Huge simplification and usually a big tax saving.</td></tr>
+<tr><td>New tax regime</td><td>Default slabs with few deductions. Income up to ₹12L effectively tax-free via rebate.</td></tr>
+<tr><td>Advance tax</td><td>Paying income tax during the year. Under presumptive taxation, generally one instalment by 15 March.</td></tr>
+<tr><td>TDS</td><td>Tax deducted at source: Indian business clients may withhold 10% (professional) or 2% (technical) of your fee and deposit it against your PAN. You claim it back in your return.</td></tr>
+<tr><td>GST, GSTIN, SAC</td><td>Goods and Services Tax (18% on IT services), your GST registration number, and the service code on invoices (IT design &amp; development: 998314).</td></tr>
+<tr><td>Export of services / zero-rated</td><td>Services to a client abroad, paid in foreign currency: no GST is charged.</td></tr>
+<tr><td>LUT</td><td>Letter of Undertaking: filed annually by GST-registered exporters to invoice foreign clients without paying IGST.</td></tr>
+<tr><td>FIRA / FIRC / e-BRC</td><td>Bank or platform documents proving a foreign payment came in. Keep them for tax and GST.</td></tr>
+<tr><td>Purpose code</td><td>RBI code telling the bank why money arrived (software services).</td></tr>
+<tr><td>Udyam / MSME</td><td>Free government registration as a micro enterprise. Gives statutory protection against late payments by Indian buyers.</td></tr>
+<tr><td>W-8BEN</td><td>US form a US client may ask for, certifying you're a non-US person.</td></tr>
+<tr><td>ITR-4 / ITR-3</td><td>Income-tax return forms: ITR-4 for presumptive income, ITR-3 for regular business income.</td></tr>
+</tbody></table></div></details>
+
+<h2 id="repo-map">What's where<a class="anchor" href="#repo-map" aria-label="Link to this section">#</a></h2>
+<pre><code>index.html                 hub: search, memos, tools, templates, lists
+memos/                     generated memo pages (sources in site/src/)
+tools/                     CRM, outreach composer, proposal, rate/tax, invoice
+templates/contracts/       MSA (India + international), SOW, NDA, CR, retainer, subcontract
+templates/outreach/        warm, LinkedIn, cold email, agencies, marketplaces, follow-ups
+templates/sales/           discovery script, qualification, objections, negotiation
+templates/delivery/        onboarding, kickoff, weekly update, reminders, handover
+templates/finance/         invoice checklist, CA brief, monthly close, client tax FAQ
+templates/portfolio/       case studies, LinkedIn profile, website copy, content calendar
+lists/                     platforms, lead sources, communities, rates, rails, tools
+scripts/                   prospecting scripts → out/*.csv → CRM import
+site/                      build system (npm run build / npm run dev / npm start)</code></pre>
+
+<h2 id="sources">Sources<a class="anchor" href="#sources" aria-label="Link to this section">#</a></h2>
+<ol class="sources">
+<li>Parth Kulkarni, résumé (Nov 2026) — every proof point above.</li>
+<li><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener">India Code</a> — bare acts referenced across memos (Contract Act, Copyright Act, MSMED Act, IT Act).</li>
+<li>Memos 02, 03 and 07 carry the detailed tax and legal sources, including primary government links.</li>
+</ol>
+</article>
+  <nav class="pager" aria-label="Memo navigation"><span></span><a class="next" href="01-positioning.html"><small>Next →</small>Positioning: What You Sell and to Whom</a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a href="#you-have-proof">You have more to show than you think</a><a href="#business-model">The business on one page</a><a href="#how-to-use">How to use this OS</a><a href="#ten-decisions">The 10 decisions for month one</a><a href="#first-14-days">Your first 14 days</a><a href="#principles">Operating principles</a><a href="#glossary">Business glossary (plain English)</a><a href="#repo-map">What's where</a><a href="#sources">Sources</a></aside>
+</div>
+<footer class="foot"><p>Freelance OS · research current as of November 2026 · General information, not legal or tax advice. Confirm tax and legal items with a CA or lawyer before acting.</p><p>Checklist ticks and tool data are saved in this browser only.</p></footer>
+<script>/* Freelance OS — page behaviour (inlined into every generated page by site/build.mjs) */
+(() => {
+  const root = document.documentElement;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+
+  /* theme */
+  const saved = store.get('fos.theme', 'auto');
+  if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
+  $$('[data-action="theme"]').forEach((b) => b.addEventListener('click', () => {
+    const cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    store.set('fos.theme', next);
+  }));
+  $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
+  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
+  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
+  const page = document.body.dataset.page || 'page';
+
+  /* persistent checklists */
+  const items = $$('.prose ul.checklist > li');
+  const seen = new Map();
+  items.forEach((li) => {
+    const text = li.textContent.trim().replace(/\s+/g, ' ');
+    let k = hash(text);
+    const n = (seen.get(k) || 0) + 1; seen.set(k, n);
+    if (n > 1) k += '-' + n;
+    li.dataset.k = k;
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Mark as done');
+    const span = document.createElement('span');
+    span.className = 'chk-text';
+    while (li.firstChild) span.appendChild(li.firstChild);
+    li.append(box, span);
+    box.checked = store.get(`fos.chk.${page}.${k}`, false) === true;
+    li.classList.toggle('done', box.checked);
+    box.addEventListener('change', () => {
+      store.set(`fos.chk.${page}.${k}`, box.checked);
+      li.classList.toggle('done', box.checked);
+      updateProgress();
+    });
+  });
+
+  function countDone(slug) {
+    let n = 0;
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(`fos.chk.${slug}.`) && localStorage.getItem(k) === 'true') n++;
+      }
+    } catch { /* ignore */ }
+    return n;
+  }
+
+  function updateProgress() {
+    const done = items.filter((li) => li.querySelector('input')?.checked).length;
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
+    let allDone = 0; let allTotal = 0;
+    $$('[data-nav-prog]').forEach((el) => {
+      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
+      const d = Math.min(total, slug === page ? done : countDone(slug));
+      allDone += d; allTotal += total;
+      if (!total) return;
+      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
+      el.textContent = `${d}/${total}`;
+      el.classList.toggle('full', d === total);
+    });
+    $$('[data-overall]').forEach((el) => {
+      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
+      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
+    });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+  }
+  updateProgress();
+
+  /* reset checklist for this page */
+  $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
+    if (!confirm('Clear all ticks on this page?')) return;
+    items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
+    updateProgress();
+  }));
+
+  /* copy buttons on code blocks */
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; } catch {
+      const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove(); return ok;
+    }
+  }
+  $$('.prose pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
+    b.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      setTimeout(() => { b.textContent = 'Copy'; }, 1400);
+    });
+    pre.appendChild(b);
+  });
+  $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
+    const src = document.getElementById('md-source');
+    if (!src) return;
+    const ok = await copyText(src.textContent.replace(/<\\\/script/gi, '</script'));
+    const old = b.textContent; b.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    setTimeout(() => { b.textContent = old; }, 1500);
+  }));
+
+  /* scroll spy for the right-hand TOC */
+  const tocLinks = $$('.toc a[href^="#"]');
+  if (tocLinks.length) {
+    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      let cur = heads[0];
+      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
+      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  }
+
+  /* hub search */
+  const input = document.getElementById('hub-search');
+  const box = document.getElementById('hub-results');
+  if (input && box && Array.isArray(window.FOS_INDEX)) {
+    const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    let sel = -1;
+    const render = () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
+      const terms = q.split(/\s+/).filter(Boolean);
+      const scored = idx.map((d) => {
+        let score = 0;
+        for (const t of terms) {
+          if (!d.hay.includes(t)) return null;
+          if (d.t.toLowerCase().includes(t)) score += 5;
+          if ((d.h || []).some((h) => h.toLowerCase().includes(t))) score += 2;
+          score += 1;
+        }
+        return { d, score };
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      sel = -1;
+      box.innerHTML = scored.length
+        ? scored.map(({ d }) => {
+          const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
+          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
+        }).join('')
+        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+      box.classList.add('on');
+    };
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      const links = $$('a', box);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((a, i) => a.classList.toggle('sel', i === sel));
+        links[sel].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const target = links[sel >= 0 ? sel : 0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { input.value = ''; render(); }
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !/input|textarea|select/i.test(document.activeElement?.tagName || '')) {
+        e.preventDefault(); input.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
