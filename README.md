@@ -56,7 +56,7 @@ That rebuilds automatically while you edit memos (`site/src/*.html`) or Markdown
 npm run hn
 ```
 
-That finds "SEEKING FREELANCER" posts and contract roles in recent HN threads and writes them to `out/*.csv`, ready to import into the CRM.
+That finds contract and freelance roles in recent HN "Who is hiring?" and freelancer threads and writes them to `out/*.csv`, ready to import into the CRM.
 
 ```bash
 npm run audit -- scripts/sample-domains.txt
