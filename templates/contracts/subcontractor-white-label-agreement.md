@@ -4,7 +4,7 @@
 >
 > **When to use:** An agency (design studio, Shopify agency, marketing agency, dev shop) hires you to build for *their* client (the "End Client"). Agencies make good early clients: they bring the projects and handle the selling, and the work repeats. The trade-offs are lower rates and three structural risks: **pay-when-paid**, **broad client non-solicits** and **flow-down of the End Client's harsh terms**. This template defends against all three. If the agency sends its own contractor agreement, check it against the "Never remove" list below and [red-flag-clauses.md](red-flag-clauses.md).
 >
-> **How to fill:** Fill `{{…}}`. Each project gets a short **Work Order** (Annex A). Indian agency: keep Indian law and add MSMED wording from [msa-india.md](msa-india.md) cl. 7.2. Foreign agency: use their governing law, or SIAC.
+> **How to fill:** Fill in `{{…}}` and the `[bracketed]` choices. Each project gets a short **Work Order** (Annex A). Indian agency: keep Indian law and add MSMED wording from [msa-india.md](msa-india.md) cl. 7.2. Foreign agency: use their governing law, or SIAC.
 >
 > **Never remove:** 3.2 (payment doesn't depend on End Client paying), 6 (narrow non-solicit with a release fee rather than an outright ban), 7 (IP passes on payment), 8 (flow-down limited to terms disclosed in writing), 9 (liability cap).
 
@@ -31,7 +31,7 @@
 - **₹ / $ {{HOURLY}}/hour**, or **₹ / $ {{DAILY}}/day** (8 hours);
 - fixed-fee Work Orders: **{{30–50}}% on start**, the rest on Agency's acceptance.
 
-**3.2 No pay-when-paid.** Consultant invoices Agency {{monthly in arrears / per milestone}}. Agency pays within **{{15}} days of the invoice date**, whether or not the End Client has paid Agency. [Fallback, if you must accept it: payment is due within 15 days of the End Client paying, and in any case **no later than 45 days** after the invoice date.]
+**3.2 No pay-when-paid.** Consultant invoices Agency [monthly in arrears / per milestone]. Agency pays within **{{15}} days of the invoice date**, whether or not the End Client has paid Agency. [Fallback, if you must accept it: payment is due within 15 days of the End Client paying, and in any case **no later than 45 days** after the invoice date.]
 
 **3.3** Agency approves the hours on each timesheet within 3 business days of receiving it. Any hours not disputed in that time are treated as approved.
 
@@ -113,9 +113,9 @@ Consultant is an independent contractor and handles its own taxes. Nothing in th
 
 ## Annex A — Work Order template
 - **WO No.:** {{WO-NN}} · **End Client:** {{name or code name}} · **Agency lead:** {{name}}
-- **Scope and deliverables:** {{bullets}} · **Acceptance:** {{criteria; Agency reviews within 5 business days, after which the work is deemed accepted}}
-- **Commercials:** {{₹ / $ hourly, capped at N hours}} or {{fixed ₹ / $, with 30–50% upfront}} · **Invoicing:** {{monthly / milestones}} · **Payment:** 15 days
+- **Scope and deliverables:** {{bullets}} · **Acceptance:** [criteria; Agency reviews within 5 business days, after which the work is deemed accepted]
+- **Commercials:** [₹ / $ hourly, capped at N hours] or [fixed ₹ / $, with 30–50% upfront] · **Invoicing:** {{monthly / milestones}} · **Payment:** 15 days
 - **Timeline:** {{start}} → {{end}} · **Hours/week:** {{N}}
 - **Flow-down terms disclosed:** {{list documents, or "none"}}
-- **Tools and access:** {{Agency GitHub / Jira / Slack; End Client repos}}
+- **Tools and access:** [Agency GitHub / Jira / Slack; End Client repos]
 - **Signed:** Agency ____ · Consultant ____

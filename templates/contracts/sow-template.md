@@ -4,7 +4,7 @@
 >
 > **When to use:** Use one SOW for every project or phase under a signed MSA ([msa-india.md](msa-india.md) / [msa-international.md](msa-international.md)). The SOW is the document clients actually read, so most disputes are won or lost here.
 >
-> **How to fill:** Replace every `{{…}}` and delete the guidance in `[square brackets]`. Each deliverable needs **testable** acceptance criteria, meaning a neutral person could check pass or fail. The out-of-scope list should be longer than you think it needs to be. Two worked examples at the end cover the A1 Speed Sprint and the B1 Prototype→Production audit.
+> **How to fill:** Replace every `{{…}}`, swap each `[e.g. …]` example for real content, and delete the other `[guidance]`. Each deliverable needs **testable** acceptance criteria, meaning a neutral person could check pass or fail. The out-of-scope list should be longer than you think it needs to be. Two worked examples at the end cover the A1 Speed Sprint and the B1 Prototype→Production audit.
 >
 > **Never remove:** the Out-of-scope list, Client dependencies with dates, acceptance criteria, the payment schedule (deposit first), and the Change Request rate.
 
@@ -15,13 +15,13 @@
 **Project:** {{PROJECT_NAME}} · **SOW date:** {{SOW_DATE}} · **Valid for signature until:** {{SOW_DATE + 14 days}}
 
 ## 1. Background and objective
-{{2–4 sentences on the problem in the client's own words, and why now.}}
-**Objective:** {{the business outcome, e.g. "Cut mobile checkout drop-off by fixing speed and checkout-flow issues before the Diwali sale on 20 Oct"}}.
-**Success signals (not guarantees):** {{metrics you'll both watch, e.g. mobile LCP, checkout completion rate, admin task time}}.
+[2–4 sentences on the problem in the client's own words, and why now.]
+**Objective:** [the business outcome, e.g. "Cut mobile checkout drop-off by fixing speed and checkout-flow issues before the Diwali sale on 20 Oct"].
+**Success signals (not guarantees):** [metrics you'll both watch, e.g. mobile LCP, checkout completion rate, admin task time].
 
 ## 2. Scope of services
 [One line per capability. Write user-visible outcomes, not tech jargon.]
-1. {{e.g. Audit the storefront's performance on the 3 highest-traffic templates}}
+1. [e.g. Audit the storefront's performance on the 3 highest-traffic templates]
 2. {{…}}
 3. {{…}}
 
@@ -29,35 +29,35 @@
 
 | ID | Deliverable | Description | Acceptance criteria (pass/fail) |
 |---|---|---|---|
-| D1 | {{e.g. Audit report}} | {{PDF/Notion doc}} | {{Covers sections X, Y, Z; every finding has severity, evidence, fix, estimate}} |
-| D2 | {{e.g. Implemented fixes}} | {{Merged PRs in client repo}} | {{All items in fix-list marked "in scope" deployed to production; CI green; no new console errors on the 3 templates}} |
-| D3 | {{Handover}} | {{README, ADRs, Loom walkthrough}} | {{Another developer can run the project locally from README in < 30 min}} |
+| D1 | {{e.g. Audit report}} | {{PDF/Notion doc}} | [Covers sections X, Y, Z; every finding has severity, evidence, fix, estimate] |
+| D2 | {{e.g. Implemented fixes}} | {{Merged PRs in client repo}} | [All items in fix-list marked "in scope" deployed to production; CI green; no new console errors on the 3 templates] |
+| D3 | {{Handover}} | {{README, ADRs, Loom walkthrough}} | [Another developer can run the project locally from README in < 30 min] |
 
 [Avoid acceptance criteria tied to business results you can't control, like "revenue +20%". Use lab metrics, delivered functionality, or tests passing instead.]
 
 ## 4. Out of scope (anything here, or not listed in §2–3, is a Change Request)
-- {{e.g. New features not listed in §2}}
-- {{e.g. Content writing, copywriting, product photography, translations}}
-- {{e.g. Third-party app/plugin bugs or vendor-side outages}}
-- {{e.g. Ongoing maintenance after the 30-day warranty — see Care Plan}}
-- {{e.g. Data migration beyond {{N}} records / SEO / paid ads / design system}}
-- {{e.g. Support for browsers older than the last 2 versions of Chrome, Safari, Firefox, Edge}}
+- [e.g. New features not listed in §2]
+- [e.g. Content writing, copywriting, product photography, translations]
+- [e.g. Third-party app/plugin bugs or vendor-side outages]
+- [e.g. Ongoing maintenance after the 30-day warranty — see Care Plan]
+- [e.g. Data migration beyond {{N}} records / SEO / paid ads / design system]
+- [e.g. Support for browsers older than the last 2 versions of Chrome, Safari, Firefox, Edge]
 
 ## 5. Assumptions
-- {{e.g. Client is on Shopify {{plan}} and has admin access to grant a collaborator request}}
-- {{e.g. Client's existing design/brand assets will be used as-is}}
-- {{e.g. Third-party APIs (Razorpay, Shopify Admin API) behave as documented}}
-- {{e.g. Up to {{2}} revision rounds per design/content item}}
+- [e.g. Client is on Shopify {{plan}} and has admin access to grant a collaborator request]
+- [e.g. Client's existing design/brand assets will be used as-is]
+- [e.g. Third-party APIs (Razorpay, Shopify Admin API) behave as documented]
+- [e.g. Up to {{2}} revision rounds per design/content item]
 If an assumption proves false, Consultant will raise a Change Request.
 
 ## 6. Client responsibilities and dependencies
 
 | # | Client provides | By (date) | If late |
 |---|---|---|---|
-| C1 | Access: {{GitHub org invite / Shopify collaborator approval / Vercel / Supabase / Razorpay team member}} | {{date}} | Dates move day-for-day |
+| C1 | Access: [GitHub org invite / Shopify collaborator approval / Vercel / Supabase / Razorpay team member] | {{date}} | Dates move day-for-day |
 | C2 | Decision-maker available for {{30-min}} weekly review | Weekly | — |
 | C3 | Feedback on each deliverable within the 5-business-day Review Period | Per delivery | Deemed acceptance (MSA cl. 8.4) |
-| C4 | {{Content / test accounts / sample data}} | {{date}} | Dates move day-for-day |
+| C4 | [Content / test accounts / sample data] | {{date}} | Dates move day-for-day |
 
 ## 7. Timeline and milestones
 
@@ -70,11 +70,11 @@ If an assumption proves false, Consultant will raise a Change Request.
 *Dates assume the deposit clears by {{date}} and Client dependencies in §6 arrive on time.
 
 ## 8. Fees
-- **Type:** {{Fixed price / Time & materials capped at {{N}} hours / Retainer}}
-- **Total:** **₹/$ {{TOTAL}}** {{+ GST @ 18% if registered / "Export of services — zero-rated"}}
+- **Type:** [Fixed price / Time & materials capped at {{N}} hours / Retainer]
+- **Total:** **₹/$ {{TOTAL}}** [+ GST @ 18% if registered / "Export of services — zero-rated"]
 - **Payment terms:** invoices due in {{7}} days (MSA cl. 6). Stop-work if any invoice is more than {{14}} days overdue (MSA cl. 7.3).
 - **Change requests:** ₹{{RATE}}/hr or ${{RATE}}/hr; quoted before work starts.
-- **Third-party costs** (apps, hosting, APIs, fonts) are paid by Client directly: {{list known costs, e.g. "Shopify app X ~$20/mo"}}.
+- **Third-party costs** (apps, hosting, APIs, fonts) are paid by Client directly: [list known costs, e.g. "Shopify app X ~$20/mo"].
 
 ## 9. Ways of working
 - **Channel of record:** {{email / shared Slack channel}}. WhatsApp is for quick pings only; decisions get confirmed in the channel of record.
@@ -90,8 +90,8 @@ If an assumption proves false, Consultant will raise a Change Request.
 - **After warranty:** optional Care Plan from ₹{{25,000}}/month or ${{1,000}}/month ([retainer-agreement.md](retainer-agreement.md)).
 
 ## 11. Background IP and third-party components (known now)
-- Background IP: {{e.g. Consultant's Next.js starter, test utilities, Razorpay webhook verification helper}}. Licensed to Client under MSA cl. 9.1.
-- Key open-source/third-party components: {{e.g. Next.js (MIT), Supabase JS (MIT), Shopify Polaris (custom licence)}}.
+- Background IP: [e.g. Consultant's Next.js starter, test utilities, Razorpay webhook verification helper]. Licensed to Client under MSA cl. 9.1.
+- Key open-source/third-party components: [e.g. Next.js (MIT), Supabase JS (MIT), Shopify Polaris (custom licence)].
 
 ## 12. Sign-off
 | | Consultant | Client |

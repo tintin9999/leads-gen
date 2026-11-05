@@ -4,7 +4,7 @@
 >
 > **When to use:** Any Indian client where you expect repeat work, or the first project is ₹50,000+. Sign the MSA once; each project then needs only a short SOW ([sow-template.md](sow-template.md)). One-off job under ₹50,000? Use [one-page-agreement.md](one-page-agreement.md).
 >
-> **How to fill:** Replace every `{{…}}`. Delete `[guidance in square brackets]`. Keep price, scope and dates in the SOW, not here. Pay stamp duty (₹500 in Maharashtra, Art. 5(h)(B)) on or before the signing date, then e-sign. Delete clause 7.2 if you are not Udyam-registered. Register on Udyam *before* signing: courts are split on whether registration after the contract counts.
+> **How to fill:** Replace every `{{…}}` and `[bracketed choice]`. Delete `[guidance]` notes. Keep price, scope and dates in the SOW, not here. Pay stamp duty (₹500 in Maharashtra, Art. 5(h)(B)) on or before the signing date, then e-sign. Delete clause 7.2 if you are not Udyam-registered. Register on Udyam *before* signing: courts are split on whether registration after the contract counts.
 >
 > **Never remove:** 6.2 (no work before the deposit), 7.3 (stop-work), 8.4 (deemed acceptance), 9.3–9.4 (IP passes only on full payment, with full-term, worldwide, no-lapse wording; Copyright Act s.19 defaults otherwise cut the assignment to 5 years and India only), 13 (liability cap), 16.4 (payment on termination), 17.2 (no non-compete).
 
@@ -14,11 +14,11 @@
 
 **BETWEEN**
 
-**{{BUSINESS_NAME}}**, a sole proprietorship of {{YOUR_NAME}}, PAN {{YOUR_PAN}}, GSTIN {{YOUR_GSTIN — or "not registered under GST"}}, Udyam Registration No. {{UDYAM_NUMBER}}, of {{YOUR_ADDRESS}} ("**Consultant**");
+**{{BUSINESS_NAME}}**, a sole proprietorship of {{YOUR_NAME}}, PAN {{YOUR_PAN}}, GSTIN {{YOUR_GSTIN}} [or "not registered under GST"], Udyam Registration No. {{UDYAM_NUMBER}}, of {{YOUR_ADDRESS}} ("**Consultant**");
 
 **AND**
 
-**{{CLIENT_LEGAL_NAME}}**, a {{private limited company / LLP / partnership / proprietorship}} [CIN/LLPIN {{CLIENT_CIN}}], PAN {{CLIENT_PAN}}, GSTIN {{CLIENT_GSTIN}}, having its registered office at {{CLIENT_ADDRESS}} ("**Client**").
+**{{CLIENT_LEGAL_NAME}}**, a [private limited company / LLP / partnership / proprietorship] [CIN/LLPIN {{CLIENT_CIN}}], PAN {{CLIENT_PAN}}, GSTIN {{CLIENT_GSTIN}}, having its registered office at {{CLIENT_ADDRESS}} ("**Client**").
 
 Consultant and Client are each a "**Party**".
 

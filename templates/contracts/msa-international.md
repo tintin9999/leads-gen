@@ -4,7 +4,7 @@
 >
 > **When to use:** Clients outside India (US, UK, EU, Singapore, UAE, Australia…) where you expect repeat work or the first project is ≥ $1,000. Per-project details go in a SOW ([sow-template.md](sow-template.md)). If the client sends its own contractor agreement, review it with [red-flag-clauses.md](red-flag-clauses.md) rather than forcing this one on them.
 >
-> **How to fill:** Replace every `{{…}}`. In clause 18, choose **one** dispute option and delete the others. Delete `[guidance]`. Indian stamp duty matters only if you might ever enforce the contract in an Indian court. Paying ₹500 for Maharashtra stamping is cheap insurance on larger deals.
+> **How to fill:** Replace every `{{…}}` and `[bracketed choice]`. In clause 18, choose **one** dispute option and delete the others. Delete `[guidance]`. Indian stamp duty matters only if you might ever enforce the contract in an Indian court. Paying ₹500 for Maharashtra stamping is cheap insurance on larger deals.
 >
 > **Never remove:** 5.2 (no work before the deposit), 6.3 (stop-work), 7.4 (deemed acceptance), 8.3–8.4 (IP transfers only on full payment; the full-term, worldwide, no-lapse wording guards against Indian Copyright Act s.19 defaults, since you are the author in India), 11 (liability cap), 14.4 (payment on termination), 15.2 (no non-compete).
 >
@@ -16,7 +16,7 @@
 
 **{{BUSINESS_NAME}}**, a sole proprietorship of {{YOUR_NAME}}, organised under the laws of India, with its principal place of business at {{YOUR_ADDRESS}}, India ("**Consultant**"); and
 
-**{{CLIENT_LEGAL_NAME}}**, a {{Delaware corporation / UK private limited company / …}} with its principal place of business at {{CLIENT_ADDRESS}} ("**Client**").
+**{{CLIENT_LEGAL_NAME}}**, a [Delaware corporation / UK private limited company / …] with its principal place of business at {{CLIENT_ADDRESS}} ("**Client**").
 
 ---
 
@@ -68,7 +68,7 @@
 
 **5.2** Work begins when the Deposit is received in cleared funds. Delivery dates run from that date.
 
-**5.3** Invoices are due within **{{7}} days** of issue. Payment is by bank transfer to the account shown on the invoice: {{USD_RECEIVING_ACCOUNT_DETAILS / payment link}}. Client pays its own bank's charges and any intermediary or wire fees, so that Consultant receives the full invoiced amount. [For large amounts, prefer bank transfer to card payments, since card payments can be charged back months later.]
+**5.3** Invoices are due within **{{7}} days** of issue. Payment is by bank transfer to the account shown on the invoice: {{USD_ACCOUNT_DETAILS}} [or payment link]. Client pays its own bank's charges and any intermediary or wire fees, so that Consultant receives the full invoiced amount. [For large amounts, prefer bank transfer to card payments, since card payments can be charged back months later.]
 
 **5.4 Taxes.** Fees exclude sales, use, VAT, GST and similar taxes. If any such tax applies, Client pays it, including under any reverse-charge mechanism. Each party bears its own income taxes.
 - If Client is required by law to withhold tax, Client will notify Consultant before payment, pay the net amount, and provide official receipts so Consultant can claim credit.
@@ -245,7 +245,7 @@ The Deposit is applied first. Any unearned balance is refunded within 15 days.
 Judgment on the award may be entered in any court with jurisdiction.
 
 **Option B — Client's home law (accept for smaller deals):**
-**18.2B** This Agreement is governed by the laws of **{{STATE/COUNTRY — e.g. the State of Delaware / England and Wales}}**. The courts of **{{CITY}}** have exclusive jurisdiction. Consultant may nevertheless bring a claim for unpaid Fees in any court with jurisdiction over Client.
+**18.2B** This Agreement is governed by the laws of **{{STATE_OR_COUNTRY}} [e.g. the State of Delaware / England and Wales]**. The courts of **{{CITY}}** have exclusive jurisdiction. Consultant may nevertheless bring a claim for unpaid Fees in any court with jurisdiction over Client.
 
 **Option C — Indian law (rarely accepted abroad):**
 **18.2C** This Agreement is governed by the laws of India. The courts at Pune, Maharashtra have exclusive jurisdiction. [Alternatively: arbitration seated in Pune under the Arbitration and Conciliation Act, 1996, with a sole arbitrator appointed by mutual agreement.]

@@ -25,7 +25,7 @@
 > 3. What changed afterwards? A number helps if you have one.
 >
 > If it's easier, here's a draft based on what you said on our call. Edit freely or just reply "approved":
-> *"{{Draft: e.g. 'Our store felt slow on mobile before the festive sale. Parth audited every app and script, shipped fixes in 10 days without breaking checkout, and kept us updated every Friday. Mobile performance went from 31 to 68 and our team finally trusts our site again.' — {{Name}}, {{Role}}, {{Brand}}}}"*
+> *"[Draft: e.g. 'Our store felt slow on mobile before the festive sale. Parth audited every app and script, shipped fixes in 10 days without breaking checkout, and kept us updated every Friday. Mobile performance went from 31 to 68 and our team finally trusts our site again.' — {{Name}}, {{Role}}, {{Brand}}]"*
 >
 > Can I use your name, role and company logo with it? A LinkedIn recommendation would be amazing too: {{your LinkedIn URL}}.
 
@@ -46,9 +46,9 @@
 ## 4. Referral ask (send ~1 week later, or include in the call)
 Be specific about who to refer. "Let me know if anyone needs help" never works.
 
-> Hi {{NAME}}, I'm taking on {{1–2}} more projects in {{month}}. I work best with **{{D2C brands on Shopify doing ₹1–20 Cr / early-stage SaaS teams with a prototype that needs hardening}}**.
+> Hi {{NAME}}, I'm taking on {{1–2}} more projects in {{month}}. I work best with **[D2C brands on Shopify doing ₹1–20 Cr / early-stage SaaS teams with a prototype that needs hardening]**.
 >
-> Is there a founder or ops lead in your network who's dealing with {{slow store / checkout or COD issues / a messy admin panel / an AI-built MVP they're nervous to launch}}? If so, I'd be grateful for an intro. Here's a two-line blurb you can forward as-is:
+> Is there a founder or ops lead in your network who's dealing with [slow store / checkout or COD issues / a messy admin panel / an AI-built MVP they're nervous to launch]? If so, I'd be grateful for an intro. Here's a two-line blurb you can forward as-is:
 >
 > *"{{YOUR_NAME}} is a product engineer who built {{our X}}. He specialises in Shopify/Next.js commerce and internal tools, and he's fast and very clear on communication. Worth a 20-minute chat: {{CAL_LINK}}"*
 

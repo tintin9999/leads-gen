@@ -4,7 +4,7 @@
 >
 > **When to use:** Use this after a project ends, as the upsell at closeout (see [../delivery/project-closeout.md](../delivery/project-closeout.md)), or for any client who wants you "on call". It sits under the MSA ([msa-india.md](msa-india.md) / [msa-international.md](msa-international.md)), so add it as a SOW. It converts one-off revenue into predictable monthly income, the most valuable revenue a solo business can have.
 >
-> **How to fill:** Pick a tier, then fill `{{…}}`. Suggested starting tiers are below; align them with [04-pricing](../../memos/04-pricing.html) before sending. Keep the hours bank. "Unlimited small tasks" retainers are how solo devs burn out.
+> **How to fill:** Pick a tier, then fill in `{{…}}` and the `[e.g. …]` examples. Suggested starting tiers are below; align them with [04-pricing](../../memos/04-pricing.html) before sending. Keep the hours bank. "Unlimited small tasks" retainers are how solo devs burn out.
 >
 > | Tier | India (₹/month) | Global (USD/month) | Hours bank | Typical response | Best for |
 > |---|---|---|---|---|---|
@@ -20,11 +20,11 @@
 
 **Care Plan SOW No. {{SOW_NUMBER}}** under the Master Services Agreement dated {{MSA_DATE}} between **{{BUSINESS_NAME}}** ("Consultant") and **{{CLIENT_LEGAL_NAME}}** ("Client").
 
-**Systems covered:** {{e.g. Shopify store {{store}}.myshopify.com + custom app "{{app}}" + Next.js admin at {{url}}}} ("**Covered Systems**").
+**Systems covered:** [e.g. Shopify store {{store}}.myshopify.com + custom app "{{app}}" + Next.js admin at {{url}}] ("**Covered Systems**").
 **Start date:** {{DATE}} · **Tier:** {{Essential / Growth / Priority}}
 
 ## 1. What's included
-1. **Monitoring:** uptime, error tracking ({{Sentry / Vercel / Supabase logs}}) and checkout or webhook health checks, reviewed {{weekly / daily on Priority}}.
+1. **Monitoring:** uptime, error tracking ([Sentry / Vercel / Supabase logs]) and checkout or webhook health checks, reviewed {{weekly / daily on Priority}}.
 2. **Maintenance:** dependency and security updates, Shopify API version upgrades, Razorpay/third-party API changes, renewing expiring tokens and certificates.
 3. **Fixes:** bugs in Covered Systems, whether or not Consultant built the affected part.
 4. **Small improvements:** changes under {{8}} hours each, prioritised by Client within the hours bank.
@@ -51,7 +51,7 @@
 
 **3.3 Price review.** Fees may be revised once every 12 months, with 30 days' notice. If Client does not accept the revision, it may end the plan at the next renewal.
 
-## 4. Response times (business hours: {{10:00–19:00 IST, Mon–Fri, excluding Indian public holidays}})
+## 4. Response times (business hours: [10:00–19:00 IST, Mon–Fri, excluding Indian public holidays])
 
 | Severity | Definition | Essential | Growth | Priority |
 |---|---|---|---|---|
@@ -88,8 +88,8 @@
 
 ### Monthly report skeleton (send with each invoice)
 - **Hours:** used {{x}} / {{HOURS}} · rolled over {{y}} · expiring {{z}}
-- **Done:** {{bulleted list with links to PRs and tickets}}
-- **Incidents:** {{P1/P2 with time to respond and resolve}}
+- **Done:** [bulleted list with links to PRs and tickets]
+- **Incidents:** [P1/P2 with time to respond and resolve]
 - **Health:** uptime {{%}} · error rate {{…}} · Lighthouse mobile {{…}} · dependencies outdated {{n}}
-- **Risks and recommendations:** {{e.g. "Shopify API 2027-01 deprecates X; 6 hrs to migrate before {{date}}"}}
+- **Risks and recommendations:** [e.g. "Shopify API 2027-01 deprecates X; 6 hrs to migrate before {{date}}"]
 - **Next month's plan:** {{top 3}}

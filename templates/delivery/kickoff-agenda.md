@@ -57,12 +57,12 @@ Dates assume the access/inputs below arrive on time.
 **Needed from you:**
 | Item | Owner | By |
 |---|---|---|
-| {{e.g. approve Shopify collaborator request}} | {{name}} | {{date}} |
-| {{e.g. product feed sample / test Razorpay keys}} | {{name}} | {{date}} |
+| [e.g. approve Shopify collaborator request] | {{name}} | {{date}} |
+| [e.g. product feed sample / test Razorpay keys] | {{name}} | {{date}} |
 
 **Rhythm:** written update every Friday by 6 pm IST · demo every {{other Tuesday}} · decisions in {{channel}} · I reply within 1 business day (urgent production issues within 4 business hours).
 
-**Risks we noted:** {{e.g. "theme heavily customised by previous agency — audit may reveal extra work"}}.
+**Risks we noted:** [e.g. "theme heavily customised by previous agency — audit may reveal extra work"].
 
 Next up: {{first deliverable}} on {{date}}.
 

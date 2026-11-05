@@ -12,10 +12,10 @@
 **Requested by:** {{NAME, ROLE}} · **Prepared by:** {{YOUR_NAME}}
 
 ## 1. What is being asked
-{{Describe the change in plain language, quoting the client's original message where possible.}}
+[Describe the change in plain language, quoting the client's original message where possible.]
 
 ## 2. Why (business reason)
-{{e.g. "Marketing wants a size-guide popup before the festive campaign."}}
+[e.g. "Marketing wants a size-guide popup before the festive campaign."]
 
 ## 3. Impact
 
@@ -25,7 +25,7 @@
 | Effort | {{N}} hrs | net {{±N}} hrs | 0 now |
 | Cost | ₹/$ {{AMOUNT}} {{+ GST}} | ₹/$ {{0 / difference}} | ₹0 now |
 | Timeline | Launch moves from {{date}} to {{date}} | Unchanged | Unchanged |
-| Risk | {{e.g. touches checkout, needs extra QA}} | {{…}} | {{…}} |
+| Risk | [e.g. touches checkout, needs extra QA] | {{…}} | {{…}} |
 
 **Recommendation:** {{Option + one-line reason}}
 
@@ -33,7 +33,7 @@
 - {{testable criteria}}
 
 ## 5. Payment
-{{e.g. "Billed with the next milestone" / "50% on approval, 50% on acceptance" / "Deducted from Care Plan hours"}}
+[e.g. "Billed with the next milestone" / "50% on approval, 50% on acceptance" / "Deducted from Care Plan hours"]
 
 ## 6. Approval
 Work on this CR starts only after written approval. Until then, the SOW stays as is.

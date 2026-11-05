@@ -4,7 +4,7 @@
 >
 > **When to use:** Use this only when the prospect wants an NDA before sharing details, or when you need to see their code or data to scope the work. Don't push NDAs on prospects yourself: it slows the sale. If the prospect sends their own NDA, sign it only after checking that it contains **no** non-compete, no IP assignment of "ideas", no exclusivity, and no uncapped penalty. See [red-flag-clauses.md](red-flag-clauses.md).
 >
-> **How to fill:** Replace `{{…}}`. Mutual is better than one-way: you also share pricing, methods and Background IP. In Maharashtra, an NDA is an "agreement not otherwise provided for" (Art. 5(h)(B)), so stamp duty is ₹500. For a pre-sale NDA that's optional in practice. Stamp it if you'd ever need to rely on it in court.
+> **How to fill:** Replace `{{…}}` and `[e.g. …]` examples. Mutual is better than one-way: you also share pricing, methods and Background IP. In Maharashtra, an NDA is an "agreement not otherwise provided for" (Art. 5(h)(B)), so stamp duty is ₹500. For a pre-sale NDA that's optional in practice. Stamp it if you'd ever need to rely on it in court.
 >
 > **Never remove:** the residual-knowledge clause (4.3), the "no obligation / no licence" clause (6), and the fixed term (7).
 
@@ -12,7 +12,7 @@
 
 **This Mutual Non-Disclosure Agreement** is made on {{DATE}} between **{{BUSINESS_NAME}}** (sole proprietorship of {{YOUR_NAME}}, {{YOUR_ADDRESS}}) and **{{CLIENT_LEGAL_NAME}}** ({{CLIENT_ADDRESS}}). Each is a "Party". The Party sharing information is the "Discloser" and the Party receiving it is the "Recipient".
 
-**1. Purpose.** The Parties want to evaluate a possible engagement concerning {{e.g. "development of a Shopify integration"}} (the "**Purpose**").
+**1. Purpose.** The Parties want to evaluate a possible engagement concerning [e.g. "development of a Shopify integration"] (the "**Purpose**").
 
 **2. Confidential Information** means non-public information disclosed for the Purpose, in any form, that is marked confidential or would reasonably be understood to be confidential. Examples: source code, product plans, credentials, customer data, pricing, and methods.
 
@@ -41,7 +41,7 @@
 
 **9. Remedies.** Each Party may seek injunctive relief for an actual or threatened breach, in addition to its other remedies.
 
-**10. Law and jurisdiction.** Laws of India. Courts at Pune have exclusive jurisdiction. [International: {{laws of the client's country, or Singapore}}.]
+**10. Law and jurisdiction.** Laws of India. Courts at Pune have exclusive jurisdiction. [International: [laws of the client's country, or Singapore].]
 
 **11. General.** This is the entire agreement on its subject. Any change must be in writing. It may be signed in counterparts and electronically.
 

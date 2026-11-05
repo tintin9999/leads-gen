@@ -128,7 +128,7 @@ a:hover { text-decoration: underline; }
 .prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
 .prose td code, .prose th code { font-size: .82em; }
 .ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
-.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: normal; overflow-wrap: anywhere; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
 /* ---------- components ---------- */
 .bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
@@ -335,10 +335,10 @@ a:hover { text-decoration: underline; }
     <tr><td><span class="tag">prospect</span></td><td>Researched, not contacted</td><td>You've sent a personalised first touch</td><td>Contact within 7 days or delete</td><td>One specific observation + one proof line</td></tr>
     <tr><td><span class="tag">contacted</span></td><td>First touch sent</td><td>They reply (anything but "no")</td><td>4 touches over ~14 days</td><td>Follow-up cadence (§9)</td></tr>
     <tr><td><span class="tag">replied</span></td><td>Two-way conversation</td><td>Discovery call booked, or qualified in writing</td><td>Book within 3 days</td><td>Send your <code><span class="var">{{CAL_LINK}}</span></code> plus two time slots</td></tr>
-    <tr><td><span class="tag">call</span></td><td>Discovery done</td><td>Qualified (§3 score ≥ 7) and next step agreed</td><td>Proposal within 24h</td><td>Recap email the same day (<a href="../templates/sales/post-call-recap.md">template</a>)</td></tr>
+    <tr><td><span class="tag">call</span></td><td>Discovery done</td><td>Qualified (§3 score ≥ 7) and next step agreed</td><td>Proposal within 24h</td><td>Recap email the same day (<a href="../library/templates/sales/post-call-recap.html">template</a>)</td></tr>
     <tr><td><span class="tag">proposal</span></td><td>Options sent and walked through</td><td>Signed + deposit (won) or explicit no (lost)</td><td>14-day validity</td><td>Walk-through call, then follow-ups</td></tr>
     <tr><td><span class="tag">won</span></td><td>Contract signed, deposit cleared</td><td>Hand off to delivery (<a href="08-delivery-ops.html">Delivery Ops</a>)</td><td>Kickoff within 5 working days</td><td>Kickoff agenda, access checklist</td></tr>
-    <tr><td><span class="tag">lost</span></td><td>Explicit no, or 4 touches without a reply after the proposal</td><td>Reason logged</td><td>—</td><td><a href="../templates/sales/lost-deal-followup.md">Lost-deal follow-up</a>, then nurture in 60–90 days</td></tr>
+    <tr><td><span class="tag">lost</span></td><td>Explicit no, or 4 touches without a reply after the proposal</td><td>Reason logged</td><td>—</td><td><a href="../library/templates/sales/lost-deal-followup.html">Lost-deal follow-up</a>, then nurture in 60–90 days</td></tr>
     <tr><td><span class="tag">nurture</span></td><td>Good fit, wrong time</td><td>New trigger (funding, hiring, launch, sale season)</td><td>Check in every 60–90 days</td><td>Send something useful, not "just checking in"</td></tr>
   </tbody>
 </table></div>
@@ -487,10 +487,10 @@ Use their real numbers from the call. Never promise the lift. Show the arithmeti
     <tr><td>45–90</td><td colspan="2">Nurture: one useful thing per quarter (a teardown, a sale-season checklist, a congrats on funding)</td></tr>
   </tbody>
 </table></div>
-<p>Templates: <a href="../library/templates/outreach/follow-ups.html">outreach/follow-ups.md</a> (pre-reply) and <a href="../templates/sales/lost-deal-followup.md">sales/lost-deal-followup.md</a>. India: a polite WhatsApp nudge on day 3 is normal and expected. US/EU: stay on email unless they used another channel first.</p>
+<p>Templates: <a href="../library/templates/outreach/follow-ups.html">outreach/follow-ups.md</a> (pre-reply) and <a href="../library/templates/sales/lost-deal-followup.html">sales/lost-deal-followup.md</a>. India: a polite WhatsApp nudge on day 3 is normal and expected. US/EU: stay on email unless they used another channel first.</p>
 
 <h2 id="objections">9. Objection handling<a class="anchor" href="#objections" aria-label="Link to this section">#</a></h2>
-<p>An objection is usually a question in disguise. Acknowledge it, ask what's behind it, then answer the real concern. Never argue, and never cut the price as a reflex. Longer scripts: <a href="../templates/sales/objection-handling.md">objection-handling.md</a>.</p>
+<p>An objection is usually a question in disguise. Acknowledge it, ask what's behind it, then answer the real concern. Never argue, and never cut the price as a reflex. Longer scripts: <a href="../library/templates/sales/objection-handling.html">objection-handling.md</a>.</p>
 <div class="table-wrap"><table>
   <thead><tr><th>They say</th><th>It often means</th><th>You say</th></tr></thead>
   <tbody>
@@ -516,7 +516,7 @@ Use their real numbers from the call. Never promise the lift. Show the arithmeti
   <li><b>Don't negotiate against yourself.</b> If they say "too high" without a number, ask: "What did you have in mind?"</li>
   <li><b>Put every change in writing</b> the same day (scope, price, dates), so the agreement matches what was said.</li>
 </ul>
-<p>Playbook with give/get table and scripts: <a href="../templates/sales/negotiation-playbook.md">negotiation-playbook.md</a>.</p>
+<p>Playbook with give/get table and scripts: <a href="../library/templates/sales/negotiation-playbook.html">negotiation-playbook.md</a>.</p>
 
 <h2 id="closing">11. Closing: contract + deposit = start<a class="anchor" href="#closing" aria-label="Link to this section">#</a></h2>
 <ol class="steps">

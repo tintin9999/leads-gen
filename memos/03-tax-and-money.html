@@ -128,7 +128,7 @@ a:hover { text-decoration: underline; }
 .prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
 .prose td code, .prose th code { font-size: .82em; }
 .ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
-.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: normal; overflow-wrap: anywhere; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
 /* ---------- components ---------- */
 .bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }

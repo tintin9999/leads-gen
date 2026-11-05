@@ -4,7 +4,7 @@
 >
 > **When to use:** One-off jobs up to about **₹50,000 / $1,000** where a full MSA + SOW would cost more effort than the job is worth. Typical uses: an A1 Speed Sprint, a B1 audit, a bug-fix block, or a paid discovery call. It can go out as a PDF for e-signature, or be pasted into an email with "Reply 'I agree' to confirm". An email agreement is a valid contract in India (*Trimex v Vedanta*, SC 2010). Still save the thread.
 >
-> **How to fill:** Replace every `{{…}}`. Put the scope in the box, or link your accepted proposal. For anything bigger, or for a second project with the same client, move to the MSA.
+> **How to fill:** Replace every `{{…}}` and `[bracketed]` choice or example. Put the scope in the box, or link your accepted proposal. For anything bigger, or for a second project with the same client, move to the MSA.
 >
 > **Never remove:** Payment upfront, IP-on-payment (with the full-term/worldwide wording), liability cap, no non-compete.
 
@@ -15,9 +15,9 @@
 **Consultant:** {{BUSINESS_NAME}} ({{YOUR_NAME}}), {{YOUR_ADDRESS}} · PAN {{YOUR_PAN}} · GSTIN {{YOUR_GSTIN / not registered}} · Udyam {{UDYAM_NUMBER}}
 **Client:** {{CLIENT_LEGAL_NAME}}, {{CLIENT_ADDRESS}} · GSTIN {{CLIENT_GSTIN}} · Contact: {{CLIENT_CONTACT_NAME}} ({{CLIENT_EMAIL}})
 
-**1. Scope.** Consultant will deliver: {{3–6 bullet deliverables with acceptance criteria, or "as described in the proposal dated {{date}} (attached)"}}. Anything not listed is out of scope and will be quoted separately before any work starts.
+**1. Scope.** Consultant will deliver: [3–6 bullet deliverables with acceptance criteria, or "as described in the proposal dated {{date}} (attached)"]. Anything not listed is out of scope and will be quoted separately before any work starts.
 
-**2. Price and payment.** Fixed fee **₹/$ {{AMOUNT}}** {{+ GST 18% / zero-rated export / not registered}}.
+**2. Price and payment.** Fixed fee **₹/$ {{AMOUNT}}** [+ GST 18% / zero-rated export / not registered].
 - **Payment:** {{100% upfront}} [for ≤ ₹25k / $500] *or* {{50% upfront, 50% on acceptance}}.
 - Work starts when the upfront payment clears.
 - Invoices are due in 7 days. Late amounts carry 1.5% interest per month, plus MSMED Act interest where it applies.
@@ -37,7 +37,7 @@
 
 **9. Independence.** Consultant is an independent contractor. Nothing in this agreement restricts Consultant from working for anyone else, including Client's competitors.
 
-**10. Law.** Laws of India. Courts at Pune have jurisdiction [international clients: {{choose — e.g. laws of Singapore, courts of Singapore}}]. Electronic signatures and email acceptance are binding.
+**10. Law.** Laws of India. Courts at Pune have jurisdiction [international clients: [choose — e.g. laws of Singapore, courts of Singapore]]. Electronic signatures and email acceptance are binding.
 
 | Consultant | Client |
 |---|---|

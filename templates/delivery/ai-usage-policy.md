@@ -10,7 +10,7 @@
 
 **Why I use AI tools.** I use AI-assisted development tools to work faster on routine tasks: boilerplate, refactors, test scaffolding, documentation drafts, code search and first-pass reviews. That leaves more of your budget for the hard parts: architecture, edge cases, payments, security and talking to your users.
 
-**What I use (as of {{MONTH YEAR}}):** {{Cursor (Privacy Mode on) · Claude (business/API terms) · ChatGPT (business tier or training opt-out) · Gemini · v0}}. I only use tools or plans that **don't train on your inputs**, either by default on business or API terms, or because I've switched training off in settings. I re-check those settings regularly.
+**What I use (as of {{MONTH YEAR}}):** [Cursor (Privacy Mode on) · Claude (business/API terms) · ChatGPT (business tier or training opt-out) · Gemini · v0]. I only use tools or plans that **don't train on your inputs**, either by default on business or API terms, or because I've switched training off in settings. I re-check those settings regularly.
 
 **My rules:**
 1. **I review and own every line.** Nothing AI-generated reaches your codebase without my review, local testing and passing CI. "The AI wrote it" is never an excuse. I am accountable for all code I deliver.

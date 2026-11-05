@@ -2,7 +2,7 @@
 
 > **When to use:** On every invoice. Put each step on a calendar reminder when you send the invoice, or track it in the [CRM](../../tools/crm.html). Most late payments come from process (wrong person, PO missing, lost email), not malice. Stay polite and specific, and move up one step at a time on schedule.
 >
-> **How to fill:** Replace `{{…}}`. Day numbers are relative to the **due date** (Net 7 → due 7 days after invoice). Send by email, the record that counts. WhatsApp or Slack only *nudges* to read the email. Use the India lines only if you're **Udyam-registered** (the MSMED Act protects registered micro and small suppliers).
+> **How to fill:** Replace `{{…}}` and pick one `[option]`. Day numbers are relative to the **due date** (Net 7 → due 7 days after invoice). Send by email, the record that counts. WhatsApp or Slack only *nudges* to read the email. Use the India lines only if you're **Udyam-registered** (the MSMED Act protects registered micro and small suppliers).
 >
 > **Never:** threaten anything you won't do, add penalties the contract doesn't allow, or stop work without the notice your contract requires (MSA cl. 7.3).
 
@@ -63,7 +63,7 @@
 
 ### Day +30 — Final notice
 **Subject:** Final notice before formal recovery — invoice {{INV_NO}}
-> Hi {{NAME}}, this is my final reminder. If ₹/$ {{TOTAL}} is not received by {{DATE + 7 days}}, I will proceed with **{{a legal notice through my advocate / a reference to the Micro and Small Enterprises Facilitation Council via MSME Samadhaan / a formal demand and collection process}}**, as provided in our agreement and under law. Paying before then closes this with no further cost.
+> Hi {{NAME}}, this is my final reminder. If ₹/$ {{TOTAL}} is not received by {{DATE + 7 days}}, I will proceed with **[a legal notice through my advocate / a reference to the Micro and Small Enterprises Facilitation Council via MSME Samadhaan / a formal demand and collection process]**, as provided in our agreement and under law. Paying before then closes this with no further cost.
 
 ---
 

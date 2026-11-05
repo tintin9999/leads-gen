@@ -26,7 +26,7 @@
 **🙋 Needed from you** (dates move day-for-day if these slip)
 | What | Who | By |
 |---|---|---|
-| {{e.g. feedback on staging checkout}} | {{name}} | {{Tue}} |
+| [e.g. feedback on staging checkout] | {{name}} | {{Tue}} |
 
 **🧭 Decisions needed**
 - {{Question}} → my recommendation: {{option + reason}}. If I don't hear back by {{date}}, I'll go with my recommendation.

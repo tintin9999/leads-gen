@@ -128,7 +128,7 @@ a:hover { text-decoration: underline; }
 .prose tbody tr:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, transparent); }
 .prose td code, .prose th code { font-size: .82em; }
 .ph-link { border-bottom: 1px dotted var(--muted); color: var(--ink-2); cursor: help; }
-.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: nowrap; }
+.var { font-family: var(--mono); font-size: .84em; background: var(--mid-soft); color: var(--mid); border-radius: 4px; padding: 0 3px; white-space: normal; overflow-wrap: anywhere; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
 /* ---------- components ---------- */
 .bluf { background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 1.8em; font-size: 1.03rem; line-height: 1.6; }
@@ -401,7 +401,7 @@ a:hover { text-decoration: underline; }
 
 <h3 id="msmed">The MSMED Act: your strongest collection lever<a class="anchor" href="#msmed" aria-label="Link to this section">#</a></h3>
 <ol class="steps">
-  <li><strong>Register on Udyam first</strong>: it's free and takes about 30 minutes (<a href="02-business-setup.html#udyam">setup memo</a>). In <em>Silpi Industries</em> (SC 2021), MSMED remedies were denied to a supplier who registered after the contract. In <em>NBCC v State of West Bengal</em> (SC 2025), a three-judge bench took a broader view, and the question has gone to a larger bench. Until that's settled, <strong>register before you sign</strong>.</li>
+  <li><strong>Register on Udyam first</strong>: it's free and takes about 30 minutes (<a href="02-business-setup.html#udyam">setup memo</a>). In <em>Silpi Industries</em> (SC 2021), MSMED remedies were denied to a supplier who registered after the contract. In <em>NBCC v State of West Bengal</em> (SC 2025), the Court questioned that view and referred the issue to a larger bench. Until that's settled, <strong>register before you sign</strong>.</li>
   <li><strong>Payment window</strong>: buyers must pay by the agreed date, which cannot exceed <strong>45 days</strong> from acceptance. If no date was agreed, the deadline is 15 days. Silence for 15 days after delivery counts as deemed acceptance (s.15, s.2(b)). Your 5-business-day acceptance clause fits comfortably inside this window.</li>
   <li><strong>Interest</strong>: compound, with monthly rests, at <strong>3× the RBI bank rate</strong> (s.16). With the bank rate at 5.75% after the 7 Oct 2026 hike, that's about <strong>17.25% a year</strong>, compounded. Courts treat it as mandatory and overriding the contract.</li>
   <li><strong>The tax nudge</strong>: buyers can't deduct the expense until they pay you. This rule was s.43B(h) and is now <strong>s.37(2)(g)</strong> of the Income-tax Act 2025. Mention it politely in day +7 reminders (<a href="../library/templates/delivery/payment-reminder-ladder.html">ladder</a>).</li>
