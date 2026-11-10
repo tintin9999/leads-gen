@@ -1,0 +1,86 @@
+<!--meta {"title":"I am stuck or will miss the deadline","group":"Fix a problem","order":29,"summary":"Tell the client early, with a new date and a plan.","time":"10 min"} -->
+<p class="lede">Every developer gets stuck, and some jobs turn out bigger than they looked. The client can handle bad news; what hurts is hearing it late.</p>
+<p>This page shows you how to tell the client early, with a new date and a plan.</p>
+
+<h2 id="day-three">Day 3 of a 4-day job</h2>
+<div class="example">
+  <p>Maya is a made-up founder in the US. Her app "Fernleaf" was built with an AI app builder on Next.js and Supabase. She hired you on Upwork for a $300 fixed-price job: fix login and fix Stripe payments, in 4 days.</p>
+  <p>Login was fixed on day 2. On day 3 you find the Stripe bug is deeper.</p>
+  <p>The app never checks Stripe's messages to the server (<dfn>webhooks</dfn>). So paid orders sometimes stay "unpaid". Fixing it properly needs 2 more days.</p>
+</div>
+<p>You have two choices on day 3. You can stay silent and hope. Or you can tell her today.</p>
+<p>Here is the message you send that afternoon:</p>
+<blockquote class="say">
+  <p>"Hi Maya, an update on the Stripe bug. It is deeper than it looked. The app never checks Stripe's payment messages, so some paid orders stay marked unpaid.</p>
+  <p>The proper fix needs 2 more days, so delivery moves from Thursday to Saturday. I'll send a short progress note each evening.</p>
+  <p>If Thursday matters more, I can ship a smaller fix by then and do the full one as a separate job. Which do you prefer?"</p>
+</blockquote>
+
+<h2 id="silence-versus-early">Silence compared with telling early</h2>
+<p>If you stay silent, Thursday comes and nothing arrives. Maya feels ignored. She may ask for a refund or leave a low review.</p>
+<p>If you tell her on day 3, she gets facts, a new date and a choice. Most clients say "thanks for the heads-up". Some even like you more for it.</p>
+<p>The rule: the moment you think a date may slip, tell the client that day. Give the reason in one line, a new date, and a plan.</p>
+
+<h2 id="when-stuck">A short routine for being stuck</h2>
+<p>Being stuck for an hour is normal. Being stuck for two days in silence is the problem. Use a fixed routine:</p>
+<ol class="steps">
+  <li>Set a time limit: 90 minutes on one problem without progress.</li>
+  <li>When the time is up, write the problem down in five lines: what you expect, what happens, and what you tried.</li>
+  <li>Make the smallest example that shows the bug, with fake data and no client code.</li>
+  <li>Search the official docs and the issue list of the library, for example Stripe's or Supabase's.</li>
+  <li>Ask for help in a public forum or a developer community, using only your small example.</li>
+  <li>If you are still stuck after half a day, tell the client, as in the message above.</li>
+</ol>
+<div class="warn">
+  <p>Never paste the client's code, passwords, keys or customer data into a forum or a chat group. Replace real names with fake ones, like <code>order_123</code> and <code>user@example.com</code>. If a key leaks by mistake, change it at once and tell the client the same day.</p>
+</div>
+
+<h2 id="ai-tools">Using AI tools within the client's rules</h2>
+<p>AI coding tools can get you unstuck fast. They are fine to use, within some rules.</p>
+<ul>
+  <li>First check the job post and chat. If the client says "no AI tools", follow that.</li>
+  <li>Use a plan or setting where your input is not used to train the tool. Check this in the tool's privacy settings.</li>
+  <li>Paste the smallest part: one function and the error message, not the whole project.</li>
+  <li>Never paste secrets: no <code>.env</code> files, keys or customer records.</li>
+  <li>Read and test every line the tool writes. You own the result, not the tool.</li>
+</ul>
+<p>Login and payment code needs extra care. Prefer well-known libraries to code a tool made up. Your full checklist is in <a href="../templates/delivery/ai-usage-policy.md">the AI usage policy</a>.</p>
+
+<h2 id="offer-choices">Offer choices, in this order</h2>
+<p>When a date will slip, give the client choices. Start with the one that costs her least.</p>
+<ol>
+  <li><strong>A new date.</strong> Same work, same price, later delivery. This suits most cases.</li>
+  <li><strong>A smaller job.</strong> Deliver part on the old date. The rest becomes a new milestone, a separately funded step, or a later job.</li>
+  <li><strong>A part refund.</strong> Use this last, when you cannot deliver part of what you promised.</li>
+</ol>
+<p>On a direct client job, the same order works.</p>
+<p>Asha is a made-up owner of "Indigo Thread", a Pune clothing brand on Shopify. If her ₹48,000 Store Speed Sprint will be 3 days late, offer the new date first. Next, offer the fixed pages now and the rest by Monday.</p>
+<p>Agree the change in writing, in Upwork chat or by email. Then keep the new date.</p>
+
+<h2 id="when-to-end">When to end a job you cannot do</h2>
+<p>Sometimes the job is beyond what you can do in a fair time. For example, the bug is in a service you have no access to. Ending the job honestly is better than failing slowly.</p>
+<ol class="steps">
+  <li>Write down what you finished and what is left.</li>
+  <li>Send the client your notes and any working fixes.</li>
+  <li>Offer a fair refund for the part you did not do.</li>
+  <li>On Upwork, agree the amount in chat, then end the contract from the contract page.</li>
+  <li>Thank her and suggest the kind of expert she needs.</li>
+</ol>
+<blockquote class="say"><p>"Maya, I've fixed login, and here are my notes on the Stripe issue. The rest needs access to your old payment service, which we don't have.</p><p>I'd rather be honest than keep you waiting. I'll refund $180 for the Stripe part."</p></blockquote>
+<p>This is rare, and it is not the end of your career. A calm, honest exit often still earns a fair review.</p>
+
+<h2 id="do-this-now">Do this now</h2>
+<ul class="checklist">
+  <li>Save the day-3 message as a note you can copy and edit.</li>
+  <li>Set a 90-minute timer habit for your next hard bug.</li>
+  <li>Turn off training on your inputs in each AI tool you use.</li>
+  <li>Read the AI usage policy once.</li>
+</ul>
+
+<details class="sources"><summary>Sources and dates</summary>
+<ol>
+  <li><a href="https://support.upwork.com/hc/en-us/articles/211063718-How-payments-for-milestones-and-fixed-price-contracts-work">Upwork Help: How payments for milestones and fixed-price contracts work</a>: milestones and refunds on fixed-price contracts. Checked Nov 2026.</li>
+  <li><a href="https://docs.stripe.com/webhooks">Stripe Docs: Webhooks</a>: why apps must listen for payment events. Checked Nov 2026.</li>
+  <li><a href="../templates/delivery/ai-usage-policy.md">AI usage policy</a> in this repo: rules for client code and AI tools. Checked Nov 2026.</li>
+</ol>
+</details>
