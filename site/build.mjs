@@ -236,7 +236,9 @@ ${GROUPS.filter((g) => inGroup(g.name).length).map((g) => `<h2>${esc(g.name)}</h
   </div>
 </header>`;
   const footer = '<footer class="foot"><p>General information, not legal or tax advice. Facts checked November 2026. Ticks are saved in this browser only.</p></footer>';
-  const shell = ({ title, description, bodyAttrs, prefix, on, main, activeSlug = '', extraBody = '' }) => `<!doctype html>
+  // Guide pages keep page furniture to a minimum so the visible text stays near 1,000 words.
+  const shortFooter = '<footer class="foot"><p>Not legal or tax advice.</p></footer>';
+  const shell = ({ title, description, bodyAttrs, prefix, on, main, activeSlug = '', extraBody = '', foot = footer }) => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -252,7 +254,7 @@ ${GROUPS.filter((g) => inGroup(g.name).length).map((g) => `<h2>${esc(g.name)}</h
 ${topbar(prefix, on)}
 ${drawer(prefix, activeSlug)}
 ${main}
-${footer}
+${foot}
 ${extraBody}<script>${JS}</script>
 </body>
 </html>
@@ -267,7 +269,7 @@ ${extraBody}<script>${JS}</script>
     const next = sibs[i + 1];
     const step = g.id === 'start' ? ` · Step ${i + 1} of ${sibs.length}` : '';
     const nextLabel = g.id === 'start' ? 'Next step' : `Next in “${g.name}”`;
-    const pager = `<nav class="pager" aria-label="More pages">${prev ? `<a class="prev" href="${prev.slug}.html"><small>← Back</small>${esc(prev.title)}</a>` : `<a class="prev" href="../index.html#${g.id}"><small>← Back</small>The map</a>`}${next ? `<a class="next" href="${next.slug}.html"><small>${nextLabel} →</small>${esc(next.title)}</a>` : `<a class="next" href="../index.html#${g.id}"><small>${g.id === 'start' ? 'Start path finished' : 'Back to'} →</small>The map</a>`}</nav>`;
+    const pager = `<nav class="pager" aria-label="More pages">${prev ? `<a class="prev" href="${prev.slug}.html" title="${esc(prev.title)}">← Back</a>` : `<a class="prev" href="../index.html#${g.id}" title="The map">← Back</a>`}${next ? `<a class="next" href="${next.slug}.html"><small>${nextLabel} →</small>${esc(next.title)}</a>` : `<a class="next" href="../index.html#${g.id}"><small>${g.id === 'start' ? 'Start path finished' : 'Back to'} →</small>The map</a>`}</nav>`;
     const main = `<main id="main" class="page">
   <p class="crumb"><a href="../index.html#${g.id}">${esc(g.name)}</a>${step} · ${esc(pg.time)}</p>
   <h1>${esc(pg.title)}</h1>
@@ -275,7 +277,7 @@ ${extraBody}<script>${JS}</script>
   <article class="prose">${pg.html}</article>
   ${pager}
 </main>`;
-    write(pg.url, shell({ title: `${pg.title} · Freelance OS`, description: pg.summary, bodyAttrs: `data-page="${pg.slug}" data-kind="guide"`, prefix: '../', on: g.id, main, activeSlug: pg.slug }));
+    write(pg.url, shell({ title: `${pg.title} · Freelance OS`, description: pg.summary, bodyAttrs: `data-page="${pg.slug}" data-kind="guide"`, prefix: '../', on: g.id, main, activeSlug: pg.slug, foot: shortFooter }));
   }
   // old addresses keep working
   const redirect = (to) => `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${to}"><title>Moved</title><a href="${to}">This page moved. Continue</a>`;

@@ -146,7 +146,8 @@ a:hover { text-decoration: underline; }
 .btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 8px; }
 
 /* ---------- pager + footer ---------- */
-.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; }
+.pager { display: grid; grid-template-columns: auto 1fr; gap: 12px; margin-top: 56px; }
+.pager .prev { display: flex; align-items: center; color: var(--muted); font-size: 14.5px; white-space: nowrap; }
 .pager a { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; background: var(--surface); color: var(--ink); line-height: 1.4; box-shadow: var(--shadow); }
 .pager a:hover { border-color: var(--accent); text-decoration: none; }
 .pager small { display: block; color: var(--muted); font-size: 12.5px; margin-bottom: 3px; }
