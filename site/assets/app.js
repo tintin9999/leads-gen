@@ -6,6 +6,7 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
   };
   const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+  const $ = (sel, el = document) => el.querySelector(sel);
 
   /* theme */
   const saved = store.get('fos.theme', 'auto');
@@ -17,8 +18,19 @@
     store.set('fos.theme', next);
   }));
   $$('[data-action="print"]').forEach((b) => b.addEventListener('click', () => window.print()));
-  $$('[data-action="menu"]').forEach((b) => b.addEventListener('click', () => document.body.classList.toggle('nav-open')));
-  $$('.sidenav a, .topnav a').forEach((a) => a.addEventListener('click', () => document.body.classList.remove('nav-open')));
+
+  /* all-pages drawer */
+  const drawer = $('#drawer');
+  const menuBtns = $$('[data-action="menu"]');
+  const setDrawer = (open) => {
+    if (!drawer) return;
+    drawer.hidden = !open;
+    menuBtns.forEach((b) => b.setAttribute('aria-expanded', String(open)));
+    if (open) { const a = $('a.active', drawer) || $('a', drawer); if (a) a.focus({ preventScroll: false }); }
+  };
+  menuBtns.forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); setDrawer(drawer.hidden); }));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawer && !drawer.hidden) { setDrawer(false); menuBtns[0]?.focus(); } });
+  addEventListener('click', (e) => { if (drawer && !drawer.hidden && !drawer.contains(e.target)) setDrawer(false); });
 
   const hash = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
   const page = document.body.dataset.page || 'page';
@@ -61,34 +73,40 @@
 
   function updateProgress() {
     const done = items.filter((li) => li.querySelector('input')?.checked).length;
-    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} / ${items.length} actions done` : ''; });
+    $$('[data-progress]').forEach((el) => { el.textContent = items.length ? `${done} of ${items.length} actions done` : ''; });
     $$('[data-progress-bar] i').forEach((el) => { el.style.width = items.length ? `${(100 * done) / items.length}%` : '0'; });
-    let allDone = 0; let allTotal = 0;
-    $$('[data-nav-prog]').forEach((el) => {
-      const slug = el.dataset.navProg; const total = +el.dataset.total || 0;
-      const d = Math.min(total, slug === page ? done : countDone(slug));
-      allDone += d; allTotal += total;
-      if (!total) return;
-      if (el.classList.contains('mini-bar')) { el.firstElementChild.style.width = `${(100 * d) / total}%`; el.title = `${d}/${total} actions done`; return; }
-      el.textContent = `${d}/${total}`;
-      el.classList.toggle('full', d === total);
+
+    // links to guide pages (hub lists and drawer): mark finished pages
+    let pathDone = 0; let pathTotal = 0; let firstOpen = null;
+    $$('[data-slug]').forEach((a) => {
+      const total = +a.dataset.total || 0;
+      const d = Math.min(total, a.dataset.slug === page ? done : countDone(a.dataset.slug));
+      const finished = total > 0 && d === total;
+      a.classList.toggle('done', finished);
+      const tick = $('.tick', a); if (tick) tick.textContent = finished ? '✓' : '';
+      const em = $('em', a); if (em && total) em.textContent = finished ? 'done' : d ? `${d}/${total}` : '';
+      if (a.dataset.path === 'start') { pathTotal++; if (finished) pathDone++; else if (!firstOpen) firstOpen = a; }
     });
-    $$('[data-overall]').forEach((el) => {
-      const pct = allTotal ? Math.round((100 * allDone) / allTotal) : 0;
-      el.innerHTML = `<b>${allDone}</b> of <b>${allTotal}</b> checklist actions done across all memos (${pct}%)`;
-    });
-    $$('[data-overall-bar] i').forEach((el) => { el.style.width = allTotal ? `${(100 * allDone) / allTotal}%` : '0'; });
+    const cont = $('[data-continue]');
+    if (cont && pathTotal) {
+      if (firstOpen) {
+        cont.href = firstOpen.getAttribute('href');
+        const n = $$('[data-path="start"]').indexOf(firstOpen) + 1;
+        cont.textContent = pathDone ? `Continue: step ${n} →` : 'Start: step 1 →';
+      } else { cont.textContent = 'Start path finished ✓'; }
+    }
+    $$('[data-overall]').forEach((el) => { el.textContent = pathTotal ? `${pathDone} of ${pathTotal} start steps finished` : ''; });
+    $$('[data-overall-bar] i').forEach((el) => { el.style.width = pathTotal ? `${(100 * pathDone) / pathTotal}%` : '0'; });
   }
   updateProgress();
 
-  /* reset checklist for this page */
   $$('[data-action="reset-checks"]').forEach((b) => b.addEventListener('click', () => {
     if (!confirm('Clear all ticks on this page?')) return;
     items.forEach((li) => { const box = li.querySelector('input'); box.checked = false; li.classList.remove('done'); store.set(`fos.chk.${page}.${li.dataset.k}`, false); });
     updateProgress();
   }));
 
-  /* copy buttons on code blocks */
+  /* copy buttons on code, calculations and "words to send" */
   async function copyText(t) {
     try { await navigator.clipboard.writeText(t); return true; } catch {
       const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -97,16 +115,17 @@
       ta.remove(); return ok;
     }
   }
-  $$('.prose pre').forEach((pre) => {
+  $$('.prose pre:not(.calc), .prose blockquote.say').forEach((el) => {
     const b = document.createElement('button');
     b.className = 'copy-btn'; b.type = 'button'; b.textContent = 'Copy';
     b.addEventListener('click', async () => {
-      const code = pre.querySelector('code');
-      const ok = await copyText((code || pre).innerText.replace(/\n?Copy(ied)?$/, ''));
+      const clone = el.cloneNode(true);
+      $$('.copy-btn', clone).forEach((x) => x.remove());
+      const ok = await copyText(clone.innerText.trim());
       b.textContent = ok ? 'Copied' : 'Press Ctrl+C';
       setTimeout(() => { b.textContent = 'Copy'; }, 1400);
     });
-    pre.appendChild(b);
+    el.appendChild(b);
   });
   $$('[data-action="copy-source"]').forEach((b) => b.addEventListener('click', async () => {
     const src = document.getElementById('md-source');
@@ -116,33 +135,19 @@
     setTimeout(() => { b.textContent = old; }, 1500);
   }));
 
-  /* scroll spy for the right-hand TOC */
-  const tocLinks = $$('.toc a[href^="#"]');
-  if (tocLinks.length) {
-    const heads = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).filter(Boolean);
-    let ticking = false;
-    const spy = () => {
-      ticking = false;
-      let cur = heads[0];
-      for (const h of heads) { if (h.getBoundingClientRect().top < 130) cur = h; else break; }
-      tocLinks.forEach((a) => a.classList.toggle('active', cur && a.getAttribute('href') === `#${cur.id}`));
-    };
-    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
-    spy();
-  }
-
   /* hub search */
   const input = document.getElementById('hub-search');
   const box = document.getElementById('hub-results');
   if (input && box && Array.isArray(window.FOS_INDEX)) {
     const idx = window.FOS_INDEX.map((d) => ({ ...d, hay: `${d.t} ${d.s || ''} ${(d.h || []).join(' ')} ${d.x || ''}`.toLowerCase() }));
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     let sel = -1;
     const render = () => {
       const q = input.value.trim().toLowerCase();
       if (!q) { box.classList.remove('on'); box.innerHTML = ''; return; }
       const terms = q.split(/\s+/).filter(Boolean);
       const scored = idx.map((d) => {
-        let score = 0;
+        let score = d.w || 0;
         for (const t of terms) {
           if (!d.hay.includes(t)) return null;
           if (d.t.toLowerCase().includes(t)) score += 5;
@@ -150,15 +155,14 @@
           score += 1;
         }
         return { d, score };
-      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 14);
+      }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 12);
       sel = -1;
       box.innerHTML = scored.length
         ? scored.map(({ d }) => {
           const hit = (d.h || []).find((h) => terms.some((t) => h.toLowerCase().includes(t)));
-          const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
           return `<a href="${esc(d.u)}">${esc(d.t)}<small>${esc(d.k)}${hit ? ' · ' + esc(hit) : d.s ? ' · ' + esc(d.s) : ''}</small></a>`;
         }).join('')
-        : '<div class="none">No matches. Try “GST”, “Upwork”, “contract”, “rate”…</div>';
+        : '<div class="none">Nothing found. Try one plain word: fee, scam, tax, proposal, review.</div>';
       box.classList.add('on');
     };
     input.addEventListener('input', render);

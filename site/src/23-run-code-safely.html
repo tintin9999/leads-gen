@@ -1,0 +1,87 @@
+<!--meta {"title":"A stranger asks you to run their code","group":"Fix a problem","order":23,"summary":"Unknown code runs in a sealed box, never on your main laptop.","time":"10 min"} -->
+<p class="lede">A common trick against developers is a "test task" that steals your passwords and keys. The rule is simple: unknown code runs in a sealed box, never on your main laptop. This page shows the box, step by step.</p>
+
+<h2 id="how-the-trick-looks">How the trick looks</h2>
+<div class="example">
+  <p>A "recruiter" from a crypto start-up messages you on LinkedIn. The pay is $80 an hour, well above normal. Before the call, they send a GitHub link:</p>
+  <blockquote class="say"><p>"Please clone this repo, run npm install and fix the bug on the login page. Our CTO wants to see it in 2 hours."</p></blockquote>
+  <p>The repository is a "React and Node dashboard" with three commits from a 2-week-old account. Inside <code>package.json</code> is a <code>postinstall</code> script with a long scrambled line. The moment you run <code>npm install</code>, that line downloads hidden software.</p>
+</div>
+<p>That hidden software looks for <code>.env</code> files, saved browser logins, crypto wallets and secure-login keys for servers (<dfn>SSH keys</dfn>). It sends them to the attacker within minutes.</p>
+<p>This is real and still running. Microsoft described the campaign in March 2026. It has targeted developers since at least December 2022, and it now poses as freelance clients too: "can you fix our repo?"</p>
+<p>As a JavaScript developer looking for work, you are exactly who it aims at. With one client's keys stolen, you could lose that client and your name.</p>
+
+<h2 id="the-sealed-box">The sealed box, step by step</h2>
+<p>A sealed box is a separate computer inside your computer. It holds no passwords, no keys and none of your files. If the code is bad, it only harms the box.</p>
+<p>The best box is a throwaway container or a virtual machine (<dfn>VM</dfn>). A separate user account on your laptop is the bare minimum, and weaker.</p>
+<ol class="steps">
+  <li>Read the code in the browser first, on GitHub or GitLab. Check the account's age, the number of commits and the stars.</li>
+  <li>Open <code>package.json</code> and read the <code>scripts</code> section. Look hard at <code>preinstall</code>, <code>install</code>, <code>postinstall</code> and <code>prepare</code>.</li>
+  <li>Look for the folders <code>.vscode</code>, <code>.devcontainer</code> and <code>.husky</code>. Read any <code>tasks.json</code> inside.</li>
+  <li>Search for warning signs: <code>eval</code>, <code>new Function</code>, <code>child_process</code>, <code>curl | sh</code>, or long scrambled text.</li>
+  <li>Start a throwaway container in that folder, with the command below. It does not see your home folder.</li>
+  <li>Inside the box, install without running any scripts: <code>npm ci --ignore-scripts</code>.</li>
+  <li>Run <code>npm audit</code> and look at what was installed.</li>
+  <li>For the first run, cut the network if you can. Otherwise watch for connections to sites you do not know.</li>
+  <li>When you finish, close the container. It deletes itself.</li>
+</ol>
+<pre><code># Throwaway Node box. No home folder, no keys. Deleted on exit.
+docker run --rm -it --name sandbox -v "$PWD":/work -w /work node:22-bookworm bash
+# inside the box:
+cat package.json
+ls -la .vscode .devcontainer 2&gt;/dev/null
+npm ci --ignore-scripts
+npm audit --omit=dev</code></pre>
+<p>If you use a VM instead (VirtualBox on Windows or Mac, Multipass on Linux), take a snapshot first. Roll back to it when you are done.</p>
+
+<h2 id="editor-settings">Two editor settings to change today</h2>
+<p>The trick can also start when you simply open a folder in your editor. A file called <code>.vscode/tasks.json</code> with <code>"runOn": "folderOpen"</code> runs code the moment the folder opens.</p>
+<p>In Visual Studio Code or Cursor, press Ctrl+Shift+P and choose "Preferences: Open User Settings (JSON)". Add these two lines:</p>
+<pre><code>"task.allowAutomaticTasks": "off",
+"security.workspace.trust.enabled": true</code></pre>
+<p>Now unknown folders open in "Restricted Mode". When the editor asks "Do you trust the authors?", choose <strong>No</strong> for any stranger's code.</p>
+
+<h2 id="warning-signs">Warning signs</h2>
+<ul>
+  <li>A crypto, Web3 or AI company, a rate far above normal, and hurry.</li>
+  <li>A new GitHub or Bitbucket account, or one big "initial" commit.</li>
+  <li>Install steps that are oddly long, or scripts with scrambled text.</li>
+  <li>A meeting link that needs a special app or a "driver fix".</li>
+  <li>"Your camera is broken, paste this command to fix it."</li>
+  <li>Any request to turn off your antivirus or "trust the authors".</li>
+</ul>
+<div class="warn"><p>No honest client needs you to run their code on your laptop before a contract. No honest call needs you to paste a command into your terminal. Either one ends the talk.</p></div>
+<p>A short coding test on the client's own website is normal. So is code you get after a contract starts on Upwork. Still read the scripts first, even then.</p>
+
+<h2 id="if-you-already-ran-it">If you already ran it</h2>
+<p>Assume everything on that laptop is stolen. Work fast, in this order:</p>
+<ol class="steps">
+  <li>Turn off Wi-Fi or pull the network cable on that laptop.</li>
+  <li>On a different, clean device, change your email password first.</li>
+  <li>Then change GitHub, npm, cloud, Supabase, Shopify and Razorpay passwords. Sign out of all sessions.</li>
+  <li>Delete old access tokens and SSH keys, and make new ones later on a clean machine.</li>
+  <li>If you keep crypto, move it to a new wallet created on a clean device.</li>
+  <li>Tell any client whose keys were on that laptop, the same day, in writing.</li>
+  <li>Wipe the laptop and reinstall the operating system. Do not try to "clean" it.</li>
+  <li>Report it at cybercrime.gov.in. If money was taken, call 1930 as well.</li>
+</ol>
+<p>For other scams, see <a href="22-is-this-a-scam.html">Is this client a scam?</a></p>
+
+<h2 id="do-this-now">Do this now</h2>
+<ul class="checklist">
+  <li>Add the two editor settings in Visual Studio Code and Cursor.</li>
+  <li>Install Docker and run the throwaway box once on a harmless project.</li>
+  <li>Move any crypto wallets and recovery words off your work laptop.</li>
+  <li>Use a password manager and two-step login on email, GitHub and npm.</li>
+</ul>
+
+<details class="sources"><summary>Sources and dates</summary>
+<ol>
+  <li><a href="https://www.microsoft.com/en-us/security/blog/2026/03/11/contagious-interview-malware-delivered-through-fake-developer-job-interviews/">Microsoft Security Blog: Contagious Interview (11 Mar 2026)</a>: active since Dec 2022, clone-and-run packages, editor tasks, what it steals. Checked Nov 2026.</li>
+  <li><a href="https://about.gitlab.com/blog/how-to-detect-and-prevent-contagious-interview-ide-attacks/">GitLab: detect and prevent Contagious Interview editor attacks</a>: <code>runOn: folderOpen</code>, turning off automatic tasks. Checked Nov 2026.</li>
+  <li><a href="https://code.visualstudio.com/docs/editing/workspaces/workspace-trust">Visual Studio Code docs: Workspace Trust</a>: Restricted Mode for unknown folders. Checked Nov 2026.</li>
+  <li><a href="https://www.infosecurity-magazine.com/news/clickfake-interview-campaign/">Infosecurity Magazine: ClickFake Interview</a>: fake camera error and paste-a-command "fix". Checked Nov 2026.</li>
+  <li><a href="https://www.legitsecurity.com/blog/shai-hulud-npm-attack-what-you-need-to-know">Legit Security: Shai-Hulud npm attack</a>: install scripts that steal tokens. Checked Nov 2026.</li>
+  <li><a href="https://cybercrime.gov.in/">National Cyber Crime Reporting Portal</a> and helpline 1930. Checked Nov 2026.</li>
+</ol>
+</details>

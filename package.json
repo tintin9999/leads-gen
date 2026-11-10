@@ -2,7 +2,7 @@
   "name": "freelance-os",
   "version": "1.0.0",
   "private": true,
-  "description": "Operating system for a solo software freelancing business: memos, tools, templates, lists and prospecting scripts.",
+  "description": "A step-by-step guide to starting as a freelancer on Upwork, with tools, templates, lists and lead-finding scripts.",
   "type": "module",
   "engines": {
     "node": ">=18"
@@ -16,6 +16,7 @@
     "hn": "node scripts/hn-freelance.mjs --hiring",
     "audit": "node scripts/site-audit.mjs",
     "funding": "node scripts/funding-feed.mjs",
-    "reddit": "node scripts/reddit-leads.mjs"
+    "reddit": "node scripts/reddit-leads.mjs",
+    "lint": "node site/lint.mjs"
   }
 }

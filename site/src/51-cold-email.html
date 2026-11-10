@@ -1,0 +1,98 @@
+<!--meta {"title":"Write a cold email people answer","group":"Direct clients","order":51,"summary":"One short email about their problem, with their own number first.","time":"10 min"} -->
+<p class="lede">A cold email is a first message to someone who does not know you. The ones that get answers are short, about one problem, and start with the reader's own number. This page gives you one finished email, the rules for sending it, and a small weekly habit.</p>
+
+<h2 id="the-email">The finished email</h2>
+<div class="example">
+  <p>Asha runs "Indigo Thread", a made-up Pune clothing brand on Shopify. You tested her store on your phone and in Google PageSpeed Insights. Here is the whole email, under 80 words plus the footer.</p>
+  <blockquote class="say">
+    <p>Subject: indigo thread on mobile</p>
+    <p>Hi Asha, your product page takes 5.8 seconds to show its main photo on a phone. Google counts 2.5 seconds or less as good.</p>
+    <p>I recorded a 3-minute video of the three fixes I would make first: [video link]</p>
+    <p>I built Cultus, a fashion marketplace with a custom Shopify app and Razorpay checkout.</p>
+    <p>I do this as a fixed-price, 10-day sprint, with before-and-after numbers. Would a 15-minute call next week help?</p>
+    <p>Parth Kulkarni, parthkulkarni.dev</p>
+    <p>[Business postal address] · Not useful? Reply "no thanks" and I will not write again.</p>
+  </blockquote>
+</div>
+
+<h2 id="each-line">What each line does</h2>
+<ul>
+  <li><strong>Subject:</strong> her brand and the topic, in small letters, like a note from a person. Never fake a reply with "Re:".</li>
+  <li><strong>First line:</strong> her own number. She can check it in one minute, so she knows you looked at her store.</li>
+  <li><strong>Second line:</strong> the standard, so 5.8 seconds means something. You do not need to call her store bad.</li>
+  <li><strong>Video line:</strong> free, useful work up front. She can watch it even if she never replies.</li>
+  <li><strong>Proof line:</strong> one fact that matches her problem. Cultus is a fashion store on Shopify, like hers.</li>
+  <li><strong>Offer line:</strong> "fixed-price" tells her the cost will not grow. "Before-and-after numbers" tells her how to judge you.</li>
+  <li><strong>Question:</strong> one small, easy next step. A 15-minute call is easier to say yes to than a project.</li>
+  <li><strong>Footer:</strong> who you are, a postal address and a way to say no. The law asks for these.</li>
+</ul>
+<p>Never promise more sales in rupees. Promise measured speed.</p>
+
+<h2 id="five-a-week">Find five people a week worth emailing</h2>
+<p>Send only to people with a clear reason to need you now. This reason is called a "signal". Good signals:</p>
+<ul>
+  <li>A slow store: a mobile PageSpeed score under 50, or a main image that takes more than 4 seconds.</li>
+  <li>The brand is paying for ads, so every slow page wastes money. The Meta Ad Library shows who runs ads.</li>
+  <li>A fresh launch or a new collection in the last two weeks.</li>
+  <li>A founder's post saying "need a Shopify developer" or "our site is slow".</li>
+</ul>
+<p>The repo's site-audit script checks many stores at once: put the addresses in a text file, then run <code>node scripts/site-audit.mjs my-list.txt --psi</code>. It writes a short report with each store's mobile speed. Check the top five on your own phone before you write.</p>
+<p>Keep it small on purpose: five emails a week, each written for one person.</p>
+
+<p>Log each email in your lead tracker, the <a href="../tools/crm.html">customer list tool</a> (<dfn>CRM</dfn>):</p>
+<ol class="steps">
+  <li>Open the CRM and add a row with her name, brand and store address.</li>
+  <li>Set the stage to "contacted" and the source to "cold email".</li>
+  <li>Write the signal in the notes: "mobile main image 5.8 seconds".</li>
+  <li>Set the next date to 3 days from today.</li>
+  <li>When she replies, change the stage to "replied" and plan the call.</li>
+</ol>
+
+<h2 id="follow-ups">Two follow-ups, then stop</h2>
+<p>Many replies come after a follow-up, not after the first email. Send each one as a reply in the same thread, so she sees the first message.</p>
+<p><strong>Day 3</strong>, add one useful detail:</p>
+<blockquote class="say"><p>Hi Asha, one more small thing: your product page loads scripts from two apps that look unused. Removing them is often a 10-minute win. Happy to send the full list.</p></blockquote>
+<p><strong>Day 10</strong>, close the loop kindly:</p>
+<blockquote class="say"><p>Hi Asha, I will stop here so I do not crowd your inbox. If store speed becomes a priority before your next sale, just reply to this email. Good luck with the new collection.</p></blockquote>
+<p>After that, stop. If she says "no" at any point, stop at once and do not write again.</p>
+
+<h2 id="reply-rate">What reply rate is normal</h2>
+<p>Be ready for silence. Most cold emails get no answer, and that is not about you.</p>
+<pre class="calc">Average cold email reply rate (2026 studies) = about 2% to 3.5%
+Careful emails with the reader's own number  = aim for 5% to 10%
+Your emails in a month = 5 a week × 4 weeks  = 20 emails
+Replies at 5%          = 20 × 0.05           = 1 reply a month</pre>
+<p>One reply a month is a normal result. That is why this is a backup and Upwork is your main channel. If you get no replies after about 60 emails, change who you write to before you change the words.</p>
+
+<h2 id="sending-rules">Stay out of spam and inside the law</h2>
+<ol class="steps">
+  <li>Send from an address on your own domain, not a free Gmail address.</li>
+  <li>In your domain's settings, turn on the two email checks that prove mail comes from you: <dfn>SPF</dfn> and <dfn>DKIM</dfn>. Your email provider's help page shows the exact records to add.</li>
+  <li>Write in plain text, with at most one or two links. Add no images and no open-tracking pixel.</li>
+  <li>Use an honest subject line that matches the email.</li>
+  <li>Add a footer with your name, a postal address and an easy way to say no. Use a business address or post-office box, never your home.</li>
+  <li>When someone says no or asks you to stop, stop the same day and note it.</li>
+</ol>
+<p>As of November 2026, Gmail asks every sender to use SPF or DKIM. United States email law has no exception for business email and needs the postal address and opt-out. At five emails a week, you are far below any volume limit.</p>
+
+
+
+<h2 id="do-this-now">Do this now</h2>
+<ul class="checklist">
+  <li>Check that SPF and DKIM are on for your email domain.</li>
+  <li>Run the site-audit script on ten stores and pick the five with the clearest signal.</li>
+  <li>Write one email using the pattern above, with that store's own number first.</li>
+  <li>Log it in the CRM with a next date 3 days from now.</li>
+</ul>
+
+<details class="sources"><summary>Sources and dates</summary>
+<ol>
+  <li><a href="https://support.google.com/a/answer/81126?hl=en">Google: Email sender guidelines</a>: SPF or DKIM for all senders, spam rate under 0.3%. Checked Nov 2026.</li>
+  <li><a href="https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business">FTC: CAN-SPAM compliance guide</a>: postal address, honest subject, opt-out within 10 business days, no business exception. Checked Nov 2026.</li>
+  <li><a href="https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/">ICO: Business-to-business marketing</a>: UK rules for emails to company addresses. Checked Nov 2026.</li>
+  <li><a href="https://instantly.ai/blog/cold-email-reply-rate-benchmarks">Instantly: cold email reply rate benchmarks 2026</a>: 3.43% average. Checked Nov 2026.</li>
+  <li><a href="https://visionary-marketing.co.uk/blog/b2b-cold-email-statistics-2026">Visionary Marketing: cold email statistics 2026</a>: 2.1% median across 28,400 leads. Checked Nov 2026.</li>
+  <li><a href="https://web.dev/articles/vitals">web.dev: Web Vitals</a>: 2.5 seconds as the "good" mark for the main content. Checked Nov 2026.</li>
+  <li>Repo: <a href="../templates/outreach/cold-email.md">cold-email.md</a>, <a href="../templates/outreach/follow-ups.md">follow-ups.md</a> and scripts/README.md for the site-audit script.</li>
+</ol>
+</details>
