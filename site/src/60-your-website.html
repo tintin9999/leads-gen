@@ -1,0 +1,80 @@
+<!--meta {"title":"Your website and case studies","group":"Proof","order":60,"summary":"What your site is for, what changed, and how to reuse it on Upwork.","time":"10 min"} -->
+<p class="lede">Your site at parthkulkarni.dev is live and it is good enough. This page says what the site is for and which changes are waiting for you. It also shows how to turn a case study into a file for Upwork.</p>
+
+<h2 id="what-it-is-for">What the site is for</h2>
+<div class="example">
+<p>A founder reads one of your backup emails. She clicks your name and lands on the site.</p>
+<p>In 30 seconds she sees one line: "I build and fix the parts of your product that touch money."</p>
+<p>Below it she sees four proofs: Cultus, Deribit, the tax module and the Bro bot. At the bottom she finds your email address.</p>
+</div>
+<p>That is the whole job of the site. It shows proof, and it gives one way to reach you.</p>
+<p>Upwork clients rarely visit it. They read your Upwork profile and your reviews instead.</p>
+<p>So the site matters most for the slow backup and for LinkedIn. It does not need more pages in Stage 1.</p>
+
+<h2 id="waiting-changes">Changes waiting for you</h2>
+<p>Five changes sit on a separate branch of the portfolio repo. A branch is a copy you can test before it goes live.</p>
+<p>The branch is called <code>claude/bold-galileo-np6lru</code>. Nothing on it is live yet.</p>
+<ul>
+<li><strong>A safer top section.</strong> If the cloud video cannot play, the page now shows a still picture in the same style.</li>
+<li><strong>A way to act.</strong> Each case study now ends with an email link.</li>
+<li><strong>A print version.</strong> Each case study prints as a clean two-page file.</li>
+<li><strong>Safety settings.</strong> Four standard settings that make the site harder to misuse.</li>
+<li><strong>Two links, in their own change.</strong> The Cultus and Bro cards open their case studies.</li>
+</ul>
+<p>None of these changes alters your design or your wording. The site still has no prices, no list of services and no booking button, as you chose.</p>
+<p>The last change is separate on purpose. You removed those links earlier, so you decide if they come back.</p>
+
+<h2 id="make-it-live">Check the branch and make it live</h2>
+<ol class="steps">
+<li>Open your Vercel project and find the preview for the branch. Open it on your phone too.</li>
+<li>Click through the home page and the Cultus and Bro case studies.</li>
+<li>Decide about the two links. The next heading helps.</li>
+<li>To take everything, merge the whole branch into <code>main</code>.</li>
+<li>To take everything except the two links, merge only up to the fourth change.</li>
+</ol>
+<p>If you cannot find a preview, run the site on your laptop. Type <code>node scripts/serve.mjs</code> in the portfolio folder and open the address it prints.</p>
+<p>These are the commands for step 5. The code after <code>--ff-only</code> names the fourth change.</p>
+<pre><code>git checkout main
+git pull
+git merge --ff-only 6d2b3a7
+git push</code></pre>
+<p>For step 4, use the branch name in place of that code. Vercel puts <code>main</code> live by itself after the push.</p>
+
+<h2 id="your-decisions">Three decisions that are yours</h2>
+<p><strong>Link the case studies or not.</strong> Cultus and Bro are your own projects, so linking them carries little risk.</p>
+<p>Deribit and Twinntax were client work through your old employer. Keep those two unlinked until you have read <a href="57-old-job-rules.html">Rules from your old job and from Cultus</a>.</p>
+<p><strong>The Cultus numbers.</strong> Your home page already shows them. Ask your co-founders for a clear yes, in writing.</p>
+<p><strong>Your email address.</strong> The site shows a Gmail address. An address on your own domain looks more settled.</p>
+<p>It can simply forward to your Gmail. This is a small job for a quiet afternoon, and not urgent.</p>
+
+<h2 id="file-for-upwork">Save a case study as a file for Upwork</h2>
+<p>Upwork lets you add work samples to your profile. It does not allow contact details before a contract.</p>
+<p>The print version leaves out your email, your links and the site menu. So the file is safe to upload.</p>
+<ol class="steps">
+<li>Open the case study in Chrome, for example the Cultus page.</li>
+<li>Press Ctrl and P together. On a Mac, press Cmd and P.</li>
+<li>Under "Destination", choose "Save as PDF".</li>
+<li>Choose A4 paper and leave the margins on "Default".</li>
+<li>Open "More settings". Tick "Background graphics".</li>
+<li>Untick "Headers and footers". This keeps the page address off the file.</li>
+<li>Click "Save". You get a file of two pages.</li>
+</ol>
+<p>Do this for Cultus and for Bro first. Step 5 shows where the files go in your Upwork profile.</p>
+<div class="note"><p>The file leaves out the link to cultus.co.in on purpose. You can name Cultus in the text of the Upwork item.</p></div>
+
+<h2 id="later-additions">Small additions for later</h2>
+<p>Two additions are worth making after your first Upwork reviews. Neither is needed now.</p>
+<ul>
+<li><strong>A line about Upwork.</strong> Add a question to the "Questions" section: "Can I hire you through Upwork?" Answer yes, with your profile link.</li>
+<li><strong>A client's words.</strong> When a client writes something kind, ask to quote one sentence on the site.</li>
+</ul>
+<p>There is also an unfinished rebuild of the site on another branch. Leave it alone for now.</p>
+<p>A rebuild feels like progress, and it wins no clients. Proposals do. Keep your hours for those.</p>
+
+<h2 id="do-this-now">Do this now</h2>
+<ul class="checklist">
+<li>Open the branch preview on your laptop and on your phone.</li>
+<li>Decide about the Cultus and Bro links, then merge the branch your way.</li>
+<li>Save the Cultus and Bro case studies as files, using the seven steps above.</li>
+<li>Ask your Cultus co-founders, in writing, if the public numbers are fine.</li>
+</ul>
