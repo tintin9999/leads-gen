@@ -43,7 +43,7 @@ Verify fees on the live pages before relying on them. They change often, and som
 - **Non-circumvention:** for **24 months** after meeting a client on Upwork, payments must stay on Upwork unless the **conversion fee** is paid. Upwork Help describes it as 13.5% of estimated 12-month earnings, with reductions possible. Violations risk permanent suspension.
 - **Profile review:** typically about 24 hours, per Upwork staff. Generic profiles get rejected, so be specific.
 - **Rates:** Upwork's React page shows a **median of $63/hr (typical $51–75)** across all locations. Many India profiles sit at $13–37.
-- **Use for:** B1/B2/B3 and Shopify/Razorpay jobs (A2/A3). Templates: [upwork-and-marketplaces.md](../templates/outreach/upwork-and-marketplaces.md).
+- **Use for:** B1/B2/B3 and Shopify/Razorpay jobs (A2/A3). Templates: [profile kit](../templates/upwork/profile-kit.md) and [proposal kit](../templates/upwork/proposal-kit.md). The step-by-step guide starts at [How Upwork works](../memos/04-how-upwork-works.html).
 
 ### Contra: [contra.com](https://contra.com)
 - **0% commission for freelancers.** The client pays **$29 per contract** (one-time) or $29/month (ongoing), per official client help.
